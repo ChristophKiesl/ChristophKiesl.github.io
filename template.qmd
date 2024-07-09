@@ -3,7 +3,7 @@ format: acm-pdf
 
 # use keep-tex to cause quarto to generate a .tex file
 # which you can eventually use with TAPS
-#keep-tex: true
+keep-tex: true
 
 bibliography: bibliography.bib
 
@@ -80,7 +80,7 @@ acm-metadata:
   # anonymous: true
 
   # comment this out to build a draft version
-  #final: true
+  final: true
 
   # comment this out to specify detailed document options
   # acmart-options: sigconf, review  
