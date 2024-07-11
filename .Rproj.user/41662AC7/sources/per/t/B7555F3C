@@ -3,7 +3,7 @@
     "path": "D:/Uni/Ulm/Master/2. Semester/Project Economic Data Science/ChristophKiesl.github.io/Project Eco Data Science.qmd",
     "project_path": "Project Eco Data Science.qmd",
     "type": "quarto_markdown",
-    "hash": "2365111042",
+    "hash": "292985837",
     "contents": "",
     "dirty": false,
     "created": 1720511310095.0,
@@ -12,15 +12,15 @@
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "165,0",
-        "scrollLine": "159"
+        "cursorPosition": "1,15",
+        "scrollLine": "0"
     },
     "folds": "",
-    "lastKnownWriteTime": 1720515418,
+    "lastKnownWriteTime": 1720689073,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1720515418832,
+    "last_content_update": 1720689073844,
     "read_only": false,
     "read_only_alternatives": []
 }
