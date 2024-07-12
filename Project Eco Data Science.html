@@ -6,15 +6,12 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Ben Trovato">
-<meta name="author" content="G.K.M. Tobin">
-<meta name="author" content="Lars Thørväld">
-<meta name="author" content="Valerie Béranger">
-<meta name="author" content="Aparna Patel">
-<meta name="author" content="Huifen Chan">
-<meta name="author" content="Charles Palmer">
-<meta name="author" content="John Smith">
-<meta name="author" content="Julius P. Kumquat">
+<meta name="author" content="Max Gabler">
+<meta name="author" content="Wanshu Jiang">
+<meta name="author" content="Christoph Kiesl">
+<meta name="author" content="Leonard Pöhls">
+<meta name="author" content="Alexander Rieber">
+<meta name="author" content="Ansgar Scherp">
 
 <title>The Name of the Title Is Hope</title>
 <style>
@@ -77,9 +74,10 @@ div.csl-indent {
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a></li>
   <li><a href="#related-work" id="toc-related-work" class="nav-link" data-scroll-target="#related-work"><span class="header-section-number">2</span> Related Work</a>
   <ul class="collapse">
-  <li><a href="#business-model-innovation" id="toc-business-model-innovation" class="nav-link" data-scroll-target="#business-model-innovation"><span class="header-section-number">2.1</span> Business Model Innovation</a></li>
+  <li><a href="#measuring-business-model-innovation" id="toc-measuring-business-model-innovation" class="nav-link" data-scroll-target="#measuring-business-model-innovation"><span class="header-section-number">2.1</span> Measuring Business Model Innovation</a></li>
   <li><a href="#text-mining" id="toc-text-mining" class="nav-link" data-scroll-target="#text-mining"><span class="header-section-number">2.2</span> Text Mining</a></li>
   <li><a href="#company-size" id="toc-company-size" class="nav-link" data-scroll-target="#company-size"><span class="header-section-number">2.3</span> Company size</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">2.4</span> Summary</a></li>
   </ul></li>
   <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods"><span class="header-section-number">3</span> Methods</a>
   <ul class="collapse">
@@ -103,84 +101,21 @@ div.csl-indent {
 </div>
 
 
-<div class="quarto-title-meta-author">
-  <div class="quarto-title-meta-heading">Authors</div>
-  <div class="quarto-title-meta-heading">Affiliations</div>
-  
-    <div class="quarto-title-meta-contents">
-    <p class="author">Ben Trovato <a href="mailto:trovato@corporation.com" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> <a href="https://orcid.org/1234-5678-9012" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
-  </div>
-  <div class="quarto-title-meta-contents">
-      </div>
-    <div class="quarto-title-meta-contents">
-    <p class="author">G.K.M. Tobin <a href="mailto:webmaster@marysville-ohio.com" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
-  </div>
-  <div class="quarto-title-meta-contents">
-        <p class="affiliation">
-            Institute for Clarity in Documentation
-          </p>
-      </div>
-    <div class="quarto-title-meta-contents">
-    <p class="author">Lars Thørväld <a href="mailto:larst@affiliation.org" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
-  </div>
-  <div class="quarto-title-meta-contents">
-        <p class="affiliation">
-            The Thørväld Group
-          </p>
-      </div>
-    <div class="quarto-title-meta-contents">
-    <p class="author">Valerie Béranger </p>
-  </div>
-  <div class="quarto-title-meta-contents">
-        <p class="affiliation">
-            Inria Paris-Rocquencourt
-          </p>
-      </div>
-    <div class="quarto-title-meta-contents">
-    <p class="author">Aparna Patel </p>
-  </div>
-  <div class="quarto-title-meta-contents">
-        <p class="affiliation">
-            Rajiv Gandhi University
-          </p>
-      </div>
-    <div class="quarto-title-meta-contents">
-    <p class="author">Huifen Chan </p>
-  </div>
-  <div class="quarto-title-meta-contents">
-        <p class="affiliation">
-            Tsinghua University
-          </p>
-      </div>
-    <div class="quarto-title-meta-contents">
-    <p class="author">Charles Palmer <a href="mailto:cpalmer@prl.com" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
-  </div>
-  <div class="quarto-title-meta-contents">
-        <p class="affiliation">
-            Palmer Research Laboratories
-          </p>
-      </div>
-    <div class="quarto-title-meta-contents">
-    <p class="author">John Smith <a href="mailto:jsmith@affiliation.org" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
-  </div>
-  <div class="quarto-title-meta-contents">
-        <p class="affiliation">
-            The Thørväld Group
-          </p>
-      </div>
-    <div class="quarto-title-meta-contents">
-    <p class="author">Julius P. Kumquat <a href="mailto:jpkumquat@consortium.net" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
-  </div>
-  <div class="quarto-title-meta-contents">
-        <p class="affiliation">
-            The Kumquat Consortium
-          </p>
-      </div>
-  </div>
 
 <div class="quarto-title-meta">
 
-      
+    <div>
+    <div class="quarto-title-meta-heading">Authors</div>
+    <div class="quarto-title-meta-contents">
+             <p>Max Gabler <a href="mailto:max.gabler@uni-ulm.de" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
+             <p>Wanshu Jiang <a href="mailto:wanshu.jiang@uni-ulm.de" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
+             <p>Christoph Kiesl <a href="mailto:christoph.kiesl@uni-ulm.de" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
+             <p>Leonard Pöhls <a href="mailto:leonard.poehls@uni-ulm.de" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
+             <p>Alexander Rieber <a href="mailto:alexander.rieber@uni-ulm.de" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
+             <p>Ansgar Scherp <a href="mailto:ansgar.scherp@uni-ulm.de" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
+          </div>
+  </div>
+    
   
     
   </div>
@@ -207,15 +142,33 @@ div.csl-indent {
 </section>
 <section id="related-work" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Related Work</h1>
-<section id="business-model-innovation" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="business-model-innovation"><span class="header-section-number">2.1</span> Business Model Innovation</h2>
-<p>In spite of the growing interest in BMI and the increasing number of theoretical and empirical studies in this field, the research of BMI is still in a prelaminar state <span class="citation" data-cites="huang_review_2023">[<a href="#ref-huang_review_2023" role="doc-biblioref">3</a>]</span>. Consequently, this study focuses on literature pertaining to the measurement of BMI. <span class="citation" data-cites="spieth_business_2016">[<a href="#ref-spieth_business_2016" role="doc-biblioref">6</a>]</span> identify three core dimensions a company’s business model is comprised of: its value proposition, its value creation architecture and its revenue model logic. Based on this, BMI is conceptualised as a change that is new-to-the-firm in at least one of these dimensions. Furthermore, <span class="citation" data-cites="spieth_business_2016">[<a href="#ref-spieth_business_2016" role="doc-biblioref">6</a>]</span> introduce a measurement model to evaluate these three dimensions of BMI. They develop an index by first specifying the contents, followed by a specifiaction of the indicators and assessing their content validity, assessing the indicators collinearity and finally assessing the external validity. In total, twelve indicators for measuring the innovativeness of the business model were identified by a literature review and entering in a dialog with practitioners. The external validity of the formative indicators was successfully validated by questioning 200 strategy and innovation management experts. <span class="citation" data-cites="clauss_measuring_2017">[<a href="#ref-clauss_measuring_2017" role="doc-biblioref">1</a>]</span> follows a very similar approach. After specifying the domain and dimensionality of BMI trough a literature research, the author divides the scale into three hierarchical levels consisting of 41 reflective items, 10 subconstructs and three main dimensions, which are similar to the ones mentioned earlier. The scale is validated through two large-scale samples from the manufacturing industry and further demonstrated nomological validity <span class="citation" data-cites="clauss_measuring_2017">[<a href="#ref-clauss_measuring_2017" role="doc-biblioref">1</a>]</span>.</p>
+<section id="measuring-business-model-innovation" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="measuring-business-model-innovation"><span class="header-section-number">2.1</span> Measuring Business Model Innovation</h2>
+<p>In spite of the growing interest in BMI and the increasing number of theoretical and empirical studies in this field, the research of BMI is still in a prelaminar state <span class="citation" data-cites="huang_review_2023">[<a href="#ref-huang_review_2023" role="doc-biblioref">3</a>]</span>. Consequently, this study focuses on literature pertaining to the measurement of BMI. <span class="citation" data-cites="spieth_business_2016">[<a href="#ref-spieth_business_2016" role="doc-biblioref">6</a>]</span> identify three core dimensions a company’s business model is comprised of: its value proposition, its value creation architecture and its revenue model logic. Based on this, BMI can be conceptualised as a change that is new-to-the-firm in at least one of these dimensions. Furthermore, <span class="citation" data-cites="spieth_business_2016">[<a href="#ref-spieth_business_2016" role="doc-biblioref">6</a>]</span> introduce a measurement model to evaluate these three dimensions of BMI. They develop an index by first specifying the contents, followed by a specification of the indicators and assessing their content validity, assessing the indicators collinearity and finally assessing the external validity. A total of twelve indicators for measuring the innovativeness of the business model were identified through a comprehensive literature review and through engagement with industry practitioners. The external validity of the formative indicators was successfully validated through a survey of 200 experts in strategy and innovation management <span class="citation" data-cites="spieth_business_2016">[<a href="#ref-spieth_business_2016" role="doc-biblioref">6</a>]</span>. <span class="citation" data-cites="clauss_measuring_2017">[<a href="#ref-clauss_measuring_2017" role="doc-biblioref">1</a>]</span> employs a very similar approach. After specifying the domain and dimensionality of BMI trough literature research, the author divides his scale into three hierarchical levels consisting of 41 reflective items, 10 subconstructs and three main dimensions, which are similar to the ones mentioned earlier. The scale was validated through two large-scale samples from the manufacturing industry and further demonstrated nomological validity <span class="citation" data-cites="clauss_measuring_2017">[<a href="#ref-clauss_measuring_2017" role="doc-biblioref">1</a>]</span>. However, both measures are subject to three significant limitations. Firstly, both measures lack a temporal component. Consequently, they are inadequate for use in longitudinal studies or ex-post evaluations of BMI. Secondly, BMI is only measured at the new-to-the-firm level rather than at the new-to-the-industry or new-to-the-market level. Thirdly, both measures rely on interviews and questionnaires, which makes conducting large-scale studies time-consuming and reliant on the willingness of the companies to cooperate <span class="citation" data-cites="clauss_measuring_2017 spieth_business_2016">[<a href="#ref-clauss_measuring_2017" role="doc-biblioref">1</a>,<a href="#ref-spieth_business_2016" role="doc-biblioref">6</a>]</span>.</p>
 </section>
 <section id="text-mining" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="text-mining"><span class="header-section-number">2.2</span> Text Mining</h2>
+<ul>
+<li>What did Hoberg do?</li>
+<li>What did Lee do?</li>
+<li>Some more Literature regarding the usage of 10-Ks fillings (two or three relevant paper)</li>
+<li>Literature regarding BERT</li>
+</ul>
 </section>
 <section id="company-size" class="level2" data-number="2.3">
 <h2 data-number="2.3" class="anchored" data-anchor-id="company-size"><span class="header-section-number">2.3</span> Company size</h2>
+<ul>
+<li>everything regarding company size and BMI, and growth and BMI</li>
+</ul>
+</section>
+<section id="summary" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="summary"><span class="header-section-number">2.4</span> Summary</h2>
+<ul>
+<li>BMI is a complex concept which is hard to measure; Measure of Spieth fulfils its purpose</li>
+<li>Use Spieth definition for BM and BMI</li>
+<li>There have been attempts to utilize text data from 10-Ks in different research fields</li>
+<li>BMI is important for SME -&gt; test our measure against this assumptions</li>
+</ul>
 </section>
 </section>
 <section id="methods" class="level1" data-number="3">
