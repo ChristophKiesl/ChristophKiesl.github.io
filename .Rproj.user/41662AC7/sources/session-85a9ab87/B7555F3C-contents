@@ -4,7 +4,9 @@ format:
   html: default
   pdf: default
   arxiv-pdf:
-    keep-tex: true   
+    keep-tex: true
+execute:
+  freeze: auto 
 
 bibliography: bibliography.bib
 
@@ -169,7 +171,10 @@ BMI is a complex concepts with different definitions and dimensions which makes 
 ## Assumptions
 
 ## Gemini
+
+
 - Descriptive Table1 for document length of original filings
+
 ## BERT
 
 ## BERTScore
