@@ -142,7 +142,7 @@ Our contribution is made in a number of ways. Firstly, we tackle two issues rais
 
 # Related Work
 
-Our study borders several research fields and thus we have a variaty of literature to our disposal. Section 2.1 presents state of the art measures of BMI while Section 2.2 examines the relationship between BMI and the financial performance of a firm. Section 2.3 deals with previous approaches to text mine 10-K filings. Finally, in Section 2.4 a summary of the findings from the related work is presented. 
+Our study borders several research fields and thus we have a variaty of literature to cover. Section 2.1 presents state of the art measures of BMI while Section 2.2 examines the relationship between BMI and the financial performance of a firm. Section 2.3 deals with previous approaches to text mine 10-K filings. Finally, in Section 2.4 a summary of the findings from the related work is presented. 
 
 ## Measuring Business Model Innovation
 
@@ -158,20 +158,18 @@ The process of text mining 10-K filings is not a novel concept. Hoberg & Phillip
 
 ## Summary
 
-BMI is complex concepts which makes it hard to measure. Existing scale-measures fulfill their purpose but are not sufficient to be used in large-scale, longitudinal studies. Furthermore, researchers have to rely on interviews and questionnaires, thus 
+BMI is a complex concepts with different definitions and dimensions which makes it hard to measure. Existing scale-measures fulfill their purpose but are not sufficient to be used in large-scale, longitudinal studies. Furthermore, researchers have to rely on interviews and questionnaires, thus making them reliant on the willingness of firms to cooperate. Despite these difficulties, researchers still found ways to measure a positive relationship between BMI and a firms performance. This relationship is shaped not only by the choice of measurement of BMI and firm performance but also by factors like firm age, industry, and economic and political environment. Using text data from 10-K files 
 
 
--	BMI is a complex concept which is hard to measure; Measure of Spieth fulfills its purpose
--	Use Spieth definition for BM and BMI
 -	There have been attempts to utilize text data from 10-Ks in different research fields
--	BMI is related to firm performance -> test our measure against this assumptions
+
 
 # Methods
 
 ## Assumptions
 
 ## Gemini
-
+- Descriptive Table1 for document length of original filings
 ## BERT
 
 ## BERTScore
@@ -190,13 +188,11 @@ We exclude companies from the financial sector, namely companies with a SIC Code
 
 
 TODO
-- Descriptive Table1 for document length of original filings
 
-- Description of Table1, i.e. The intersection varies from year to year between 3138 and 4929
+- Table2 like Alex suggested
 
-- Descriptive Table2 for document length of processed filings
-
-- Description of Table2 and the final Dataset
+- Descriptive Table3 for document length of processed filings
+- Description of Table3 and the final Dataset
 
 ## Pre-Processing
 
