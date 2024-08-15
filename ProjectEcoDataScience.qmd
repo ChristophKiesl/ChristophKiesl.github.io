@@ -5,8 +5,7 @@ format:
   pdf: default
   arxiv-pdf:
     keep-tex: true
-execute:
-  freeze: auto 
+
 
 bibliography: bibliography.bib
 
@@ -160,11 +159,7 @@ The process of text mining 10-K filings is not a novel concept. Hoberg & Phillip
 
 ## Summary
 
-BMI is a complex concepts with different definitions and dimensions which makes it hard to measure. Existing scale-measures fulfill their purpose but are not sufficient to be used in large-scale, longitudinal studies. Furthermore, researchers have to rely on interviews and questionnaires, thus making them reliant on the willingness of firms to cooperate. Despite these difficulties, researchers still found ways to measure a positive relationship between BMI and a firms performance. This relationship is shaped not only by the choice of measurement of BMI and firm performance but also by factors like firm age, industry, and economic and political environment. Using text data from 10-K files 
-
-
--	There have been attempts to utilize text data from 10-Ks in different research fields
-
+BMI is a complex concepts with different definitions and dimensions which makes it hard to measure. Existing scale-measures fulfill their purpose but are not sufficient to be used in large-scale, longitudinal studies. Furthermore, researchers have to rely on interviews and questionnaires, thus making them reliant on the willingness of firms to cooperate. Despite these difficulties, researchers still found ways to measure a positive relationship between BMI and a firms performance. This relationship is shaped not only by the choice of measurement of BMI and firm performance but also by factors like firm age, industry, and economic and political environment. 
 
 # Methods
 
@@ -172,8 +167,11 @@ BMI is a complex concepts with different definitions and dimensions which makes 
 
 ## Gemini
 
+- Repo Workflow
 
-- Descriptive Table1 for document length of original filings
+- Prompt Info
+
+- Descriptive Table1 for document length of original filings for why we use Gemini
 
 ## BERT
 

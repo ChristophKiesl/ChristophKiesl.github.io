@@ -1,26 +1,27 @@
 name: Publish Quarto Document
 
 on:
+  workflow_dispatch:
   push:
-    branches:
-      - main  # or the branch you want to trigger the workflow
+    branches: main
+
+name: Quarto Publish
 
 jobs:
-  build:
+  build-deploy:
     runs-on: ubuntu-latest
-
+    permissions:
+      contents: write
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+      - name: Check out repository
+        uses: actions/checkout@v4
 
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
 
-      - name: Render Quarto document
-        run: quarto render your-document.qmd
-
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Render and Publish
+        uses: quarto-dev/quarto-actions/publish@v2
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: . # or the directory where your rendered files are located
+          target: gh-pages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
