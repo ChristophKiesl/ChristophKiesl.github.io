@@ -159,7 +159,9 @@ The process of text mining 10-K filings is not a novel concept. Hoberg & Phillip
 
 ## Summary
 
-BMI is a complex concepts with different definitions and dimensions which makes it hard to measure. Existing scale-measures fulfill their purpose but are not sufficient to be used in large-scale, longitudinal studies. Furthermore, researchers have to rely on interviews and questionnaires, thus making them reliant on the willingness of firms to cooperate. Despite these difficulties, researchers still found ways to measure a positive relationship between BMI and a firms performance. This relationship is shaped not only by the choice of measurement of BMI and firm performance but also by factors like firm age, industry, and economic and political environment. 
+The concept of BMI is complex, with different definitions and dimensions, which makes it challenging to measure. The existing scale-based measures fulfill their purpose, but are insufficient for use in large-scale, longitudinal studies. Furthermore, researchers must rely on interviews and questionnaires, which makes them reliant on the willingness of firms to cooperate. Despite these difficulties, researchers have identified ways to measure a positive relationship between BMI and a firm's performance. This relationship is shaped not only by the choice of measurement of BMI and firm performance but also by factors such as firm age, industry, and economic and political environment. 
+
+- What do we learn from Text Mining part
 
 # Methods
 
@@ -167,15 +169,15 @@ BMI is a complex concepts with different definitions and dimensions which makes 
 
 ## Gemini
 
-- Repo Workflow
+10-K filings are in general very large text documents, where Item 1 of these filings is no exception. Table 1 shows the average, minimum and maximum length of the original Item 1 part in our sample. In order to utilize all information regarding the BM in the Item 1 part and pass the text to our BERT-model, we decided to let Google's GenAI chatbot Gemini summarize them to a maximum length of 512 tokens. We inserted our prompt at the beginning of each text file and passed it via an API to Gemini [^1]. We used following prompt: "Summarize the business model from the following text. Answer with a continuous text and with five hundred twelve tokens at max. Set your focus on sources of revenue, the intended customer base, products, distribution channels and details of financing. Use only information from the following the text".[^2] "intended customer base" and "product" refer to the value offering, "distribution channels" refers to the value architecture, and "sources of revenue" and "details of financing" refer to the revenue model. Thus, every dimension of the definition of BMI by Spieth & Schneider [-@spieth_business_2016] is covered by this prompt. To check quality and accuracy of the summaries by  Gemini, we draw a random sample of 100 filings and compare the original text with the summary. More precise, we first read the original file with a focus on the points mentioned in the prompt above and then check, if the summary also contains these points. A list of the sample with the summaries is in the Appendix.
 
-- Prompt Info
+TODO
+- Descriptive Table1 for document length of original filings
 
-- Descriptive Table1 for document length of original filings for why we use Gemini
+[^1]: We forked and used following Github Repository: https://github.com/skranz/gemini_ex.
+[^2]: The spelling error in the last sentence of the prompt was found after processing the Item 1. After evaluating the Summaries, this error did not cause any issues.
 
-## BERT
-
-## BERTScore
+## BERT and BERTScore
 
 ## Hierarchical Agglomerative Clustering
 
@@ -188,7 +190,6 @@ We collect 10-Ks filings from the digital SEC Database, using the category “10
 //Our observations are limited to an intersection of such companies, which on the one hand has been made available to the SEC since 2001 in a publicly accessible list of 10.284 companies (Appendix), of which 7590 are listed (on stock exchange). On the other hand, we consider companies that filed 10-K reports with the SEC between 2017 and 2023 //-> rewrite as step by step, how we got to the final list of companys
 
 We exclude companies from the financial sector, namely companies with a SIC Code starting with six. We consider the filings from 2017 to 2023. 
-
 
 TODO
 
@@ -220,3 +221,4 @@ Before generating the final datasets, we had to iteratively coordinate various s
 - Jonathan for IT Support
 - Prof. Kranz for Repo
 
+# Appendix

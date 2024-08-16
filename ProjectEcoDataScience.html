@@ -83,8 +83,7 @@ div.csl-indent {
   <ul class="collapse">
   <li><a href="#assumptions" id="toc-assumptions" class="nav-link" data-scroll-target="#assumptions">Assumptions</a></li>
   <li><a href="#gemini" id="toc-gemini" class="nav-link" data-scroll-target="#gemini">Gemini</a></li>
-  <li><a href="#bert" id="toc-bert" class="nav-link" data-scroll-target="#bert">BERT</a></li>
-  <li><a href="#bertscore" id="toc-bertscore" class="nav-link" data-scroll-target="#bertscore">BERTScore</a></li>
+  <li><a href="#bert-and-bertscore" id="toc-bert-and-bertscore" class="nav-link" data-scroll-target="#bert-and-bertscore">BERT and BERTScore</a></li>
   <li><a href="#hierarchical-agglomerative-clustering" id="toc-hierarchical-agglomerative-clustering" class="nav-link" data-scroll-target="#hierarchical-agglomerative-clustering">Hierarchical Agglomerative Clustering</a></li>
   </ul></li>
   <li><a href="#experimental-apparatus" id="toc-experimental-apparatus" class="nav-link" data-scroll-target="#experimental-apparatus">Experimental Apparatus</a>
@@ -98,6 +97,7 @@ div.csl-indent {
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
   <li><a href="#limitations" id="toc-limitations" class="nav-link" data-scroll-target="#limitations">Limitations</a></li>
   <li><a href="#acknowledgement" id="toc-acknowledgement" class="nav-link" data-scroll-target="#acknowledgement">Acknowledgement</a></li>
+  <li><a href="#appendix" id="toc-appendix" class="nav-link" data-scroll-target="#appendix">Appendix</a></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="ProjectEcoDataScience.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li><li><a href="ProjectEcoDataScience.pdf"><i class="bi bi-file-pdf"></i>PDF (arxiv)</a></li></ul></div></nav>
 </div>
@@ -165,7 +165,10 @@ div.csl-indent {
 </section>
 <section id="summary" class="level2">
 <h2 class="anchored" data-anchor-id="summary">Summary</h2>
-<p>BMI is a complex concepts with different definitions and dimensions which makes it hard to measure. Existing scale-measures fulfill their purpose but are not sufficient to be used in large-scale, longitudinal studies. Furthermore, researchers have to rely on interviews and questionnaires, thus making them reliant on the willingness of firms to cooperate. Despite these difficulties, researchers still found ways to measure a positive relationship between BMI and a firms performance. This relationship is shaped not only by the choice of measurement of BMI and firm performance but also by factors like firm age, industry, and economic and political environment.</p>
+<p>The concept of BMI is complex, with different definitions and dimensions, which makes it challenging to measure. The existing scale-based measures fulfill their purpose, but are insufficient for use in large-scale, longitudinal studies. Furthermore, researchers must rely on interviews and questionnaires, which makes them reliant on the willingness of firms to cooperate. Despite these difficulties, researchers have identified ways to measure a positive relationship between BMI and a firm’s performance. This relationship is shaped not only by the choice of measurement of BMI and firm performance but also by factors such as firm age, industry, and economic and political environment.</p>
+<ul>
+<li>What do we learn from Text Mining part</li>
+</ul>
 </section>
 </section>
 <section id="methods" class="level1">
@@ -175,17 +178,11 @@ div.csl-indent {
 </section>
 <section id="gemini" class="level2">
 <h2 class="anchored" data-anchor-id="gemini">Gemini</h2>
-<ul>
-<li><p>Repo Workflow</p></li>
-<li><p>Prompt Info</p></li>
-<li><p>Descriptive Table1 for document length of original filings for why we use Gemini</p></li>
-</ul>
+<p>10-K filings are in general very large text documents, where Item 1 of these filings is no exception. Table 1 shows the average, minimum and maximum length of the original Item 1 part in our sample. In order to utilize all information regarding the BM in the Item 1 part and pass the text to our BERT-model, we decided to let Google’s GenAI chatbot Gemini summarize them to a maximum length of 512 tokens. We inserted our prompt at the beginning of each text file and passed it via an API to Gemini <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. We used following prompt: “Summarize the business model from the following text. Answer with a continuous text and with five hundred twelve tokens at max. Set your focus on sources of revenue, the intended customer base, products, distribution channels and details of financing. Use only information from the following the text”.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> “intended customer base” and “product” refer to the value offering, “distribution channels” refers to the value architecture, and “sources of revenue” and “details of financing” refer to the revenue model. Thus, every dimension of the definition of BMI by Spieth &amp; Schneider <span class="citation" data-cites="spieth_business_2016">(<a href="#ref-spieth_business_2016" role="doc-biblioref">2016</a>)</span> is covered by this prompt. To check quality and accuracy of the summaries by Gemini, we draw a random sample of 100 filings and compare the original text with the summary. More precise, we first read the original file with a focus on the points mentioned in the prompt above and then check, if the summary also contains these points. A list of the sample with the summaries is in the Appendix.</p>
+<p>TODO - Descriptive Table1 for document length of original filings</p>
 </section>
-<section id="bert" class="level2">
-<h2 class="anchored" data-anchor-id="bert">BERT</h2>
-</section>
-<section id="bertscore" class="level2">
-<h2 class="anchored" data-anchor-id="bertscore">BERTScore</h2>
+<section id="bert-and-bertscore" class="level2">
+<h2 class="anchored" data-anchor-id="bert-and-bertscore">BERT and BERTScore</h2>
 </section>
 <section id="hierarchical-agglomerative-clustering" class="level2">
 <h2 class="anchored" data-anchor-id="hierarchical-agglomerative-clustering">Hierarchical Agglomerative Clustering</h2>
@@ -235,10 +232,14 @@ div.csl-indent {
 <li>Jonathan for IT Support</li>
 <li>Prof.&nbsp;Kranz for Repo</li>
 </ul>
+</section>
+<section id="appendix" class="level1 unnumbered">
+
 
 </section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">Appendix</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-clauss_measuring_2017" class="csl-entry" role="listitem">
 Clauss, Thomas. 2017. <span>“Measuring Business Model Innovation: Conceptualization, Scale Development, and Proof of Performance.”</span> <em>R&amp;D Management</em> 47 (3): 385–403. <a href="https://doi.org/10.1111/radm.12186">https://doi.org/10.1111/radm.12186</a>.
 </div>
@@ -278,7 +279,13 @@ Venkatraman, N., and Vasudevan Ramanujam. 1986. <span>“Measurement of <span>Bu
 <div id="ref-white_exploring_2022" class="csl-entry" role="listitem">
 White, Joshua V., Erik Markin, David Marshall, and Vishal K. Gupta. 2022. <span>“Exploring the Boundaries of Business Model Innovation and Firm Performance: <span>A</span> Meta-Analysis.”</span> <em>Long Range Planning</em> 55 (5): 102242. <a href="https://doi.org/10.1016/j.lrp.2022.102242">https://doi.org/10.1016/j.lrp.2022.102242</a>.
 </div>
-</div></section></div></main>
+</div></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>We forked and used following Github Repository: https://github.com/skranz/gemini_ex.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>The spelling error in the last sentence of the prompt was found after processing the Item 1. After evaluating the Summaries, this error did not cause any issues.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main>
 <!-- /main column -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
