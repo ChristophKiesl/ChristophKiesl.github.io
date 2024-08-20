@@ -210,7 +210,7 @@ I am the abstract
 \setcounter{tocdepth}{3}
 \tableofcontents
 }
-\section{Introduction}\label{introduction}
+\section{1. Introduction}\label{introduction}
 
 Business model innovation (BMI) is a key activity to maintain
 competitiveness and even gain a competitive advantage (Pucihar et al.
@@ -225,12 +225,18 @@ applicability of BMI theory (Huang and Ichikohji 2023) and is
 insufficient for longitudinal studies (Clauss 2017). Hence, this measure
 is not adequate for a time series analysis of BMI. Furthermore, it
 refers only to BMI as new-to-the-firm and is not able to grasp BMI in
-the sense of new-to-the-industry and new-to-market.
+the sense of new-to-the-industry and new-to-market. Clauss (2017)
+developed a similar measure with similar downsides.
+
+We tackle this gap by measuring BMI as the similarity between business
+descriptions of one company over the years. The Security and Exchange
+Commission (SEC) requires US-based companies to submit so called 10-K
+filings every year, where at one point, the company has to state a
+description of its business. We utilize the BERTScore as a similarity
+measure and calculate the similarity between these description for a
+company for different years.
 
 \begin{itemize}
-\item
-  Research Question and approach (both after we actually are final with
-  approach and have (some) results)
 \item
   Key findings and Contribution Our contribution is made in a number of
   ways. Firstly, we tackle two issues raised in the study by Lee \& Hong
@@ -282,57 +288,41 @@ new-to-the-market level. Thirdly, both measures rely on interviews and
 questionnaires, which makes conducting large-scale studies
 time-consuming and reliant on the willingness of the companies to
 cooperate (Clauss 2017; Spieth and Schneider 2016). This study tackles
-both the first and third limitation. The process of text mining 10-K
-filings is not a novel concept. Hoberg \& Phillips (2016) present a
-novel approach to defining industry boundaries. This is achieved through
-the parsing of the product descriptions provided by firm 10-K filings
-and creating word vectors. Specifically, the authors identify and
-exclude proper nouns, which include common words and geographic
-locations.They then create word vectors for each firm and year, which
-enables the measurement of product similarity over time. In this way the
-authors demonstrate shortcomings in the traditional industry
-classification systems such as the Standard Industry Classification
-(SIC) and the North American Industry Classification System (NAICS),
-which are not able to account for temporal changes. The new method is
-capable of capturing changes in industry boundaries and competitor sets
-over time, thereby providing a dynamic industry classification system.
-In their study, Lee \& Hong (2014) examine the evolution of a firm's BM
-over time. The authors thus utilize the procedure proposed by Miner et
-al. (2012) to represent each document as a vector of keywords, which is
-similar to the approach utilized by Hoberg \& Phillips (2016). After
-identifying the Item 1 part of the 10-K filings as the most crucial part
-for describing a firm's BM, Lee \& Hong (2014) filter these for relevant
-sentences. Subsequently, the authors construct keyword vectors, which
-represent the concept of the BM. Therefore, the evolution of the BM is
-depicted as the change in the distribution of keywords over time.
-Nevertheless, this approach is not without shortcomings. The authors
-advocate for a more robust methodology, such as incorporating multi-word
-phrases in the keyword vectors, to enhance the reliability of the
-approach (Lee and Hong 2014). We therefore utilize a BERT-model in order
-to
+both the first and third limitation.
 
-A number of studies have examined the relationship between BMI and the
-financial performance of a company. These studies differ in terms of
-sample size and characteristics, methodology and choice of measures
-(Foss and Saebi 2017; White et al. 2022). Cucculelli \& Bettinelli
-(2015) for example investigate the effect of BMI on sales growth, return
-on sales (ROS) and total factor productivity (TFP) in a sample of 376
-Italian SMEs in the years 2000-2010. The results provide support for the
-hypothesis that BMI has a positive effect on firm performance, with the
-effect increasing in line with the intensity of the innovation. Latifi
-et al. (2021) use a cross-industry sample of 563 European SMEs and
-provide support for the hypothesis that a company engaging in BMI will
-improve its overall firm performance. In their study, the firm
-performance is evaluated subjectively in accordance with the model
-proposed by Venkatraman \& Ramanujam (1986). White et al. (2022)
-conducted a meta-analysis based on the extant BMI literature. After an
-extensive search of the literature, they identified 77 studies
-comprising 26,050 firms from 26 countries and six continents. They found
-a positive relationship between BMI and firm performance, and that this
-relationship is shaped by factors including the firm age, industry, the
-economic and political environment and BMI characteristics.
+The process of text mining 10-K filings is not a novel concept. Hoberg
+\& Phillips (2016) present a novel approach to defining industry
+boundaries. This is achieved through the parsing of the product
+descriptions provided by firm 10-K filings and creating word vectors.
+Specifically, the authors identify and exclude proper nouns, which
+include common words and geographic locations.They then create word
+vectors for each firm and year, which enables the measurement of product
+similarity over time. In this way the authors demonstrate shortcomings
+in the traditional industry classification systems such as the Standard
+Industry Classification (SIC) and the North American Industry
+Classification System (NAICS), which are not able to account for
+temporal changes. The new method is capable of capturing changes in
+industry boundaries and competitor sets over time, thereby providing a
+dynamic industry classification system. In their study, Lee \& Hong
+(2014) examine the evolution of a firm's BM over time. The authors
+represent each document as a vector of keywords, which is similar to the
+approach utilized by Hoberg \& Phillips (2016). After identifying the
+Item 1 part of the 10-K filings as the most crucial part for describing
+a firm's BM, Lee \& Hong (2014) filter these for relevant sentences.
+Subsequently, the authors construct keyword vectors, which represent the
+concept of the BM. Therefore, the evolution of the BM is depicted as the
+change in the distribution of keywords over time. Nevertheless, this
+approach is not without shortcomings. The authors advocate for a more
+robust methodology, such as incorporating multi-word phrases in the
+keyword vectors, to enhance the reliability of the approach (Lee and
+Hong 2014).
 
-\section{Data and Descriptive
+The rest of the paper proceeds as follows. Section 2 describes our
+preprocessing and our data. Section 3 lays out the BERT-model and our
+estimations. Section 4 dicusses our results, and Section 5 concludes our
+study.
+
+\section{2. Data and Descriptive
 Statistics}\label{data-and-descriptive-statistics}
 
 \subsection{Preprocessing with Gemini}\label{preprocessing-with-gemini}
@@ -407,13 +397,13 @@ TODO
   Description of Table3 and the final Dataset
 \end{itemize}
 
-\section{Empirical Framework}\label{empirical-framework}
+\section{3. Empirical Framework}\label{empirical-framework}
 
 \subsection{BERT and BERTScore}\label{bert-and-bertscore}
 
-\section{Results and Discussion}\label{results-and-discussion}
+\section{4. Results and Discussion}\label{results-and-discussion}
 
-\section{Conclusion}\label{conclusion}
+\section{5. Conclusion}\label{conclusion}
 
 \section{Acknowledgement}\label{acknowledgement}
 
@@ -436,12 +426,6 @@ Conceptualization, Scale Development, and Proof of Performance.''}
 \emph{R\&D Management} 47 (3): 385--403.
 \url{https://doi.org/10.1111/radm.12186}.
 
-\bibitem[\citeproctext]{ref-cucculelli_business_2015}
-Cucculelli, Marco, and Cristina Bettinelli. 2015. {``Business Models,
-Intangibles and Firm Performance: Evidence on Corporate Entrepreneurship
-from {Italian} Manufacturing {SMEs}.''} \emph{Small Business Economics}
-45 (2): 329--50. \url{https://doi.org/10.1007/s11187-015-9631-7}.
-
 \bibitem[\citeproctext]{ref-foss_fifteen_2017}
 Foss, Nicolai J., and Tina Saebi. 2017. {``Fifteen {Years} of {Research}
 on {Business} {Model} {Innovation}: {How} {Far} {Have} {We} {Come}, and
@@ -459,26 +443,12 @@ Huang, WenJun, and Takeyasu Ichikohji. 2023. {``A Review and Analysis of
 the Business Model Innovation Literature.''} \emph{Heliyon} 9 (7):
 e17895. \url{https://doi.org/10.1016/j.heliyon.2023.e17895}.
 
-\bibitem[\citeproctext]{ref-latifi_business_2021}
-Latifi, Mohammad-Ali, Shahrokh Nikou, and Harry Bouwman. 2021.
-{``Business Model Innovation and Firm Performance: {Exploring} Causal
-Mechanisms in {SMEs}.''} \emph{Technovation} 107 (September): 102274.
-\url{https://doi.org/10.1016/j.technovation.2021.102274}.
-
 \bibitem[\citeproctext]{ref-lee_business_2014}
 Lee, Jihwan, and Yoo S. Hong. 2014. {``Business {Model} {Mining}:
 {Analyzing} a {Firm}'s {Business} {Model} with {Text} {Mining} of
 {Annual} {Report}.''} \emph{Industrial Engineering and Management
 Systems} 13 (4): 432--41.
 \url{https://doi.org/10.7232/iems.2014.13.4.432}.
-
-\bibitem[\citeproctext]{ref-miner_practical_2012}
-Miner, Gary, Dursun Delen, John F. Elder, Andrew Fast, Thomas Hill,
-Robert Nisbet, Jennifer Thompson, et al. 2012. \emph{Practical Text
-Mining and Statistical Analysis for Non-Structured Text Data
-Applications}. Waltham, Mass.,Amsterdam, Boston, Heidelberg, London, New
-York, Oxford, Paris, San Diego, San Francisco, Singapore, Sydney, Tokyo:
-Elsevier, Academic Press.
 
 \bibitem[\citeproctext]{ref-pucihar_drivers_2019}
 Pucihar, Andreja, Gregor Lenart, Mirjana Kljajić Borštnar, Doroteja
@@ -497,18 +467,6 @@ Innovation.''} \emph{Journal of Business Economics} 86 (6): 671--96.
 Teece, David J. 2018. {``Business Models and Dynamic Capabilities.''}
 \emph{Long Range Planning} 51 (1): 40--49.
 \url{https://doi.org/10.1016/j.lrp.2017.06.007}.
-
-\bibitem[\citeproctext]{ref-venkatraman_measurement_1986}
-Venkatraman, N., and Vasudevan Ramanujam. 1986. {``Measurement of
-{Business} {Performance} in {Strategy} {Research}: {A} {Comparison} of
-{Approaches}.''} \emph{The Academy of Management Review} 11 (4): 801.
-\url{https://doi.org/10.2307/258398}.
-
-\bibitem[\citeproctext]{ref-white_exploring_2022}
-White, Joshua V., Erik Markin, David Marshall, and Vishal K. Gupta.
-2022. {``Exploring the Boundaries of Business Model Innovation and Firm
-Performance: {A} Meta-Analysis.''} \emph{Long Range Planning} 55 (5):
-102242. \url{https://doi.org/10.1016/j.lrp.2022.102242}.
 
 \end{CSLReferences}
 

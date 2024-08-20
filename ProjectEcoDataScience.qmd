@@ -126,13 +126,14 @@ abstract: |
 
 ---
 
-# Introduction
+# 1. Introduction
 
-Business model innovation (BMI) is a key activity to maintain competitiveness and even gain a competitive advantage [@pucihar_drivers_2019; @teece_business_2018]. It is therefore no surprise that the interest in BMI and methods of measuring it has grown rapidly over the last twenty years. Researchers have recently called for a BMI measurement instrument that is more comprehensive and advanced than already existing ones [@huang_review_2023]. The scale developed by Spieth & Schneider [-@spieth_business_2016] provides managers and practitioners with a measurement index for business model innovativeness. This measurement model only validates applicability of BMI theory [@huang_review_2023] and is insufficient for longitudinal studies [@clauss_measuring_2017]. Hence, this measure is not adequate for a time series analysis of BMI. Furthermore, it refers only to BMI as new-to-the-firm and is not able to grasp BMI in the sense of new-to-the-industry and new-to-market.
+Business model innovation (BMI) is a key activity to maintain competitiveness and even gain a competitive advantage [@pucihar_drivers_2019; @teece_business_2018]. It is therefore no surprise that the interest in BMI and methods of measuring it has grown rapidly over the last twenty years. Researchers have recently called for a BMI measurement instrument that is more comprehensive and advanced than already existing ones [@huang_review_2023]. The scale developed by Spieth & Schneider [-@spieth_business_2016] provides managers and practitioners with a measurement index for business model innovativeness. This measurement model only validates applicability of BMI theory [@huang_review_2023] and is insufficient for longitudinal studies [@clauss_measuring_2017]. Hence, this measure is not adequate for a time series analysis of BMI. Furthermore, it refers only to BMI as new-to-the-firm and is not able to grasp BMI in the sense of new-to-the-industry and new-to-market. Clauss [-@clauss_measuring_2017] developed a similar measure with similar downsides.
 
--	Research Question and approach (both after we actually are final with approach and have (some) results)
+We tackle this gap by measuring BMI as the similarity between business descriptions of one company over the years. The Security and Exchange Commission (SEC) requires US-based companies to submit so called 10-K filings every year, where at one point, the company has to state a description of its business. We utilize the BERTScore as a similarity measure and calculate the similarities between these description for one company for different years. Since these business descriptions
 
--	Key findings and Contribution
+-	Key findings (and Contribution, already down below)
+
 Our contribution is made in a number of ways. Firstly, we tackle two issues raised in the study by Lee & Hong [-@lee_business_2014]: we employ a more reliable and contemporary methodology for extracting the business model (BM) from 10-K filings and we are able to extend the scope of their study. Secondly, we build on the concept of alternative industry classification put forth by Hoberg & Phillips [-@hoberg_text-based_2016] and propose an industry classification system based on a firm's BM. Thirdly, we propose a novel measure for BMI that is sufficient for longitudinal studies.
 
 - paragraph 4
@@ -146,7 +147,7 @@ The process of text mining 10-K filings is not a novel concept. Hoberg & Phillip
 
 The rest of the paper proceeds as follows. Section 2 describes our preprocessing and our data. Section 3 lays out the BERT-model and our estimations. Section 4 dicusses our results, and Section 5 concludes our study.
 
-# Data and Descriptive Statistics
+# 2. Data and Descriptive Statistics
 
 ## Preprocessing with Gemini
 
@@ -175,13 +176,13 @@ TODO
 - Descriptive Table3 for document length of processed filings
 - Description of Table3 and the final Dataset
 
-# Empirical Framework
+# 3. Empirical Framework
 
 ## BERT and BERTScore
 
-# Results and Discussion
+# 4. Results and Discussion
 
-# Conclusion
+# 5. Conclusion
 
 # Acknowledgement
 
