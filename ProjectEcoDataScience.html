@@ -72,30 +72,17 @@ div.csl-indent {
    
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="#related-work" id="toc-related-work" class="nav-link" data-scroll-target="#related-work">Related Work</a>
+  <li><a href="#data-and-descriptive-statistics" id="toc-data-and-descriptive-statistics" class="nav-link" data-scroll-target="#data-and-descriptive-statistics">Data and Descriptive Statistics</a>
   <ul class="collapse">
-  <li><a href="#measuring-business-model-innovation" id="toc-measuring-business-model-innovation" class="nav-link" data-scroll-target="#measuring-business-model-innovation">Measuring Business Model Innovation</a></li>
-  <li><a href="#bmi-and-firm-performance" id="toc-bmi-and-firm-performance" class="nav-link" data-scroll-target="#bmi-and-firm-performance">BMI and Firm Performance</a></li>
-  <li><a href="#text-mining-10-k-filings" id="toc-text-mining-10-k-filings" class="nav-link" data-scroll-target="#text-mining-10-k-filings">Text Mining 10-K Filings</a></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
+  <li><a href="#preprocessing-with-gemini" id="toc-preprocessing-with-gemini" class="nav-link" data-scroll-target="#preprocessing-with-gemini">Preprocessing with Gemini</a></li>
+  <li><a href="#the-dataset" id="toc-the-dataset" class="nav-link" data-scroll-target="#the-dataset">The Dataset</a></li>
   </ul></li>
-  <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods">Methods</a>
+  <li><a href="#empirical-framework" id="toc-empirical-framework" class="nav-link" data-scroll-target="#empirical-framework">Empirical Framework</a>
   <ul class="collapse">
-  <li><a href="#assumptions" id="toc-assumptions" class="nav-link" data-scroll-target="#assumptions">Assumptions</a></li>
-  <li><a href="#gemini" id="toc-gemini" class="nav-link" data-scroll-target="#gemini">Gemini</a></li>
   <li><a href="#bert-and-bertscore" id="toc-bert-and-bertscore" class="nav-link" data-scroll-target="#bert-and-bertscore">BERT and BERTScore</a></li>
-  <li><a href="#hierarchical-agglomerative-clustering" id="toc-hierarchical-agglomerative-clustering" class="nav-link" data-scroll-target="#hierarchical-agglomerative-clustering">Hierarchical Agglomerative Clustering</a></li>
   </ul></li>
-  <li><a href="#experimental-apparatus" id="toc-experimental-apparatus" class="nav-link" data-scroll-target="#experimental-apparatus">Experimental Apparatus</a>
-  <ul class="collapse">
-  <li><a href="#datasets" id="toc-datasets" class="nav-link" data-scroll-target="#datasets">Datasets</a></li>
-  <li><a href="#pre-processing" id="toc-pre-processing" class="nav-link" data-scroll-target="#pre-processing">Pre-Processing</a></li>
-  <li><a href="#procedure" id="toc-procedure" class="nav-link" data-scroll-target="#procedure">Procedure</a></li>
-  </ul></li>
-  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a></li>
-  <li><a href="#discussion" id="toc-discussion" class="nav-link" data-scroll-target="#discussion">Discussion</a></li>
+  <li><a href="#results-and-discussion" id="toc-results-and-discussion" class="nav-link" data-scroll-target="#results-and-discussion">Results and Discussion</a></li>
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
-  <li><a href="#limitations" id="toc-limitations" class="nav-link" data-scroll-target="#limitations">Limitations</a></li>
   <li><a href="#acknowledgement" id="toc-acknowledgement" class="nav-link" data-scroll-target="#acknowledgement">Acknowledgement</a></li>
   <li><a href="#appendix" id="toc-appendix" class="nav-link" data-scroll-target="#appendix">Appendix</a></li>
   </ul>
@@ -131,7 +118,7 @@ div.csl-indent {
 <div>
   <div class="abstract">
     <div class="block-title">Abstract</div>
-    <p>A clear and well-documented &nbsp;document is presented as an article formatted for publication by ACM in a conference proceedings or journal publication. Based on the “acmart” document class, this article presents and explains many of the common variations, as well as many of the formatting elements an author may use in the preparation of the documentation of their work.</p>
+    <p>I am the abstract</p>
   </div>
 </div>
 
@@ -143,88 +130,50 @@ div.csl-indent {
 <h1>Introduction</h1>
 <p>Business model innovation (BMI) is a key activity to maintain competitiveness and even gain a competitive advantage <span class="citation" data-cites="pucihar_drivers_2019 teece_business_2018">(<a href="#ref-pucihar_drivers_2019" role="doc-biblioref">Pucihar et al. 2019</a>; <a href="#ref-teece_business_2018" role="doc-biblioref">Teece 2018</a>)</span>. It is therefore no surprise that the interest in BMI and methods of measuring it has grown rapidly over the last twenty years. Researchers have recently called for a BMI measurement instrument that is more comprehensive and advanced than already existing ones <span class="citation" data-cites="huang_review_2023">(<a href="#ref-huang_review_2023" role="doc-biblioref">Huang and Ichikohji 2023</a>)</span>. The scale developed by Spieth &amp; Schneider <span class="citation" data-cites="spieth_business_2016">(<a href="#ref-spieth_business_2016" role="doc-biblioref">2016</a>)</span> provides managers and practitioners with a measurement index for business model innovativeness. This measurement model only validates applicability of BMI theory <span class="citation" data-cites="huang_review_2023">(<a href="#ref-huang_review_2023" role="doc-biblioref">Huang and Ichikohji 2023</a>)</span> and is insufficient for longitudinal studies <span class="citation" data-cites="clauss_measuring_2017">(<a href="#ref-clauss_measuring_2017" role="doc-biblioref">Clauss 2017</a>)</span>. Hence, this measure is not adequate for a time series analysis of BMI. Furthermore, it refers only to BMI as new-to-the-firm and is not able to grasp BMI in the sense of new-to-the-industry and new-to-market.</p>
 <ul>
-<li><p>Solution approach (both after we actually are final with approach and have (some) results)</p></li>
-<li><p>Results</p></li>
+<li><p>Research Question and approach (both after we actually are final with approach and have (some) results)</p></li>
+<li><p>Key findings and Contribution Our contribution is made in a number of ways. Firstly, we tackle two issues raised in the study by Lee &amp; Hong <span class="citation" data-cites="lee_business_2014">(<a href="#ref-lee_business_2014" role="doc-biblioref">2014</a>)</span>: we employ a more reliable and contemporary methodology for extracting the business model (BM) from 10-K filings and we are able to extend the scope of their study. Secondly, we build on the concept of alternative industry classification put forth by Hoberg &amp; Phillips <span class="citation" data-cites="hoberg_text-based_2016">(<a href="#ref-hoberg_text-based_2016" role="doc-biblioref">2016</a>)</span> and propose an industry classification system based on a firm’s BM. Thirdly, we propose a novel measure for BMI that is sufficient for longitudinal studies.</p></li>
+<li><p>paragraph 4 What are 10-K filings? Describe the data source and our way of using the Data (only brief)</p></li>
+<li><p>paragraph 5 (robustness checks)</p></li>
 </ul>
-<p>Our contribution is made in a number of ways. Firstly, we tackle two issues raised in the study by Lee &amp; Hong <span class="citation" data-cites="lee_business_2014">(<a href="#ref-lee_business_2014" role="doc-biblioref">2014</a>)</span>: we employ a more reliable and contemporary methodology for extracting the business model (BM) from 10-K filings and we are able to extend the scope of their study. Secondly, we build on the concept of alternative industry classification put forth by Hoberg &amp; Phillips <span class="citation" data-cites="hoberg_text-based_2016">(<a href="#ref-hoberg_text-based_2016" role="doc-biblioref">2016</a>)</span> and propose an industry classification system based on a firm’s BM. Thirdly, we propose a novel measure for BMI that is sufficient for longitudinal studies.</p>
+<p>In spite of the growing interest in BMI and the increasing number of theoretical and empirical studies in this field, the research of BMI is still in a preliminary state <span class="citation" data-cites="huang_review_2023">(<a href="#ref-huang_review_2023" role="doc-biblioref">Huang and Ichikohji 2023</a>)</span>. Consequently, there is considerable variation in the definitions of BMI, with some definitions being more similar to one another than others <span class="citation" data-cites="foss_fifteen_2017">(<a href="#ref-foss_fifteen_2017" role="doc-biblioref">Foss and Saebi 2017</a>)</span>. Spieth &amp; Schneider <span class="citation" data-cites="spieth_business_2016">(<a href="#ref-spieth_business_2016" role="doc-biblioref">2016</a>)</span> identify three core dimensions a company’s BM is comprised of: its value proposition, its value creation architecture and its revenue model logic. Based on this, BMI can be conceptualized as a change that is new-to-the-firm in at least one of these dimensions. Furthermore, Spieth and Schneider <span class="citation" data-cites="spieth_business_2016">(<a href="#ref-spieth_business_2016" role="doc-biblioref">2016</a>)</span> introduce a measurement model to evaluate these three dimensions of BMI. They develop an index by first specifying the contents, followed by a specification of the indicators and assessing their content validity, assessing the indicators collinearity and finally assessing the external validity. A total of twelve indicators for measuring the innovativeness of the BM were identified through a comprehensive literature review and through engagement with industry practitioners. The external validity of the formative indicators was successfully validated through a survey of 200 experts in strategy and innovation management <span class="citation" data-cites="spieth_business_2016">(<a href="#ref-spieth_business_2016" role="doc-biblioref">Spieth and Schneider 2016</a>)</span>. Clauss <span class="citation" data-cites="clauss_measuring_2017">(<a href="#ref-clauss_measuring_2017" role="doc-biblioref">2017</a>)</span> employs a very similar approach. After specifying the domain and dimensionality of BMI trough literature research, the author divides his scale into three hierarchical levels consisting of 41 reflective items, 10 subconstructs and three main dimensions, which are similar to the ones mentioned earlier. The scale was validated through two samples from the manufacturing industry and further demonstrated nomological validity <span class="citation" data-cites="clauss_measuring_2017">(<a href="#ref-clauss_measuring_2017" role="doc-biblioref">Clauss 2017</a>)</span>. However, both measures are subject to three significant limitations. Firstly, both measures lack a temporal component. Consequently, they are inadequate for use in longitudinal studies or ex-post evaluations of BMI. Secondly, BMI is only measured at the new-to-the-firm level rather than at the new-to-the-industry or new-to-the-market level. Thirdly, both measures rely on interviews and questionnaires, which makes conducting large-scale studies time-consuming and reliant on the willingness of the companies to cooperate <span class="citation" data-cites="clauss_measuring_2017 spieth_business_2016">(<a href="#ref-clauss_measuring_2017" role="doc-biblioref">Clauss 2017</a>; <a href="#ref-spieth_business_2016" role="doc-biblioref">Spieth and Schneider 2016</a>)</span>. This study tackles both the first and third limitation.</p>
+<p>The process of text mining 10-K filings is not a novel concept. Hoberg &amp; Phillips <span class="citation" data-cites="hoberg_text-based_2016">(<a href="#ref-hoberg_text-based_2016" role="doc-biblioref">2016</a>)</span> present a novel approach to defining industry boundaries. This is achieved through the parsing of the product descriptions provided by firm 10-K filings and creating word vectors. Specifically, the authors identify and exclude proper nouns, which include common words and geographic locations.They then create word vectors for each firm and year, which enables the measurement of product similarity over time. In this way the authors demonstrate shortcomings in the traditional industry classification systems such as the Standard Industry Classification (SIC) and the North American Industry Classification System (NAICS), which are not able to account for temporal changes. The new method is capable of capturing changes in industry boundaries and competitor sets over time, thereby providing a dynamic industry classification system. In their study, Lee &amp; Hong <span class="citation" data-cites="lee_business_2014">(<a href="#ref-lee_business_2014" role="doc-biblioref">2014</a>)</span> examine the evolution of a firm’s BM over time. The authors represent each document as a vector of keywords, which is similar to the approach utilized by Hoberg &amp; Phillips <span class="citation" data-cites="hoberg_text-based_2016">(<a href="#ref-hoberg_text-based_2016" role="doc-biblioref">2016</a>)</span>. After identifying the Item 1 part of the 10-K filings as the most crucial part for describing a firm’s BM, Lee &amp; Hong <span class="citation" data-cites="lee_business_2014">(<a href="#ref-lee_business_2014" role="doc-biblioref">2014</a>)</span> filter these for relevant sentences. Subsequently, the authors construct keyword vectors, which represent the concept of the BM. Therefore, the evolution of the BM is depicted as the change in the distribution of keywords over time. Nevertheless, this approach is not without shortcomings. The authors advocate for a more robust methodology, such as incorporating multi-word phrases in the keyword vectors, to enhance the reliability of the approach <span class="citation" data-cites="lee_business_2014">(<a href="#ref-lee_business_2014" role="doc-biblioref">Lee and Hong 2014</a>)</span>.</p>
+<p>The rest of the paper proceeds as follows. Section 2 describes our preprocessing and our data. Section 3 lays out the BERT-model and our estimations. Section 4 dicusses our results, and Section 5 concludes our study.</p>
 </section>
-<section id="related-work" class="level1">
-<h1>Related Work</h1>
-<p>Our study borders several research fields and thus we have a variaty of literature to cover. Section 2.1 presents state of the art measures of BMI while Section 2.2 examines the relationship between BMI and the financial performance of a firm. Section 2.3 deals with previous approaches to text mine 10-K filings. Finally, in Section 2.4 a summary of the findings from the related work is presented.</p>
-<section id="measuring-business-model-innovation" class="level2">
-<h2 class="anchored" data-anchor-id="measuring-business-model-innovation">Measuring Business Model Innovation</h2>
-<p>In spite of the growing interest in BMI and the increasing number of theoretical and empirical studies in this field, the research of BMI is still in a preliminary state <span class="citation" data-cites="huang_review_2023">(<a href="#ref-huang_review_2023" role="doc-biblioref">Huang and Ichikohji 2023</a>)</span>. Consequently, there is considerable variation in the definitions of BMI, with some definitions being more similar to one another than others <span class="citation" data-cites="foss_fifteen_2017">(<a href="#ref-foss_fifteen_2017" role="doc-biblioref">Foss and Saebi 2017</a>)</span>. Spieth &amp; Schneider <span class="citation" data-cites="spieth_business_2016">(<a href="#ref-spieth_business_2016" role="doc-biblioref">2016</a>)</span> identify three core dimensions a company’s BM is comprised of: its value proposition, its value creation architecture and its revenue model logic. Based on this, BMI can be conceptualized as a change that is new-to-the-firm in at least one of these dimensions. Furthermore, Spieth and Schneider <span class="citation" data-cites="spieth_business_2016">(<a href="#ref-spieth_business_2016" role="doc-biblioref">2016</a>)</span> introduce a measurement model to evaluate these three dimensions of BMI. They develop an index by first specifying the contents, followed by a specification of the indicators and assessing their content validity, assessing the indicators collinearity and finally assessing the external validity. A total of twelve indicators for measuring the innovativeness of the BM were identified through a comprehensive literature review and through engagement with industry practitioners. The external validity of the formative indicators was successfully validated through a survey of 200 experts in strategy and innovation management <span class="citation" data-cites="spieth_business_2016">(<a href="#ref-spieth_business_2016" role="doc-biblioref">Spieth and Schneider 2016</a>)</span>. Clauss <span class="citation" data-cites="clauss_measuring_2017">(<a href="#ref-clauss_measuring_2017" role="doc-biblioref">2017</a>)</span> employs a very similar approach. After specifying the domain and dimensionality of BMI trough literature research, the author divides his scale into three hierarchical levels consisting of 41 reflective items, 10 subconstructs and three main dimensions, which are similar to the ones mentioned earlier. The scale was validated through two samples from the manufacturing industry and further demonstrated nomological validity <span class="citation" data-cites="clauss_measuring_2017">(<a href="#ref-clauss_measuring_2017" role="doc-biblioref">Clauss 2017</a>)</span>. However, both measures are subject to three significant limitations. Firstly, both measures lack a temporal component. Consequently, they are inadequate for use in longitudinal studies or ex-post evaluations of BMI. Secondly, BMI is only measured at the new-to-the-firm level rather than at the new-to-the-industry or new-to-the-market level. Thirdly, both measures rely on interviews and questionnaires, which makes conducting large-scale studies time-consuming and reliant on the willingness of the companies to cooperate <span class="citation" data-cites="clauss_measuring_2017 spieth_business_2016">(<a href="#ref-clauss_measuring_2017" role="doc-biblioref">Clauss 2017</a>; <a href="#ref-spieth_business_2016" role="doc-biblioref">Spieth and Schneider 2016</a>)</span>.</p>
-</section>
-<section id="bmi-and-firm-performance" class="level2">
-<h2 class="anchored" data-anchor-id="bmi-and-firm-performance">BMI and Firm Performance</h2>
-<p>A number of studies have examined the relationship between BMI and the financial performance of a company. These studies differ in terms of sample size and characteristics, methodology and choice of measures <span class="citation" data-cites="foss_fifteen_2017 white_exploring_2022">(<a href="#ref-foss_fifteen_2017" role="doc-biblioref">Foss and Saebi 2017</a>; <a href="#ref-white_exploring_2022" role="doc-biblioref">White et al. 2022</a>)</span>. Cucculelli &amp; Bettinelli <span class="citation" data-cites="cucculelli_business_2015">(<a href="#ref-cucculelli_business_2015" role="doc-biblioref">2015</a>)</span> for example investigate the effect of BMI on sales growth, return on sales (ROS) and total factor productivity (TFP) in a sample of 376 Italian SMEs in the years 2000-2010. The results provide support for the hypothesis that BMI has a positive effect on firm performance, with the effect increasing in line with the intensity of the innovation. Latifi et al. <span class="citation" data-cites="latifi_business_2021">(<a href="#ref-latifi_business_2021" role="doc-biblioref">2021</a>)</span> use a cross-industry sample of 563 European SMEs and provide support for the hypothesis that a company engaging in BMI will improve its overall firm performance. In their study, the firm performance is evaluated subjectively in accordance with the model proposed by Venkatraman &amp; Ramanujam <span class="citation" data-cites="venkatraman_measurement_1986">(<a href="#ref-venkatraman_measurement_1986" role="doc-biblioref">1986</a>)</span>. White et al. <span class="citation" data-cites="white_exploring_2022">(<a href="#ref-white_exploring_2022" role="doc-biblioref">2022</a>)</span> conducted a meta-analysis based on the extant BMI literature. After an extensive search of the literature, they identified 77 studies comprising 26,050 firms from 26 countries and six continents. They found a positive relationship between BMI and firm performance, and that this relationship is shaped by factors including the firm age, industry, the economic and political environment and BMI characteristics.</p>
-</section>
-<section id="text-mining-10-k-filings" class="level2">
-<h2 class="anchored" data-anchor-id="text-mining-10-k-filings">Text Mining 10-K Filings</h2>
-<p>The process of text mining 10-K filings is not a novel concept. Hoberg &amp; Phillips <span class="citation" data-cites="hoberg_text-based_2016">(<a href="#ref-hoberg_text-based_2016" role="doc-biblioref">2016</a>)</span> present a novel approach to defining industry boundaries. This is achieved through the parsing of the product descriptions provided by firm 10-K filings and creating word vectors. Specifically, the authors identify and exclude proper nouns, which include common words and geographic locations.They then create word vectors for each firm and year, which enables the measurement of product similarity over time. In this way the authors demonstrate shortcomings in the traditional industry classification systems such as the Standard Industry Classification (SIC) and the North American Industry Classification System (NAICS), which are not able to account for temporal changes. The new method is capable of capturing changes in industry boundaries and competitor sets over time, thereby providing a dynamic industry classification system. Furthermore, the authors’ findings indicate a correlation between firms’ R&amp;D and advertising expenditures and an increase in product differentiation. This underscores the significance of product differentiation. In their study, Lee &amp; Hong <span class="citation" data-cites="lee_business_2014">(<a href="#ref-lee_business_2014" role="doc-biblioref">2014</a>)</span> examine the evolution of a firm’s BM over time. The authors thus utilize the procedure proposed by Miner et al. <span class="citation" data-cites="miner_practical_2012">(<a href="#ref-miner_practical_2012" role="doc-biblioref">2012</a>)</span> to represent each document as a vector of keywords, which is similar to the approach utilized by Hoberg &amp; Phillips <span class="citation" data-cites="hoberg_text-based_2016">(<a href="#ref-hoberg_text-based_2016" role="doc-biblioref">2016</a>)</span>. After identifying the Item 1 part of the 10-K filings as the most crucial part for describing a firm’s BM, Lee &amp; Hong <span class="citation" data-cites="lee_business_2014">(<a href="#ref-lee_business_2014" role="doc-biblioref">2014</a>)</span> filter these for relevant sentences. Subsequently, the authors construct keyword vectors, which represent the concept of the BM. Therefore, the evolution of the BM is depicted as the change in the distribution of keywords over time. Nevertheless, this approach is not without shortcomings. The authors advocate for a more robust methodology, such as incorporating multi-word phrases in the keyword vectors, to enhance the reliability of the approach <span class="citation" data-cites="lee_business_2014">(<a href="#ref-lee_business_2014" role="doc-biblioref">Lee and Hong 2014</a>)</span>.</p>
-</section>
-<section id="summary" class="level2">
-<h2 class="anchored" data-anchor-id="summary">Summary</h2>
-<p>The concept of BMI is complex, with different definitions and dimensions, which makes it challenging to measure. The existing scale-based measures fulfill their purpose, but are insufficient for use in large-scale, longitudinal studies. Furthermore, researchers must rely on interviews and questionnaires, which makes them reliant on the willingness of firms to cooperate. Despite these difficulties, researchers have identified ways to measure a positive relationship between BMI and a firm’s performance. This relationship is shaped not only by the choice of measurement of BMI and firm performance but also by factors such as firm age, industry, and economic and political environment.</p>
+<section id="data-and-descriptive-statistics" class="level1">
+<h1>Data and Descriptive Statistics</h1>
+<section id="preprocessing-with-gemini" class="level2">
+<h2 class="anchored" data-anchor-id="preprocessing-with-gemini">Preprocessing with Gemini</h2>
+<p>As already mentioned, 10-K filings are in general very large text documents, where Item 1 of these filings is no exception. Table 1 shows the average, minimum and maximum length of the original Item 1 part in our sample. In order to utilize all information regarding the BM in the Item 1 part and pass the text to our BERT-model, we decided to let Google’s GenAI chatbot Gemini summarize them to a maximum length of 512 tokens. We inserted our prompt at the beginning of each text file and passed it via an API to Gemini <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. We used following prompt: “Summarize the business model from the following text. Answer with a continuous text and with five hundred twelve tokens at max. Set your focus on sources of revenue, the intended customer base, products, distribution channels and details of financing. Use only information from the following the text”.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> “intended customer base” and “product” refer to the value offering, “distribution channels” refers to the value architecture, and “sources of revenue” and “details of financing” refer to the revenue model. Thus, every dimension of the definition of BMI by Spieth &amp; Schneider <span class="citation" data-cites="spieth_business_2016">(<a href="#ref-spieth_business_2016" role="doc-biblioref">2016</a>)</span> is covered by this prompt. To check quality and accuracy of the summaries by Gemini, we draw a random sample of 100 filings and compare the original text with the summary. More precise, we first read the original file with a focus on the points mentioned in the prompt above and then check, if the summary also contains these points. A list of the sample with the summaries is in the Appendix.</p>
 <ul>
-<li>What do we learn from Text Mining part</li>
+<li>result of this check</li>
+<li>explain why “tokens” not words in the prompt: mostly more tokens than words, BERT uses first 512 tokens. so to use the whole output of Gemini, text limit to 512 tokens</li>
 </ul>
-</section>
-</section>
-<section id="methods" class="level1">
-<h1>Methods</h1>
-<section id="assumptions" class="level2">
-<h2 class="anchored" data-anchor-id="assumptions">Assumptions</h2>
-</section>
-<section id="gemini" class="level2">
-<h2 class="anchored" data-anchor-id="gemini">Gemini</h2>
-<p>10-K filings are in general very large text documents, where Item 1 of these filings is no exception. Table 1 shows the average, minimum and maximum length of the original Item 1 part in our sample. In order to utilize all information regarding the BM in the Item 1 part and pass the text to our BERT-model, we decided to let Google’s GenAI chatbot Gemini summarize them to a maximum length of 512 tokens. We inserted our prompt at the beginning of each text file and passed it via an API to Gemini <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. We used following prompt: “Summarize the business model from the following text. Answer with a continuous text and with five hundred twelve tokens at max. Set your focus on sources of revenue, the intended customer base, products, distribution channels and details of financing. Use only information from the following the text”.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> “intended customer base” and “product” refer to the value offering, “distribution channels” refers to the value architecture, and “sources of revenue” and “details of financing” refer to the revenue model. Thus, every dimension of the definition of BMI by Spieth &amp; Schneider <span class="citation" data-cites="spieth_business_2016">(<a href="#ref-spieth_business_2016" role="doc-biblioref">2016</a>)</span> is covered by this prompt. To check quality and accuracy of the summaries by Gemini, we draw a random sample of 100 filings and compare the original text with the summary. More precise, we first read the original file with a focus on the points mentioned in the prompt above and then check, if the summary also contains these points. A list of the sample with the summaries is in the Appendix.</p>
 <p>TODO - Descriptive Table1 for document length of original filings</p>
 </section>
-<section id="bert-and-bertscore" class="level2">
-<h2 class="anchored" data-anchor-id="bert-and-bertscore">BERT and BERTScore</h2>
-</section>
-<section id="hierarchical-agglomerative-clustering" class="level2">
-<h2 class="anchored" data-anchor-id="hierarchical-agglomerative-clustering">Hierarchical Agglomerative Clustering</h2>
-</section>
-</section>
-<section id="experimental-apparatus" class="level1">
-<h1>Experimental Apparatus</h1>
-<section id="datasets" class="level2">
-<h2 class="anchored" data-anchor-id="datasets">Datasets</h2>
-<p>We collect 10-Ks filings from the digital SEC Database, using the category “10-K” as extraction condition. Since the focus of our study lies on company’s BM, we only use the Item 1 part, since this is the most crucial part of the 10-K filings for describing the companys BM <span class="citation" data-cites="lee_business_2014">(<a href="#ref-lee_business_2014" role="doc-biblioref">Lee and Hong 2014</a>)</span>.</p>
-<p>//Our observations are limited to an intersection of such companies, which on the one hand has been made available to the SEC since 2001 in a publicly accessible list of 10.284 companies (Appendix), of which 7590 are listed (on stock exchange). On the other hand, we consider companies that filed 10-K reports with the SEC between 2017 and 2023 //-&gt; rewrite as step by step, how we got to the final list of companys</p>
+<section id="the-dataset" class="level2">
+<h2 class="anchored" data-anchor-id="the-dataset">The Dataset</h2>
+<p>We collect 10-Ks filings from the digital SEC Database, using the category “10-K” as extraction condition. Since the focus of our study lies on company’s BM, we only use the Item 1 part, since this is the most crucial part of the 10-K filings for describing the companies BM <span class="citation" data-cites="lee_business_2014">(<a href="#ref-lee_business_2014" role="doc-biblioref">Lee and Hong 2014</a>)</span>.</p>
+<p>//Our observations are limited to an intersection of such companies, which on the one hand has been made available to the SEC since 2001 in a publicly accessible list of 10.284 companies (Appendix), of which 7590 are listed (on stock exchange). On the other hand, we consider companies that filed 10-K reports with the SEC between 2017 and 2023 //-&gt; rewrite as step by step, how we got to the final list of companies</p>
 <p>We exclude companies from the financial sector, namely companies with a SIC Code starting with six. We consider the filings from 2017 to 2023.</p>
 <p>TODO</p>
 <ul>
-<li><p>Table2 like Alex suggested</p></li>
-<li><p>Descriptive Table3 for document length of processed filings</p></li>
-<li><p>Description of Table3 and the final Dataset</p></li>
+<li>Table2 like Alex suggested</li>
+<li>Descriptive Table3 for document length of processed filings</li>
+<li>Description of Table3 and the final Dataset</li>
 </ul>
 </section>
-<section id="pre-processing" class="level2">
-<h2 class="anchored" data-anchor-id="pre-processing">Pre-Processing</h2>
-<ul>
-<li>everything regarding Gemini in Pre-Processing</li>
-</ul>
-<p>Since the parts of section I are generally not well structured for further processing, we use Gemini to summarize the texts with emphasis on the business description. Based on this data, we create similarity scores between different companies and the same companies from different years. Finally, we match these firms with several financial numbers that we extracted from Eikon/Datastream.</p>
 </section>
-<section id="procedure" class="level2">
-<h2 class="anchored" data-anchor-id="procedure">Procedure</h2>
-<p>Before generating the final datasets, we had to iteratively coordinate various steps over several phases in order to generate the data consistently. The first step was to extract the required company identifiers (CIKs) from the SEC database.</p>
+<section id="empirical-framework" class="level1">
+<h1>Empirical Framework</h1>
+<section id="bert-and-bertscore" class="level2">
+<h2 class="anchored" data-anchor-id="bert-and-bertscore">BERT and BERTScore</h2>
 </section>
 </section>
-<section id="results" class="level1">
-<h1>Results</h1>
-</section>
-<section id="discussion" class="level1">
-<h1>Discussion</h1>
+<section id="results-and-discussion" class="level1">
+<h1>Results and Discussion</h1>
 </section>
 <section id="conclusion" class="level1">
 <h1>Conclusion</h1>
-</section>
-<section id="limitations" class="level1">
-<h1>Limitations</h1>
 </section>
 <section id="acknowledgement" class="level1">
 <h1>Acknowledgement</h1>
@@ -243,9 +192,6 @@ div.csl-indent {
 <div id="ref-clauss_measuring_2017" class="csl-entry" role="listitem">
 Clauss, Thomas. 2017. <span>“Measuring Business Model Innovation: Conceptualization, Scale Development, and Proof of Performance.”</span> <em>R&amp;D Management</em> 47 (3): 385–403. <a href="https://doi.org/10.1111/radm.12186">https://doi.org/10.1111/radm.12186</a>.
 </div>
-<div id="ref-cucculelli_business_2015" class="csl-entry" role="listitem">
-Cucculelli, Marco, and Cristina Bettinelli. 2015. <span>“Business Models, Intangibles and Firm Performance: Evidence on Corporate Entrepreneurship from <span>Italian</span> Manufacturing <span>SMEs</span>.”</span> <em>Small Business Economics</em> 45 (2): 329–50. <a href="https://doi.org/10.1007/s11187-015-9631-7">https://doi.org/10.1007/s11187-015-9631-7</a>.
-</div>
 <div id="ref-foss_fifteen_2017" class="csl-entry" role="listitem">
 Foss, Nicolai J., and Tina Saebi. 2017. <span>“Fifteen <span>Years</span> of <span>Research</span> on <span>Business</span> <span>Model</span> <span>Innovation</span>: <span>How</span> <span>Far</span> <span>Have</span> <span>We</span> <span>Come</span>, and <span>Where</span> <span>Should</span> <span>We</span> <span>Go</span>?”</span> <em>Journal of Management</em> 43 (1): 200–227. <a href="https://doi.org/10.1177/0149206316675927">https://doi.org/10.1177/0149206316675927</a>.
 </div>
@@ -255,14 +201,8 @@ Hoberg, Gerard, and Gordon Phillips. 2016. <span>“Text-<span>Based</span> <spa
 <div id="ref-huang_review_2023" class="csl-entry" role="listitem">
 Huang, WenJun, and Takeyasu Ichikohji. 2023. <span>“A Review and Analysis of the Business Model Innovation Literature.”</span> <em>Heliyon</em> 9 (7): e17895. <a href="https://doi.org/10.1016/j.heliyon.2023.e17895">https://doi.org/10.1016/j.heliyon.2023.e17895</a>.
 </div>
-<div id="ref-latifi_business_2021" class="csl-entry" role="listitem">
-Latifi, Mohammad-Ali, Shahrokh Nikou, and Harry Bouwman. 2021. <span>“Business Model Innovation and Firm Performance: <span>Exploring</span> Causal Mechanisms in <span>SMEs</span>.”</span> <em>Technovation</em> 107 (September): 102274. <a href="https://doi.org/10.1016/j.technovation.2021.102274">https://doi.org/10.1016/j.technovation.2021.102274</a>.
-</div>
 <div id="ref-lee_business_2014" class="csl-entry" role="listitem">
 Lee, Jihwan, and Yoo S. Hong. 2014. <span>“Business <span>Model</span> <span>Mining</span>: <span>Analyzing</span> a <span>Firm</span>’s <span>Business</span> <span>Model</span> with <span>Text</span> <span>Mining</span> of <span>Annual</span> <span>Report</span>.”</span> <em>Industrial Engineering and Management Systems</em> 13 (4): 432–41. <a href="https://doi.org/10.7232/iems.2014.13.4.432">https://doi.org/10.7232/iems.2014.13.4.432</a>.
-</div>
-<div id="ref-miner_practical_2012" class="csl-entry" role="listitem">
-Miner, Gary, Dursun Delen, John F. Elder, Andrew Fast, Thomas Hill, Robert Nisbet, Jennifer Thompson, et al. 2012. <em>Practical Text Mining and Statistical Analysis for Non-Structured Text Data Applications</em>. Waltham, Mass.,Amsterdam, Boston, Heidelberg, London, New York, Oxford, Paris, San Diego, San Francisco, Singapore, Sydney, Tokyo: Elsevier, Academic Press.
 </div>
 <div id="ref-pucihar_drivers_2019" class="csl-entry" role="listitem">
 Pucihar, Andreja, Gregor Lenart, Mirjana Kljajić Borštnar, Doroteja Vidmar, and Marjeta Marolt. 2019. <span>“Drivers and <span>Outcomes</span> of <span>Business</span> <span>Model</span> <span>Innovation</span>—<span>Micro</span>, <span>Small</span> and <span>Medium</span>-<span>Sized</span> <span>Enterprises</span> <span>Perspective</span>.”</span> <em>Sustainability</em> 11 (2): 344. <a href="https://doi.org/10.3390/su11020344">https://doi.org/10.3390/su11020344</a>.
@@ -272,12 +212,6 @@ Spieth, Patrick, and Sabrina Schneider. 2016. <span>“Business Model Innovative
 </div>
 <div id="ref-teece_business_2018" class="csl-entry" role="listitem">
 Teece, David J. 2018. <span>“Business Models and Dynamic Capabilities.”</span> <em>Long Range Planning</em> 51 (1): 40–49. <a href="https://doi.org/10.1016/j.lrp.2017.06.007">https://doi.org/10.1016/j.lrp.2017.06.007</a>.
-</div>
-<div id="ref-venkatraman_measurement_1986" class="csl-entry" role="listitem">
-Venkatraman, N., and Vasudevan Ramanujam. 1986. <span>“Measurement of <span>Business</span> <span>Performance</span> in <span>Strategy</span> <span>Research</span>: <span>A</span> <span>Comparison</span> of <span>Approaches</span>.”</span> <em>The Academy of Management Review</em> 11 (4): 801. <a href="https://doi.org/10.2307/258398">https://doi.org/10.2307/258398</a>.
-</div>
-<div id="ref-white_exploring_2022" class="csl-entry" role="listitem">
-White, Joshua V., Erik Markin, David Marshall, and Vishal K. Gupta. 2022. <span>“Exploring the Boundaries of Business Model Innovation and Firm Performance: <span>A</span> Meta-Analysis.”</span> <em>Long Range Planning</em> 55 (5): 102242. <a href="https://doi.org/10.1016/j.lrp.2022.102242">https://doi.org/10.1016/j.lrp.2022.102242</a>.
 </div>
 </div></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 
