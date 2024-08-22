@@ -126,11 +126,11 @@ abstract: |
 
 ---
 
-# 1. Introduction
+# Introduction
 
 Business model innovation (BMI) is a key activity to maintain competitiveness and even gain a competitive advantage [@pucihar_drivers_2019; @teece_business_2018]. It is therefore no surprise that the interest in BMI and methods of measuring it has grown rapidly over the last twenty years. Researchers have recently called for a BMI measurement instrument that is more comprehensive and advanced than already existing ones [@huang_review_2023]. The scale developed by Spieth & Schneider [-@spieth_business_2016] provides managers and practitioners with a measurement index for business model innovativeness. This measurement model only validates applicability of BMI theory [@huang_review_2023] and is insufficient for longitudinal studies [@clauss_measuring_2017]. Hence, this measure is not adequate for a time series analysis of BMI. Furthermore, it refers only to BMI as new-to-the-firm and is not able to grasp BMI in the sense of new-to-the-industry and new-to-market. Clauss [-@clauss_measuring_2017] developed a similar measure with comparable limitations.
 
-We tackle this gap by proposing a novel approach to measure BMI. The Security and Exchange Commission (SEC) requires US-based companies to submit so called 10-K filings every year, where at one point, the company has to state a description of its business. We summarize these descriptions with Gemini and utilize the BERTScore as a similarity measure to calculate the similarities between the summaries of different years for one company. This way, we are able to measure the change of the BM over the years. By [TODO: get the I in BMI]. BMI has shown to improve firm performance and that it is positively correlated with the financial performance of firms. Therefore, to test the validity of our measure, we regress financial numbers on our measure.
+This gap is addressed by proposing a novel approach to measuring BMI. US-based companies are obliged by the Security and Exchange Commission (SEC) to submit annual 10-K filings, wherein a detailed description of the company's business operations is required. Hoberg & Phillips [-@hoberg_text-based_2016] use this filings to create word vectors about the companies products in order to cluster them into industries and thereby proposing a new industry classification. This study builds on their work and methods. We summarize these descriptions with Gemini, utilize the BERTScore as a similarity measure to calculate the similarities between companies and cluster them into industries. We compare our the BERTScore clustering with the TNIC clustering by Hoberg & Phillips [-@hoberg_text-based_2016]. the summaries of different years for a single company. This approach enables the measurement of changes of the BM over time. By [TODO: get the I in BMI]. There is evidence that an increase in BMI is associated with improved firm performance [@cucculelli_business_2015;@latifi_business_2021;@white_exploring_2022]. In order to test the validity of our measure, we regress financial numbers on our measure.
 
 -	Key findings (and Contribution, already down below)
 
@@ -147,11 +147,11 @@ The process of text mining 10-K filings is not a novel concept. Hoberg & Phillip
 
 The rest of the paper proceeds as follows. Section 2 describes our preprocessing and our data. Section 3 lays out the BERT-model and our estimations. Section 4 dicusses our results, and Section 5 concludes our study.
 
-# 2. Data and Descriptive Statistics
+# Data and Methodology
 
 ## Preprocessing with Gemini
 
-As already mentioned, 10-K filings are in general very large text documents, where Item 1 of these filings is no exception. Table 1 shows the average, minimum and maximum length of the original Item 1 part in our sample. In order to utilize all information regarding the BM in the Item 1 part and pass the text to our BERT-model, we decided to let Google's GenAI chatbot Gemini summarize them to a maximum length of 512 tokens. The summaries were created between June 26, 2024 and August 6, 2024. The model used was Gemini Flash 1.5. We inserted our prompt at the beginning of each text file and passed it via an API to Gemini [^1]. We used following prompt: "Summarize the business model from the following text. Answer with a continuous text and with five hundred twelve tokens at max. Set your focus on sources of revenue, the intended customer base, products, distribution channels and details of financing. Use only information from the following the text".[^2] "intended customer base" and "product" refer to the value offering, "distribution channels" refers to the value architecture, and "sources of revenue" and "details of financing" refer to the revenue model. Thus, every dimension of the definition of BMI by Spieth & Schneider [-@spieth_business_2016] is covered by this prompt. We deliberately used the word "tokens" instead of "words", since the number of tokens and the number of words of a text can based on the tokenizer differ. This way, we wanted to ensure to that the whole summary is used by our BERT model. To check quality and accuracy of the summaries by Gemini, we draw a random sample of 100 filings and compare the original text with the summary. More precise, we first read the original file with a focus on the points mentioned in the prompt above and then check, if the summary also contains these points. A list of the sample with the summaries is in the Appendix. 
+As previously stated, 10-K filings are typically very large text documents, and Item 1 of these filings is no exception. Table 1 illustrates the mean, minimum and maximum length of the original Item 1 section in our sample. TODO: describe Table. In utilise the entirety of the information regarding the BM in the Item 1 section and pass the text to our BERT model, we decided to let Google's GenAI chatbot Gemini summarize them to a maximum length of 512 tokens. The summaries were created between 26 June 2024 and 6 August 2024. The model employed was Gemini Flash 1.5. The prompt was inserted at the beginning of each text file and passed it via an API to Gemini [^1]. We used following prompt: "Summarize the business model from the following text. Answer with a continuous text and with five hundred twelve tokens at max. Set your focus on sources of revenue, the intended customer base, products, distribution channels and details of financing. Use only information from the following the text".[^2] "intended customer base" and "product" refer to the value offering, "distribution channels" refers to the value architecture, and "sources of revenue" and "details of financing" refer to the revenue model. Consequently, this prompt covers all aspects of the definition of BMI proposed by Spieth & Schneider [-@spieth_business_2016]. The term 'tokens' was used deliberately in preference to 'words', given that the number of tokens and the number of words in a text may vary depending on the tokeniser. This way, we wanted to ensure that the whole summary is used by the BERT model. To assess the quality and accuracy of the summaries produced by Gemini, a random sample of 100 filings was selected for comparison with the original text. More precise,the original file was initially read with a focus on the points mentioned in the prompt. Subsequently, the summary was evaluated to ascertain whether it contained these same points. A list of the sample with the summaries is provided in the Appendix. 
 
 - result of this check
 
@@ -171,11 +171,15 @@ We exclude companies from the financial sector, namely companies with a SIC Code
 
 TODO
 
+```{r}
+
+```
+
 - Table2 like Alex suggested
 - Descriptive Table3 for length of summary (in words and tokens (use tokenizer our Model uses))
 - Description of Table3 and the final Dataset
 
-# 3. Replication
+# Replication
 
 - Purpose of Replication
 
@@ -183,17 +187,19 @@ TODO
 
 - Results
 
-# 4. Empirical Framework
+# Empirical Framework
 
-## BERT and BERTScore
+## BERT and BERTScore (rename chapter)
 
-# 5. Results and Discussion
+## Estimation Strategy (rename chapter)
 
-# 6. Conclusion
+# Results and Discussion
+
+# Conclusion
 
 # Acknowledgement
 
-- Jonathan for IT Support
+- Jonathan for IT Support and Illumenating my mind
 - Prof. Kranz for Repo
 
 # Appendix
