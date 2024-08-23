@@ -131,44 +131,44 @@ div.csl-indent {
 <section id="introduction" class="level1">
 <h1>Introduction</h1>
 <p>Business model innovation (BMI) is a key activity to maintain competitiveness and even gain a competitive advantage <span class="citation" data-cites="pucihar_drivers_2019 teece_business_2018">(<a href="#ref-pucihar_drivers_2019" role="doc-biblioref">Pucihar et al. 2019</a>; <a href="#ref-teece_business_2018" role="doc-biblioref">Teece 2018</a>)</span>. It is therefore no surprise that the interest in BMI and methods of measuring it has grown rapidly over the last twenty years. Researchers have recently called for a BMI measurement instrument that is more comprehensive and advanced than already existing ones <span class="citation" data-cites="huang_review_2023">(<a href="#ref-huang_review_2023" role="doc-biblioref">Huang and Ichikohji 2023</a>)</span>. The scale developed by Spieth &amp; Schneider <span class="citation" data-cites="spieth_business_2016">(<a href="#ref-spieth_business_2016" role="doc-biblioref">2016</a>)</span> provides managers and practitioners with a measurement index for business model innovativeness. This measurement model only validates applicability of BMI theory <span class="citation" data-cites="huang_review_2023">(<a href="#ref-huang_review_2023" role="doc-biblioref">Huang and Ichikohji 2023</a>)</span> and is insufficient for longitudinal studies <span class="citation" data-cites="clauss_measuring_2017">(<a href="#ref-clauss_measuring_2017" role="doc-biblioref">Clauss 2017</a>)</span>. Hence, this measure is not adequate for a time series analysis of BMI. Furthermore, it refers only to BMI as new-to-the-firm and is not able to grasp BMI in the sense of new-to-the-industry and new-to-market. Clauss <span class="citation" data-cites="clauss_measuring_2017">(<a href="#ref-clauss_measuring_2017" role="doc-biblioref">2017</a>)</span> developed a similar measure with comparable limitations.</p>
-<p>This gap is addressed by proposing a novel approach to measuring BMI. US-based companies are obliged by the Security and Exchange Commission (SEC) to submit annual 10-K filings, wherein a detailed description of the company’s business operations is required. Hoberg &amp; Phillips <span class="citation" data-cites="hoberg_text-based_2016">(<a href="#ref-hoberg_text-based_2016" role="doc-biblioref">2016</a>)</span> use this filings to create word vectors about the companies products in order to cluster them into industries and thereby proposing a new industry classification. This study builds on their work and methods. We summarize these descriptions with Gemini, utilize the BERTScore as a similarity measure to calculate the similarities between companies and cluster them into industries. We compare our the BERTScore clustering with the TNIC clustering by Hoberg &amp; Phillips <span class="citation" data-cites="hoberg_text-based_2016">(<a href="#ref-hoberg_text-based_2016" role="doc-biblioref">2016</a>)</span>. the summaries of different years for a single company. This approach enables the measurement of changes of the BM over time. By [TODO: get the I in BMI]. There is evidence that an increase in BMI is associated with improved firm performance <span class="citation" data-cites="cucculelli_business_2015 latifi_business_2021 white_exploring_2022">(<a href="#ref-cucculelli_business_2015" role="doc-biblioref">Cucculelli and Bettinelli 2015</a>; <a href="#ref-latifi_business_2021" role="doc-biblioref">Latifi, Nikou, and Bouwman 2021</a>; <a href="#ref-white_exploring_2022" role="doc-biblioref">White et al. 2022</a>)</span>. In order to test the validity of our measure, we regress financial numbers on our measure.</p>
+<p>This gap is addressed by proposing a novel approach to measuring BMI. US-based companies are obliged by the Security and Exchange Commission (SEC) to submit annual 10-K filings, wherein a detailed description of the company’s business operations is required. Hoberg &amp; Phillips <span class="citation" data-cites="hoberg_text-based_2016">(<a href="#ref-hoberg_text-based_2016" role="doc-biblioref">2016</a>)</span> use this filings to create word vectors about the companies products in order to cluster them into industries and thereby proposing a new industry classification. This study builds on their work and methods. We summarize these descriptions with Gemini, utilize the BERTScore as a similarity measure to calculate the similarities between companies and cluster them into industries. We compare our BERTScore clustering with the TNIC clustering by Hoberg &amp; Phillips <span class="citation" data-cites="hoberg_text-based_2016">(<a href="#ref-hoberg_text-based_2016" role="doc-biblioref">2016</a>)</span>. Furthermore, we calculate the BERTScore between the summaries of different years for a single company. This approach enables the measurement of changes in the BM over time as the distance between the BM summary of one year to another. There is evidence that an increase in BMI is associated with improved firm performance <span class="citation" data-cites="cucculelli_business_2015 latifi_business_2021 white_exploring_2022">(<a href="#ref-cucculelli_business_2015" role="doc-biblioref">Cucculelli and Bettinelli 2015</a>; <a href="#ref-latifi_business_2021" role="doc-biblioref">Latifi, Nikou, and Bouwman 2021</a>; <a href="#ref-white_exploring_2022" role="doc-biblioref">White et al. 2022</a>)</span>. In order to test the validity of our measure, we regress financial numbers on our measure, hoping to find a positive relationship.</p>
 <ul>
 <li>Key findings (and Contribution, already down below)</li>
 </ul>
 <p>Our contribution is made in a number of ways. Firstly, we tackle two issues raised in the study by Lee &amp; Hong <span class="citation" data-cites="lee_business_2014">(<a href="#ref-lee_business_2014" role="doc-biblioref">2014</a>)</span>: we employ a more reliable and contemporary methodology for extracting the business model (BM) from 10-K filings and we are able to extend the scope of their study. Secondly, we build on the concept of alternative industry classification put forth by Hoberg &amp; Phillips <span class="citation" data-cites="hoberg_text-based_2016">(<a href="#ref-hoberg_text-based_2016" role="doc-biblioref">2016</a>)</span> and propose an industry classification system based on a firm’s BM. Thirdly, we propose a novel measure for BMI that is sufficient for longitudinal studies.</p>
+<p>The SEC requires most public US-based companies to hand in certain documents in certain intervals. One of these documents are the annual 10-K filings. These filings follow a set order of topics and contain information for example about managerial discussions, risk factors for the company, legal proceedings and financial data. In the first section under the subtitle “Business”, a company states its general business which includes information about its products and services and in some cases further topics like labor issues or competition <span class="citation" data-cites="sec_investor_2024">(<a href="#ref-sec_investor_2024" role="doc-biblioref">SEC 2024</a>)</span>. In conclusion, this section contains the most useful information to describe a company’s BM <span class="citation" data-cites="lee_business_2014">(<a href="#ref-lee_business_2014" role="doc-biblioref">Lee and Hong 2014</a>)</span>. Furthermore, 10-K filings are a reliable source, since US-law prohibits false or misleading statements in the filings. The SEC monitors the compliance of the companies with the requirements and comments where disclosure appears to be inconsistent <span class="citation" data-cites="sec_investor_2024">(<a href="#ref-sec_investor_2024" role="doc-biblioref">SEC 2024</a>)</span>.</p>
 <ul>
-<li><p>paragraph 4 What are 10-K filings? Describe the data source and our way of using the Data (only brief)</p></li>
-<li><p>paragraph 5 (robustness checks)</p></li>
+<li>paragraph 5 (robustness checks)</li>
 </ul>
 <p>In spite of the growing interest in BMI and the increasing number of theoretical and empirical studies in this field, the research of BMI is still in a preliminary state <span class="citation" data-cites="huang_review_2023">(<a href="#ref-huang_review_2023" role="doc-biblioref">Huang and Ichikohji 2023</a>)</span>. Consequently, there is considerable variation in the definitions of BMI, with some definitions being more similar to one another than others <span class="citation" data-cites="foss_fifteen_2017">(<a href="#ref-foss_fifteen_2017" role="doc-biblioref">Foss and Saebi 2017</a>)</span>. Spieth &amp; Schneider <span class="citation" data-cites="spieth_business_2016">(<a href="#ref-spieth_business_2016" role="doc-biblioref">2016</a>)</span> identify three core dimensions a company’s BM is comprised of: its value proposition, its value creation architecture and its revenue model logic. Based on this, BMI can be conceptualized as a change that is new-to-the-firm in at least one of these dimensions. Furthermore, Spieth and Schneider <span class="citation" data-cites="spieth_business_2016">(<a href="#ref-spieth_business_2016" role="doc-biblioref">2016</a>)</span> introduce a measurement model to evaluate these three dimensions of BMI. They develop an index by first specifying the contents, followed by a specification of the indicators and assessing their content validity, assessing the indicators collinearity and finally assessing the external validity. A total of twelve indicators for measuring the innovativeness of the BM were identified through a comprehensive literature review and through engagement with industry practitioners. The external validity of the formative indicators was successfully validated through a survey of 200 experts in strategy and innovation management <span class="citation" data-cites="spieth_business_2016">(<a href="#ref-spieth_business_2016" role="doc-biblioref">Spieth and Schneider 2016</a>)</span>. Clauss <span class="citation" data-cites="clauss_measuring_2017">(<a href="#ref-clauss_measuring_2017" role="doc-biblioref">2017</a>)</span> employs a very similar approach. After specifying the domain and dimensionality of BMI trough literature research, the author divides his scale into three hierarchical levels consisting of 41 reflective items, 10 subconstructs and three main dimensions, which are similar to the ones mentioned earlier. The scale was validated through two samples from the manufacturing industry and further demonstrated nomological validity <span class="citation" data-cites="clauss_measuring_2017">(<a href="#ref-clauss_measuring_2017" role="doc-biblioref">Clauss 2017</a>)</span>. However, both measures are subject to three significant limitations. Firstly, both measures lack a temporal component. Consequently, they are inadequate for use in longitudinal studies or ex-post evaluations of BMI. Secondly, BMI is only measured at the new-to-the-firm level rather than at the new-to-the-industry or new-to-the-market level. Thirdly, both measures rely on interviews and questionnaires, which makes conducting large-scale studies time-consuming and reliant on the willingness of the companies to cooperate <span class="citation" data-cites="clauss_measuring_2017 spieth_business_2016">(<a href="#ref-clauss_measuring_2017" role="doc-biblioref">Clauss 2017</a>; <a href="#ref-spieth_business_2016" role="doc-biblioref">Spieth and Schneider 2016</a>)</span>.</p>
 <p>The process of text mining 10-K filings is not a novel concept. Hoberg &amp; Phillips <span class="citation" data-cites="hoberg_text-based_2016">(<a href="#ref-hoberg_text-based_2016" role="doc-biblioref">2016</a>)</span> present a novel approach to defining industry boundaries. This is achieved through the parsing of the product descriptions provided by firm 10-K filings and creating word vectors. Specifically, the authors identify and exclude proper nouns, which include common words and geographic locations.They then create word vectors for each firm and year, which enables the measurement of product similarity over time. In this way the authors demonstrate shortcomings in the traditional industry classification systems such as the Standard Industry Classification (SIC) and the North American Industry Classification System (NAICS), which are not able to account for temporal changes. The new method is capable of capturing changes in industry boundaries and competitor sets over time, thereby providing a dynamic industry classification system. In their study, Lee &amp; Hong <span class="citation" data-cites="lee_business_2014">(<a href="#ref-lee_business_2014" role="doc-biblioref">2014</a>)</span> examine the evolution of a firm’s BM over time. The authors represent each document as a vector of keywords, which is similar to the approach utilized by Hoberg &amp; Phillips <span class="citation" data-cites="hoberg_text-based_2016">(<a href="#ref-hoberg_text-based_2016" role="doc-biblioref">2016</a>)</span>. After identifying the Item 1 part of the 10-K filings as the most crucial part for describing a firm’s BM, Lee &amp; Hong <span class="citation" data-cites="lee_business_2014">(<a href="#ref-lee_business_2014" role="doc-biblioref">2014</a>)</span> filter these for relevant sentences. Subsequently, the authors construct keyword vectors, which represent the concept of the BM. Therefore, the evolution of the BM is depicted as the change in the distribution of keywords over time. Nevertheless, this approach is not without shortcomings. The authors advocate for a more robust methodology, such as incorporating multi-word phrases in the keyword vectors, to enhance the reliability of the approach <span class="citation" data-cites="lee_business_2014">(<a href="#ref-lee_business_2014" role="doc-biblioref">Lee and Hong 2014</a>)</span>.</p>
-<p>The rest of the paper proceeds as follows. Section 2 describes our preprocessing and our data. Section 3 lays out the BERT-model and our estimations. Section 4 dicusses our results, and Section 5 concludes our study.</p>
+<p>The rest of the paper proceeds as follows. Section 2 describes the preprocessing with Gemini, our data and our methodology. Section 3 compares the industry classification based on product descriptions by Hoberg &amp; Phillips <span class="citation" data-cites="hoberg_text-based_2016">(<a href="#ref-hoberg_text-based_2016" role="doc-biblioref">2016</a>)</span> with our classification based on the BM. Section 4 lays out the BERT-model and our estimations. Section 5 discusses our results, and Section 6 concludes our study.</p>
 </section>
 <section id="data-and-methodology" class="level1">
 <h1>Data and Methodology</h1>
 <section id="preprocessing-with-gemini" class="level2">
 <h2 class="anchored" data-anchor-id="preprocessing-with-gemini">Preprocessing with Gemini</h2>
-<p>As previously stated, 10-K filings are typically very large text documents, and Item 1 of these filings is no exception. Table 1 illustrates the mean, minimum and maximum length of the original Item 1 section in our sample. TODO: describe Table. In utilise the entirety of the information regarding the BM in the Item 1 section and pass the text to our BERT model, we decided to let Google’s GenAI chatbot Gemini summarize them to a maximum length of 512 tokens. The summaries were created between 26 June 2024 and 6 August 2024. The model employed was Gemini Flash 1.5. The prompt was inserted at the beginning of each text file and passed it via an API to Gemini <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. We used following prompt: “Summarize the business model from the following text. Answer with a continuous text and with five hundred twelve tokens at max. Set your focus on sources of revenue, the intended customer base, products, distribution channels and details of financing. Use only information from the following the text”.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> “intended customer base” and “product” refer to the value offering, “distribution channels” refers to the value architecture, and “sources of revenue” and “details of financing” refer to the revenue model. Consequently, this prompt covers all aspects of the definition of BMI proposed by Spieth &amp; Schneider <span class="citation" data-cites="spieth_business_2016">(<a href="#ref-spieth_business_2016" role="doc-biblioref">2016</a>)</span>. The term ‘tokens’ was used deliberately in preference to ‘words’, given that the number of tokens and the number of words in a text may vary depending on the tokeniser. This way, we wanted to ensure that the whole summary is used by the BERT model. To assess the quality and accuracy of the summaries produced by Gemini, a random sample of 100 filings was selected for comparison with the original text. More precise,the original file was initially read with a focus on the points mentioned in the prompt. Subsequently, the summary was evaluated to ascertain whether it contained these same points. A list of the sample with the summaries is provided in the Appendix.</p>
+<p>As previously stated, 10-K filings are typically very large text documents, and Item 1 of these filings is no exception. Table 1 shows the deskriptive measures of the length of the original Item 1 section in our final sample. The length of a document was measured by the word count without punctuation. The document length ranges from a couple hundred words to tens of thousands. In order to utilise the entirety of the information regarding the BM in the Item 1 section and pass the text to our BERT model, we decided to let Google’s GenAI chatbot Gemini summarize them to a maximum length of 512 tokens. The summaries were created between 26 June 2024 and 6 August 2024. The model employed was Gemini Flash 1.5. The prompt was inserted at the beginning of each text file and it was passed via an API to Gemini <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. We used following prompt: “Summarize the business model from the following text. Answer with a continuous text and with five hundred twelve tokens at max. Set your focus on sources of revenue, the intended customer base, products, distribution channels and details of financing. Use only information from the following the text”.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> “intended customer base” and “product” refer to the value offering, “distribution channels” refers to the value architecture, and “sources of revenue” and “details of financing” refer to the revenue model. Consequently, this prompt covers all aspects of the definition of BMI proposed by Spieth &amp; Schneider <span class="citation" data-cites="spieth_business_2016">(<a href="#ref-spieth_business_2016" role="doc-biblioref">2016</a>)</span>. The term ‘tokens’ was used deliberately in preference to ‘words’, given that the number of tokens and the number of words in a text may vary depending on the tokeniser. This way, we wanted to ensure that the whole summary is used by the BERT model. To assess the quality and accuracy of the summaries produced by Gemini, a random sample of 100 filings was selected for comparison with the original text. More precise,the original file was initially read with a focus on the points mentioned in the prompt. Subsequently, the summary was evaluated to ascertain whether it contained these same points. A list of the sample with the summaries is provided in the Appendix.</p>
 <ul>
 <li>result of this check</li>
 </ul>
-<div id="durdycxnfr" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#durdycxnfr table {
+<div id="ajxxufcixn" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ajxxufcixn table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#durdycxnfr thead, #durdycxnfr tbody, #durdycxnfr tfoot, #durdycxnfr tr, #durdycxnfr td, #durdycxnfr th {
+#ajxxufcixn thead, #ajxxufcixn tbody, #ajxxufcixn tfoot, #ajxxufcixn tr, #ajxxufcixn td, #ajxxufcixn th {
   border-style: none;
 }
 
-#durdycxnfr p {
+#ajxxufcixn p {
   margin: 0;
   padding: 0;
 }
 
-#durdycxnfr .gt_table {
+#ajxxufcixn .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -194,12 +194,12 @@ div.csl-indent {
   border-left-color: #D3D3D3;
 }
 
-#durdycxnfr .gt_caption {
+#ajxxufcixn .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#durdycxnfr .gt_title {
+#ajxxufcixn .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -211,7 +211,7 @@ div.csl-indent {
   border-bottom-width: 0;
 }
 
-#durdycxnfr .gt_subtitle {
+#ajxxufcixn .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -223,7 +223,7 @@ div.csl-indent {
   border-top-width: 0;
 }
 
-#durdycxnfr .gt_heading {
+#ajxxufcixn .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -235,13 +235,13 @@ div.csl-indent {
   border-right-color: #D3D3D3;
 }
 
-#durdycxnfr .gt_bottom_border {
+#ajxxufcixn .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#durdycxnfr .gt_col_headings {
+#ajxxufcixn .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -256,7 +256,7 @@ div.csl-indent {
   border-right-color: #D3D3D3;
 }
 
-#durdycxnfr .gt_col_heading {
+#ajxxufcixn .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -276,7 +276,7 @@ div.csl-indent {
   overflow-x: hidden;
 }
 
-#durdycxnfr .gt_column_spanner_outer {
+#ajxxufcixn .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -288,15 +288,15 @@ div.csl-indent {
   padding-right: 4px;
 }
 
-#durdycxnfr .gt_column_spanner_outer:first-child {
+#ajxxufcixn .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#durdycxnfr .gt_column_spanner_outer:last-child {
+#ajxxufcixn .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#durdycxnfr .gt_column_spanner {
+#ajxxufcixn .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -308,11 +308,11 @@ div.csl-indent {
   width: 100%;
 }
 
-#durdycxnfr .gt_spanner_row {
+#ajxxufcixn .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#durdycxnfr .gt_group_heading {
+#ajxxufcixn .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -338,7 +338,7 @@ div.csl-indent {
   text-align: left;
 }
 
-#durdycxnfr .gt_empty_group_heading {
+#ajxxufcixn .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -353,15 +353,15 @@ div.csl-indent {
   vertical-align: middle;
 }
 
-#durdycxnfr .gt_from_md > :first-child {
+#ajxxufcixn .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#durdycxnfr .gt_from_md > :last-child {
+#ajxxufcixn .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#durdycxnfr .gt_row {
+#ajxxufcixn .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -380,7 +380,7 @@ div.csl-indent {
   overflow-x: hidden;
 }
 
-#durdycxnfr .gt_stub {
+#ajxxufcixn .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -393,7 +393,7 @@ div.csl-indent {
   padding-right: 5px;
 }
 
-#durdycxnfr .gt_stub_row_group {
+#ajxxufcixn .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -407,15 +407,15 @@ div.csl-indent {
   vertical-align: top;
 }
 
-#durdycxnfr .gt_row_group_first td {
+#ajxxufcixn .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#durdycxnfr .gt_row_group_first th {
+#ajxxufcixn .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#durdycxnfr .gt_summary_row {
+#ajxxufcixn .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -425,16 +425,16 @@ div.csl-indent {
   padding-right: 5px;
 }
 
-#durdycxnfr .gt_first_summary_row {
+#ajxxufcixn .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#durdycxnfr .gt_first_summary_row.thick {
+#ajxxufcixn .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#durdycxnfr .gt_last_summary_row {
+#ajxxufcixn .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -444,7 +444,7 @@ div.csl-indent {
   border-bottom-color: #D3D3D3;
 }
 
-#durdycxnfr .gt_grand_summary_row {
+#ajxxufcixn .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -454,7 +454,7 @@ div.csl-indent {
   padding-right: 5px;
 }
 
-#durdycxnfr .gt_first_grand_summary_row {
+#ajxxufcixn .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -464,7 +464,7 @@ div.csl-indent {
   border-top-color: #D3D3D3;
 }
 
-#durdycxnfr .gt_last_grand_summary_row_top {
+#ajxxufcixn .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -474,11 +474,11 @@ div.csl-indent {
   border-bottom-color: #D3D3D3;
 }
 
-#durdycxnfr .gt_striped {
+#ajxxufcixn .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#durdycxnfr .gt_table_body {
+#ajxxufcixn .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -487,7 +487,7 @@ div.csl-indent {
   border-bottom-color: #D3D3D3;
 }
 
-#durdycxnfr .gt_footnotes {
+#ajxxufcixn .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -501,7 +501,7 @@ div.csl-indent {
   border-right-color: #D3D3D3;
 }
 
-#durdycxnfr .gt_footnote {
+#ajxxufcixn .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -510,7 +510,7 @@ div.csl-indent {
   padding-right: 5px;
 }
 
-#durdycxnfr .gt_sourcenotes {
+#ajxxufcixn .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -524,7 +524,7 @@ div.csl-indent {
   border-right-color: #D3D3D3;
 }
 
-#durdycxnfr .gt_sourcenote {
+#ajxxufcixn .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -532,63 +532,63 @@ div.csl-indent {
   padding-right: 5px;
 }
 
-#durdycxnfr .gt_left {
+#ajxxufcixn .gt_left {
   text-align: left;
 }
 
-#durdycxnfr .gt_center {
+#ajxxufcixn .gt_center {
   text-align: center;
 }
 
-#durdycxnfr .gt_right {
+#ajxxufcixn .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#durdycxnfr .gt_font_normal {
+#ajxxufcixn .gt_font_normal {
   font-weight: normal;
 }
 
-#durdycxnfr .gt_font_bold {
+#ajxxufcixn .gt_font_bold {
   font-weight: bold;
 }
 
-#durdycxnfr .gt_font_italic {
+#ajxxufcixn .gt_font_italic {
   font-style: italic;
 }
 
-#durdycxnfr .gt_super {
+#ajxxufcixn .gt_super {
   font-size: 65%;
 }
 
-#durdycxnfr .gt_footnote_marks {
+#ajxxufcixn .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#durdycxnfr .gt_asterisk {
+#ajxxufcixn .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#durdycxnfr .gt_indent_1 {
+#ajxxufcixn .gt_indent_1 {
   text-indent: 5px;
 }
 
-#durdycxnfr .gt_indent_2 {
+#ajxxufcixn .gt_indent_2 {
   text-indent: 10px;
 }
 
-#durdycxnfr .gt_indent_3 {
+#ajxxufcixn .gt_indent_3 {
   text-indent: 15px;
 }
 
-#durdycxnfr .gt_indent_4 {
+#ajxxufcixn .gt_indent_4 {
   text-indent: 20px;
 }
 
-#durdycxnfr .gt_indent_5 {
+#ajxxufcixn .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -734,7 +734,7 @@ div.csl-indent {
 <section id="acknowledgement" class="level1">
 <h1>Acknowledgement</h1>
 <ul>
-<li>Jonathan for IT Support and Illumenating my mind</li>
+<li>Jonathan for IT Support</li>
 <li>Prof.&nbsp;Kranz for Repo</li>
 </ul>
 </section>
@@ -768,6 +768,9 @@ Lee, Jihwan, and Yoo S. Hong. 2014. <span>“Business <span>Model</span> <span>M
 </div>
 <div id="ref-pucihar_drivers_2019" class="csl-entry" role="listitem">
 Pucihar, Andreja, Gregor Lenart, Mirjana Kljajić Borštnar, Doroteja Vidmar, and Marjeta Marolt. 2019. <span>“Drivers and <span>Outcomes</span> of <span>Business</span> <span>Model</span> <span>Innovation</span>—<span>Micro</span>, <span>Small</span> and <span>Medium</span>-<span>Sized</span> <span>Enterprises</span> <span>Perspective</span>.”</span> <em>Sustainability</em> 11 (2): 344. <a href="https://doi.org/10.3390/su11020344">https://doi.org/10.3390/su11020344</a>.
+</div>
+<div id="ref-sec_investor_2024" class="csl-entry" role="listitem">
+SEC. 2024. <span>“Investor <span>Bulletin</span>: <span>How</span> to <span>Read</span> a 10-<span>K</span>.”</span> <a href="https://www.sec.gov/files/reada10k.pdf">https://www.sec.gov/files/reada10k.pdf</a>.
 </div>
 <div id="ref-spieth_business_2016" class="csl-entry" role="listitem">
 Spieth, Patrick, and Sabrina Schneider. 2016. <span>“Business Model Innovativeness: Designing a Formative Measure for Business Model Innovation.”</span> <em>Journal of Business Economics</em> 86 (6): 671–96. <a href="https://doi.org/10.1007/s11573-015-0794-0">https://doi.org/10.1007/s11573-015-0794-0</a>.
