@@ -191,12 +191,11 @@ Table1
 
 ## The Dataset
 
-We collect 10-Ks filings from the digital SEC Database, using the category “10-K” as extraction condition. Since the focus of our study lies on company's BM, we only use the Item 1 part, since this is the most crucial part of the 10-K filings for describing the companies BM [@lee_business_2014]. 
+We collect 10-Ks filings from the digital SEC Database, using the category “10-K” as extraction condition. Since the focus of our study lies on company's BM, we merely use the Item 1 part, since this is the most crucial part of the 10-K filings for describing the companies BM [@lee_business_2014]. 
 
-//Our observations are limited to an intersection of such companies, which on the one hand has been made available to the SEC since 2001 in a publicly accessible list of 10.284 companies (Appendix), of which 7590 are listed (on stock exchange). On the other hand, we consider companies that filed 10-K reports with the SEC between 2017 and 2023 //-> rewrite as step by step, how we got to the final list of companies
+//Our observations are limited to an intersection of such companies, which on the one hand has been made available to the SEC since 2001 in a publicly accessible list of 10.284 companies (Appendix), of which 7590 are currently listed (on stock exchange) on NASDAQ, NYSE or over-the-counter (OTC). | We extracted 10-K filings that were submitted between 2017 and 2023 based on  underlying Central Index Keys (CIK). According to [...] financial firms are not further considered. Corresponding to figure *X*, multiple steps of pre-processing were required to obtain a final amount 21683 observations. Financial key figures, including Net Income, Total Assets and others were originally extracted from the SEC, but also challenged with DataStream
 
-We exclude companies from the financial sector, namely companies with a SIC Code starting with six. We consider the filings from 2017 to 2023. 
-
+We exclude companies from the financial sector, namely companies with a SIC Code starting with six.
 TODO
 
 - Table2 like Alex suggested
