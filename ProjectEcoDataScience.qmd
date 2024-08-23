@@ -155,8 +155,33 @@ As previously stated, 10-K filings are typically very large text documents, and 
 
 - result of this check
 
-TODO
-- Descriptive Table1 for document length of original filings
+```{r echo=FALSE, warning = FALSE, message = FALSE, results='asis'}
+library(tidyverse)
+library(gt)
+Table1 = read.csv("./TableData/Table1.csv")%>%
+    gt() %>%
+  tab_header(
+    title = "Table 1: Descriptive Statistics Original Filings"
+  )%>%
+  cols_label(
+    year = "Year",
+    Mean = "Mean",
+    Sd = "Standard Deviation",
+    Minimum = "Minimum",
+    Q25 = "25th Percentile",
+    Median = "Median",
+    Q75 = "75th Percentile",
+    Maximum = "Maximum"
+  ) %>%
+  tab_style(
+    style = list(
+      cell_text(weight = "bold")
+    ),
+    locations = cells_column_labels(everything())
+  )
+
+Table1
+```
 
 [^1]: We forked and used following Github Repository: https://github.com/skranz/gemini_ex.
 [^2]: The spelling error in the last sentence of the prompt was found after processing the Item 1. After evaluating the Summaries, this error did not cause any issues.
@@ -170,10 +195,6 @@ We collect 10-Ks filings from the digital SEC Database, using the category “10
 We exclude companies from the financial sector, namely companies with a SIC Code starting with six. We consider the filings from 2017 to 2023. 
 
 TODO
-
-```{r}
-
-```
 
 - Table2 like Alex suggested
 - Descriptive Table3 for length of summary (in words and tokens (use tokenizer our Model uses))
