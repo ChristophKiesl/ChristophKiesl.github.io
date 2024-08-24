@@ -212,7 +212,7 @@ TODO
 
 Our study builds on the idea of Hoberg & Phillips [-@hoberg_text-based_2016] to utilize text data from 10-K filings to classify companies based on their similarity to each other into dynamic industries. Our approach differs in two ways: Firstly, instead of word-to-vec like the TNIC uses we employ BERT to represent text. Consequently, we use the BERTScore instead of the cosine similarity as our similarity measure. Secondly, we focus on the description of the BM rather than the product descriptions. In order to set a benchmark for our industry classification, we use the entire TNIC database from the year 2017 to 2021[^3] to cluster companies into industries with the approach by Hoberg & Phillips [-@hoberg_text-based_2016]. Following this, we compare our industry classification to our benchmark.
 
-- Data and Methods
+- Data from database: 
 
 - Results
 
