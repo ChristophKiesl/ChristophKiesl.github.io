@@ -191,17 +191,24 @@ Table1
 
 ## The Dataset
 
-We collect 10-Ks filings from the digital SEC Database, using the category “10-K” as extraction condition. Since the focus of our study lies on company's BM, we merely use the Item 1 part, since this is the most crucial part of the 10-K filings for describing the companies BM [@lee_business_2014]. Our observations are limited to an intersection of such companies, which on the one hand has been made available to the SEC since 2001 in a publicly accessible list of 10,284 companies (Appendix), of which 7,590 are currently listed on NASDAQ, NYSE or over-the-counter. We extracted 10-K filings that were submitted between 2017 and 2023 based on  underlying Central Index Keys (CIK). According to [...] financial firms are not further considered. Corresponding to Table 2, multiple steps of pre-processing were required to obtain a final amount 21,683 observations. Financial key figures, including net income, total assets and others were originally extracted from the SEC, but also challenged with DataStream.
+We collect 10-Ks filings from the digital SEC Database, using the category “10-K” as extraction condition. Since the focus of our study lies on company's BM, we merely use the Item 1 part, since this is the most crucial part of the 10-K filings for describing the companies BM [@lee_business_2014]. Our observations are limited to an intersection of such companies, which on the one hand has been made available to the SEC since 2001 in a publicly accessible list of 10,284 companies (Appendix), of which 7,590 are currently listed on NASDAQ, NYSE or over-the-counter. We extracted 10-K filings that were submitted between 2017 and 2023 based on  underlying Central Index Keys (CIK). According to [...] financial firms are not further considered. Corresponding to Table 2, multiple steps of pre-processing were required to obtain a final amount 21,683 observations of seven years. . 
 
 We exclude companies from the financial sector, namely companies with a SIC Code starting with six.
 
 ```{r echo=FALSE, warning = FALSE, message = FALSE, results='asis'}
-library(kableExtra)
-Table2 = readRDS("./TableData/Table2.Rds") %>% 
-  add_header_above(c("Table 2: 10-K Sample Creation" = 3))
+library(gt)
+Table2 = readRDS("TableData/Table2.Rds") %>% 
+  tab_header(title = "Table 2: 10-K Sample Creation") %>%
+  tab_style(
+    style = list(
+      cell_text(weight = "bold")
+    ),
+    locations = cells_column_labels(everything()))
 
-#Table2
+Table2
 ```
+
+Financial key figures, including net income, total assets and others were originally extracted from the SEC, but also challenged with financial values from DataStream. A total of 4225 companies are included in the sample, although the availability of filings could not always be guaranteed for all years. This is due on the one hand to the quality of the API to the SEC and on the other hand to companies that did not file 10-K reports or were listed on the stock exchange for the entire period under review. Finally, we have access to the financial key figures of the companies for the respective year, the Item I text pre-processed with the help of Gemini, company-specific identification features and the conventional SIC industry classification. 
 
 TODO
 
