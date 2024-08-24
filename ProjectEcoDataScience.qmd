@@ -9,7 +9,7 @@ format:
 
 bibliography: bibliography.bib
 
-title: The Name of the Title Is Hope
+title: From Text to Insight - A Novel Approach to Measuring Business Model Innovation
 
 # if short-title is defined, then it's used
 short-title: Hope
@@ -187,28 +187,36 @@ Table1
 ```
 
 [^1]: We forked and used following Github Repository: https://github.com/skranz/gemini_ex.
-[^2]: The spelling error in the last sentence of the prompt was found after processing the Item 1. After evaluating the Summaries, this error did not cause any issues.
+[^2]: The spelling error in the last sentence of the prompt was found after processing Item 1. After evaluating the Summaries, this error did not cause any issues.
 
 ## The Dataset
 
-We collect 10-Ks filings from the digital SEC Database, using the category “10-K” as extraction condition. Since the focus of our study lies on company's BM, we merely use the Item 1 part, since this is the most crucial part of the 10-K filings for describing the companies BM [@lee_business_2014]. 
-
-//Our observations are limited to an intersection of such companies, which on the one hand has been made available to the SEC since 2001 in a publicly accessible list of 10.284 companies (Appendix), of which 7590 are currently listed (on stock exchange) on NASDAQ, NYSE or over-the-counter (OTC). | We extracted 10-K filings that were submitted between 2017 and 2023 based on  underlying Central Index Keys (CIK). According to [...] financial firms are not further considered. Corresponding to figure *X*, multiple steps of pre-processing were required to obtain a final amount 21683 observations. Financial key figures, including Net Income, Total Assets and others were originally extracted from the SEC, but also challenged with DataStream
+We collect 10-Ks filings from the digital SEC Database, using the category “10-K” as extraction condition. Since the focus of our study lies on company's BM, we merely use the Item 1 part, since this is the most crucial part of the 10-K filings for describing the companies BM [@lee_business_2014]. Our observations are limited to an intersection of such companies, which on the one hand has been made available to the SEC since 2001 in a publicly accessible list of 10,284 companies (Appendix), of which 7,590 are currently listed on NASDAQ, NYSE or over-the-counter. We extracted 10-K filings that were submitted between 2017 and 2023 based on  underlying Central Index Keys (CIK). According to [...] financial firms are not further considered. Corresponding to Table 2, multiple steps of pre-processing were required to obtain a final amount 21,683 observations. Financial key figures, including net income, total assets and others were originally extracted from the SEC, but also challenged with DataStream.
 
 We exclude companies from the financial sector, namely companies with a SIC Code starting with six.
+
+```{r echo=FALSE, warning = FALSE, message = FALSE, results='asis'}
+library(kableExtra)
+Table2 = readRDS("./TableData/Table2.Rds") %>% 
+  add_header_above(c("Table 2: 10-K Sample Creation" = 3))
+
+#Table2
+```
+
 TODO
 
-- Table2 like Alex suggested
 - Descriptive Table3 for length of summary (in words and tokens (use tokenizer our Model uses))
 - Description of Table3 and the final Dataset
 
 # Replication
 
-Our study builds on the idea of Hoberg & Phillips [-@hoberg_text-based_2016] to utilize text data from 10-K filings to classify companies into dynamic industries. The TNIC is based on word vectors. 
+Our study builds on the idea of Hoberg & Phillips [-@hoberg_text-based_2016] to utilize text data from 10-K filings to classify companies based on their similarity to each other into dynamic industries. Our approach differs in two ways: Firstly, instead of word-to-vec like the TNIC uses we employ BERT to represent text. Consequently, we use the BERTScore instead of the cosine similarity as our similarity measure. Secondly, we focus on the description of the BM rather than the product descriptions. In order to set a benchmark for our industry classification, we use the entire TNIC database from the year 2017 to 2021[^3] to cluster companies into industries with the approach by Hoberg & Phillips [-@hoberg_text-based_2016]. Following this, we compare our industry classification to our benchmark.
 
 - Data and Methods
 
 - Results
+
+[^3]: As today, data is only available up to 2021. For the database see: https://hobergphillips.tuck.dartmouth.edu.
 
 # Empirical Framework
 
