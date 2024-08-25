@@ -122,7 +122,7 @@ acm-metadata:
   #   description: teaser description    
 
 abstract: |
- I am the abstract
+ The ability of companies to continuously innovate and adapt their business models is a key driver of long-term success in dynamic markets. In this study, we examine the quantification of Business Model Innovation (BMI) by means of a text-based analysis of pre-processed 10-K reports, specifically Item 1 texts that describe companies business activities. Our approach focuses on two investigations, firstly creating an industry classification according to Hoberg & Philips (2016), applying a BERT-based similarity index (BERTScore) to text summaries previously summarized by a language model (Gemini). Second, we apply the same approach for identical firms to capture semantic changes across different years, while low BERTScores indicate significant changes in the business model components, which can be interpreted as potential business model innovation. Our results provide insights into the extent to which textual similarities in regulatory reports can be used as a reliable indicator of business model innovation. This method could thus represent a novel and scalable approach to analyzing business model innovation over time.
 
 ---
 
@@ -191,7 +191,7 @@ Table1
 
 ## The Dataset
 
-We collect 10-Ks filings from the digital SEC Database, using the category “10-K” as extraction condition. Since the focus of our study lies on company's BM, we merely use the Item 1 part, since this is the most crucial part of the 10-K filings for describing the companies BM [@lee_business_2014]. Our observations are limited to an intersection of such companies, which on the one hand has been made available to the SEC since 2001 in a publicly accessible list of 10,284 companies (Appendix), of which 7,590 are currently listed on NASDAQ, NYSE or over-the-counter. We extracted 10-K filings that were submitted between 2017 and 2023 based on  underlying Central Index Keys (CIK). According to [...] financial firms are not further considered. Corresponding to Table 2, multiple steps of pre-processing were required to obtain a final amount 21,683 observations of seven years. . 
+We collect 10-Ks filings from the digital SEC Database, using the category “10-K” as extraction condition. Since the focus of our study lies on company's BM, we merely use the Item 1 part, since this is the most crucial part of the 10-K filings for describing the companies BM [@lee_business_2014]. Our observations are limited to an intersection of such companies, which on the one hand has been made available to the SEC since 2001 in a publicly accessible list of 10,284 companies (Appendix), of which 7,590 are currently listed on NASDAQ, NYSE or over-the-counter. We extracted 10-K filings that were submitted between 2017 and 2023 based on  underlying Central Index Keys (CIK). According to [...] financial firms are not further considered. Corresponding to Table 2, multiple steps of pre-processing were required to obtain a final amount 21,683 observations of seven years. 
 
 We exclude companies from the financial sector, namely companies with a SIC Code starting with six.
 
@@ -208,7 +208,7 @@ Table2 = readRDS("TableData/Table2.Rds") %>%
 Table2
 ```
 
-Financial key figures, including net income, total assets and others were originally extracted from the SEC, but also challenged with financial values from DataStream. A total of 4225 companies are included in the sample, although the availability of filings could not always be guaranteed for all years. This is due on the one hand to the quality of the API to the SEC and on the other hand to companies that did not file 10-K reports or were listed on the stock exchange for the entire period under review. Finally, we have access to the financial key figures of the companies for the respective year, the Item I text pre-processed with the help of Gemini, company-specific identification features and the conventional SIC industry classification. 
+Financial key figures, including net income, total assets and others were originally extracted from the SEC, but also challenged with financial values from DataStream. A total of 4,225 companies are included in the sample, although the availability of filings could not always be guaranteed for all years. This is due on the one hand to the quality of the API to the SEC and on the other hand to companies that did not file 10-K reports or were listed on the stock exchange for the entire period under review. Finally, we have access to the financial key figures of the companies for the respective year, the Item I text pre-processed with the help of Gemini, company-specific identification features and the conventional SIC industry classification. 
 
 TODO
 
@@ -216,6 +216,15 @@ TODO
 - Description of Table3 and the final Dataset
 
 ## Methodology
+
+We calculate bidirectional BERT scores of item 1 texts processed with Gemini in several variants. For replication purposes, we calculate BERTscores between different companies in the same years, on the basis of which we determine industry classifications using a hierarchical agglomerative algorithm. We further calculate BERTscores between same firms over the years, capturing a new measure for BMI. 
+
+### BERT-based industry classification 
+
+### Index declaration for BMI
+
+ 
+
 
 Regarding our Replication
 H1: We expect a similar distribution of firms.
@@ -270,9 +279,20 @@ Figure1
 
 # Empirical Framework
 
+The definition of business models includes according to Spieth & Schneider [-@spieth_business_2016] the three  components value proposition, value creation and its revenue model logic. We used the pre-processing of Item I texts with Gemini to control these texts using a specific prompt in that the focus of the texts is on the definition of these three components. Hence, our BERT-based similarity scores between processed texts represent an index for BMI that can be used for empirical studies. A preliminary validity check of these similarity scores should be performed.
+
 ## BERT and BERTScore
 
+BERT (Bidirectional Encoder Representation from Transformers) is a pre-trained and transformer-based model for natural language processing (NPL) based on artificial neural networks. BERT works according to the so-called transformer architecture, which was first mentioned by Vaswani et. al (2017) [....]. According to these authors, this architecture consists of two main components, the encoder and the decoder. The encoder consists of several identical layers, which initially use the so-called self-attention mechanism to generate context-dependent representations of each word in the sentence. This mechanism can be parallelized and therefore enables different aspects of the context to be captured in the same way. The decoder, on the other hand, works in a similar way and is responsible for processing the information from the encoder and forming it into an output sequence. However, this is not relevant for BERT, as no sequence-to-sequence transformation is carried out in BERT. In contrast to Hoberg & Philips (2016) [-@hoberg_text-based_2016] word-to-vec approach, BERT works bidirectional and takes into account the context from both sides of each word simultaneously. Therefore, BERT is able to capture deeper semantics in texts such as 10-K reports. The BERTscore now computes the cosinus similarity between word or text meanings, that have been determined by representations (or embeddings) learned from BERT. The scale is from -1 to 1, where 1 describes a perfect similarity.  
+
+
 ## Estimation Strategy
+
+- Four potential problems
+   - Changes in texts could also be attributable to changes in regulatory adjustments, changes in Markets or other       external factors
+   - Gemini processes could have lead to a lose of information -> could lead to biases
+   - Item 1 texts are strictly ruled, actual changes in BM could be neglected (or not written down for business          policy purposes)
+   - Missing Differentiation between incremental innovation and radical innovation -> differences in BERTscores
 
 # Results and Discussion
 
