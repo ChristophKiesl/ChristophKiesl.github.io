@@ -2,12 +2,18 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.5.45">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Max Gabler">
+<meta name="author" content="Wanshu Jiang">
+<meta name="author" content="Christoph Kiesl">
+<meta name="author" content="Leonard Pöhls">
+<meta name="author" content="Alexander Rieber">
+<meta name="author" content="Ansgar Scherp">
 
-<title>projectecodatascience</title>
+<title>From Text to Insight - A Novel Approach to Measuring Business Model Innovation</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,7 +26,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="ProjectEcoDataScience_files/libs/clipboard/clipboard.min.js"></script>
@@ -37,57 +63,118 @@ ul.task-list li input[type="checkbox"] {
 
 </head>
 
-<body class="fullcontent">
+<body>
 
 <div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
-
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#data-and-methodology" id="toc-data-and-methodology" class="nav-link" data-scroll-target="#data-and-methodology">Data and Methodology</a>
+  <ul class="collapse">
+  <li><a href="#preprocessing-with-gemini" id="toc-preprocessing-with-gemini" class="nav-link" data-scroll-target="#preprocessing-with-gemini">Preprocessing with Gemini</a></li>
+  <li><a href="#the-dataset" id="toc-the-dataset" class="nav-link" data-scroll-target="#the-dataset">The Dataset</a></li>
+  <li><a href="#methodology" id="toc-methodology" class="nav-link" data-scroll-target="#methodology">Methodology</a>
+  <ul class="collapse">
+  <li><a href="#bert-based-industry-classification" id="toc-bert-based-industry-classification" class="nav-link" data-scroll-target="#bert-based-industry-classification">BERT-based industry classification</a></li>
+  <li><a href="#index-declaration-for-bmi" id="toc-index-declaration-for-bmi" class="nav-link" data-scroll-target="#index-declaration-for-bmi">Index declaration for BMI</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#replication" id="toc-replication" class="nav-link" data-scroll-target="#replication">Replication</a></li>
+  <li><a href="#empirical-framework" id="toc-empirical-framework" class="nav-link" data-scroll-target="#empirical-framework">Empirical Framework</a>
+  <ul class="collapse">
+  <li><a href="#bert-and-bertscore" id="toc-bert-and-bertscore" class="nav-link" data-scroll-target="#bert-and-bertscore">BERT and BERTScore</a></li>
+  <li><a href="#estimation-strategy" id="toc-estimation-strategy" class="nav-link" data-scroll-target="#estimation-strategy">Estimation Strategy</a></li>
+  </ul></li>
+  <li><a href="#results-and-discussion" id="toc-results-and-discussion" class="nav-link" data-scroll-target="#results-and-discussion">Results and Discussion</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  <li><a href="#acknowledgement" id="toc-acknowledgement" class="nav-link" data-scroll-target="#acknowledgement">Acknowledgement</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  <li><a href="#appendix" id="toc-appendix" class="nav-link" data-scroll-target="#appendix">Appendix</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="ProjectEcoDataScience.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li><li><a href="ProjectEcoDataScience.pdf"><i class="bi bi-file-pdf"></i>PDF (arxiv)</a></li></ul></div></nav>
+</div>
 <main class="content" id="quarto-document-content">
 
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">From Text to Insight - A Novel Approach to Measuring Business Model Innovation</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Authors</div>
+    <div class="quarto-title-meta-contents">
+             <p>Max Gabler <a href="mailto:max.gabler@uni-ulm.de" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
+             <p>Wanshu Jiang <a href="mailto:wanshu.jiang@uni-ulm.de" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
+             <p>Christoph Kiesl <a href="mailto:christoph.kiesl@uni-ulm.de" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
+             <p>Leonard Pöhls <a href="mailto:leonard.poehls@uni-ulm.de" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
+             <p>Alexander Rieber <a href="mailto:alexander.rieber@uni-ulm.de" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
+             <p>Ansgar Scherp <a href="mailto:ansgar.scherp@uni-ulm.de" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+<div>
+  <div class="abstract">
+    <div class="block-title">Abstract</div>
+    <p>The ability of companies to continuously innovate and adapt their business models is a key driver of long-term success in dynamic markets. In this study, we examine the quantification of business model innovation (BMI) by means of a text-based analysis of pre-processed 10-K reports, specifically Item 1 texts that describe companies business activities. Our approach focuses on two investigations, firstly creating an industry classification according to Hoberg &amp; Phillips <span class="citation" data-cites="hoberg_text-based_2016">(<a href="#ref-hoberg_text-based_2016" role="doc-biblioref">2016</a>)</span>, applying a BERT-based (Bidirectional Encoder Representation from Transformers) similarity index (BERTScore) to text summaries previously summarized by Google’s Gemini. Second, we apply the same approach for identical firms to capture semantic changes across different years, while low BERTScores indicate significant changes in the business model components, which can be interpreted as potential BMI. Our results provide insights into the extent to which textual similarities in regulatory reports can be used as a reliable indicator for BMI. This method could thus represent a novel and scalable approach to analyzing BMI over time.</p>
+  </div>
+</div>
+
+
+</header>
 
 
 <section id="introduction" class="level1">
 <h1>Introduction</h1>
-<p>Business model innovation (BMI) is a key activity to maintain competitiveness and even gain a competitive advantage <span class="citation" data-cites="pucihar_drivers_2019 teece_business_2018">[@pucihar_drivers_2019; @teece_business_2018]</span>. It is therefore no surprise that the interest in BMI and methods of measuring it has grown rapidly over the last twenty years. Researchers have recently called for a BMI measurement instrument that is more comprehensive and advanced than already existing ones <span class="citation" data-cites="huang_review_2023">[@huang_review_2023]</span>. The scale developed by Spieth &amp; Schneider <span class="citation" data-cites="spieth_business_2016">[-@spieth_business_2016]</span> provides managers and practitioners with a measurement index for business model innovativeness. This measurement model only validates applicability of BMI theory <span class="citation" data-cites="huang_review_2023">[@huang_review_2023]</span> and is insufficient for longitudinal studies <span class="citation" data-cites="clauss_measuring_2017">[@clauss_measuring_2017]</span>. Hence, this measure is not adequate for a time series analysis of BMI. Furthermore, it refers only to BMI as new-to-the-firm and is not able to grasp BMI in the sense of new-to-the-industry and new-to-market. Clauss <span class="citation" data-cites="clauss_measuring_2017">[-@clauss_measuring_2017]</span> developed a similar measure with comparable limitations.</p>
-<p>This gap is addressed by proposing a novel approach to measuring BMI. US-based companies are obliged by the United States Security and Exchange Commission (SEC) to submit annual 10-K filings, wherein a detailed description of the company’s business operations is required. Hoberg &amp; Phillips <span class="citation" data-cites="hoberg_text-based_2016">[-@hoberg_text-based_2016]</span> use this filings to create word vectors about the companies products in order to cluster them into industries and thereby proposing a new industry classification. This study builds on their work and methods. We summarize these descriptions with Gemini, utilize the BERTScore as a similarity measure to calculate the similarities between companies and cluster them into industries. We compare our BERTScore clustering with the text-based network industry classification (TNIC) by Hoberg &amp; Phillips <span class="citation" data-cites="hoberg_text-based_2016">[-@hoberg_text-based_2016]</span>. Furthermore, we calculate the BERTScore between the summaries of different years for a single company. This approach enables the measurement of changes in the business model (BM) over time as the distance between the BM summary of one year to another. There is evidence that an increase in BMI is associated with improved firm performance <span class="citation" data-cites="cucculelli_business_2015 latifi_business_2021 white_exploring_2022">[@cucculelli_business_2015;@latifi_business_2021;@white_exploring_2022]</span>. In order to test the validity of our measure, we regress financial numbers on our measure, hoping to find a positive relationship.</p>
+<p>BMI is a key activity to maintain competitiveness and even gain a competitive advantage <span class="citation" data-cites="pucihar_drivers_2019 teece_business_2018">(<a href="#ref-pucihar_drivers_2019" role="doc-biblioref">Pucihar et al. 2019</a>; <a href="#ref-teece_business_2018" role="doc-biblioref">Teece 2018</a>)</span>. It is therefore no surprise that the interest in BMI and methods of measuring it has grown rapidly over the last twenty years. Researchers have recently called for a BMI measurement instrument that is more comprehensive and advanced than already existing ones <span class="citation" data-cites="huang_review_2023">(<a href="#ref-huang_review_2023" role="doc-biblioref">Huang and Ichikohji 2023</a>)</span>. The scale developed by Spieth &amp; Schneider <span class="citation" data-cites="spieth_business_2016">(<a href="#ref-spieth_business_2016" role="doc-biblioref">2016</a>)</span> provides managers and practitioners with a measurement index for business model innovativeness. This measurement model only validates applicability of BMI theory <span class="citation" data-cites="huang_review_2023">(<a href="#ref-huang_review_2023" role="doc-biblioref">Huang and Ichikohji 2023</a>)</span> and is insufficient for longitudinal studies <span class="citation" data-cites="clauss_measuring_2017">(<a href="#ref-clauss_measuring_2017" role="doc-biblioref">Clauss 2017</a>)</span>. Hence, this measure is not adequate for a time series analysis of BMI. Furthermore, it refers only to BMI as new-to-the-firm and is not able to grasp BMI in the sense of new-to-the-industry and new-to-market. Clauss <span class="citation" data-cites="clauss_measuring_2017">(<a href="#ref-clauss_measuring_2017" role="doc-biblioref">2017</a>)</span> developed a similar measure with comparable limitations.</p>
+<p>This gap is addressed by proposing a novel approach to measuring BMI. US-based companies are obliged by the United States Security and Exchange Commission (SEC) to submit annual 10-K filings, wherein a detailed description of the company’s business operations is required. Hoberg &amp; Phillips <span class="citation" data-cites="hoberg_text-based_2016">(<a href="#ref-hoberg_text-based_2016" role="doc-biblioref">2016</a>)</span> use this filings to create word vectors about the companies products in order to cluster them into industries and thereby proposing a new industry classification. This study builds on their work and methods. We summarize these descriptions with Gemini, utilize the BERTScore as a similarity measure to calculate the similarities between companies and cluster them into industries. We compare our BERTScore clustering with the text-based network industry classification (TNIC) by Hoberg &amp; Phillips <span class="citation" data-cites="hoberg_text-based_2016">(<a href="#ref-hoberg_text-based_2016" role="doc-biblioref">2016</a>)</span>. Furthermore, we calculate the BERTScore between the summaries of different years for a single company. This approach enables the measurement of changes in the business model (BM) over time as the distance between the BM summary of one year to another. There is evidence that an increase in BMI is associated with improved firm performance <span class="citation" data-cites="cucculelli_business_2015 latifi_business_2021 white_exploring_2022">(<a href="#ref-cucculelli_business_2015" role="doc-biblioref">Cucculelli and Bettinelli 2015</a>; <a href="#ref-latifi_business_2021" role="doc-biblioref">Latifi, Nikou, and Bouwman 2021</a>; <a href="#ref-white_exploring_2022" role="doc-biblioref">White et al. 2022</a>)</span>. In order to test the validity of our measure, we regress financial numbers on our measure, hoping to find a positive relationship.</p>
 <ul>
 <li>Key findings (and Contribution, already down below)</li>
 </ul>
-<p>Our contribution is made in two ways. Firstly, we build on the concept of alternative industry classification put forth by Hoberg &amp; Phillips <span class="citation" data-cites="hoberg_text-based_2016">[-@hoberg_text-based_2016]</span> and propose an industry classification system based on a firm’s BM. Thirdly, we propose a novel measure for BMI that is sufficient for longitudinal studies.</p>
-<p>The SEC mandates that the majority of public companies based in the United States submit specific documents in certain intervals. One such document is the annual 10-K filing. These filings follow a set order of topics and contain a range of information, including details about managerial discussions, risk factors for the company, legal proceedings and financial data. In the first section under the subtitle “Business,” a company presents its general business, encompassing information about its products and services. In some instances additional topics may be addressed, such as labor issues or competition <span class="citation" data-cites="sec_investor_2024">[@sec_investor_2024]</span>. In conclusion, this section contains the most useful information for describing a company’s BM <span class="citation" data-cites="lee_business_2014">[@lee_business_2014]</span>. Furthermore, 10-K filings are a reliable source of information, given that US law prohibits false or misleading statements in the filings. The SEC monitors the compliance of the companies with the requirements and comments where disclosure appears to be inconsistent <span class="citation" data-cites="sec_investor_2024">[@sec_investor_2024]</span>.</p>
+<p>Our contribution is made in two ways. Firstly, we build on the concept of alternative industry classification put forth by Hoberg &amp; Phillips <span class="citation" data-cites="hoberg_text-based_2016">(<a href="#ref-hoberg_text-based_2016" role="doc-biblioref">2016</a>)</span> and propose an industry classification system based on a firm’s BM. Secondly, we propose a novel measure for BMI that is sufficient for longitudinal studies.</p>
+<p>The SEC mandates that the majority of public companies based in the United States submit specific documents in certain intervals. One such document is the annual 10-K filing. These filings follow a set order of topics and contain a range of information, including details about managerial discussions, risk factors for the company, legal proceedings and financial data. In the first section under the subtitle “Business,” a company presents its general business, encompassing information about its products and services. In some instances additional topics may be addressed, such as labor issues or competition <span class="citation" data-cites="sec_investor_2024">(<a href="#ref-sec_investor_2024" role="doc-biblioref">SEC 2024</a>)</span>. In conclusion, this section contains the most useful information for describing a company’s BM <span class="citation" data-cites="lee_business_2014">(<a href="#ref-lee_business_2014" role="doc-biblioref">Lee and Hong 2014</a>)</span>. Furthermore, 10-K filings are a reliable source of information, given that US law prohibits false or misleading statements in the filings. The SEC monitors the compliance of the companies with the requirements and comments where disclosure appears to be inconsistent <span class="citation" data-cites="sec_investor_2024">(<a href="#ref-sec_investor_2024" role="doc-biblioref">SEC 2024</a>)</span>.</p>
 <ul>
 <li>paragraph 5 (robustness checks)</li>
 </ul>
-<p>In spite of the growing interest in BMI and the increasing number of theoretical and empirical studies in this field, the research of BMI is still in a preliminary state <span class="citation" data-cites="huang_review_2023">[@huang_review_2023]</span>. Consequently, there is considerable variation in the definitions of BMI, with some definitions being more similar to one another than others <span class="citation" data-cites="foss_fifteen_2017">[@foss_fifteen_2017]</span>. Spieth &amp; Schneider <span class="citation" data-cites="spieth_business_2016">[-@spieth_business_2016]</span> identify three core dimensions a company’s BM is comprised of: its value proposition, its value creation architecture and its revenue model logic. Based on this, BMI can be conceptualized as a change that is new-to-the-firm in at least one of these dimensions. Furthermore, Spieth and Schneider <span class="citation" data-cites="spieth_business_2016">[-@spieth_business_2016]</span> introduce a measurement model to evaluate these three dimensions of BMI. They develop an index by first specifying the contents, followed by a specification of the indicators and assessing their content validity, assessing the indicators collinearity and finally assessing the external validity. A total of twelve indicators for measuring the innovativeness of the BM were identified through a comprehensive literature review and through engagement with industry practitioners. The external validity of the formative indicators was successfully validated through a survey of 200 experts in strategy and innovation management <span class="citation" data-cites="spieth_business_2016">[@spieth_business_2016]</span>. Clauss <span class="citation" data-cites="clauss_measuring_2017">[-@clauss_measuring_2017]</span> employs a very similar approach. After specifying the domain and dimensionality of BMI trough literature research, the author divides his scale into three hierarchical levels consisting of 41 reflective items, 10 subconstructs and three main dimensions, which are similar to the ones mentioned earlier. The scale was validated through two samples from the manufacturing industry and further demonstrated nomological validity <span class="citation" data-cites="clauss_measuring_2017">[@clauss_measuring_2017]</span>. However, both measures are subject to three significant limitations. Firstly, both measures lack a temporal component. Consequently, they are inadequate for use in longitudinal studies or ex-post evaluations of BMI. Secondly, BMI is only measured at the new-to-the-firm level rather than at the new-to-the-industry or new-to-the-market level. Thirdly, both measures rely on interviews and questionnaires, which makes conducting large-scale studies time-consuming and reliant on the willingness of the companies to cooperate <span class="citation" data-cites="clauss_measuring_2017 spieth_business_2016">[@clauss_measuring_2017;@spieth_business_2016]</span>.</p>
-<p>The process of text mining 10-K filings is not a novel concept. Hoberg &amp; Phillips <span class="citation" data-cites="hoberg_text-based_2016">[-@hoberg_text-based_2016]</span> present a novel approach to defining industry boundaries. This is achieved through the parsing of the product descriptions provided by firm 10-K filings and creating word vectors. Specifically, the authors identify and exclude proper nouns, which include common words and geographic locations.They then create word vectors for each firm and year, which enables the measurement of product similarity over time. In this way the authors demonstrate shortcomings in the traditional industry classification systems such as the Standard Industry Classification (SIC) and the North American Industry Classification System (NAICS), which are not able to account for temporal changes. The new method is capable of capturing changes in industry boundaries and competitor sets over time, thereby providing a dynamic industry classification system. In their study, Lee &amp; Hong <span class="citation" data-cites="lee_business_2014">[-@lee_business_2014]</span> examine the evolution of a firm’s BM over time. The authors represent each document as a vector of keywords, which is similar to the approach utilized by Hoberg &amp; Phillips <span class="citation" data-cites="hoberg_text-based_2016">[-@hoberg_text-based_2016]</span>. After identifying the Item 1 part of the 10-K filings as the most crucial part for describing a firm’s BM, Lee &amp; Hong <span class="citation" data-cites="lee_business_2014">[-@lee_business_2014]</span> filter these for relevant sentences. Subsequently, the authors construct keyword vectors, which represent the concept of the BM. Therefore, the evolution of the BM is depicted as the change in the distribution of keywords over time. Nevertheless, this approach is not without shortcomings. The authors advocate for a more robust methodology, such as incorporating multi-word phrases in the keyword vectors, to enhance the reliability of the approach <span class="citation" data-cites="lee_business_2014">[@lee_business_2014]</span>.</p>
-<p>The rest of the paper proceeds as follows. Section 2 describes the preprocessing with Gemini, our data and our methodology. Section 3 compares the industry classification based on product descriptions by Hoberg &amp; Phillips <span class="citation" data-cites="hoberg_text-based_2016">[-@hoberg_text-based_2016]</span> with our classification based on the BM. Section 4 lays out the BERT-model and our estimations. Section 5 discusses our results, and Section 6 concludes our study.</p>
+<p>In spite of the growing interest in BMI and the increasing number of theoretical and empirical studies in this field, the research of BMI is still in a preliminary state <span class="citation" data-cites="huang_review_2023">(<a href="#ref-huang_review_2023" role="doc-biblioref">Huang and Ichikohji 2023</a>)</span>. Consequently, there is considerable variation in the definitions of BMI, with some definitions being more similar to one another than others <span class="citation" data-cites="foss_fifteen_2017">(<a href="#ref-foss_fifteen_2017" role="doc-biblioref">Foss and Saebi 2017</a>)</span>. Spieth &amp; Schneider <span class="citation" data-cites="spieth_business_2016">(<a href="#ref-spieth_business_2016" role="doc-biblioref">2016</a>)</span> identify three core dimensions a company’s BM is comprised of: its value proposition, its value creation architecture and its revenue model logic. Based on this, BMI can be conceptualized as a change that is new-to-the-firm in at least one of these dimensions. Furthermore, Spieth and Schneider <span class="citation" data-cites="spieth_business_2016">(<a href="#ref-spieth_business_2016" role="doc-biblioref">2016</a>)</span> introduce a measurement model to evaluate these three dimensions of BMI. They develop an index by first specifying the contents, followed by a specification of the indicators and assessing their content validity, assessing the indicators collinearity and finally assessing the external validity. A total of twelve indicators for measuring the innovativeness of the BM were identified through a comprehensive literature review and through engagement with industry practitioners. The external validity of the formative indicators was successfully validated through a survey of 200 experts in strategy and innovation management <span class="citation" data-cites="spieth_business_2016">(<a href="#ref-spieth_business_2016" role="doc-biblioref">Spieth and Schneider 2016</a>)</span>. Clauss <span class="citation" data-cites="clauss_measuring_2017">(<a href="#ref-clauss_measuring_2017" role="doc-biblioref">2017</a>)</span> employs a very similar approach. After specifying the domain and dimensionality of BMI trough literature research, the author divides his scale into three hierarchical levels consisting of 41 reflective items, 10 subconstructs and three main dimensions, which are similar to the ones mentioned earlier. The scale was validated through two samples from the manufacturing industry and further demonstrated nomological validity <span class="citation" data-cites="clauss_measuring_2017">(<a href="#ref-clauss_measuring_2017" role="doc-biblioref">Clauss 2017</a>)</span>. However, both measures are subject to three significant limitations. Firstly, both measures lack a temporal component. Consequently, they are inadequate for use in longitudinal studies or ex-post evaluations of BMI. Secondly, BMI is only measured at the new-to-the-firm level rather than at the new-to-the-industry or new-to-the-market level. Thirdly, both measures rely on interviews and questionnaires, which makes conducting large-scale studies time-consuming and reliant on the willingness of the companies to cooperate <span class="citation" data-cites="clauss_measuring_2017 spieth_business_2016">(<a href="#ref-clauss_measuring_2017" role="doc-biblioref">Clauss 2017</a>; <a href="#ref-spieth_business_2016" role="doc-biblioref">Spieth and Schneider 2016</a>)</span>.</p>
+<p>The process of text mining 10-K filings is not a novel concept. Hoberg &amp; Phillips <span class="citation" data-cites="hoberg_text-based_2016">(<a href="#ref-hoberg_text-based_2016" role="doc-biblioref">2016</a>)</span> present a novel approach to defining industry boundaries. This is achieved through the parsing of the product descriptions provided by firm 10-K filings and creating word vectors. Specifically, the authors identify and exclude proper nouns, which include common words and geographic locations. They then create word vectors for each firm and year, which enables the measurement of product similarity over time. They cluster companies based on the cosine similarity of these word vectors into industries, which results in a novel industry classification method. This way the authors demonstrate shortcomings in the traditional industry classification systems such as the Standard Industry Classification (SIC) and the North American Industry Classification System (NAICS), which are not able to account for temporal changes. The new method is capable of capturing changes in industry boundaries and competitor sets over time, thereby providing a dynamic industry classification system. In their study, Lee &amp; Hong <span class="citation" data-cites="lee_business_2014">(<a href="#ref-lee_business_2014" role="doc-biblioref">2014</a>)</span> examine the evolution of a firm’s BM over time. The authors represent each document as a vector of keywords, which is similar to the approach utilized by Hoberg &amp; Phillips <span class="citation" data-cites="hoberg_text-based_2016">(<a href="#ref-hoberg_text-based_2016" role="doc-biblioref">2016</a>)</span>. After identifying the Item 1 part of the 10-K filings as the most crucial part for describing a firm’s BM, Lee &amp; Hong <span class="citation" data-cites="lee_business_2014">(<a href="#ref-lee_business_2014" role="doc-biblioref">2014</a>)</span> filter these for relevant sentences. Subsequently, the authors construct keyword vectors, which represent the concept of the BM. Therefore, the evolution of the BM is depicted as the change in the distribution of keywords over time. Nevertheless, this approach is not without shortcomings. The authors advocate for a more robust methodology, such as incorporating multi-word phrases in the keyword vectors, to enhance the reliability of the approach <span class="citation" data-cites="lee_business_2014">(<a href="#ref-lee_business_2014" role="doc-biblioref">Lee and Hong 2014</a>)</span>.</p>
+<p>The rest of the paper proceeds as follows. Section 2 describes the preprocessing with Gemini, our data and our methodology. Section 3 compares the industry classification based on product descriptions by Hoberg &amp; Phillips <span class="citation" data-cites="hoberg_text-based_2016">(<a href="#ref-hoberg_text-based_2016" role="doc-biblioref">2016</a>)</span> with our classification based on the BM. Section 4 lays out the BERT-model and our estimations. Section 5 discusses our results, and Section 6 concludes our study.</p>
 </section>
 <section id="data-and-methodology" class="level1">
 <h1>Data and Methodology</h1>
 <section id="preprocessing-with-gemini" class="level2">
 <h2 class="anchored" data-anchor-id="preprocessing-with-gemini">Preprocessing with Gemini</h2>
-<p>10-K filings are typically very large text documents, and Item 1 of these filings is no exception. Table 1 shows the deskriptive measures of the length of the original Item 1 section in our final sample. The length of a document was measured by the word count without punctuation. The document length ranges from a couple hundred words to tens of thousands. In order to utilise the entirety of the information regarding the BM in the Item 1 section and pass the text to our BERT model, we decided to let Google’s GenAI chatbot Gemini summarize them to a maximum length of 512 tokens. The summaries were created between 26 June 2024 and 6 August 2024. The model employed was Gemini Flash 1.5. The prompt was inserted at the beginning of each text file and it was passed via an API to Gemini <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. We used following prompt: “Summarize the business model from the following text. Answer with a continuous text and with five hundred twelve tokens at max. Set your focus on sources of revenue, the intended customer base, products, distribution channels and details of financing. Use only information from the following the text”.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> “intended customer base” and “product” refer to the value offering, “distribution channels” refers to the value architecture, and “sources of revenue” and “details of financing” refer to the revenue model. Consequently, this prompt covers all aspects of the definition of BMI proposed by Spieth &amp; Schneider <span class="citation" data-cites="spieth_business_2016">[-@spieth_business_2016]</span>. The term ‘tokens’ was used deliberately in preference to ‘words’, given that the number of tokens and the number of words in a text may vary depending on the tokeniser. This way, we wanted to ensure that the whole summary is used by the BERT model. To assess the quality and accuracy of the summaries produced by Gemini, a random sample of 100 filings was selected for comparison with the original text. More precise,the original file was initially read with a focus on the points mentioned in the prompt. Subsequently, the summary was evaluated to ascertain whether it contained these same points. A list of the sample with the summaries is provided in the Appendix.</p>
+<p>10-K filings are typically very large text documents, and Item 1 of these filings is no exception. Table 1 shows the deskriptive measures of the length of the original Item 1 section in our final sample. The length of a document was measured by the word count without punctuation. The document length ranges from a couple hundred words to tens of thousands. In order to utilise the entirety of the information regarding the BM in the Item 1 section and pass the text to our BERT model, we decided to let Google’s GenAI chatbot Gemini summarize them to a maximum length of 512 tokens. The summaries were created between 26 June 2024 and 6 August 2024. The model employed was Gemini Flash 1.5. The prompt was inserted at the beginning of each text file and it was passed via an API to Gemini <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. We used following prompt: “Summarize the business model from the following text. Answer with a continuous text and with five hundred twelve tokens at max. Set your focus on sources of revenue, the intended customer base, products, distribution channels and details of financing. Use only information from the following the text”.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> “intended customer base” and “product” refer to the value offering, “distribution channels” refers to the value architecture, and “sources of revenue” and “details of financing” refer to the revenue model. Consequently, this prompt covers all aspects of the definition of BMI proposed by Spieth &amp; Schneider <span class="citation" data-cites="spieth_business_2016">(<a href="#ref-spieth_business_2016" role="doc-biblioref">2016</a>)</span>. The term ‘tokens’ was used deliberately in preference to ‘words’, given that the number of tokens and the number of words in a text may vary depending on the tokeniser. This way, we wanted to ensure that the whole summary is used by the BERT model. To assess the quality and accuracy of the summaries produced by Gemini, a random sample of 100 filings was selected for comparison with the original text. More precise,the original file was initially read with a focus on the points mentioned in the prompt. Subsequently, the summary was evaluated to ascertain whether it contained these same points. A list of the sample with the summaries is provided in the Appendix.</p>
 <ul>
 <li>result of this check</li>
 </ul>
-<div class="cell-output-display">
-
-<div id="wxmtkowbix" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#wxmtkowbix table {
+<div id="lqbwkutwxe" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#lqbwkutwxe table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#wxmtkowbix thead, #wxmtkowbix tbody, #wxmtkowbix tfoot, #wxmtkowbix tr, #wxmtkowbix td, #wxmtkowbix th {
+#lqbwkutwxe thead, #lqbwkutwxe tbody, #lqbwkutwxe tfoot, #lqbwkutwxe tr, #lqbwkutwxe td, #lqbwkutwxe th {
   border-style: none;
 }
 
-#wxmtkowbix p {
+#lqbwkutwxe p {
   margin: 0;
   padding: 0;
 }
 
-#wxmtkowbix .gt_table {
+#lqbwkutwxe .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -113,12 +200,12 @@ ul.task-list li input[type="checkbox"] {
   border-left-color: #D3D3D3;
 }
 
-#wxmtkowbix .gt_caption {
+#lqbwkutwxe .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#wxmtkowbix .gt_title {
+#lqbwkutwxe .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -130,7 +217,7 @@ ul.task-list li input[type="checkbox"] {
   border-bottom-width: 0;
 }
 
-#wxmtkowbix .gt_subtitle {
+#lqbwkutwxe .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -142,7 +229,7 @@ ul.task-list li input[type="checkbox"] {
   border-top-width: 0;
 }
 
-#wxmtkowbix .gt_heading {
+#lqbwkutwxe .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -154,13 +241,13 @@ ul.task-list li input[type="checkbox"] {
   border-right-color: #D3D3D3;
 }
 
-#wxmtkowbix .gt_bottom_border {
+#lqbwkutwxe .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#wxmtkowbix .gt_col_headings {
+#lqbwkutwxe .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -175,7 +262,7 @@ ul.task-list li input[type="checkbox"] {
   border-right-color: #D3D3D3;
 }
 
-#wxmtkowbix .gt_col_heading {
+#lqbwkutwxe .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -195,7 +282,7 @@ ul.task-list li input[type="checkbox"] {
   overflow-x: hidden;
 }
 
-#wxmtkowbix .gt_column_spanner_outer {
+#lqbwkutwxe .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -207,15 +294,15 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 4px;
 }
 
-#wxmtkowbix .gt_column_spanner_outer:first-child {
+#lqbwkutwxe .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#wxmtkowbix .gt_column_spanner_outer:last-child {
+#lqbwkutwxe .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#wxmtkowbix .gt_column_spanner {
+#lqbwkutwxe .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -227,11 +314,11 @@ ul.task-list li input[type="checkbox"] {
   width: 100%;
 }
 
-#wxmtkowbix .gt_spanner_row {
+#lqbwkutwxe .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#wxmtkowbix .gt_group_heading {
+#lqbwkutwxe .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -257,7 +344,7 @@ ul.task-list li input[type="checkbox"] {
   text-align: left;
 }
 
-#wxmtkowbix .gt_empty_group_heading {
+#lqbwkutwxe .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -272,15 +359,15 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: middle;
 }
 
-#wxmtkowbix .gt_from_md > :first-child {
+#lqbwkutwxe .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#wxmtkowbix .gt_from_md > :last-child {
+#lqbwkutwxe .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#wxmtkowbix .gt_row {
+#lqbwkutwxe .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -299,7 +386,7 @@ ul.task-list li input[type="checkbox"] {
   overflow-x: hidden;
 }
 
-#wxmtkowbix .gt_stub {
+#lqbwkutwxe .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -312,7 +399,7 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#wxmtkowbix .gt_stub_row_group {
+#lqbwkutwxe .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -326,15 +413,15 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: top;
 }
 
-#wxmtkowbix .gt_row_group_first td {
+#lqbwkutwxe .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#wxmtkowbix .gt_row_group_first th {
+#lqbwkutwxe .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#wxmtkowbix .gt_summary_row {
+#lqbwkutwxe .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -344,16 +431,16 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#wxmtkowbix .gt_first_summary_row {
+#lqbwkutwxe .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#wxmtkowbix .gt_first_summary_row.thick {
+#lqbwkutwxe .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#wxmtkowbix .gt_last_summary_row {
+#lqbwkutwxe .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -363,7 +450,7 @@ ul.task-list li input[type="checkbox"] {
   border-bottom-color: #D3D3D3;
 }
 
-#wxmtkowbix .gt_grand_summary_row {
+#lqbwkutwxe .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -373,7 +460,7 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#wxmtkowbix .gt_first_grand_summary_row {
+#lqbwkutwxe .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -383,7 +470,7 @@ ul.task-list li input[type="checkbox"] {
   border-top-color: #D3D3D3;
 }
 
-#wxmtkowbix .gt_last_grand_summary_row_top {
+#lqbwkutwxe .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -393,11 +480,11 @@ ul.task-list li input[type="checkbox"] {
   border-bottom-color: #D3D3D3;
 }
 
-#wxmtkowbix .gt_striped {
+#lqbwkutwxe .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#wxmtkowbix .gt_table_body {
+#lqbwkutwxe .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -406,7 +493,7 @@ ul.task-list li input[type="checkbox"] {
   border-bottom-color: #D3D3D3;
 }
 
-#wxmtkowbix .gt_footnotes {
+#lqbwkutwxe .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -420,7 +507,7 @@ ul.task-list li input[type="checkbox"] {
   border-right-color: #D3D3D3;
 }
 
-#wxmtkowbix .gt_footnote {
+#lqbwkutwxe .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -429,7 +516,7 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#wxmtkowbix .gt_sourcenotes {
+#lqbwkutwxe .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -443,7 +530,7 @@ ul.task-list li input[type="checkbox"] {
   border-right-color: #D3D3D3;
 }
 
-#wxmtkowbix .gt_sourcenote {
+#lqbwkutwxe .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -451,178 +538,191 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#wxmtkowbix .gt_left {
+#lqbwkutwxe .gt_left {
   text-align: left;
 }
 
-#wxmtkowbix .gt_center {
+#lqbwkutwxe .gt_center {
   text-align: center;
 }
 
-#wxmtkowbix .gt_right {
+#lqbwkutwxe .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#wxmtkowbix .gt_font_normal {
+#lqbwkutwxe .gt_font_normal {
   font-weight: normal;
 }
 
-#wxmtkowbix .gt_font_bold {
+#lqbwkutwxe .gt_font_bold {
   font-weight: bold;
 }
 
-#wxmtkowbix .gt_font_italic {
+#lqbwkutwxe .gt_font_italic {
   font-style: italic;
 }
 
-#wxmtkowbix .gt_super {
+#lqbwkutwxe .gt_super {
   font-size: 65%;
 }
 
-#wxmtkowbix .gt_footnote_marks {
+#lqbwkutwxe .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#wxmtkowbix .gt_asterisk {
+#lqbwkutwxe .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#wxmtkowbix .gt_indent_1 {
+#lqbwkutwxe .gt_indent_1 {
   text-indent: 5px;
 }
 
-#wxmtkowbix .gt_indent_2 {
+#lqbwkutwxe .gt_indent_2 {
   text-indent: 10px;
 }
 
-#wxmtkowbix .gt_indent_3 {
+#lqbwkutwxe .gt_indent_3 {
   text-indent: 15px;
 }
 
-#wxmtkowbix .gt_indent_4 {
+#lqbwkutwxe .gt_indent_4 {
   text-indent: 20px;
 }
 
-#wxmtkowbix .gt_indent_5 {
+#lqbwkutwxe .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
-<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
-  <thead>
-    <tr class="gt_heading">
-      <td colspan="8" class="gt_heading gt_title gt_font_normal gt_bottom_border" style="">Table 1: Descriptive Statistics Original Filings</td>
-    </tr>
-    
-    <tr class="gt_col_headings">
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="font-weight: bold;" scope="col" id="Year">Year</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="font-weight: bold;" scope="col" id="Mean">Mean</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="font-weight: bold;" scope="col" id="Standard Deviation">Standard Deviation</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="font-weight: bold;" scope="col" id="Minimum">Minimum</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="font-weight: bold;" scope="col" id="25th Percentile">25th Percentile</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="font-weight: bold;" scope="col" id="Median">Median</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="font-weight: bold;" scope="col" id="75th Percentile">75th Percentile</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="font-weight: bold;" scope="col" id="Maximum">Maximum</th>
-    </tr>
-  </thead>
-  <tbody class="gt_table_body">
-    <tr><td headers="year" class="gt_row gt_right">2016</td>
-<td headers="Mean" class="gt_row gt_right">7842</td>
-<td headers="Sd" class="gt_row gt_right">6104</td>
-<td headers="Minimum" class="gt_row gt_right">155</td>
-<td headers="Q25" class="gt_row gt_right">3705</td>
-<td headers="Median" class="gt_row gt_right">6026</td>
-<td headers="Q75" class="gt_row gt_right">10271</td>
-<td headers="Maximum" class="gt_row gt_right">51227</td></tr>
-    <tr><td headers="year" class="gt_row gt_right">2017</td>
-<td headers="Mean" class="gt_row gt_right">7542</td>
-<td headers="Sd" class="gt_row gt_right">6320</td>
-<td headers="Minimum" class="gt_row gt_right">155</td>
-<td headers="Q25" class="gt_row gt_right">3522</td>
-<td headers="Median" class="gt_row gt_right">5767</td>
-<td headers="Q75" class="gt_row gt_right">9700</td>
-<td headers="Maximum" class="gt_row gt_right">70611</td></tr>
-    <tr><td headers="year" class="gt_row gt_right">2018</td>
-<td headers="Mean" class="gt_row gt_right">7604</td>
-<td headers="Sd" class="gt_row gt_right">6272</td>
-<td headers="Minimum" class="gt_row gt_right">180</td>
-<td headers="Q25" class="gt_row gt_right">3528</td>
-<td headers="Median" class="gt_row gt_right">5771</td>
-<td headers="Q75" class="gt_row gt_right">9669</td>
-<td headers="Maximum" class="gt_row gt_right">71700</td></tr>
-    <tr><td headers="year" class="gt_row gt_right">2019</td>
-<td headers="Mean" class="gt_row gt_right">8009</td>
-<td headers="Sd" class="gt_row gt_right">6631</td>
-<td headers="Minimum" class="gt_row gt_right">189</td>
-<td headers="Q25" class="gt_row gt_right">3669</td>
-<td headers="Median" class="gt_row gt_right">5971</td>
-<td headers="Q75" class="gt_row gt_right">10410</td>
-<td headers="Maximum" class="gt_row gt_right">78270</td></tr>
-    <tr><td headers="year" class="gt_row gt_right">2020</td>
-<td headers="Mean" class="gt_row gt_right">8660</td>
-<td headers="Sd" class="gt_row gt_right">7195</td>
-<td headers="Minimum" class="gt_row gt_right">171</td>
-<td headers="Q25" class="gt_row gt_right">3943</td>
-<td headers="Median" class="gt_row gt_right">6449</td>
-<td headers="Q75" class="gt_row gt_right">10971</td>
-<td headers="Maximum" class="gt_row gt_right">57980</td></tr>
-    <tr><td headers="year" class="gt_row gt_right">2021</td>
-<td headers="Mean" class="gt_row gt_right">10324</td>
-<td headers="Sd" class="gt_row gt_right">8406</td>
-<td headers="Minimum" class="gt_row gt_right">235</td>
-<td headers="Q25" class="gt_row gt_right">4670</td>
-<td headers="Median" class="gt_row gt_right">7568</td>
-<td headers="Q75" class="gt_row gt_right">13563</td>
-<td headers="Maximum" class="gt_row gt_right">78799</td></tr>
-    <tr><td headers="year" class="gt_row gt_right">2022</td>
-<td headers="Mean" class="gt_row gt_right">9471</td>
-<td headers="Sd" class="gt_row gt_right">7997</td>
-<td headers="Minimum" class="gt_row gt_right">171</td>
-<td headers="Q25" class="gt_row gt_right">4309</td>
-<td headers="Median" class="gt_row gt_right">7042</td>
-<td headers="Q75" class="gt_row gt_right">11897</td>
-<td headers="Maximum" class="gt_row gt_right">73937</td></tr>
-    <tr><td headers="year" class="gt_row gt_right">2023</td>
-<td headers="Mean" class="gt_row gt_right">6646</td>
-<td headers="Sd" class="gt_row gt_right">4771</td>
-<td headers="Minimum" class="gt_row gt_right">190</td>
-<td headers="Q25" class="gt_row gt_right">3660</td>
-<td headers="Median" class="gt_row gt_right">5814</td>
-<td headers="Q75" class="gt_row gt_right">8401</td>
-<td headers="Maximum" class="gt_row gt_right">43523</td></tr>
-  </tbody>
-  
-  
+
+<table class="gt_table caption-top table" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="header gt_heading">
+<th colspan="8" class="gt_heading gt_title gt_font_normal gt_bottom_border">Table 1: Descriptive Statistics Original Filings</th>
+</tr>
+<tr class="odd gt_col_headings">
+<th id="Year" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="font-weight: bold" scope="col">Year</th>
+<th id="Mean" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="font-weight: bold" scope="col">Mean</th>
+<th id="Standard Deviation" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="font-weight: bold" scope="col">Standard Deviation</th>
+<th id="Minimum" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="font-weight: bold" scope="col">Minimum</th>
+<th id="25th Percentile" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="font-weight: bold" scope="col">25th Percentile</th>
+<th id="Median" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="font-weight: bold" scope="col">Median</th>
+<th id="75th Percentile" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="font-weight: bold" scope="col">75th Percentile</th>
+<th id="Maximum" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="font-weight: bold" scope="col">Maximum</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_right" headers="year">2016</td>
+<td class="gt_row gt_right" headers="Mean">7842</td>
+<td class="gt_row gt_right" headers="Sd">6104</td>
+<td class="gt_row gt_right" headers="Minimum">155</td>
+<td class="gt_row gt_right" headers="Q25">3705</td>
+<td class="gt_row gt_right" headers="Median">6026</td>
+<td class="gt_row gt_right" headers="Q75">10271</td>
+<td class="gt_row gt_right" headers="Maximum">51227</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="year">2017</td>
+<td class="gt_row gt_right" headers="Mean">7542</td>
+<td class="gt_row gt_right" headers="Sd">6320</td>
+<td class="gt_row gt_right" headers="Minimum">155</td>
+<td class="gt_row gt_right" headers="Q25">3522</td>
+<td class="gt_row gt_right" headers="Median">5767</td>
+<td class="gt_row gt_right" headers="Q75">9700</td>
+<td class="gt_row gt_right" headers="Maximum">70611</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="year">2018</td>
+<td class="gt_row gt_right" headers="Mean">7604</td>
+<td class="gt_row gt_right" headers="Sd">6272</td>
+<td class="gt_row gt_right" headers="Minimum">180</td>
+<td class="gt_row gt_right" headers="Q25">3528</td>
+<td class="gt_row gt_right" headers="Median">5771</td>
+<td class="gt_row gt_right" headers="Q75">9669</td>
+<td class="gt_row gt_right" headers="Maximum">71700</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="year">2019</td>
+<td class="gt_row gt_right" headers="Mean">8009</td>
+<td class="gt_row gt_right" headers="Sd">6631</td>
+<td class="gt_row gt_right" headers="Minimum">189</td>
+<td class="gt_row gt_right" headers="Q25">3669</td>
+<td class="gt_row gt_right" headers="Median">5971</td>
+<td class="gt_row gt_right" headers="Q75">10410</td>
+<td class="gt_row gt_right" headers="Maximum">78270</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="year">2020</td>
+<td class="gt_row gt_right" headers="Mean">8660</td>
+<td class="gt_row gt_right" headers="Sd">7195</td>
+<td class="gt_row gt_right" headers="Minimum">171</td>
+<td class="gt_row gt_right" headers="Q25">3943</td>
+<td class="gt_row gt_right" headers="Median">6449</td>
+<td class="gt_row gt_right" headers="Q75">10971</td>
+<td class="gt_row gt_right" headers="Maximum">57980</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="year">2021</td>
+<td class="gt_row gt_right" headers="Mean">10324</td>
+<td class="gt_row gt_right" headers="Sd">8406</td>
+<td class="gt_row gt_right" headers="Minimum">235</td>
+<td class="gt_row gt_right" headers="Q25">4670</td>
+<td class="gt_row gt_right" headers="Median">7568</td>
+<td class="gt_row gt_right" headers="Q75">13563</td>
+<td class="gt_row gt_right" headers="Maximum">78799</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="year">2022</td>
+<td class="gt_row gt_right" headers="Mean">9471</td>
+<td class="gt_row gt_right" headers="Sd">7997</td>
+<td class="gt_row gt_right" headers="Minimum">171</td>
+<td class="gt_row gt_right" headers="Q25">4309</td>
+<td class="gt_row gt_right" headers="Median">7042</td>
+<td class="gt_row gt_right" headers="Q75">11897</td>
+<td class="gt_row gt_right" headers="Maximum">73937</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="year">2023</td>
+<td class="gt_row gt_right" headers="Mean">6646</td>
+<td class="gt_row gt_right" headers="Sd">4771</td>
+<td class="gt_row gt_right" headers="Minimum">190</td>
+<td class="gt_row gt_right" headers="Q25">3660</td>
+<td class="gt_row gt_right" headers="Median">5814</td>
+<td class="gt_row gt_right" headers="Q75">8401</td>
+<td class="gt_row gt_right" headers="Maximum">43523</td>
+</tr>
+</tbody>
 </table>
-</div>
+
 </div>
 </section>
 <section id="the-dataset" class="level2">
 <h2 class="anchored" data-anchor-id="the-dataset">The Dataset</h2>
-<p>We collect 10-Ks filings from the digital SEC Database, using the category “10-K” as extraction condition. Since the focus of our study lies on company’s BM, we merely use the Item 1 part, since this is the most crucial part of the 10-K filings for describing the companies BM <span class="citation" data-cites="lee_business_2014">[@lee_business_2014]</span>. Our observations are limited to an intersection of such companies, which on the one hand has been made available to the SEC since 2001 in a publicly accessible list of 10,284 companies (Appendix), of which 7,590 are currently listed on NASDAQ, NYSE or over-the-counter. We extracted 10-K filings that were submitted between 2017 and 2023 based on underlying Central Index Keys (CIK). According to […] financial firms are not further considered. Corresponding to Table 2, multiple steps of pre-processing were required to obtain a final amount 21,683 observations of seven years.</p>
+<p>We collect 10-Ks filings from the digital SEC Database, using the category “10-K” as extraction condition. Since the focus of our study lies on company’s BM, we merely use the Item 1 part, since this is the most crucial part of the 10-K filings for describing the companies BM <span class="citation" data-cites="lee_business_2014">(<a href="#ref-lee_business_2014" role="doc-biblioref">Lee and Hong 2014</a>)</span>. Our observations are limited to an intersection of such companies, which on the one hand has been made available to the SEC since 2001 in a publicly accessible list of 10,284 companies (Appendix), of which 7,590 are currently listed on NASDAQ, NYSE or over-the-counter. We extracted 10-K filings that were submitted between 2017 and 2023 based on underlying Central Index Keys (CIK). According to […] financial firms are not further considered. Corresponding to Table 2, multiple steps of pre-processing were required to obtain a final amount 21,683 observations of seven years.</p>
 <p>We exclude companies from the financial sector, namely companies with a SIC Code starting with six.</p>
-<div class="cell-output-display">
-
-<div id="woodqpiqjt" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#woodqpiqjt table {
+<p>Financial key figures, including net income, total assets and others were originally extracted from the SEC, but also challenged with financial values from DataStream. A total of 4,225 companies are included in the sample, although the availability of filings could not always be guaranteed for all years. This is due on the one hand to the quality of the API to the SEC and on the other hand to companies that did not file 10-K reports or were listed on the stock exchange for the entire period under review. Finally, we have access to the financial key figures of the companies for the respective year, the Item I text pre-processed with the help of Gemini, company-specific identification features and the conventional SIC industry classification.</p>
+<div id="aaisnkmbrd" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#aaisnkmbrd table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#woodqpiqjt thead, #woodqpiqjt tbody, #woodqpiqjt tfoot, #woodqpiqjt tr, #woodqpiqjt td, #woodqpiqjt th {
+#aaisnkmbrd thead, #aaisnkmbrd tbody, #aaisnkmbrd tfoot, #aaisnkmbrd tr, #aaisnkmbrd td, #aaisnkmbrd th {
   border-style: none;
 }
 
-#woodqpiqjt p {
+#aaisnkmbrd p {
   margin: 0;
   padding: 0;
 }
 
-#woodqpiqjt .gt_table {
+#aaisnkmbrd .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -648,12 +748,12 @@ ul.task-list li input[type="checkbox"] {
   border-left-color: #D3D3D3;
 }
 
-#woodqpiqjt .gt_caption {
+#aaisnkmbrd .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#woodqpiqjt .gt_title {
+#aaisnkmbrd .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -665,7 +765,7 @@ ul.task-list li input[type="checkbox"] {
   border-bottom-width: 0;
 }
 
-#woodqpiqjt .gt_subtitle {
+#aaisnkmbrd .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -677,7 +777,7 @@ ul.task-list li input[type="checkbox"] {
   border-top-width: 0;
 }
 
-#woodqpiqjt .gt_heading {
+#aaisnkmbrd .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -689,13 +789,13 @@ ul.task-list li input[type="checkbox"] {
   border-right-color: #D3D3D3;
 }
 
-#woodqpiqjt .gt_bottom_border {
+#aaisnkmbrd .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#woodqpiqjt .gt_col_headings {
+#aaisnkmbrd .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -710,7 +810,7 @@ ul.task-list li input[type="checkbox"] {
   border-right-color: #D3D3D3;
 }
 
-#woodqpiqjt .gt_col_heading {
+#aaisnkmbrd .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -730,7 +830,7 @@ ul.task-list li input[type="checkbox"] {
   overflow-x: hidden;
 }
 
-#woodqpiqjt .gt_column_spanner_outer {
+#aaisnkmbrd .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -742,15 +842,15 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 4px;
 }
 
-#woodqpiqjt .gt_column_spanner_outer:first-child {
+#aaisnkmbrd .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#woodqpiqjt .gt_column_spanner_outer:last-child {
+#aaisnkmbrd .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#woodqpiqjt .gt_column_spanner {
+#aaisnkmbrd .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -762,11 +862,11 @@ ul.task-list li input[type="checkbox"] {
   width: 100%;
 }
 
-#woodqpiqjt .gt_spanner_row {
+#aaisnkmbrd .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#woodqpiqjt .gt_group_heading {
+#aaisnkmbrd .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -792,7 +892,7 @@ ul.task-list li input[type="checkbox"] {
   text-align: left;
 }
 
-#woodqpiqjt .gt_empty_group_heading {
+#aaisnkmbrd .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -807,15 +907,15 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: middle;
 }
 
-#woodqpiqjt .gt_from_md > :first-child {
+#aaisnkmbrd .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#woodqpiqjt .gt_from_md > :last-child {
+#aaisnkmbrd .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#woodqpiqjt .gt_row {
+#aaisnkmbrd .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -834,7 +934,7 @@ ul.task-list li input[type="checkbox"] {
   overflow-x: hidden;
 }
 
-#woodqpiqjt .gt_stub {
+#aaisnkmbrd .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -847,7 +947,7 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#woodqpiqjt .gt_stub_row_group {
+#aaisnkmbrd .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -861,15 +961,15 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: top;
 }
 
-#woodqpiqjt .gt_row_group_first td {
+#aaisnkmbrd .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#woodqpiqjt .gt_row_group_first th {
+#aaisnkmbrd .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#woodqpiqjt .gt_summary_row {
+#aaisnkmbrd .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -879,16 +979,16 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#woodqpiqjt .gt_first_summary_row {
+#aaisnkmbrd .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#woodqpiqjt .gt_first_summary_row.thick {
+#aaisnkmbrd .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#woodqpiqjt .gt_last_summary_row {
+#aaisnkmbrd .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -898,7 +998,7 @@ ul.task-list li input[type="checkbox"] {
   border-bottom-color: #D3D3D3;
 }
 
-#woodqpiqjt .gt_grand_summary_row {
+#aaisnkmbrd .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -908,7 +1008,7 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#woodqpiqjt .gt_first_grand_summary_row {
+#aaisnkmbrd .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -918,7 +1018,7 @@ ul.task-list li input[type="checkbox"] {
   border-top-color: #D3D3D3;
 }
 
-#woodqpiqjt .gt_last_grand_summary_row_top {
+#aaisnkmbrd .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -928,11 +1028,11 @@ ul.task-list li input[type="checkbox"] {
   border-bottom-color: #D3D3D3;
 }
 
-#woodqpiqjt .gt_striped {
+#aaisnkmbrd .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#woodqpiqjt .gt_table_body {
+#aaisnkmbrd .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -941,7 +1041,7 @@ ul.task-list li input[type="checkbox"] {
   border-bottom-color: #D3D3D3;
 }
 
-#woodqpiqjt .gt_footnotes {
+#aaisnkmbrd .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -955,7 +1055,7 @@ ul.task-list li input[type="checkbox"] {
   border-right-color: #D3D3D3;
 }
 
-#woodqpiqjt .gt_footnote {
+#aaisnkmbrd .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -964,7 +1064,7 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#woodqpiqjt .gt_sourcenotes {
+#aaisnkmbrd .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -978,7 +1078,7 @@ ul.task-list li input[type="checkbox"] {
   border-right-color: #D3D3D3;
 }
 
-#woodqpiqjt .gt_sourcenote {
+#aaisnkmbrd .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -986,114 +1086,128 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#woodqpiqjt .gt_left {
+#aaisnkmbrd .gt_left {
   text-align: left;
 }
 
-#woodqpiqjt .gt_center {
+#aaisnkmbrd .gt_center {
   text-align: center;
 }
 
-#woodqpiqjt .gt_right {
+#aaisnkmbrd .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#woodqpiqjt .gt_font_normal {
+#aaisnkmbrd .gt_font_normal {
   font-weight: normal;
 }
 
-#woodqpiqjt .gt_font_bold {
+#aaisnkmbrd .gt_font_bold {
   font-weight: bold;
 }
 
-#woodqpiqjt .gt_font_italic {
+#aaisnkmbrd .gt_font_italic {
   font-style: italic;
 }
 
-#woodqpiqjt .gt_super {
+#aaisnkmbrd .gt_super {
   font-size: 65%;
 }
 
-#woodqpiqjt .gt_footnote_marks {
+#aaisnkmbrd .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#woodqpiqjt .gt_asterisk {
+#aaisnkmbrd .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#woodqpiqjt .gt_indent_1 {
+#aaisnkmbrd .gt_indent_1 {
   text-indent: 5px;
 }
 
-#woodqpiqjt .gt_indent_2 {
+#aaisnkmbrd .gt_indent_2 {
   text-indent: 10px;
 }
 
-#woodqpiqjt .gt_indent_3 {
+#aaisnkmbrd .gt_indent_3 {
   text-indent: 15px;
 }
 
-#woodqpiqjt .gt_indent_4 {
+#aaisnkmbrd .gt_indent_4 {
   text-indent: 20px;
 }
 
-#woodqpiqjt .gt_indent_5 {
+#aaisnkmbrd .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
-<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
-  <thead>
-    <tr class="gt_heading">
-      <td colspan="3" class="gt_heading gt_title gt_font_normal gt_bottom_border" style="">Table 2: 10-K Sample Creation</td>
-    </tr>
-    
-    <tr class="gt_col_headings">
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id=""></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="font-weight: bold;" scope="col" id="Remaining Number of Observations">Remaining Number of Observations</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="font-weight: bold;" scope="col" id="Observations Removed">Observations Removed</th>
-    </tr>
-  </thead>
-  <tbody class="gt_table_body">
-    <tr><th id="stub_1_1" scope="row" class="gt_row gt_left gt_stub">1. Original (exchanged listed) companies, whose 10-K filings are extracted from SEC</th>
-<td headers="stub_1_1 Number_of_Observations" class="gt_row gt_right">35731</td>
-<td headers="stub_1_1 Observations_Removed" class="gt_row gt_right">-</td></tr>
-    <tr><th id="stub_1_2" scope="row" class="gt_row gt_left gt_stub">2. Removing observations from financial companies whose SIC-code start with '6'</th>
-<td headers="stub_1_2 Number_of_Observations" class="gt_row gt_right">35731</td>
-<td headers="stub_1_2 Observations_Removed" class="gt_row gt_right">8162</td></tr>
-    <tr><th id="stub_1_3" scope="row" class="gt_row gt_left gt_stub">3. Verify for Item 1 text availability (removed oberservations that are attributable to API quality)</th>
-<td headers="stub_1_3 Number_of_Observations" class="gt_row gt_right">27569</td>
-<td headers="stub_1_3 Observations_Removed" class="gt_row gt_right">3587</td></tr>
-    <tr><th id="stub_1_4" scope="row" class="gt_row gt_left gt_stub">4. Extracting dates for which the filings are reporting for and removing of duplicated filings</th>
-<td headers="stub_1_4 Number_of_Observations" class="gt_row gt_right">23982</td>
-<td headers="stub_1_4 Observations_Removed" class="gt_row gt_right">11</td></tr>
-    <tr><th id="stub_1_5" scope="row" class="gt_row gt_left gt_stub">5. Delete observations with incorrect date assignment</th>
-<td headers="stub_1_5 Number_of_Observations" class="gt_row gt_right">23971</td>
-<td headers="stub_1_5 Observations_Removed" class="gt_row gt_right">1810</td></tr>
-    <tr><th id="stub_1_6" scope="row" class="gt_row gt_left gt_stub">6. Merged Gemini processed Item 1 text to the underlying data set. We did not consider texts that were not processable</th>
-<td headers="stub_1_6 Number_of_Observations" class="gt_row gt_right">22161</td>
-<td headers="stub_1_6 Observations_Removed" class="gt_row gt_right">464</td></tr>
-    <tr><th id="stub_1_7" scope="row" class="gt_row gt_left gt_stub">7. Extract financials statements from SEC and merge them. Also remove observations for years prior to 2016</th>
-<td headers="stub_1_7 Number_of_Observations" class="gt_row gt_right">21697</td>
-<td headers="stub_1_7 Observations_Removed" class="gt_row gt_right">11</td></tr>
-    <tr><th id="stub_1_8" scope="row" class="gt_row gt_left gt_stub">8. Final amount of oberservations</th>
-<td headers="stub_1_8 Number_of_Observations" class="gt_row gt_right">21686</td>
-<td headers="stub_1_8 Observations_Removed" class="gt_row gt_right">0</td></tr>
-  </tbody>
-  <tfoot class="gt_sourcenotes">
-    <tr>
-      <td class="gt_sourcenote" colspan="3">Note: Filings that were submitted between 2017 and 2023 are extracted. The survey took place in summer of 2024. Hence, later submitted filings are not considered.</td>
-    </tr>
-  </tfoot>
-  
+
+<table class="gt_table caption-top table" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="header gt_heading">
+<th colspan="3" class="gt_heading gt_title gt_font_normal gt_bottom_border">Table 2: 10-K Sample Creation</th>
+</tr>
+<tr class="odd gt_col_headings">
+<th class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col"></th>
+<th id="Remaining Number of Observations" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="font-weight: bold" scope="col">Remaining Number of Observations</th>
+<th id="Observations Removed" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="font-weight: bold" scope="col">Observations Removed</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td id="stub_1_1" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">1. Original (exchanged listed) companies, whose 10-K filings are extracted from SEC</td>
+<td class="gt_row gt_right" headers="stub_1_1 Number_of_Observations">35731</td>
+<td class="gt_row gt_right" headers="stub_1_1 Observations_Removed">-</td>
+</tr>
+<tr class="even">
+<td id="stub_1_2" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">2. Removing observations from financial companies whose SIC-code start with '6'</td>
+<td class="gt_row gt_right" headers="stub_1_2 Number_of_Observations">35731</td>
+<td class="gt_row gt_right" headers="stub_1_2 Observations_Removed">8162</td>
+</tr>
+<tr class="odd">
+<td id="stub_1_3" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">3. Verify for Item 1 text availability (removed oberservations that are attributable to API quality)</td>
+<td class="gt_row gt_right" headers="stub_1_3 Number_of_Observations">27569</td>
+<td class="gt_row gt_right" headers="stub_1_3 Observations_Removed">3587</td>
+</tr>
+<tr class="even">
+<td id="stub_1_4" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">4. Extracting dates for which the filings are reporting for and removing of duplicated filings</td>
+<td class="gt_row gt_right" headers="stub_1_4 Number_of_Observations">23982</td>
+<td class="gt_row gt_right" headers="stub_1_4 Observations_Removed">11</td>
+</tr>
+<tr class="odd">
+<td id="stub_1_5" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">5. Delete observations with incorrect date assignment</td>
+<td class="gt_row gt_right" headers="stub_1_5 Number_of_Observations">23971</td>
+<td class="gt_row gt_right" headers="stub_1_5 Observations_Removed">1810</td>
+</tr>
+<tr class="even">
+<td id="stub_1_6" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">6. Merged Gemini processed Item 1 text to the underlying data set. We did not consider texts that were not processable</td>
+<td class="gt_row gt_right" headers="stub_1_6 Number_of_Observations">22161</td>
+<td class="gt_row gt_right" headers="stub_1_6 Observations_Removed">464</td>
+</tr>
+<tr class="odd">
+<td id="stub_1_7" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">7. Extract financials statements from SEC and merge them. Also remove observations for years prior to 2016</td>
+<td class="gt_row gt_right" headers="stub_1_7 Number_of_Observations">21697</td>
+<td class="gt_row gt_right" headers="stub_1_7 Observations_Removed">11</td>
+</tr>
+<tr class="even">
+<td id="stub_1_8" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">8. Final amount of oberservations</td>
+<td class="gt_row gt_right" headers="stub_1_8 Number_of_Observations">21686</td>
+<td class="gt_row gt_right" headers="stub_1_8 Observations_Removed">0</td>
+</tr>
+</tbody><tfoot class="gt_sourcenotes">
+<tr class="even">
+<td colspan="3" class="gt_sourcenote">Note: Filings that were submitted between 2017 and 2023 are extracted. The survey took place in summer of 2024. Hence, later submitted filings are not considered.</td>
+</tr>
+</tfoot>
+
 </table>
+
 </div>
-</div>
-<p>Financial key figures, including net income, total assets and others were originally extracted from the SEC, but also challenged with financial values from DataStream. A total of 4,225 companies are included in the sample, although the availability of filings could not always be guaranteed for all years. This is due on the one hand to the quality of the API to the SEC and on the other hand to companies that did not file 10-K reports or were listed on the stock exchange for the entire period under review. Finally, we have access to the financial key figures of the companies for the respective year, the Item I text pre-processed with the help of Gemini, company-specific identification features and the conventional SIC industry classification.</p>
 <p>TODO</p>
 <ul>
 <li>Descriptive Table3 for length of summary (in words and tokens (use tokenizer our Model uses))</li>
@@ -1108,29 +1222,36 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="index-declaration-for-bmi" class="level3">
 <h3 class="anchored" data-anchor-id="index-declaration-for-bmi">Index declaration for BMI</h3>
-<p>Regarding our Replication H1: We expect a similar distribution of firms. H2: We expect a high overlap with Hobergs classification.</p>
-<p>Regarding Contribution H2: Our measure for BMI shows a positive relationship with firm performance</p>
+<p>Regarding our Replication</p>
+<ul>
+<li>H1: We expect a similar distribution of firms.</li>
+<li>H2: We expect a high overlap with Hobergs classification.</li>
+</ul>
+<p>Regarding Contribution</p>
+<ul>
+<li>H3: Our measure for BMI shows a positive relationship with firm performance</li>
+</ul>
 </section>
 </section>
 </section>
 <section id="replication" class="level1">
 <h1>Replication</h1>
-<p>Our study builds on the idea of Hoberg &amp; Phillips <span class="citation" data-cites="hoberg_text-based_2016">[-@hoberg_text-based_2016]</span> to utilize text data from 10-K filings to classify companies based on their similarity to each other into dynamic industries. Our approach differs in two ways: Firstly, instead of word-to-vec like the TNIC uses we employ BERT to represent text. Consequently, we use the BERTScore instead of the cosine similarity as our similarity measure. Secondly, we focus on the description of the BM rather than the product descriptions. In order to set a benchmark for our industry classification, we cluster companies into industries with the approach by Hoberg &amp; Phillips <span class="citation" data-cites="hoberg_text-based_2016">[-@hoberg_text-based_2016]</span>. Following this, we compare our industry classification to this benchmark.</p>
-<ul>
-<li><p>The data for the industry classification with the BERTScore is the same as described in Section 2. For the benchmark data, we use the similarity scores provided by Hoberg-Phillips Data Library.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> The clustering described in the original study by Hoberg &amp; Phillips <span class="citation" data-cites="hoberg_text-based_2016">[-@hoberg_text-based_2016]</span> is a hierarchical agglomerative clustering algorithm. -&gt; explain in further detail as well as our replication/comparison; we use 300 industries; cal</p></li>
-<li><p>Results: similar picture as Hoberg &amp; Phillips,overall left skewed distribution, most industries with less than 10 firms, but BERT classification with no industry over 36/37 firms. Our classification has more smaller industries</p></li>
-</ul>
-<p><img src="ProjectEcoDataScience_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+<p>Our study builds on the idea of Hoberg &amp; Phillips <span class="citation" data-cites="hoberg_text-based_2016">(<a href="#ref-hoberg_text-based_2016" role="doc-biblioref">2016</a>)</span> to utilize text data from 10-K filings to classify companies based on their similarity to each other into dynamic industries. Our approach differs in two ways: Firstly, instead of word-to-vec like the TNIC uses we employ BERT to represent text. Consequently, we use the BERTScore instead of the cosine similarity as our similarity measure. Secondly, we focus on the description of the BM rather than the product descriptions. In order to set a benchmark for our industry classification, we cluster companies into industries with the approach by Hoberg &amp; Phillips <span class="citation" data-cites="hoberg_text-based_2016">(<a href="#ref-hoberg_text-based_2016" role="doc-biblioref">2016</a>)</span>. Following this, we compare our industry classification to this benchmark.</p>
+<p>The data for the industry classification with the BERTScore is the same as described in Section 2. For the benchmark data, we use the similarity scores provided by Hoberg-Phillips Data Library.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> To make the results comparable, we only use companies that are in our dataset and the one provided by the authors. Because we use CIKs and accession numbers to identify firms and filings and the data library uses Compustat’s gvkeys, we lose observations in the process of matching CIKs with gvkeys. In the end, we apply the clustering algorithm to 1,958 firms for the year 2017.</p>
+<p>The clustering described in the original study by Hoberg &amp; Phillips <span class="citation" data-cites="hoberg_text-based_2016">(<a href="#ref-hoberg_text-based_2016" role="doc-biblioref">2016</a>)</span> is a hierarchical agglomerative clustering algorithm. -&gt; explain in further detail as well as our replication/comparison; we use 300 industries like original paper</p>
+<p>Figure 1 compares the distribution of industry size for the BERTScore classification and the TNIC. The BERTScore classification shows a similar picture as the TNIC. Both are left skewed, with most industries being smaller than ten firms. The distribution of the TNIC is steeper than the on of the BERTScore classification. It is noteworthy, that the largest industry in the BERTScore classification only consists of 27 companies, while the TNIC contains industries larger than this, with some over 50 companies. This indicates that the BERTScore classification clusters small to medium sized industries ranging between two to fourteen firms per industry with less large industries. The TNIC also consists mostly of small to medium, but also a few large industries. Despite these minor differences, this supports H1.</p>
+<p>Regarding H2: Medium Homogeneity with 0.63 and Medium Completeness with 0.6026; Low Adjusted Rand Index (ARI) with 0.0002 and low Fowlkes-Mallows Index (FMI) -&gt; indicates clusters are not better than random; No support for H2; Reason could be different object of investigation (BM vs product description)</p>
 <ul>
 <li>Transition</li>
 </ul>
+<p><img src="ProjectEcoDataScience_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
 </section>
 <section id="empirical-framework" class="level1">
 <h1>Empirical Framework</h1>
-<p>The definition of business models includes according to Spieth &amp; Schneider <span class="citation" data-cites="spieth_business_2016">[-@spieth_business_2016]</span> the three components value proposition, value creation and its revenue model logic. We used the pre-processing of Item I texts with Gemini to control these texts using a specific prompt in that the focus of the texts is on the definition of these three components. Hence, our BERT-based similarity scores between processed texts represent an index for BMI that can be used for empirical studies. A preliminary validity check of these similarity scores should be performed.</p>
+<p>The definition of BM includes according to Spieth &amp; Schneider <span class="citation" data-cites="spieth_business_2016">(<a href="#ref-spieth_business_2016" role="doc-biblioref">2016</a>)</span> the three components value proposition, value creation and its revenue model logic. We used the pre-processing of Item I texts with Gemini to control these texts using a specific prompt in that the focus of the texts is on the definition of these three components. Hence, our BERT-based similarity scores between processed texts represent an index for BMI that can be used for empirical studies. A preliminary validity check of these similarity scores should be performed.</p>
 <section id="bert-and-bertscore" class="level2">
 <h2 class="anchored" data-anchor-id="bert-and-bertscore">BERT and BERTScore</h2>
-<p>BERT (Bidirectional Encoder Representation from Transformers) is a pre-trained and transformer-based model for natural language processing (NPL) based on artificial neural networks. BERT works according to the so-called transformer architecture, which was first mentioned by Vaswani et. al (2017) [….]. According to these authors, this architecture consists of two main components, the encoder and the decoder. The encoder consists of several identical layers, which initially use the so-called self-attention mechanism to generate context-dependent representations of each word in the sentence. This mechanism can be parallelized and therefore enables different aspects of the context to be captured in the same way. The decoder, on the other hand, works in a similar way and is responsible for processing the information from the encoder and forming it into an output sequence. However, this is not relevant for BERT, as no sequence-to-sequence transformation is carried out in BERT. In contrast to Hoberg &amp; Philips (2016) <span class="citation" data-cites="hoberg_text-based_2016">[-@hoberg_text-based_2016]</span> word-to-vec approach, BERT works bidirectional and takes into account the context from both sides of each word simultaneously. Therefore, BERT is able to capture deeper semantics in texts such as 10-K reports. The BERTscore now computes the cosinus similarity between word or text meanings, that have been determined by representations (or embeddings) learned from BERT. The scale is from -1 to 1, where 1 describes a perfect similarity.</p>
+<p>BERT is a pre-trained and transformer-based model for natural language processing (NPL) based on artificial neural networks. It works according to the so-called transformer architecture, which was first mentioned by Vaswani et. al (2017) [….]. According to these authors, this architecture consists of two main components, the encoder and the decoder. The encoder consists of several identical layers, which initially use the so-called self-attention mechanism to generate context-dependent representations of each word in the sentence. This mechanism can be parallelized and therefore enables different aspects of the context to be captured in the same way. The decoder, on the other hand, works in a similar way and is responsible for processing the information from the encoder and forming it into an output sequence. However, this is not relevant for BERT, as no sequence-to-sequence transformation is carried out in BERT. In contrast to Hoberg &amp; Philips (2016) <span class="citation" data-cites="hoberg_text-based_2016">(<a href="#ref-hoberg_text-based_2016" role="doc-biblioref">2016</a>)</span> word-to-vec approach, BERT works bidirectional and takes into account the context from both sides of each word simultaneously. Therefore, BERT is able to capture deeper semantics in texts such as 10-K reports. The BERTScore now computes the cosine similarity between word or text meanings, that have been determined by representations (or embeddings) learned from BERT. The scale is from -1 to 1, where 1 describes a perfect similarity.</p>
 </section>
 <section id="estimation-strategy" class="level2">
 <h2 class="anchored" data-anchor-id="estimation-strategy">Estimation Strategy</h2>
@@ -1138,6 +1259,7 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="results-and-discussion" class="level1">
 <h1>Results and Discussion</h1>
+<p>Limitations: - Four potential problems - Changes in texts could also be attributable to changes in regulatory adjustments, changes in Markets or other external factors - Gemini processes could have lead to a lose of information -&gt; could lead to biases - Item 1 texts are strictly ruled, actual changes in BM could be neglected (or not written down for business policy purposes) - Missing Differentiation between incremental innovation and radical innovation -&gt; differences in BERTscores</p>
 </section>
 <section id="conclusion" class="level1">
 <h1>Conclusion</h1>
@@ -1148,6 +1270,47 @@ ul.task-list li input[type="checkbox"] {
 <li>Jonathan for IT Support</li>
 <li>Prof.&nbsp;Kranz for Repo</li>
 </ul>
+</section>
+<section id="references" class="level1">
+<h1>References</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-clauss_measuring_2017" class="csl-entry" role="listitem">
+Clauss, Thomas. 2017. <span>“Measuring Business Model Innovation: Conceptualization, Scale Development, and Proof of Performance.”</span> <em>R&amp;D Management</em> 47 (3): 385–403. <a href="https://doi.org/10.1111/radm.12186">https://doi.org/10.1111/radm.12186</a>.
+</div>
+<div id="ref-cucculelli_business_2015" class="csl-entry" role="listitem">
+Cucculelli, Marco, and Cristina Bettinelli. 2015. <span>“Business Models, Intangibles and Firm Performance: Evidence on Corporate Entrepreneurship from <span>Italian</span> Manufacturing <span>SMEs</span>.”</span> <em>Small Business Economics</em> 45 (2): 329–50. <a href="https://doi.org/10.1007/s11187-015-9631-7">https://doi.org/10.1007/s11187-015-9631-7</a>.
+</div>
+<div id="ref-foss_fifteen_2017" class="csl-entry" role="listitem">
+Foss, Nicolai J., and Tina Saebi. 2017. <span>“Fifteen <span>Years</span> of <span>Research</span> on <span>Business</span> <span>Model</span> <span>Innovation</span>: <span>How</span> <span>Far</span> <span>Have</span> <span>We</span> <span>Come</span>, and <span>Where</span> <span>Should</span> <span>We</span> <span>Go</span>?”</span> <em>Journal of Management</em> 43 (1): 200–227. <a href="https://doi.org/10.1177/0149206316675927">https://doi.org/10.1177/0149206316675927</a>.
+</div>
+<div id="ref-hoberg_text-based_2016" class="csl-entry" role="listitem">
+Hoberg, Gerard, and Gordon Phillips. 2016. <span>“Text-<span>Based</span> <span>Network</span> <span>Industries</span> and <span>Endogenous</span> <span>Product</span> <span>Differentiation</span>.”</span> <em>Journal of Political Economy</em> 124 (5): 1423–65. <a href="https://doi.org/10.1086/688176">https://doi.org/10.1086/688176</a>.
+</div>
+<div id="ref-huang_review_2023" class="csl-entry" role="listitem">
+Huang, WenJun, and Takeyasu Ichikohji. 2023. <span>“A Review and Analysis of the Business Model Innovation Literature.”</span> <em>Heliyon</em> 9 (7): e17895. <a href="https://doi.org/10.1016/j.heliyon.2023.e17895">https://doi.org/10.1016/j.heliyon.2023.e17895</a>.
+</div>
+<div id="ref-latifi_business_2021" class="csl-entry" role="listitem">
+Latifi, Mohammad-Ali, Shahrokh Nikou, and Harry Bouwman. 2021. <span>“Business Model Innovation and Firm Performance: <span>Exploring</span> Causal Mechanisms in <span>SMEs</span>.”</span> <em>Technovation</em> 107 (September): 102274. <a href="https://doi.org/10.1016/j.technovation.2021.102274">https://doi.org/10.1016/j.technovation.2021.102274</a>.
+</div>
+<div id="ref-lee_business_2014" class="csl-entry" role="listitem">
+Lee, Jihwan, and Yoo S. Hong. 2014. <span>“Business <span>Model</span> <span>Mining</span>: <span>Analyzing</span> a <span>Firm</span>’s <span>Business</span> <span>Model</span> with <span>Text</span> <span>Mining</span> of <span>Annual</span> <span>Report</span>.”</span> <em>Industrial Engineering and Management Systems</em> 13 (4): 432–41. <a href="https://doi.org/10.7232/iems.2014.13.4.432">https://doi.org/10.7232/iems.2014.13.4.432</a>.
+</div>
+<div id="ref-pucihar_drivers_2019" class="csl-entry" role="listitem">
+Pucihar, Andreja, Gregor Lenart, Mirjana Kljajić Borštnar, Doroteja Vidmar, and Marjeta Marolt. 2019. <span>“Drivers and <span>Outcomes</span> of <span>Business</span> <span>Model</span> <span>Innovation</span>—<span>Micro</span>, <span>Small</span> and <span>Medium</span>-<span>Sized</span> <span>Enterprises</span> <span>Perspective</span>.”</span> <em>Sustainability</em> 11 (2): 344. <a href="https://doi.org/10.3390/su11020344">https://doi.org/10.3390/su11020344</a>.
+</div>
+<div id="ref-sec_investor_2024" class="csl-entry" role="listitem">
+SEC. 2024. <span>“Investor <span>Bulletin</span>: <span>How</span> to <span>Read</span> a 10-<span>K</span>.”</span> <a href="https://www.sec.gov/files/reada10k.pdf">https://www.sec.gov/files/reada10k.pdf</a>.
+</div>
+<div id="ref-spieth_business_2016" class="csl-entry" role="listitem">
+Spieth, Patrick, and Sabrina Schneider. 2016. <span>“Business Model Innovativeness: Designing a Formative Measure for Business Model Innovation.”</span> <em>Journal of Business Economics</em> 86 (6): 671–96. <a href="https://doi.org/10.1007/s11573-015-0794-0">https://doi.org/10.1007/s11573-015-0794-0</a>.
+</div>
+<div id="ref-teece_business_2018" class="csl-entry" role="listitem">
+Teece, David J. 2018. <span>“Business Models and Dynamic Capabilities.”</span> <em>Long Range Planning</em> 51 (1): 40–49. <a href="https://doi.org/10.1016/j.lrp.2017.06.007">https://doi.org/10.1016/j.lrp.2017.06.007</a>.
+</div>
+<div id="ref-white_exploring_2022" class="csl-entry" role="listitem">
+White, Joshua V., Erik Markin, David Marshall, and Vishal K. Gupta. 2022. <span>“Exploring the Boundaries of Business Model Innovation and Firm Performance: <span>A</span> Meta-Analysis.”</span> <em>Long Range Planning</em> 55 (5): 102242. <a href="https://doi.org/10.1016/j.lrp.2022.102242">https://doi.org/10.1016/j.lrp.2022.102242</a>.
+</div>
+</div>
 </section>
 <section id="appendix" class="level1">
 <h1>Appendix</h1>
@@ -1198,18 +1361,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -1241,11 +1393,50 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
-  function tippyHover(el, contentFn) {
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -1255,8 +1446,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -1268,7 +1468,130 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -1312,6 +1635,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -1337,6 +1661,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -1397,6 +1747,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
+
 
 
 

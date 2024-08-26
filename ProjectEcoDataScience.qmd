@@ -122,19 +122,19 @@ acm-metadata:
   #   description: teaser description    
 
 abstract: |
- The ability of companies to continuously innovate and adapt their business models is a key driver of long-term success in dynamic markets. In this study, we examine the quantification of Business Model Innovation (BMI) by means of a text-based analysis of pre-processed 10-K reports, specifically Item 1 texts that describe companies business activities. Our approach focuses on two investigations, firstly creating an industry classification according to Hoberg & Philips (2016), applying a BERT-based similarity index (BERTScore) to text summaries previously summarized by a language model (Gemini). Second, we apply the same approach for identical firms to capture semantic changes across different years, while low BERTScores indicate significant changes in the business model components, which can be interpreted as potential business model innovation. Our results provide insights into the extent to which textual similarities in regulatory reports can be used as a reliable indicator of business model innovation. This method could thus represent a novel and scalable approach to analyzing business model innovation over time.
+ The ability of companies to continuously innovate and adapt their business models is a key driver of long-term success in dynamic markets. In this study, we examine the quantification of business model innovation (BMI) by means of a text-based analysis of pre-processed 10-K reports, specifically Item 1 texts that describe companies business activities. Our approach focuses on two investigations, firstly creating an industry classification according to Hoberg & Phillips [-@hoberg_text-based_2016], applying a BERT-based (Bidirectional Encoder Representation from Transformers) similarity index (BERTScore) to text summaries previously summarized by Google's Gemini. Second, we apply the same approach for identical firms to capture semantic changes across different years, while low BERTScores indicate significant changes in the business model components, which can be interpreted as potential BMI. Our results provide insights into the extent to which textual similarities in regulatory reports can be used as a reliable indicator for BMI. This method could thus represent a novel and scalable approach to analyzing BMI over time.
 
 ---
 
 # Introduction
 
-Business model innovation (BMI) is a key activity to maintain competitiveness and even gain a competitive advantage [@pucihar_drivers_2019; @teece_business_2018]. It is therefore no surprise that the interest in BMI and methods of measuring it has grown rapidly over the last twenty years. Researchers have recently called for a BMI measurement instrument that is more comprehensive and advanced than already existing ones [@huang_review_2023]. The scale developed by Spieth & Schneider [-@spieth_business_2016] provides managers and practitioners with a measurement index for business model innovativeness. This measurement model only validates applicability of BMI theory [@huang_review_2023] and is insufficient for longitudinal studies [@clauss_measuring_2017]. Hence, this measure is not adequate for a time series analysis of BMI. Furthermore, it refers only to BMI as new-to-the-firm and is not able to grasp BMI in the sense of new-to-the-industry and new-to-market. Clauss [-@clauss_measuring_2017] developed a similar measure with comparable limitations.
+BMI is a key activity to maintain competitiveness and even gain a competitive advantage [@pucihar_drivers_2019; @teece_business_2018]. It is therefore no surprise that the interest in BMI and methods of measuring it has grown rapidly over the last twenty years. Researchers have recently called for a BMI measurement instrument that is more comprehensive and advanced than already existing ones [@huang_review_2023]. The scale developed by Spieth & Schneider [-@spieth_business_2016] provides managers and practitioners with a measurement index for business model innovativeness. This measurement model only validates applicability of BMI theory [@huang_review_2023] and is insufficient for longitudinal studies [@clauss_measuring_2017]. Hence, this measure is not adequate for a time series analysis of BMI. Furthermore, it refers only to BMI as new-to-the-firm and is not able to grasp BMI in the sense of new-to-the-industry and new-to-market. Clauss [-@clauss_measuring_2017] developed a similar measure with comparable limitations.
 
 This gap is addressed by proposing a novel approach to measuring BMI. US-based companies are obliged by the United States Security and Exchange Commission (SEC) to submit annual 10-K filings, wherein a detailed description of the company's business operations is required. Hoberg & Phillips [-@hoberg_text-based_2016] use this filings to create word vectors about the companies products in order to cluster them into industries and thereby proposing a new industry classification. This study builds on their work and methods. We summarize these descriptions with Gemini, utilize the BERTScore as a similarity measure to calculate the similarities between companies and cluster them into industries. We compare our BERTScore clustering with the text-based network industry classification (TNIC) by Hoberg & Phillips [-@hoberg_text-based_2016]. Furthermore, we calculate the BERTScore between the summaries of different years for a single company. This approach enables the measurement of changes in the business model (BM) over time as the distance between the BM summary of one year to another. There is evidence that an increase in BMI is associated with improved firm performance [@cucculelli_business_2015;@latifi_business_2021;@white_exploring_2022]. In order to test the validity of our measure, we regress financial numbers on our measure, hoping to find a positive relationship. 
 
 -	Key findings (and Contribution, already down below)
 
-Our contribution is made in two ways. Firstly, we build on the concept of alternative industry classification put forth by Hoberg & Phillips [-@hoberg_text-based_2016] and propose an industry classification system based on a firm's BM. Thirdly, we propose a novel measure for BMI that is sufficient for longitudinal studies.
+Our contribution is made in two ways. Firstly, we build on the concept of alternative industry classification put forth by Hoberg & Phillips [-@hoberg_text-based_2016] and propose an industry classification system based on a firm's BM. Secondly, we propose a novel measure for BMI that is sufficient for longitudinal studies.
 
 The SEC mandates that the majority of public companies based in the United States submit specific documents in certain intervals. One such document is the annual 10-K filing. These filings follow a set order of topics and contain a range of information, including details about managerial discussions, risk factors for the company, legal proceedings and financial data. In the first section under the subtitle "Business," a company presents its general business, encompassing information about its products and services. In some instances additional topics may be addressed, such as labor issues or competition [@sec_investor_2024]. In conclusion, this section contains the most useful information for describing a company's BM [@lee_business_2014]. Furthermore, 10-K filings are a reliable source of information, given that US law prohibits false or misleading statements in the filings. The SEC monitors the compliance of the companies with the requirements and comments where disclosure appears to be inconsistent [@sec_investor_2024].
 
@@ -142,7 +142,7 @@ The SEC mandates that the majority of public companies based in the United State
 
 In spite of the growing interest in BMI and the increasing number of theoretical and empirical studies in this field, the research of BMI is still in a preliminary state [@huang_review_2023]. Consequently, there is considerable variation in the definitions of BMI, with some definitions being more similar to one another than others [@foss_fifteen_2017]. Spieth & Schneider [-@spieth_business_2016] identify three core dimensions a company’s BM is comprised of: its value proposition, its value creation architecture and its revenue model logic. Based on this, BMI can be conceptualized as a change that is new-to-the-firm in at least one of these dimensions. Furthermore, Spieth and Schneider [-@spieth_business_2016] introduce a measurement model to evaluate these three dimensions of BMI. They develop an index by first specifying the contents, followed by a specification of the indicators and assessing their content validity, assessing the indicators collinearity and finally assessing the external validity. A total of twelve indicators for measuring the innovativeness of the BM were identified through a comprehensive literature review and through engagement with industry practitioners. The external validity of the formative indicators was successfully validated through a survey of 200 experts in strategy and innovation management [@spieth_business_2016]. Clauss [-@clauss_measuring_2017] employs a very similar approach. After specifying the domain and dimensionality of BMI trough literature research, the author divides his scale into three hierarchical levels consisting of 41 reflective items, 10 subconstructs and three main dimensions, which are similar to the ones mentioned earlier. The scale was validated through two samples from the manufacturing industry and further demonstrated nomological validity [@clauss_measuring_2017]. However, both measures are subject to three significant limitations. Firstly, both measures lack a temporal component. Consequently, they are inadequate for use in longitudinal studies or ex-post evaluations of BMI. Secondly, BMI is only measured at the new-to-the-firm level rather than at the new-to-the-industry or new-to-the-market level. Thirdly, both measures rely on interviews and questionnaires, which makes conducting large-scale studies time-consuming and reliant on the willingness of the companies to cooperate [@clauss_measuring_2017;@spieth_business_2016].
 
-The process of text mining 10-K filings is not a novel concept. Hoberg & Phillips [-@hoberg_text-based_2016] present a novel approach to defining industry boundaries. This is achieved through the parsing of the product descriptions provided by firm 10-K filings and creating word vectors. Specifically, the authors identify and exclude proper nouns, which include common words and geographic locations.They then create word vectors for each firm and year, which enables the measurement of product similarity over time. In this way the authors demonstrate shortcomings in the traditional industry classification systems such as the Standard Industry Classification (SIC) and the North American Industry Classification System (NAICS), which are not able to account for temporal changes. The new method is capable of capturing changes in industry boundaries and competitor sets over time, thereby providing a dynamic industry classification system. In their study, Lee & Hong [-@lee_business_2014] examine the evolution of a firm's BM over time. The authors represent each document as a vector of keywords, which is similar to the approach utilized by Hoberg & Phillips [-@hoberg_text-based_2016]. After identifying the Item 1 part of the 10-K filings as the most crucial part for describing a firm's BM, Lee & Hong [-@lee_business_2014] filter these for relevant sentences. Subsequently, the authors construct  keyword vectors, which represent the concept of the BM. Therefore, the evolution of the BM is depicted as the change in the distribution of keywords over time. Nevertheless, this approach is not without shortcomings. The authors advocate for a more robust methodology, such as incorporating multi-word phrases in the keyword vectors, to enhance the reliability of the approach [@lee_business_2014].
+The process of text mining 10-K filings is not a novel concept. Hoberg & Phillips [-@hoberg_text-based_2016] present a novel approach to defining industry boundaries. This is achieved through the parsing of the product descriptions provided by firm 10-K filings and creating word vectors. Specifically, the authors identify and exclude proper nouns, which include common words and geographic locations. They then create word vectors for each firm and year, which enables the measurement of product similarity over time. They cluster companies based on the cosine similarity of these word vectors into industries, which results in a novel industry classification method. This way the authors demonstrate shortcomings in the traditional industry classification systems such as the Standard Industry Classification (SIC) and the North American Industry Classification System (NAICS), which are not able to account for temporal changes. The new method is capable of capturing changes in industry boundaries and competitor sets over time, thereby providing a dynamic industry classification system. In their study, Lee & Hong [-@lee_business_2014] examine the evolution of a firm's BM over time. The authors represent each document as a vector of keywords, which is similar to the approach utilized by Hoberg & Phillips [-@hoberg_text-based_2016]. After identifying the Item 1 part of the 10-K filings as the most crucial part for describing a firm's BM, Lee & Hong [-@lee_business_2014] filter these for relevant sentences. Subsequently, the authors construct  keyword vectors, which represent the concept of the BM. Therefore, the evolution of the BM is depicted as the change in the distribution of keywords over time. Nevertheless, this approach is not without shortcomings. The authors advocate for a more robust methodology, such as incorporating multi-word phrases in the keyword vectors, to enhance the reliability of the approach [@lee_business_2014].
 
 The rest of the paper proceeds as follows. Section 2 describes the preprocessing with Gemini, our data and our methodology. Section 3 compares the industry classification based on product descriptions by Hoberg & Phillips [-@hoberg_text-based_2016] with our classification based on the BM. Section 4 lays out the BERT-model and our estimations. Section 5 discusses our results, and Section 6 concludes our study.
 
@@ -195,6 +195,8 @@ We collect 10-Ks filings from the digital SEC Database, using the category “10
 
 We exclude companies from the financial sector, namely companies with a SIC Code starting with six.
 
+Financial key figures, including net income, total assets and others were originally extracted from the SEC, but also challenged with financial values from DataStream. A total of 4,225 companies are included in the sample, although the availability of filings could not always be guaranteed for all years. This is due on the one hand to the quality of the API to the SEC and on the other hand to companies that did not file 10-K reports or were listed on the stock exchange for the entire period under review. Finally, we have access to the financial key figures of the companies for the respective year, the Item I text pre-processed with the help of Gemini, company-specific identification features and the conventional SIC industry classification. 
+
 ```{r echo=FALSE, warning = FALSE, message = FALSE, results='asis'}
 library(gt)
 Table2 = readRDS("TableData/Table2.Rds") %>% 
@@ -208,8 +210,6 @@ Table2 = readRDS("TableData/Table2.Rds") %>%
 Table2
 ```
 
-Financial key figures, including net income, total assets and others were originally extracted from the SEC, but also challenged with financial values from DataStream. A total of 4,225 companies are included in the sample, although the availability of filings could not always be guaranteed for all years. This is due on the one hand to the quality of the API to the SEC and on the other hand to companies that did not file 10-K reports or were listed on the stock exchange for the entire period under review. Finally, we have access to the financial key figures of the companies for the respective year, the Item I text pre-processed with the help of Gemini, company-specific identification features and the conventional SIC industry classification. 
-
 TODO
 
 - Descriptive Table3 for length of summary (in words and tokens (use tokenizer our Model uses))
@@ -217,30 +217,35 @@ TODO
 
 ## Methodology
 
-We calculate bidirectional BERT scores of item 1 texts processed with Gemini in several variants. For replication purposes, we calculate BERTscores between different companies in the same years, on the basis of which we determine industry classifications using a hierarchical agglomerative algorithm. We further calculate BERTscores between same firms over the years, capturing a new measure for BMI. 
+We calculate bidirectional BERT scores of item 1 texts processed with Gemini in several variants. For replication purposes, we calculate BERTscores between different companies in the same years, on the basis of which we determine industry classifications using a hierarchical agglomerative algorithm. We further calculate BERTscores between same firms over the years, capturing a new measure for BMI.
 
 ### BERT-based industry classification 
 
 ### Index declaration for BMI
 
- 
-
-
 Regarding our Replication
-H1: We expect a similar distribution of firms.
-H2: We expect a high overlap with Hobergs classification. 
+
+- H1: We expect a similar distribution of firms.
+- H2: We expect a high overlap with Hobergs classification. 
 
 Regarding Contribution
-H2: Our measure for BMI shows a positive relationship with firm performance
+
+- H3: Our measure for BMI shows a positive relationship with firm performance
 
 # Replication
 
 Our study builds on the idea of Hoberg & Phillips [-@hoberg_text-based_2016] to utilize text data from 10-K filings to classify companies based on their similarity to each other into dynamic industries. Our approach differs in two ways: Firstly, instead of word-to-vec like the TNIC uses we employ BERT to represent text. Consequently, we use the BERTScore instead of the cosine similarity as our similarity measure. Secondly, we focus on the description of the BM rather than the product descriptions. In order to set a benchmark for our industry classification, we cluster companies into industries with the approach by Hoberg & Phillips [-@hoberg_text-based_2016]. Following this, we compare our industry classification to this benchmark.
 
-- The data for the industry classification with the BERTScore is the same as described in Section 2. For the benchmark data, we use the similarity scores provided by Hoberg-Phillips Data Library.[^3] The clustering described in the original study by Hoberg & Phillips [-@hoberg_text-based_2016] is a hierarchical agglomerative clustering algorithm. 
--> explain in further detail as well as our replication/comparison; we use 300 industries; cal
+The data for the industry classification with the BERTScore is the same as described in Section 2. For the benchmark data, we use the similarity scores provided by Hoberg-Phillips Data Library.[^3] To make the results comparable, we only use companies that are in our dataset and the one provided by the authors. Because we use CIKs and accession numbers to identify firms and filings and the data library uses Compustat's gvkeys, we lose observations in the process of matching CIKs with gvkeys. In the end, we apply the clustering algorithm to 1,958 firms for the year 2017.
 
-- Results: similar picture as Hoberg & Phillips,overall left skewed distribution, most industries with less than 10 firms, but BERT classification with no industry over 36/37 firms. Our classification has more smaller industries 
+The clustering described in the original study by Hoberg & Phillips [-@hoberg_text-based_2016] is a hierarchical agglomerative clustering algorithm. 
+-> explain in further detail as well as our replication/comparison; we use 300 industries like original paper
+
+Figure 1 compares the distribution of industry size for the BERTScore classification and the TNIC. The BERTScore classification shows a similar picture as the TNIC. Both are left skewed, with most industries being smaller than ten firms. The distribution of the TNIC is steeper than the on of the BERTScore classification. It is noteworthy, that the largest industry in the BERTScore classification only consists of 27 companies, while the TNIC contains industries larger than this, with some over 50 companies. This indicates that the BERTScore classification clusters small to medium sized industries ranging between two to fourteen firms per industry with less large industries. The TNIC also consists mostly of small to medium, but also a few large industries. Despite these minor differences, this supports H1.
+
+Regarding H2: Medium Homogeneity with 0.63 and Medium Completeness with 0.6026; Low Adjusted Rand Index (ARI) with 0.0002 and low Fowlkes-Mallows Index (FMI) -> indicates clusters are not better than random; No support for H2; Reason could be different object of investigation (BM vs product description)
+
+- Transition
 
 ```{r echo=FALSE, warning = FALSE, message = FALSE, results='asis'}
 library(tidyverse)
@@ -257,7 +262,7 @@ Figure1 = Figure1 %>%
   scale_x_continuous(breaks = seq(0, 50, by = 5), labels = c(seq(0, 45, by = 5), "50+")) +
   facet_wrap(~ Clustering, ncol = 1) +
   labs(
-    title = "Figure 1: Comparison between TNIC and BERT Classification",
+    title = "Figure 1: Comparison between TNIC and BERT Classification (2017)",
     x = "Number of Firms in Industry",
     y = "Frequency",
     fill = "Gruppe"
@@ -273,34 +278,37 @@ Figure1 = Figure1 %>%
 Figure1
 ```
 
-- Transition
-
 [^3]:For the database see: https://hobergphillips.tuck.dartmouth.edu.
 
 # Empirical Framework
 
-The definition of business models includes according to Spieth & Schneider [-@spieth_business_2016] the three  components value proposition, value creation and its revenue model logic. We used the pre-processing of Item I texts with Gemini to control these texts using a specific prompt in that the focus of the texts is on the definition of these three components. Hence, our BERT-based similarity scores between processed texts represent an index for BMI that can be used for empirical studies. A preliminary validity check of these similarity scores should be performed.
+The definition of BM includes according to Spieth & Schneider [-@spieth_business_2016] the three components value proposition, value creation and its revenue model logic. We used the pre-processing of Item I texts with Gemini to control these texts using a specific prompt in that the focus of the texts is on the definition of these three components. Hence, our BERT-based similarity scores between processed texts represent an index for BMI that can be used for empirical studies. A preliminary validity check of these similarity scores should be performed.
 
 ## BERT and BERTScore
 
-BERT (Bidirectional Encoder Representation from Transformers) is a pre-trained and transformer-based model for natural language processing (NPL) based on artificial neural networks. BERT works according to the so-called transformer architecture, which was first mentioned by Vaswani et. al (2017) [....]. According to these authors, this architecture consists of two main components, the encoder and the decoder. The encoder consists of several identical layers, which initially use the so-called self-attention mechanism to generate context-dependent representations of each word in the sentence. This mechanism can be parallelized and therefore enables different aspects of the context to be captured in the same way. The decoder, on the other hand, works in a similar way and is responsible for processing the information from the encoder and forming it into an output sequence. However, this is not relevant for BERT, as no sequence-to-sequence transformation is carried out in BERT. In contrast to Hoberg & Philips (2016) [-@hoberg_text-based_2016] word-to-vec approach, BERT works bidirectional and takes into account the context from both sides of each word simultaneously. Therefore, BERT is able to capture deeper semantics in texts such as 10-K reports. The BERTscore now computes the cosinus similarity between word or text meanings, that have been determined by representations (or embeddings) learned from BERT. The scale is from -1 to 1, where 1 describes a perfect similarity.  
-
+BERT is a pre-trained and transformer-based model for natural language processing (NPL) based on artificial neural networks. It works according to the so-called transformer architecture, which was first mentioned by Vaswani et. al (2017) [....]. According to these authors, this architecture consists of two main components, the encoder and the decoder. The encoder consists of several identical layers, which initially use the so-called self-attention mechanism to generate context-dependent representations of each word in the sentence. This mechanism can be parallelized and therefore enables different aspects of the context to be captured in the same way. The decoder, on the other hand, works in a similar way and is responsible for processing the information from the encoder and forming it into an output sequence. However, this is not relevant for BERT, as no sequence-to-sequence transformation is carried out in BERT. In contrast to Hoberg & Philips (2016) [-@hoberg_text-based_2016] word-to-vec approach, BERT works bidirectional and takes into account the context from both sides of each word simultaneously. Therefore, BERT is able to capture deeper semantics in texts such as 10-K reports. The BERTScore now computes the cosine similarity between word or text meanings, that have been determined by representations (or embeddings) learned from BERT. The scale is from -1 to 1, where 1 describes a perfect similarity.
 
 ## Estimation Strategy
 
-- Four potential problems
-   - Changes in texts could also be attributable to changes in regulatory adjustments, changes in Markets or other       external factors
-   - Gemini processes could have lead to a lose of information -> could lead to biases
-   - Item 1 texts are strictly ruled, actual changes in BM could be neglected (or not written down for business          policy purposes)
-   - Missing Differentiation between incremental innovation and radical innovation -> differences in BERTscores
-
 # Results and Discussion
 
+Limitations:
+- Four potential problems
+   - Changes in texts could also be attributable to changes in regulatory adjustments, changes in Markets or other external factors
+   - Gemini processes could have lead to a lose of information -> could lead to biases
+   - Item 1 texts are strictly ruled, actual changes in BM could be neglected (or not written down for business policy purposes)
+   - Missing Differentiation between incremental innovation and radical innovation -> differences in BERTscores
+   
 # Conclusion
 
 # Acknowledgement
 
 - Jonathan for IT Support
 - Prof. Kranz for Repo
+
+# References
+
+::: {#refs}
+:::
 
 # Appendix
