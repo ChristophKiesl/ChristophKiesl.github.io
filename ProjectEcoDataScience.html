@@ -157,12 +157,13 @@ div.csl-indent {
 <p>In spite of the growing interest in BMI and the increasing number of theoretical and empirical studies in this field, the research of BMI is still in a preliminary state <span class="citation" data-cites="huang_review_2023">(<a href="#ref-huang_review_2023" role="doc-biblioref">Huang and Ichikohji 2023</a>)</span>. Consequently, there is considerable variation in the definitions of BMI, with some definitions being more similar to one another than others <span class="citation" data-cites="foss_fifteen_2017">(<a href="#ref-foss_fifteen_2017" role="doc-biblioref">Foss and Saebi 2017</a>)</span>. Spieth &amp; Schneider <span class="citation" data-cites="spieth_business_2016">(<a href="#ref-spieth_business_2016" role="doc-biblioref">2016</a>)</span> identify three core dimensions a company’s BM is comprised of: its value proposition, its value creation architecture and its revenue model logic. Based on this, BMI can be conceptualized as a change that is new-to-the-firm in at least one of these dimensions. Furthermore, Spieth and Schneider <span class="citation" data-cites="spieth_business_2016">(<a href="#ref-spieth_business_2016" role="doc-biblioref">2016</a>)</span> introduce a measurement model to evaluate these three dimensions of BMI. They develop an index by first specifying the contents, followed by a specification of the indicators and assessing their content validity, assessing the indicators collinearity and finally assessing the external validity. A total of twelve indicators for measuring the innovativeness of the BM were identified through a comprehensive literature review and through engagement with industry practitioners. The external validity of the formative indicators was successfully validated through a survey of 200 experts in strategy and innovation management <span class="citation" data-cites="spieth_business_2016">(<a href="#ref-spieth_business_2016" role="doc-biblioref">Spieth and Schneider 2016</a>)</span>. Clauss <span class="citation" data-cites="clauss_measuring_2017">(<a href="#ref-clauss_measuring_2017" role="doc-biblioref">2017</a>)</span> employs a very similar approach. After specifying the domain and dimensionality of BMI trough literature research, the author divides his scale into three hierarchical levels consisting of 41 reflective items, 10 subconstructs and three main dimensions, which are similar to the ones mentioned earlier. The scale was validated through two samples from the manufacturing industry and further demonstrated nomological validity <span class="citation" data-cites="clauss_measuring_2017">(<a href="#ref-clauss_measuring_2017" role="doc-biblioref">Clauss 2017</a>)</span>. However, both measures are subject to three significant limitations. Firstly, both measures lack a temporal component. Consequently, they are inadequate for use in longitudinal studies or ex-post evaluations of BMI. Secondly, BMI is only measured at the new-to-the-firm level rather than at the new-to-the-industry or new-to-the-market level. Thirdly, both measures rely on interviews and questionnaires, which makes conducting large-scale studies time-consuming and reliant on the willingness of the companies to cooperate <span class="citation" data-cites="clauss_measuring_2017 spieth_business_2016">(<a href="#ref-clauss_measuring_2017" role="doc-biblioref">Clauss 2017</a>; <a href="#ref-spieth_business_2016" role="doc-biblioref">Spieth and Schneider 2016</a>)</span>.</p>
 <p>The process of text mining 10-K filings is not a novel concept. Hoberg &amp; Phillips <span class="citation" data-cites="hoberg_text-based_2016">(<a href="#ref-hoberg_text-based_2016" role="doc-biblioref">2016</a>)</span> present a novel approach to defining industry boundaries. This is achieved through the parsing of the product descriptions provided by firm 10-K filings and creating word vectors. Specifically, the authors identify and exclude proper nouns, which include common words and geographic locations. They then create word vectors for each firm and year, which enables the measurement of product similarity over time. They propose two novel industry classification methods: the FIC and the text-based network industry classification (TNIC). Firstly, they cluster companies based on the similarity of the word vectors into fixed industries. Secondly, they define a minimum similarity threshold, above which firms are considered in the same industry. This relaxes their prior properties of binary membership transitivity and fixed industry location. This way the authors demonstrate shortcomings in the traditional industry classification systems such as the Standard Industry Classification (SIC) and the North American Industry Classification System (NAICS), which are not able to account for temporal changes. The new method is capable of capturing changes in industry boundaries and competitor sets over time, thereby providing a dynamic industry classification system. In their study, Lee &amp; Hong <span class="citation" data-cites="lee_business_2014">(<a href="#ref-lee_business_2014" role="doc-biblioref">2014</a>)</span> examine the evolution of a firm’s BM over time. The authors represent each document as a vector of keywords, which is similar to the approach utilized by Hoberg &amp; Phillips <span class="citation" data-cites="hoberg_text-based_2016">(<a href="#ref-hoberg_text-based_2016" role="doc-biblioref">2016</a>)</span>. After identifying the Item 1 part of the 10-K filings as the most crucial part for describing a firm’s BM, Lee &amp; Hong <span class="citation" data-cites="lee_business_2014">(<a href="#ref-lee_business_2014" role="doc-biblioref">2014</a>)</span> filter these for relevant sentences. Subsequently, the authors construct keyword vectors, which represent the concept of the BM. Therefore, the evolution of the BM is depicted as the change in the distribution of keywords over time. Nevertheless, this approach is not without shortcomings. The authors advocate for a more robust methodology, such as incorporating multi-word phrases in the keyword vectors, to enhance the reliability of the approach <span class="citation" data-cites="lee_business_2014">(<a href="#ref-lee_business_2014" role="doc-biblioref">Lee and Hong 2014</a>)</span>.</p>
 <p>The rest of the paper proceeds as follows. Section 2 describes the preprocessing with Gemini, our data and our methodology. Section 3 compares the industry classification based on product descriptions by Hoberg &amp; Phillips <span class="citation" data-cites="hoberg_text-based_2016">(<a href="#ref-hoberg_text-based_2016" role="doc-biblioref">2016</a>)</span> with our classification based on the BM. Section 4 lays out the BERT-model and our estimations. Section 5 discusses our results, and Section 6 concludes our study.</p>
+<div style="page-break-after: always;"></div>
 </section>
 <section id="data-and-methodology" class="level1">
 <h1>Data and Methodology</h1>
 <section id="preprocessing-with-gemini" class="level2">
 <h2 class="anchored" data-anchor-id="preprocessing-with-gemini">Preprocessing with Gemini</h2>
-<p>10-K filings are typically very large text documents, and Item 1 of these filings is no exception. Table 1 shows the deskriptive measures of the length of the original Item 1 section in our final sample. The length of a document was measured by the word count without punctuation. The document length ranges from a couple hundred words to tens of thousands. In order to utilise the entirety of the information regarding the BM in the Item 1 section and pass the text to our BERT model, we decided to let Google’s GenAI chatbot Gemini summarize them to a maximum length of 512 tokens. The summaries were created between 26 June 2024 and 6 August 2024. The model employed was Gemini Flash 1.5. The prompt was inserted at the beginning of each text file and it was passed via an API to Gemini <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. We used following prompt: “Summarize the business model from the following text. Answer with a continuous text and with five hundred twelve tokens at max. Set your focus on sources of revenue, the intended customer base, products, distribution channels and details of financing. Use only information from the following the text”.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> “intended customer base” and “product” refer to the value offering, “distribution channels” refers to the value architecture, and “sources of revenue” and “details of financing” refer to the revenue model. Consequently, this prompt covers all aspects of the definition of BMI proposed by Spieth &amp; Schneider <span class="citation" data-cites="spieth_business_2016">(<a href="#ref-spieth_business_2016" role="doc-biblioref">2016</a>)</span>. The term ‘tokens’ was used deliberately in preference to ‘words’, given that the number of tokens and the number of words in a text may vary depending on the tokeniser. This way, we wanted to ensure that the whole summary is used by the BERT model. To assess the quality and accuracy of the summaries produced by Gemini, a random sample of 100 filings was selected for comparison with the original text. More precise,the original file was initially read with a focus on the points mentioned in the prompt. Subsequently, the summary was evaluated to ascertain whether it contained these same points. A list of the sample with the summaries is provided in the Appendix.</p>
+<p>10-K filings are typically very large text documents, and Item 1 of these filings is no exception. Table 1 shows the descriptive measures of the length of the original Item 1 section in our final sample. The length of a document was measured by the word count without punctuation. The document length ranges from a couple hundred words to tens of thousands. In order to utilise the entirety of the information regarding the BM in the Item 1 section and pass the text to our BERT model, we decided to let Google’s GenAI chatbot Gemini summarize them to a maximum length of 512 tokens. The summaries were created between 26 June 2024 and 6 August 2024. The model employed was Gemini Flash 1.5. The prompt was inserted at the beginning of each text file and it was passed via an API to Gemini <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. We used following prompt: “Summarize the business model from the following text. Answer with a continuous text and with five hundred twelve tokens at max. Set your focus on sources of revenue, the intended customer base, products, distribution channels and details of financing. Use only information from the following the text”.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> “intended customer base” and “product” refer to the value offering, “distribution channels” refers to the value architecture, and “sources of revenue” and “details of financing” refer to the revenue model. Consequently, this prompt covers all aspects of the definition of BMI proposed by Spieth &amp; Schneider <span class="citation" data-cites="spieth_business_2016">(<a href="#ref-spieth_business_2016" role="doc-biblioref">2016</a>)</span>. The term ‘tokens’ was used deliberately in preference to ‘words’, given that the number of tokens and the number of words in a text may vary depending on the tokeniser. This way, we wanted to ensure that the whole summary is used by the BERT model. To assess the quality and accuracy of the summaries produced by Gemini, a random sample of 100 filings was selected for comparison with the original text. More precise,the original file was initially read with a focus on the points mentioned in the prompt. Subsequently, the summary was evaluated to ascertain whether it contained these same points. A list of the sample with the summaries is provided in the Appendix.</p>
 <ul>
 <li>result of this check</li>
 </ul>
@@ -289,7 +290,7 @@ div.csl-indent {
 <div>
 
 </div>
-<div class="cell quarto-layout-panel" data-tbl-colwidths="auto" data-layout-ncol="1">
+<div class="cell quarto-layout-panel" data-layout-ncol="1" data-tbl-colwidths="auto">
 <div class="quarto-layout-row">
 <table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <caption>10-K Sample Creation</caption>
@@ -302,37 +303,37 @@ div.csl-indent {
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left; max-width: 10;">1. Extracted 10-K filings from the SEC</td>
+<td style="text-align: left; width: 8cm;">1. Extracted 10-K filings from the SEC</td>
 <td style="text-align: right;">35731</td>
 <td style="text-align: left;"></td>
 </tr>
 <tr class="even">
-<td style="text-align: left; max-width: 10;">2. Excluding filings from financial companies (SIC-code starting with '6')</td>
+<td style="text-align: left; width: 8cm;">2. Excluding filings from financial companies (SIC-code starting with '6')</td>
 <td style="text-align: right;">27569</td>
 <td style="text-align: left;">8162</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left; max-width: 10;">3. Verify for Item 1 text availability (removed oberservations that are attributable to API quality)</td>
+<td style="text-align: left; width: 8cm;">3. Verify for Item 1 text availability (removed oberservations that are attributable to API quality)</td>
 <td style="text-align: right;">23982</td>
 <td style="text-align: left;">3587</td>
 </tr>
 <tr class="even">
-<td style="text-align: left; max-width: 10;">4. Extracting dates for which the filings are reporting for and removing of duplicated filings</td>
+<td style="text-align: left; width: 8cm;">4. Extracting dates for which the filings are reporting for and removing of duplicated filings</td>
 <td style="text-align: right;">23971</td>
 <td style="text-align: left;">11</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left; max-width: 10;">5. Delete observations with incorrect date assignment</td>
+<td style="text-align: left; width: 8cm;">5. Delete observations with incorrect date assignment</td>
 <td style="text-align: right;">22161</td>
 <td style="text-align: left;">1810</td>
 </tr>
 <tr class="even">
-<td style="text-align: left; max-width: 10;">6. Merged Gemini processed Item 1 text to the underlying data set. We did not consider texts that were not processable</td>
+<td style="text-align: left; width: 8cm;">6. Merged Gemini processed Item 1 text to the underlying data set. We did not consider texts that were not processable</td>
 <td style="text-align: right;">21697</td>
 <td style="text-align: left;">464</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left; max-width: 10;">7. Extract financials statements from SEC and merge them. Also remove observations for years prior to 2016</td>
+<td style="text-align: left; width: 8cm;">7. Extract financials statements from SEC and merge them. Also remove observations for years prior to 2016</td>
 <td style="text-align: right;">21686</td>
 <td style="text-align: left;">11</td>
 </tr>
@@ -357,18 +358,18 @@ div.csl-indent {
 <p>TODO</p>
 <ul>
 <li>Descriptive Table3 for length of summary (in words and tokens (use tokenizer our Model uses))</li>
-<li>Description of Table3 and the final Dataset</li>
+<li>Description of Table2, Table3, and the final dataset</li>
+<li>something (Table, Figure) for looking at distribution of BERTScore</li>
 </ul>
 </section>
 <section id="methodology" class="level2">
 <h2 class="anchored" data-anchor-id="methodology">Methodology</h2>
-<p>We calculate bidirectional BERT scores of item 1 texts processed with Gemini in several variants. For replication purposes, we calculate BERTscores between different companies in the same years, on the basis of which we determine industry classifications using a hierarchical agglomerative algorithm. We further calculate BERTScores between same firms over the years, capturing a new measure for BMI.</p>
-<p>Regarding our Replication FIC</p>
-<p>Products are part of the BM - similar clusters - H1: We expect a similar distribution of firms. - H2: We expect a high overlap with Hobergs classification.</p>
-<p>Regarding Contribution</p>
-<ul>
-<li>H3: Our measure for BMI shows a positive relationship with firm performance</li>
-</ul>
+<p>After processing the data, we calculate the BERTScore between the summaries of different companies and between the summaries for the same company of different years. The similarity between different companies in the same year is utilized in Section 3 to compare the FIC by Hoberg &amp; Phillips <span class="citation" data-cites="hoberg_text-based_2016">(<a href="#ref-hoberg_text-based_2016" role="doc-biblioref">2016</a>)</span> with the industry classification by the BERTScore.</p>
+<p>hoberg use word vectors and product description, we use BERT and everything regarding the BMI, different object ob research. By definition of spieth is the product a part of the value offering, thereby a part of the BMI. Because product is thereby entangled, we expect a similar distribution as Hoberg for the FIC. very granular, lot of small industries. This motivates H1 and H2:</p>
+<p><strong>H1</strong>: We expect a similar distribution of firms.</p>
+<p><strong>H2</strong>: We expect a high overlap with Hobergs classification.</p>
+<p>focus will not be an the replication because our approach differs very strong from original paper. We not only calc similarity between different firms, but also for the same firm over time. this allows measuring the change in BM. Under the assumption that companies “don’t run in circles”, this measures BMI on the new to the firm level. in literature, positive relationship between BMI and firm performance is explored. to test our measure, we regress firm performance on BMI (and other controlls found in the literature). When 1-BERTScore really measures BMI, we expect H3 to be true:</p>
+<p><strong>H3</strong>: Our measure for BMI shows a positive relationship with firm performance</p>
 </section>
 </section>
 <section id="replication" class="level1">
@@ -393,7 +394,6 @@ div.csl-indent {
 </section>
 <section id="results-and-discussion" class="level1">
 <h1>Results and Discussion</h1>
-<p>Limitations: - Four potential problems - Changes in texts could also be attributable to changes in regulatory adjustments, changes in Markets or other external factors - Gemini processes could have lead to a lose of information -&gt; could lead to biases - Item 1 texts are strictly ruled, actual changes in BM could be neglected (or not written down for business policy purposes) - Missing Differentiation between incremental innovation and radical innovation -&gt; differences in BERTscores</p>
 </section>
 <section id="conclusion" class="level1">
 <h1>Conclusion</h1>

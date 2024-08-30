@@ -397,12 +397,14 @@ Hoberg \& Phillips (2016) with our classification based on the BM.
 Section 4 lays out the BERT-model and our estimations. Section 5
 discusses our results, and Section 6 concludes our study.
 
+\newpage{}
+
 \section{Data and Methodology}\label{data-and-methodology}
 
 \subsection{Preprocessing with Gemini}\label{preprocessing-with-gemini}
 
 10-K filings are typically very large text documents, and Item 1 of
-these filings is no exception. Table 1 shows the deskriptive measures of
+these filings is no exception. Table 1 shows the descriptive measures of
 the length of the original Item 1 section in our final sample. The
 length of a document was measured by the word count without punctuation.
 The document length ranges from a couple hundred words to tens of
@@ -575,32 +577,42 @@ TODO
   Descriptive Table3 for length of summary (in words and tokens (use
   tokenizer our Model uses))
 \item
-  Description of Table3 and the final Dataset
+  Description of Table2, Table3, and the final dataset
+\item
+  something (Table, Figure) for looking at distribution of BERTScore
 \end{itemize}
 
 \subsection{Methodology}\label{methodology}
 
-We calculate bidirectional BERT scores of item 1 texts processed with
-Gemini in several variants. For replication purposes, we calculate
-BERTscores between different companies in the same years, on the basis
-of which we determine industry classifications using a hierarchical
-agglomerative algorithm. We further calculate BERTScores between same
-firms over the years, capturing a new measure for BMI.
+After processing the data, we calculate the BERTScore between the
+summaries of different companies and between the summaries for the same
+company of different years. The similarity between different companies
+in the same year is utilized in Section 3 to compare the FIC by Hoberg
+\& Phillips (2016) with the industry classification by the BERTScore.
 
-Regarding our Replication FIC
+hoberg use word vectors and product description, we use BERT and
+everything regarding the BMI, different object ob research. By
+definition of spieth is the product a part of the value offering,
+thereby a part of the BMI. Because product is thereby entangled, we
+expect a similar distribution as Hoberg for the FIC. very granular, lot
+of small industries. This motivates H1 and H2:
 
-Products are part of the BM - similar clusters - H1: We expect a similar
-distribution of firms. - H2: We expect a high overlap with Hobergs
-classification.
+\textbf{H1}: We expect a similar distribution of firms.
 
-Regarding Contribution
+\textbf{H2}: We expect a high overlap with Hobergs classification.
 
-\begin{itemize}
-\tightlist
-\item
-  H3: Our measure for BMI shows a positive relationship with firm
-  performance
-\end{itemize}
+focus will not be an the replication because our approach differs very
+strong from original paper. We not only calc similarity between
+different firms, but also for the same firm over time. this allows
+measuring the change in BM. Under the assumption that companies ``don't
+run in circles'', this measures BMI on the new to the firm level. in
+literature, positive relationship between BMI and firm performance is
+explored. to test our measure, we regress firm performance on BMI (and
+other controlls found in the literature). When 1-BERTScore really
+measures BMI, we expect H3 to be true:
+
+\textbf{H3}: Our measure for BMI shows a positive relationship with firm
+performance
 
 \section{Replication}\label{replication}
 
@@ -725,15 +737,6 @@ describes a perfect similarity.
 \subsection{Estimation Strategy}\label{estimation-strategy}
 
 \section{Results and Discussion}\label{results-and-discussion}
-
-Limitations: - Four potential problems - Changes in texts could also be
-attributable to changes in regulatory adjustments, changes in Markets or
-other external factors - Gemini processes could have lead to a lose of
-information -\textgreater{} could lead to biases - Item 1 texts are
-strictly ruled, actual changes in BM could be neglected (or not written
-down for business policy purposes) - Missing Differentiation between
-incremental innovation and radical innovation -\textgreater{}
-differences in BERTscores
 
 \section{Conclusion}\label{conclusion}
 
