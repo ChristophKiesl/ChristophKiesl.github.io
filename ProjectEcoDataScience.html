@@ -12,6 +12,7 @@
 <meta name="author" content="Leonard Pöhls">
 <meta name="author" content="Alexander Rieber">
 <meta name="author" content="Ansgar Scherp">
+<meta name="keywords" content="10-K, Business Model Innovation, BERT, Gemini">
 
 <title>From Text to Insight - A Novel Approach to Measuring Business Model Innovation</title>
 <style>
@@ -59,6 +60,10 @@ div.csl-indent {
 <script src="ProjectEcoDataScience_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="ProjectEcoDataScience_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="ProjectEcoDataScience_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="ProjectEcoDataScience_files/libs/kePrint-0.0.1/kePrint.js"></script>
+
+<link href="ProjectEcoDataScience_files/libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
 
 
 </head>
@@ -126,11 +131,17 @@ div.csl-indent {
   </div>
 </div>
 
+<div>
+  <div class="keywords">
+    <div class="block-title">Keywords</div>
+    <p>10-K, Business Model Innovation, BERT, Gemini</p>
+  </div>
+</div>
 
 </header>
 
 
-<p> </p>
+<div style="page-break-after: always;"></div>
 <section id="introduction" class="level1">
 <h1>Introduction</h1>
 <p>BMI is a key activity to maintain competitiveness and even gain a competitive advantage <span class="citation" data-cites="pucihar_drivers_2019 teece_business_2018">(<a href="#ref-pucihar_drivers_2019" role="doc-biblioref">Pucihar et al. 2019</a>; <a href="#ref-teece_business_2018" role="doc-biblioref">Teece 2018</a>)</span>. It is therefore no surprise that the interest in BMI and methods of measuring it has grown rapidly over the last twenty years. Researchers have recently called for a BMI measurement instrument that is more comprehensive and advanced than already existing ones <span class="citation" data-cites="huang_review_2023">(<a href="#ref-huang_review_2023" role="doc-biblioref">Huang and Ichikohji 2023</a>)</span>. The scale developed by Spieth &amp; Schneider <span class="citation" data-cites="spieth_business_2016">(<a href="#ref-spieth_business_2016" role="doc-biblioref">2016</a>)</span> provides managers and practitioners with a measurement index for business model innovativeness. This measurement model only validates applicability of BMI theory <span class="citation" data-cites="huang_review_2023">(<a href="#ref-huang_review_2023" role="doc-biblioref">Huang and Ichikohji 2023</a>)</span> and is insufficient for longitudinal studies <span class="citation" data-cites="clauss_measuring_2017">(<a href="#ref-clauss_measuring_2017" role="doc-biblioref">Clauss 2017</a>)</span>. Hence, this measure is not adequate for a time series analysis of BMI. Furthermore, it refers only to BMI as new-to-the-firm and is not able to grasp BMI in the sense of new-to-the-industry and new-to-market. Clauss <span class="citation" data-cites="clauss_measuring_2017">(<a href="#ref-clauss_measuring_2017" role="doc-biblioref">2017</a>)</span> developed a similar measure with comparable limitations.</p>
@@ -155,1048 +166,193 @@ div.csl-indent {
 <ul>
 <li>result of this check</li>
 </ul>
-<div id="xhzrbccaxs" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#xhzrbccaxs table {
-  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+<div>
 
-#xhzrbccaxs thead, #xhzrbccaxs tbody, #xhzrbccaxs tfoot, #xhzrbccaxs tr, #xhzrbccaxs td, #xhzrbccaxs th {
-  border-style: none;
-}
-
-#xhzrbccaxs p {
-  margin: 0;
-  padding: 0;
-}
-
-#xhzrbccaxs .gt_table {
-  display: table;
-  border-collapse: collapse;
-  line-height: normal;
-  margin-left: auto;
-  margin-right: auto;
-  color: #333333;
-  font-size: 16px;
-  font-weight: normal;
-  font-style: normal;
-  background-color: #FFFFFF;
-  width: auto;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #A8A8A8;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #A8A8A8;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-}
-
-#xhzrbccaxs .gt_caption {
-  padding-top: 4px;
-  padding-bottom: 4px;
-}
-
-#xhzrbccaxs .gt_title {
-  color: #333333;
-  font-size: 125%;
-  font-weight: initial;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-color: #FFFFFF;
-  border-bottom-width: 0;
-}
-
-#xhzrbccaxs .gt_subtitle {
-  color: #333333;
-  font-size: 85%;
-  font-weight: initial;
-  padding-top: 3px;
-  padding-bottom: 5px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-color: #FFFFFF;
-  border-top-width: 0;
-}
-
-#xhzrbccaxs .gt_heading {
-  background-color: #FFFFFF;
-  text-align: center;
-  border-bottom-color: #FFFFFF;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#xhzrbccaxs .gt_bottom_border {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#xhzrbccaxs .gt_col_headings {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#xhzrbccaxs .gt_col_heading {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 6px;
-  padding-left: 5px;
-  padding-right: 5px;
-  overflow-x: hidden;
-}
-
-#xhzrbccaxs .gt_column_spanner_outer {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-left: 4px;
-  padding-right: 4px;
-}
-
-#xhzrbccaxs .gt_column_spanner_outer:first-child {
-  padding-left: 0;
-}
-
-#xhzrbccaxs .gt_column_spanner_outer:last-child {
-  padding-right: 0;
-}
-
-#xhzrbccaxs .gt_column_spanner {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  overflow-x: hidden;
-  display: inline-block;
-  width: 100%;
-}
-
-#xhzrbccaxs .gt_spanner_row {
-  border-bottom-style: hidden;
-}
-
-#xhzrbccaxs .gt_group_heading {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  text-align: left;
-}
-
-#xhzrbccaxs .gt_empty_group_heading {
-  padding: 0.5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: middle;
-}
-
-#xhzrbccaxs .gt_from_md > :first-child {
-  margin-top: 0;
-}
-
-#xhzrbccaxs .gt_from_md > :last-child {
-  margin-bottom: 0;
-}
-
-#xhzrbccaxs .gt_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  margin: 10px;
-  border-top-style: solid;
-  border-top-width: 1px;
-  border-top-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  overflow-x: hidden;
-}
-
-#xhzrbccaxs .gt_stub {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#xhzrbccaxs .gt_stub_row_group {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 5px;
-  padding-right: 5px;
-  vertical-align: top;
-}
-
-#xhzrbccaxs .gt_row_group_first td {
-  border-top-width: 2px;
-}
-
-#xhzrbccaxs .gt_row_group_first th {
-  border-top-width: 2px;
-}
-
-#xhzrbccaxs .gt_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#xhzrbccaxs .gt_first_summary_row {
-  border-top-style: solid;
-  border-top-color: #D3D3D3;
-}
-
-#xhzrbccaxs .gt_first_summary_row.thick {
-  border-top-width: 2px;
-}
-
-#xhzrbccaxs .gt_last_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#xhzrbccaxs .gt_grand_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#xhzrbccaxs .gt_first_grand_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-style: double;
-  border-top-width: 6px;
-  border-top-color: #D3D3D3;
-}
-
-#xhzrbccaxs .gt_last_grand_summary_row_top {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-style: double;
-  border-bottom-width: 6px;
-  border-bottom-color: #D3D3D3;
-}
-
-#xhzrbccaxs .gt_striped {
-  background-color: rgba(128, 128, 128, 0.05);
-}
-
-#xhzrbccaxs .gt_table_body {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#xhzrbccaxs .gt_footnotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#xhzrbccaxs .gt_footnote {
-  margin: 0px;
-  font-size: 90%;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#xhzrbccaxs .gt_sourcenotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#xhzrbccaxs .gt_sourcenote {
-  font-size: 90%;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#xhzrbccaxs .gt_left {
-  text-align: left;
-}
-
-#xhzrbccaxs .gt_center {
-  text-align: center;
-}
-
-#xhzrbccaxs .gt_right {
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-}
-
-#xhzrbccaxs .gt_font_normal {
-  font-weight: normal;
-}
-
-#xhzrbccaxs .gt_font_bold {
-  font-weight: bold;
-}
-
-#xhzrbccaxs .gt_font_italic {
-  font-style: italic;
-}
-
-#xhzrbccaxs .gt_super {
-  font-size: 65%;
-}
-
-#xhzrbccaxs .gt_footnote_marks {
-  font-size: 75%;
-  vertical-align: 0.4em;
-  position: initial;
-}
-
-#xhzrbccaxs .gt_asterisk {
-  font-size: 100%;
-  vertical-align: 0;
-}
-
-#xhzrbccaxs .gt_indent_1 {
-  text-indent: 5px;
-}
-
-#xhzrbccaxs .gt_indent_2 {
-  text-indent: 10px;
-}
-
-#xhzrbccaxs .gt_indent_3 {
-  text-indent: 15px;
-}
-
-#xhzrbccaxs .gt_indent_4 {
-  text-indent: 20px;
-}
-
-#xhzrbccaxs .gt_indent_5 {
-  text-indent: 25px;
-}
-</style>
-
-<table class="gt_table caption-top table" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+</div>
+<div class="cell quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
+<table class="caption-top table table-sm table-striped small">
+<caption>Descriptive Statistics Original Filings</caption>
+<colgroup>
+<col style="width: 5%">
+<col style="width: 7%">
+<col style="width: 22%">
+<col style="width: 9%">
+<col style="width: 18%">
+<col style="width: 8%">
+<col style="width: 18%">
+<col style="width: 9%">
+</colgroup>
 <thead>
-<tr class="header gt_heading">
-<th colspan="8" class="gt_heading gt_title gt_font_normal gt_bottom_border">Table 1: Descriptive Statistics Original Filings</th>
-</tr>
-<tr class="odd gt_col_headings">
-<th id="Year" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="font-weight: bold" scope="col">Year</th>
-<th id="Mean" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="font-weight: bold" scope="col">Mean</th>
-<th id="Standard Deviation" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="font-weight: bold" scope="col">Standard Deviation</th>
-<th id="Minimum" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="font-weight: bold" scope="col">Minimum</th>
-<th id="25th Percentile" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="font-weight: bold" scope="col">25th Percentile</th>
-<th id="Median" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="font-weight: bold" scope="col">Median</th>
-<th id="75th Percentile" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="font-weight: bold" scope="col">75th Percentile</th>
-<th id="Maximum" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="font-weight: bold" scope="col">Maximum</th>
+<tr class="header">
+<th style="text-align: right;">Year</th>
+<th style="text-align: right;">Mean</th>
+<th style="text-align: right;">Standard Deviation</th>
+<th style="text-align: right;">Minimum</th>
+<th style="text-align: right;">25th Percentile</th>
+<th style="text-align: right;">Median</th>
+<th style="text-align: right;">75th Percentile</th>
+<th style="text-align: right;">Maximum</th>
 </tr>
 </thead>
-<tbody class="gt_table_body">
+<tbody>
 <tr class="odd">
-<td class="gt_row gt_right" headers="year">2016</td>
-<td class="gt_row gt_right" headers="Mean">7842</td>
-<td class="gt_row gt_right" headers="Sd">6104</td>
-<td class="gt_row gt_right" headers="Minimum">155</td>
-<td class="gt_row gt_right" headers="Q25">3705</td>
-<td class="gt_row gt_right" headers="Median">6026</td>
-<td class="gt_row gt_right" headers="Q75">10271</td>
-<td class="gt_row gt_right" headers="Maximum">51227</td>
+<td style="text-align: right;">2016</td>
+<td style="text-align: right;">7842</td>
+<td style="text-align: right;">6104</td>
+<td style="text-align: right;">155</td>
+<td style="text-align: right;">3705</td>
+<td style="text-align: right;">6026</td>
+<td style="text-align: right;">10271</td>
+<td style="text-align: right;">51227</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_right" headers="year">2017</td>
-<td class="gt_row gt_right" headers="Mean">7542</td>
-<td class="gt_row gt_right" headers="Sd">6320</td>
-<td class="gt_row gt_right" headers="Minimum">155</td>
-<td class="gt_row gt_right" headers="Q25">3522</td>
-<td class="gt_row gt_right" headers="Median">5767</td>
-<td class="gt_row gt_right" headers="Q75">9700</td>
-<td class="gt_row gt_right" headers="Maximum">70611</td>
+<td style="text-align: right;">2017</td>
+<td style="text-align: right;">7542</td>
+<td style="text-align: right;">6320</td>
+<td style="text-align: right;">155</td>
+<td style="text-align: right;">3522</td>
+<td style="text-align: right;">5767</td>
+<td style="text-align: right;">9700</td>
+<td style="text-align: right;">70611</td>
 </tr>
 <tr class="odd">
-<td class="gt_row gt_right" headers="year">2018</td>
-<td class="gt_row gt_right" headers="Mean">7604</td>
-<td class="gt_row gt_right" headers="Sd">6272</td>
-<td class="gt_row gt_right" headers="Minimum">180</td>
-<td class="gt_row gt_right" headers="Q25">3528</td>
-<td class="gt_row gt_right" headers="Median">5771</td>
-<td class="gt_row gt_right" headers="Q75">9669</td>
-<td class="gt_row gt_right" headers="Maximum">71700</td>
+<td style="text-align: right;">2018</td>
+<td style="text-align: right;">7604</td>
+<td style="text-align: right;">6272</td>
+<td style="text-align: right;">180</td>
+<td style="text-align: right;">3528</td>
+<td style="text-align: right;">5771</td>
+<td style="text-align: right;">9669</td>
+<td style="text-align: right;">71700</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_right" headers="year">2019</td>
-<td class="gt_row gt_right" headers="Mean">8009</td>
-<td class="gt_row gt_right" headers="Sd">6631</td>
-<td class="gt_row gt_right" headers="Minimum">189</td>
-<td class="gt_row gt_right" headers="Q25">3669</td>
-<td class="gt_row gt_right" headers="Median">5971</td>
-<td class="gt_row gt_right" headers="Q75">10410</td>
-<td class="gt_row gt_right" headers="Maximum">78270</td>
+<td style="text-align: right;">2019</td>
+<td style="text-align: right;">8009</td>
+<td style="text-align: right;">6631</td>
+<td style="text-align: right;">189</td>
+<td style="text-align: right;">3669</td>
+<td style="text-align: right;">5971</td>
+<td style="text-align: right;">10410</td>
+<td style="text-align: right;">78270</td>
 </tr>
 <tr class="odd">
-<td class="gt_row gt_right" headers="year">2020</td>
-<td class="gt_row gt_right" headers="Mean">8660</td>
-<td class="gt_row gt_right" headers="Sd">7195</td>
-<td class="gt_row gt_right" headers="Minimum">171</td>
-<td class="gt_row gt_right" headers="Q25">3943</td>
-<td class="gt_row gt_right" headers="Median">6449</td>
-<td class="gt_row gt_right" headers="Q75">10971</td>
-<td class="gt_row gt_right" headers="Maximum">57980</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">8660</td>
+<td style="text-align: right;">7195</td>
+<td style="text-align: right;">171</td>
+<td style="text-align: right;">3943</td>
+<td style="text-align: right;">6449</td>
+<td style="text-align: right;">10971</td>
+<td style="text-align: right;">57980</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_right" headers="year">2021</td>
-<td class="gt_row gt_right" headers="Mean">10324</td>
-<td class="gt_row gt_right" headers="Sd">8406</td>
-<td class="gt_row gt_right" headers="Minimum">235</td>
-<td class="gt_row gt_right" headers="Q25">4670</td>
-<td class="gt_row gt_right" headers="Median">7568</td>
-<td class="gt_row gt_right" headers="Q75">13563</td>
-<td class="gt_row gt_right" headers="Maximum">78799</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">10324</td>
+<td style="text-align: right;">8406</td>
+<td style="text-align: right;">235</td>
+<td style="text-align: right;">4670</td>
+<td style="text-align: right;">7568</td>
+<td style="text-align: right;">13563</td>
+<td style="text-align: right;">78799</td>
 </tr>
 <tr class="odd">
-<td class="gt_row gt_right" headers="year">2022</td>
-<td class="gt_row gt_right" headers="Mean">9471</td>
-<td class="gt_row gt_right" headers="Sd">7997</td>
-<td class="gt_row gt_right" headers="Minimum">171</td>
-<td class="gt_row gt_right" headers="Q25">4309</td>
-<td class="gt_row gt_right" headers="Median">7042</td>
-<td class="gt_row gt_right" headers="Q75">11897</td>
-<td class="gt_row gt_right" headers="Maximum">73937</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">9471</td>
+<td style="text-align: right;">7997</td>
+<td style="text-align: right;">171</td>
+<td style="text-align: right;">4309</td>
+<td style="text-align: right;">7042</td>
+<td style="text-align: right;">11897</td>
+<td style="text-align: right;">73937</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_right" headers="year">2023</td>
-<td class="gt_row gt_right" headers="Mean">6646</td>
-<td class="gt_row gt_right" headers="Sd">4771</td>
-<td class="gt_row gt_right" headers="Minimum">190</td>
-<td class="gt_row gt_right" headers="Q25">3660</td>
-<td class="gt_row gt_right" headers="Median">5814</td>
-<td class="gt_row gt_right" headers="Q75">8401</td>
-<td class="gt_row gt_right" headers="Maximum">43523</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">6646</td>
+<td style="text-align: right;">4771</td>
+<td style="text-align: right;">190</td>
+<td style="text-align: right;">3660</td>
+<td style="text-align: right;">5814</td>
+<td style="text-align: right;">8401</td>
+<td style="text-align: right;">43523</td>
 </tr>
 </tbody>
 </table>
-
+</div>
+</div>
 </div>
 </section>
 <section id="the-dataset" class="level2">
 <h2 class="anchored" data-anchor-id="the-dataset">The Dataset</h2>
 <p>We collect 10-K filings from the digital SEC Database, using the category “10-K” as extraction condition. Since the focus of our study lies on company’s BM, we merely use the Item 1 part, since this is the most crucial part of the 10-K filings for describing the companies BM <span class="citation" data-cites="lee_business_2014">(<a href="#ref-lee_business_2014" role="doc-biblioref">Lee and Hong 2014</a>)</span>. Our observations are limited to an intersection of such companies, which on the one hand has been made available to the SEC since 2001 in a publicly accessible list of 10,284 companies (Appendix), of which 7,590 are currently listed on NASDAQ, NYSE or over-the-counter. We extracted 10-K filings that were submitted between 2017 and 2023 based on underlying Central Index Keys (CIK). We exclude companies from the financial sector, namely companies with a SIC Code starting with six. Corresponding to Table 2, multiple steps of pre-processing were required to obtain a final amount 21,683 observations of seven years. Financial key figures, including net income, total assets and others were originally extracted from the SEC, but also challenged with financial values from DataStream. A total of 4,225 companies are included in the sample, although the availability of filings could not always be guaranteed for all years. This is due on the one hand to the quality of the API to the SEC and on the other hand to companies that did not file 10-K reports or were listed on the stock exchange for the entire period under review. Finally, we have access to the financial key figures of the companies for the respective year, the Item I text pre-processed with the help of Gemini, company-specific identification features and the conventional SIC industry classification.</p>
-<div id="roxgdtyykq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#roxgdtyykq table {
-  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+<div>
 
-#roxgdtyykq thead, #roxgdtyykq tbody, #roxgdtyykq tfoot, #roxgdtyykq tr, #roxgdtyykq td, #roxgdtyykq th {
-  border-style: none;
-}
-
-#roxgdtyykq p {
-  margin: 0;
-  padding: 0;
-}
-
-#roxgdtyykq .gt_table {
-  display: table;
-  border-collapse: collapse;
-  line-height: normal;
-  margin-left: auto;
-  margin-right: auto;
-  color: #333333;
-  font-size: 16px;
-  font-weight: normal;
-  font-style: normal;
-  background-color: #FFFFFF;
-  width: auto;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #A8A8A8;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #A8A8A8;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-}
-
-#roxgdtyykq .gt_caption {
-  padding-top: 4px;
-  padding-bottom: 4px;
-}
-
-#roxgdtyykq .gt_title {
-  color: #333333;
-  font-size: 125%;
-  font-weight: initial;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-color: #FFFFFF;
-  border-bottom-width: 0;
-}
-
-#roxgdtyykq .gt_subtitle {
-  color: #333333;
-  font-size: 85%;
-  font-weight: initial;
-  padding-top: 3px;
-  padding-bottom: 5px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-color: #FFFFFF;
-  border-top-width: 0;
-}
-
-#roxgdtyykq .gt_heading {
-  background-color: #FFFFFF;
-  text-align: center;
-  border-bottom-color: #FFFFFF;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#roxgdtyykq .gt_bottom_border {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#roxgdtyykq .gt_col_headings {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#roxgdtyykq .gt_col_heading {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 6px;
-  padding-left: 5px;
-  padding-right: 5px;
-  overflow-x: hidden;
-}
-
-#roxgdtyykq .gt_column_spanner_outer {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-left: 4px;
-  padding-right: 4px;
-}
-
-#roxgdtyykq .gt_column_spanner_outer:first-child {
-  padding-left: 0;
-}
-
-#roxgdtyykq .gt_column_spanner_outer:last-child {
-  padding-right: 0;
-}
-
-#roxgdtyykq .gt_column_spanner {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  overflow-x: hidden;
-  display: inline-block;
-  width: 100%;
-}
-
-#roxgdtyykq .gt_spanner_row {
-  border-bottom-style: hidden;
-}
-
-#roxgdtyykq .gt_group_heading {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  text-align: left;
-}
-
-#roxgdtyykq .gt_empty_group_heading {
-  padding: 0.5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: middle;
-}
-
-#roxgdtyykq .gt_from_md > :first-child {
-  margin-top: 0;
-}
-
-#roxgdtyykq .gt_from_md > :last-child {
-  margin-bottom: 0;
-}
-
-#roxgdtyykq .gt_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  margin: 10px;
-  border-top-style: solid;
-  border-top-width: 1px;
-  border-top-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  overflow-x: hidden;
-}
-
-#roxgdtyykq .gt_stub {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#roxgdtyykq .gt_stub_row_group {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 5px;
-  padding-right: 5px;
-  vertical-align: top;
-}
-
-#roxgdtyykq .gt_row_group_first td {
-  border-top-width: 2px;
-}
-
-#roxgdtyykq .gt_row_group_first th {
-  border-top-width: 2px;
-}
-
-#roxgdtyykq .gt_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#roxgdtyykq .gt_first_summary_row {
-  border-top-style: solid;
-  border-top-color: #D3D3D3;
-}
-
-#roxgdtyykq .gt_first_summary_row.thick {
-  border-top-width: 2px;
-}
-
-#roxgdtyykq .gt_last_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#roxgdtyykq .gt_grand_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#roxgdtyykq .gt_first_grand_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-style: double;
-  border-top-width: 6px;
-  border-top-color: #D3D3D3;
-}
-
-#roxgdtyykq .gt_last_grand_summary_row_top {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-style: double;
-  border-bottom-width: 6px;
-  border-bottom-color: #D3D3D3;
-}
-
-#roxgdtyykq .gt_striped {
-  background-color: rgba(128, 128, 128, 0.05);
-}
-
-#roxgdtyykq .gt_table_body {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#roxgdtyykq .gt_footnotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#roxgdtyykq .gt_footnote {
-  margin: 0px;
-  font-size: 90%;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#roxgdtyykq .gt_sourcenotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#roxgdtyykq .gt_sourcenote {
-  font-size: 90%;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#roxgdtyykq .gt_left {
-  text-align: left;
-}
-
-#roxgdtyykq .gt_center {
-  text-align: center;
-}
-
-#roxgdtyykq .gt_right {
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-}
-
-#roxgdtyykq .gt_font_normal {
-  font-weight: normal;
-}
-
-#roxgdtyykq .gt_font_bold {
-  font-weight: bold;
-}
-
-#roxgdtyykq .gt_font_italic {
-  font-style: italic;
-}
-
-#roxgdtyykq .gt_super {
-  font-size: 65%;
-}
-
-#roxgdtyykq .gt_footnote_marks {
-  font-size: 75%;
-  vertical-align: 0.4em;
-  position: initial;
-}
-
-#roxgdtyykq .gt_asterisk {
-  font-size: 100%;
-  vertical-align: 0;
-}
-
-#roxgdtyykq .gt_indent_1 {
-  text-indent: 5px;
-}
-
-#roxgdtyykq .gt_indent_2 {
-  text-indent: 10px;
-}
-
-#roxgdtyykq .gt_indent_3 {
-  text-indent: 15px;
-}
-
-#roxgdtyykq .gt_indent_4 {
-  text-indent: 20px;
-}
-
-#roxgdtyykq .gt_indent_5 {
-  text-indent: 25px;
-}
-</style>
-
-<table class="gt_table caption-top table" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+</div>
+<div class="cell quarto-layout-panel" data-tbl-colwidths="auto" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<caption>10-K Sample Creation</caption>
 <thead>
-<tr class="header gt_heading">
-<th colspan="3" class="gt_heading gt_title gt_font_normal gt_bottom_border">Table 2: 10-K Sample Creation<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;"><sup>1</sup></span></th>
-</tr>
-<tr class="odd gt_col_headings">
-<th id="Source/Filter" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" style="font-weight: bold" scope="col">Source/Filter</th>
-<th id="Sample Size" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="font-weight: bold" scope="col">Sample Size</th>
-<th id="Observations Removed" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="font-weight: bold" scope="col">Observations Removed</th>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Source/Filter</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Sample Size</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Observations Removed</th>
 </tr>
 </thead>
-<tbody class="gt_table_body">
+<tbody>
 <tr class="odd">
-<td class="gt_row gt_left" headers="V1">1. Extracted 10-K filings from the SEC</td>
-<td class="gt_row gt_right" headers="V2">35731</td>
-<td class="gt_row gt_right" headers="V3"></td>
+<td style="text-align: left; max-width: 10;">1. Extracted 10-K filings from the SEC</td>
+<td style="text-align: right;">35731</td>
+<td style="text-align: left;"></td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_left" headers="V1">2. Excluding filings from financial companies (SIC-code starting with '6')</td>
-<td class="gt_row gt_right" headers="V2">27569</td>
-<td class="gt_row gt_right" headers="V3">8162</td>
+<td style="text-align: left; max-width: 10;">2. Excluding filings from financial companies (SIC-code starting with '6')</td>
+<td style="text-align: right;">27569</td>
+<td style="text-align: left;">8162</td>
 </tr>
 <tr class="odd">
-<td class="gt_row gt_left" headers="V1">3. Verify for Item 1 text availability (removed oberservations that are attributable to API quality)</td>
-<td class="gt_row gt_right" headers="V2">23982</td>
-<td class="gt_row gt_right" headers="V3">3587</td>
+<td style="text-align: left; max-width: 10;">3. Verify for Item 1 text availability (removed oberservations that are attributable to API quality)</td>
+<td style="text-align: right;">23982</td>
+<td style="text-align: left;">3587</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_left" headers="V1">4. Extracting dates for which the filings are reporting for and removing of duplicated filings</td>
-<td class="gt_row gt_right" headers="V2">23971</td>
-<td class="gt_row gt_right" headers="V3">11</td>
+<td style="text-align: left; max-width: 10;">4. Extracting dates for which the filings are reporting for and removing of duplicated filings</td>
+<td style="text-align: right;">23971</td>
+<td style="text-align: left;">11</td>
 </tr>
 <tr class="odd">
-<td class="gt_row gt_left" headers="V1">5. Delete observations with incorrect date assignment</td>
-<td class="gt_row gt_right" headers="V2">22161</td>
-<td class="gt_row gt_right" headers="V3">1810</td>
+<td style="text-align: left; max-width: 10;">5. Delete observations with incorrect date assignment</td>
+<td style="text-align: right;">22161</td>
+<td style="text-align: left;">1810</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_left" headers="V1">6. Merged Gemini processed Item 1 text to the underlying data set. We did not consider texts that were not processable</td>
-<td class="gt_row gt_right" headers="V2">21697</td>
-<td class="gt_row gt_right" headers="V3">464</td>
+<td style="text-align: left; max-width: 10;">6. Merged Gemini processed Item 1 text to the underlying data set. We did not consider texts that were not processable</td>
+<td style="text-align: right;">21697</td>
+<td style="text-align: left;">464</td>
 </tr>
 <tr class="odd">
-<td class="gt_row gt_left" headers="V1">7. Extract financials statements from SEC and merge them. Also remove observations for years prior to 2016</td>
-<td class="gt_row gt_right" headers="V2">21686</td>
-<td class="gt_row gt_right" headers="V3">11</td>
+<td style="text-align: left; max-width: 10;">7. Extract financials statements from SEC and merge them. Also remove observations for years prior to 2016</td>
+<td style="text-align: right;">21686</td>
+<td style="text-align: left;">11</td>
 </tr>
-</tbody><tfoot class="gt_footnotes">
+</tbody><tfoot>
+<tr class="even">
+<td style="text-align: left; padding: 0;"><span style="font-style: italic;">Note: </span></td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+</tr>
 <tr class="odd">
-<td colspan="3" class="gt_footnote"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;"><sup>1</sup></span> Note: Filings submitted between 2017 and 2023 are considered</td>
+<td style="text-align: left; padding: 0;"><sup></sup> Filings submitted between 2017 and 2023 are considered</td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
 </tr>
 </tfoot>
 
 </table>
 
+
+</div>
 </div>
 <p>TODO</p>
 <ul>
@@ -1208,7 +364,7 @@ div.csl-indent {
 <h2 class="anchored" data-anchor-id="methodology">Methodology</h2>
 <p>We calculate bidirectional BERT scores of item 1 texts processed with Gemini in several variants. For replication purposes, we calculate BERTscores between different companies in the same years, on the basis of which we determine industry classifications using a hierarchical agglomerative algorithm. We further calculate BERTScores between same firms over the years, capturing a new measure for BMI.</p>
 <p>Regarding our Replication FIC</p>
-<p>Products are part of the BM -&gt; similar clusters - H1: We expect a similar distribution of firms. - H2: We expect a high overlap with Hobergs classification.</p>
+<p>Products are part of the BM - similar clusters - H1: We expect a similar distribution of firms. - H2: We expect a high overlap with Hobergs classification.</p>
 <p>Regarding Contribution</p>
 <ul>
 <li>H3: Our measure for BMI shows a positive relationship with firm performance</li>
@@ -1248,6 +404,7 @@ div.csl-indent {
 <li>Jonathan for IT Support</li>
 <li>Prof.&nbsp;Kranz for Repo</li>
 </ul>
+<div style="page-break-after: always;"></div>
 </section>
 <section id="references" class="level1">
 <h1>References</h1>
@@ -1289,6 +446,7 @@ Teece, David J. 2018. <span>“Business Models and Dynamic Capabilities.”</spa
 White, Joshua V., Erik Markin, David Marshall, and Vishal K. Gupta. 2022. <span>“Exploring the Boundaries of Business Model Innovation and Firm Performance: <span>A</span> Meta-Analysis.”</span> <em>Long Range Planning</em> 55 (5): 102242. <a href="https://doi.org/10.1016/j.lrp.2022.102242">https://doi.org/10.1016/j.lrp.2022.102242</a>.
 </div>
 </div>
+<div style="page-break-after: always;"></div>
 </section>
 <section id="appendix" class="level1">
 <h1>Appendix</h1>
