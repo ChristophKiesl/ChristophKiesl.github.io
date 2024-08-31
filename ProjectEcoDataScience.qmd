@@ -51,7 +51,7 @@ keywords:
   #   caption: figure caption
   #   description: teaser description    
 abstract: |
- The ability of companies to continuously innovate and adapt their business models is a key driver of long-term success in dynamic markets. In this study, we examine the quantification of business model innovation (BMI) by means of a text-based analysis of pre-processed 10-K reports, specifically Item 1 texts that describe companies business activities. Our approach focuses on two investigations, firstly creating an industry classification according to Hoberg & Phillips [-@hoberg_text-based_2016], applying a BERT-based (Bidirectional Encoder Representation from Transformers) similarity index (BERTScore) to text summaries previously summarized by Google's Gemini. Second, we apply the same approach for identical firms to capture semantic changes across different years, while low BERTScores indicate significant changes in the business model components, which can be interpreted as potential BMI. Our results provide insights into the extent to which textual similarities in regulatory reports can be used as a reliable indicator for BMI. This method could thus represent a novel and scalable approach to analyzing BMI over time.
+ The ability of a company to continuously innovate its business model (BM) is a pivotal determinant of long-term success in dynamic markets. It is therefore crucial to ensure the reliability of business model innovation (BMI) measurement. In this study, we utilise business descriptions from 10-K filings between 2017 and 2023 to measure BMI. The methodology employed is as follows: Firstly, we employ Google's Gemini to summarize the core elements of the BM from the 10-K reports. Subsequently, we apply a BERT model (Bidirectional Encoder Representation from Transformers) and calculate the similarity between the summaries of a company over the observation period with the BERTScore. This approach enables us to identify changes in a company's business model over time. To evaluate the effectiveness of our measure, we regress firm performance on the distance between two summaries in consecutive years. Based on the existing literature, we hypothesise that there will be a positive relationship. We find that (...). The findings of this study offer insights into the extent to which textual similarities in regulatory reports can be employed as a reliable indicator for BMI. Thus, this method represent a novel approach to analyzing BMI over time.
 ---
 {{< pagebreak >}}
 
@@ -152,7 +152,7 @@ Table2
 
 TODO
 
--   Descriptive Table3 for length of summary (in words and tokens (use tokenizer our Model uses))
+-   Descriptive Table3 for length of summary
 -   Description of Table2, Table3, and the final dataset
 -   something (Table or Figure) for looking at distribution of BERTScore
 
@@ -176,7 +176,7 @@ The data employed for the industry classification with the BERTScore is the same
 
 Figure 1 compares the distribution of industry size for the BERTScore classification and the FIC The BERTScore classification shows a similar picture as the FIC Both are left skewed, with most industries being smaller than ten firms. The distribution of the FIC is steeper than the on of the BERTScore classification. It is noteworthy, that the largest industry in the BERTScore classification only consists of 27 companies, while the FIC contains industries larger than this, with some over 50 companies. This indicates that the BERTScore classification clusters small to medium sized industries ranging between two to fourteen firms per industry with less large industries. The FIC also consists mostly of small to medium, but also a few large industries. Despite these minor differences, this supports H1.
 
-Regarding H2: Medium Homogeneity with 0.63 and Medium Completeness with 0.6026; Low Adjusted Rand Index (ARI) with 0.0002 and low Fowlkes-Mallows Index (FMI) -> indicates clusters are not better than random; No support for H2; Reason could be different object of investigation (BM vs product description)
+(Still preliminary) Regarding H2: Medium Homogeneity with 0.63 and Medium Completeness with 0.6026; Low Adjusted Rand Index (ARI) with 0.0002 and low Fowlkes-Mallows Index (FMI) -> indicates clusters are not better than random; No support for H2; Reason could be different object of investigation (BM vs product description)
 
 The industries in the FIC are fixed, but by dropping the fixed location property, the industry classification are time-varying. Furthermore, if the binary membership transitivity property is relaxed, the result is the TNIC by Hoberg & Phillips [-@hoberg_text-based_2016]. The removal of the fixed location property encourages the notion of not fixing a specific year and calculating the similarities between different companies, but rather fixing a company and calculating the similarity between this firm and others over time.Such considerations result in a shift in focus away from industry classification towards an analysis of a company's evolution. As previously stated, 10-K filings are rich on information and contain a wealth of data beyond mere product descriptions. The additional information can be leveraged to investigate a company's BM. The combination of both rationales -- fixing a company over time and analysing the BM -- constitutes the primary concept of this study.
 
@@ -215,7 +215,12 @@ Figure1
 
 # Empirical Framework
 
-The definition of BM includes according to Spieth & Schneider [-@spieth_business_2016] the three components value proposition, value creation and its revenue model logic. We used the pre-processing of Item I texts with Gemini to control these texts using a specific prompt in that the focus of the texts is on the definition of these three components. Hence, our BERT-based similarity scores between processed texts represent an index for BMI that can be used for empirical studies. A preliminary validity check of these similarity scores should be performed.
+```{r eval = FALSE, echo=FALSE, warning = FALSE, message = FALSE, results='asis'}
+#The definition of BM includes according to Spieth & Schneider [-@spieth_business_2016] the three components value proposition, value creation and its revenue model logic. We used the pre-processing of Item I texts with Gemini to control these texts using a specific prompt in that the focus of the texts is on the definition of these three components. Hence, our BERT-based similarity scores between processed texts represent an index for BMI that can be used for empirical studies. A preliminary validity check of these similarity scores should be performed.
+
+# bereits teil von 2.1
+```
+
 
 ## BERT and BERTScore
 
@@ -225,9 +230,12 @@ BERT is a pre-trained and transformer-based model for natural language processin
 
 A number of studies have examined the relationship between BMI and the financial performance of a company. Cucculelli & Bettinelli [-@cucculelli_business_2015] investigate the effect of BMI on sales growth, return on sales (ROS) and total factor productivity (TFP). The results provide support for the hypothesis that BMI has a positive effect on firm performance, with the effect increasing in line with the intensity of the innovation. Latifi et al. [-@latifi_business_2021] also find evidence that provides support for the hypothesis that a company engaging in BMI will improve its overall firm performance. In their study, the firm performance is evaluated subjectively. Zott & Amit [-@zott_fit_2008] analyse the effect of the BM and the product market strategy on firm performance. They measure the firm performance with the market value of equity as the stock price multiplied with the number of shares outstanding. White et al. [-@white_exploring_2022] conducted a meta-analysis based on the extant BMI literature. They found a positive relationship between BMI and firm performance, and that this relationship is shaped by factors including the firm age, industry, the economic and political environment and BMI characteristics.
 
-Based on the literature, we build our estimation strategy.
-
-Multiple Regressions on different financial measures
+Following paragraph is still preliminary:
+- Based on the literature (mostly on [@white_exploring_2022] and [@zott_fit_2008]) we build our estimation strategy; use multiple multivariate regressions; 
+- dependent variables: sales growth, market equity (growth), Tobins Q
+- independent variable: distance between summaries (makes the measure more intuitive; if distance grows/ similarity decreases, summaries are more dissimilar -> BMI)
+- controls: firm age and size, might need to consider how to measure size (employees, firm value), Tobins Q might also be used
+- fixed effects for year and industry might me useful. company FE? 
 
 # Results and Discussion
 
