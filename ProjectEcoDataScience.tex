@@ -241,12 +241,6 @@ BMI over time.
 Gemini
 
 
-\renewcommand*\contentsname{Table of contents}
-{
-\hypersetup{linkcolor=}
-\setcounter{tocdepth}{3}
-\tableofcontents
-}
 \newpage{}
 
 \section{Introduction}\label{introduction}
@@ -414,7 +408,7 @@ decided to let Google's GenAI chatbot Gemini summarize them to a maximum
 length of 512 tokens. The summaries were created between 26 June 2024
 and 6 August 2024. The model employed was Gemini Flash 1.5. The prompt
 was inserted at the beginning of each text file and it was passed via an
-API to Gemini \footnote{We forked and used following Github Repository:
+API to Gemini \footnote{We forked and used following Github repository:
   https://github.com/skranz/gemini\_ex.}. We used following prompt:
 ``Summarize the business model from the following text. Answer with a
 continuous text and with five hundred twelve tokens at max. Set your
@@ -422,7 +416,7 @@ focus on sources of revenue, the intended customer base, products,
 distribution channels and details of financing. Use only information
 from the following the text''.\footnote{The spelling error in the last
   sentence of the prompt was found after processing Item 1. After
-  evaluating the Summaries, this error did not cause any issues.}
+  evaluating the summaries, this error did not cause any issues.}
 ``intended customer base'' and ``product'' refer to the value offering,
 ``distribution channels'' refers to the value architecture, and
 ``sources of revenue'' and ``details of financing'' refer to the revenue
@@ -529,9 +523,9 @@ We extracted 10-K filings that were submitted between 2017 and 2023
 based on underlying Central Index Keys (CIK). We exclude companies from
 the financial sector, namely companies with a SIC Code starting with
 six. Corresponding to Table 2, multiple steps of pre-processing were
-required to obtain a final amount 21,683 observations of seven years.
-Financial key figures, including net income, total assets and others
-were originally extracted from the SEC, but also challenged with
+required to obtain the final amount of 21,683 observations for seven
+years. Financial key figures, including net income, total assets and
+others were originally extracted from the SEC, but also challenged with
 financial values from DataStream. A total of 4,225 companies are
 included in the sample, although the availability of filings could not
 always be guaranteed for all years. This is due on the one hand to the
@@ -579,40 +573,54 @@ TODO
 \item
   Description of Table2, Table3, and the final dataset
 \item
-  something (Table, Figure) for looking at distribution of BERTScore
+  something (Table or Figure) for looking at distribution of BERTScore
 \end{itemize}
 
 \subsection{Methodology}\label{methodology}
 
 After processing the data, we calculate the BERTScore between the
-summaries of different companies and between the summaries for the same
-company of different years. The similarity between different companies
-in the same year is utilized in Section 3 to compare the FIC by Hoberg
-\& Phillips (2016) with the industry classification by the BERTScore.
+summaries of different companies in one year and between the summaries
+for the same company over different years. The similarity between
+different companies in the same year is utilized in Section 3 to compare
+the FIC by Hoberg \& Phillips (2016) with the industry classification by
+the BERTScore. Hoberg \& Phillips (2016) calculate the cosine similarity
+between word vectors of product descriptions while we utilise the
+BERTScore to calculate the similarity between our BM summaries. The
+methodology and object of research differ between the two studys. But
+the product of a company is by the definition of Spieth \& Schneider
+(2016) a part of its value offering and thereby a part of the BM.
+Because the product is thereby entangled with the BM, companies that
+have similar products might have similar BMs. So despite the different
+methodology and object of research, we expect a similar distribution as
+Hoberg for the FIC, which is very granular and contains lot of small
+industries. Thus, we hypothesize:
 
-hoberg use word vectors and product description, we use BERT and
-everything regarding the BMI, different object ob research. By
-definition of spieth is the product a part of the value offering,
-thereby a part of the BMI. Because product is thereby entangled, we
-expect a similar distribution as Hoberg for the FIC. very granular, lot
-of small industries. This motivates H1 and H2:
+\textbf{H1}: Our industry classification shows a similar distribution
+compared to the FIC.
 
-\textbf{H1}: We expect a similar distribution of firms.
+\textbf{H2}: Our industry classification has a high overlap with the
+FIC.
 
-\textbf{H2}: We expect a high overlap with Hobergs classification.
-
-focus will not be an the replication because our approach differs very
-strong from original paper. We not only calc similarity between
-different firms, but also for the same firm over time. this allows
-measuring the change in BM. Under the assumption that companies ``don't
-run in circles'', this measures BMI on the new to the firm level. in
-literature, positive relationship between BMI and firm performance is
-explored. to test our measure, we regress firm performance on BMI (and
-other controlls found in the literature). When 1-BERTScore really
-measures BMI, we expect H3 to be true:
+As mentioned, our approach differs not marginally from the original
+paper by Hoberg \& Phillips (2016). We fix the company and calculate the
+BERTScore between the summaries of different years. These summaries
+describe the BM of a company based on the 10-K filing of that company
+for that year. When a company innovates its BM over time, the 10-K
+filings change and thus the summaries of these filings. By taking the
+similarity between this summaries, we are able to calculate the distance
+between the summaries. This allows us to measure the change in a
+company's BM. Under the assumption that companies ``don't run in
+circles'', this measures BMI on the new-to-the-firm level. The
+assumption ``don't run in circles'' means, that a company that not
+marginally changes its BM, won't change it back to the same BM it had
+before. In the BMI literature, the positive relationship between BMI and
+firm performance is well explored by a wealth of studies examining this
+relationship (White et al. 2022). In the case that our measure indeed
+measures BMI, we expect to find a positive relationship between our BMI
+measure and firm performance. Therefore, we hypothesize that:
 
 \textbf{H3}: Our measure for BMI shows a positive relationship with firm
-performance
+performance.
 
 \section{Replication}\label{replication}
 
@@ -631,7 +639,7 @@ produced in this study and the aforementioned benchmark.
 
 The data employed for the industry classification with the BERTScore is
 the same as described in Section 2. In order to establish a benchmark,
-we have utilised the similarity scores provided by Hoberg-Phillips Data
+we have utilized the similarity scores provided by Hoberg-Phillips Data
 Library.\footnote{For the database see:
   https://hobergphillips.tuck.dartmouth.edu.} The data consists of the
 gvkeys of two companies, the year and the cosine similarity between
@@ -660,8 +668,8 @@ The binary membership transitivity property states that if two firms are
 in the same industry and a third firm is in the same industry as one of
 the other two, then it is also in the same industry as the other. The
 fixed location property dictates that clusters are not recalculated on
-an annual basis, but rather remain fixed until the codes are
-updated.(Hoberg and Phillips 2016).
+an annual basis, but rather remain fixed until the codes are updated
+(Hoberg and Phillips 2016).
 
 Figure 1 compares the distribution of industry size for the BERTScore
 classification and the FIC The BERTScore classification shows a similar
@@ -715,26 +723,47 @@ check of these similarity scores should be performed.
 BERT is a pre-trained and transformer-based model for natural language
 processing (NPL) based on artificial neural networks. It works according
 to the so-called transformer architecture, which was first mentioned by
-Vaswani et. al (2017) {[}\ldots.{]}. According to these authors, this
-architecture consists of two main components, the encoder and the
-decoder. The encoder consists of several identical layers, which
-initially use the so-called self-attention mechanism to generate
-context-dependent representations of each word in the sentence. This
-mechanism can be parallelized and therefore enables different aspects of
-the context to be captured in the same way. The decoder, on the other
-hand, works in a similar way and is responsible for processing the
-information from the encoder and forming it into an output sequence.
-However, this is not relevant for BERT, as no sequence-to-sequence
-transformation is carried out in BERT. In contrast to Hoberg \& Philips
-(2016) (2016) word-to-vec approach, BERT works bidirectional and takes
-into account the context from both sides of each word simultaneously.
-Therefore, BERT is able to capture deeper semantics in texts such as
-10-K reports. The BERTScore now computes the cosine similarity between
-word or text meanings, that have been determined by representations (or
-embeddings) learned from BERT. The scale is from -1 to 1, where 1
-describes a perfect similarity.
+Vaswani et al. (2017). According to these authors, this architecture
+consists of two main components, the encoder and the decoder. The
+encoder consists of several identical layers, which initially use the
+so-called self-attention mechanism to generate context-dependent
+representations of each word in the sentence. This mechanism can be
+parallelized and therefore enables different aspects of the context to
+be captured in the same way. The decoder, on the other hand, works in a
+similar way and is responsible for processing the information from the
+encoder and forming it into an output sequence. However, this is not
+relevant for BERT, as no sequence-to-sequence transformation is carried
+out in BERT. In contrast to Hoberg \& Philips (2016) word-to-vec
+approach, BERT works bidirectional and takes into account the context
+from both sides of each word simultaneously. Therefore, BERT is able to
+capture deeper semantics in texts such as 10-K reports. The BERTScore
+now computes the cosine similarity between word or text meanings, that
+have been determined by representations (or embeddings) learned from
+BERT. The scale is from -1 to 1, where 1 describes a perfect similarity.
 
 \subsection{Estimation Strategy}\label{estimation-strategy}
+
+A number of studies have examined the relationship between BMI and the
+financial performance of a company. Cucculelli \& Bettinelli (2015)
+investigate the effect of BMI on sales growth, return on sales (ROS) and
+total factor productivity (TFP). The results provide support for the
+hypothesis that BMI has a positive effect on firm performance, with the
+effect increasing in line with the intensity of the innovation. Latifi
+et al. (2021) also find evidence that provides support for the
+hypothesis that a company engaging in BMI will improve its overall firm
+performance. In their study, the firm performance is evaluated
+subjectively. Zott \& Amit (2008) analyse the effect of the BM and the
+product market strategy on firm performance. They measure the firm
+performance with the market value of equity as the stock price
+multiplied with the number of shares outstanding. White et al. (2022)
+conducted a meta-analysis based on the extant BMI literature. They found
+a positive relationship between BMI and firm performance, and that this
+relationship is shaped by factors including the firm age, industry, the
+economic and political environment and BMI characteristics.
+
+Based on the literature, we build our estimation strategy.
+
+Multiple Regressions on different financial measures
 
 \section{Results and Discussion}\label{results-and-discussion}
 
@@ -820,11 +849,23 @@ Teece, David J. 2018. {``Business Models and Dynamic Capabilities.''}
 \emph{Long Range Planning} 51 (1): 40--49.
 \url{https://doi.org/10.1016/j.lrp.2017.06.007}.
 
+\bibitem[\citeproctext]{ref-vaswani2017attention}
+Vaswani, Ashish, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion
+Jones, Aidan N Gomez, Lukasz Kaiser, and Illia Polosukhin. 2017.
+{``Attention Is All You Need.(nips), 2017.''} \emph{arXiv Preprint
+arXiv:1706.03762} 10: S0140525X16001837.
+
 \bibitem[\citeproctext]{ref-white_exploring_2022}
 White, Joshua V., Erik Markin, David Marshall, and Vishal K. Gupta.
 2022. {``Exploring the Boundaries of Business Model Innovation and Firm
 Performance: {A} Meta-Analysis.''} \emph{Long Range Planning} 55 (5):
 102242. \url{https://doi.org/10.1016/j.lrp.2022.102242}.
+
+\bibitem[\citeproctext]{ref-zott_fit_2008}
+Zott, Christoph, and Raphael Amit. 2008. {``The Fit Between Product
+Market Strategy and Business Model: Implications for Firm
+Performance.''} \emph{Strategic Management Journal} 29 (1): 1--26.
+\url{https://doi.org/10.1002/smj.642}.
 
 \end{CSLReferences}
 
