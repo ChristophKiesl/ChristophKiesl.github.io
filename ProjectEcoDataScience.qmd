@@ -51,7 +51,7 @@ keywords:
   #   caption: figure caption
   #   description: teaser description    
 abstract: |
- The ability of a company to continuously innovate its business model (BM) is a pivotal determinant of long-term success in dynamic markets. It is therefore crucial to ensure the reliability of business model innovation (BMI) measurement. In this study, we utilise business descriptions from 10-K filings between 2017 and 2023 to measure BMI. The methodology employed is as follows: Firstly, we employ Google's Gemini to summarize the core elements of the BM from the 10-K reports. Subsequently, we apply a BERT model (Bidirectional Encoder Representation from Transformers) and calculate the similarity between the summaries of a company over the observation period with the BERTScore. This approach enables us to identify changes in a company's business model over time. To evaluate the effectiveness of our measure, we regress firm performance on the distance between two summaries in consecutive years. Based on the existing literature, we hypothesise that there will be a positive relationship. We find that (...). The findings of this study offer insights into the extent to which textual similarities in regulatory reports can be employed as a reliable indicator for BMI. Thus, this method represent a novel approach to analyzing BMI over time.
+ The ability of a company to continuously innovate its business model is a pivotal determinant of long-term success in dynamic markets. It is therefore crucial to ensure the reliability of business model innovation  measurement. In this study, we utilise business descriptions from 10-K filings between 2017 and 2023 to measure business model innovation. The methodology employed is as follows: Firstly, we employ Google's Gemini to summarize the core elements of the business model from the 10-K reports. Subsequently, we apply a BERT model (Bidirectional Encoder Representation from Transformers) and calculate the similarity between the summaries of a company over the observation period with the BERTScore. This approach enables us to identify changes in a company's business model over time. To evaluate the effectiveness of our measure, we regress firm performance on the distance between two summaries in consecutive years. Based on the existing literature, we hypothesise that there will be a positive relationship. We find that (...). The findings of this study offer insights into the extent to which textual similarities in regulatory reports can be employed as a reliable indicator for business model innovation. Thus, this method represent a novel approach to analyzing business model innovation over time.
 ---
 {{< pagebreak >}}
 
@@ -81,7 +81,7 @@ registerS3method(
 
 # Introduction
 
-BMI is a key activity to maintain competitiveness and even gain a competitive advantage [@pucihar_drivers_2019; @teece_business_2018]. It is therefore no surprise that the interest in BMI and methods of measuring it has grown rapidly over the last twenty years. Researchers have recently called for a BMI measurement instrument that is more comprehensive and advanced than already existing ones [@huang_review_2023]. The scale developed by Spieth & Schneider [-@spieth_business_2016] provides managers and practitioners with a measurement index for business model innovativeness. This measurement model only validates applicability of BMI theory [@huang_review_2023] and is insufficient for longitudinal studies [@clauss_measuring_2017]. Hence, this measure is not adequate for a time series analysis of BMI. Furthermore, it refers only to BMI as new-to-the-firm and is not able to grasp BMI in the sense of new-to-the-industry and new-to-market. Clauss [-@clauss_measuring_2017] developed a similar measure with comparable limitations.
+Business model innovation (BMI) is a key activity to maintain competitiveness and even gain a competitive advantage [@pucihar_drivers_2019; @teece_business_2018]. It is therefore no surprise that the interest in BMI and methods of measuring it has grown rapidly over the last twenty years. Researchers have recently called for a BMI measurement instrument that is more comprehensive and advanced than already existing ones [@huang_review_2023]. The scale developed by Spieth & Schneider [-@spieth_business_2016] provides managers and practitioners with a measurement index for business model innovativeness. This measurement model only validates applicability of BMI theory [@huang_review_2023] and is insufficient for longitudinal studies [@clauss_measuring_2017]. Hence, this measure is not adequate for a time series analysis of BMI. Furthermore, it refers only to BMI as new-to-the-firm and is not able to grasp BMI in the sense of new-to-the-industry and new-to-market. Clauss [-@clauss_measuring_2017] developed a similar measure with comparable limitations.
 
 This gap is addressed by proposing a novel approach to measuring BMI. US-based companies are obliged by the United States Security and Exchange Commission (SEC) to submit annual 10-K filings, wherein a detailed description of the company's business operations is required. Hoberg & Phillips [-@hoberg_text-based_2016] use this filings to create word vectors about the companies products in order to cluster them into industries and thereby proposing a new industry classification. This study builds on their work and methods. We summarize these descriptions with Gemini, utilize the BERTScore as a similarity measure to calculate the similarities between companies and cluster them into industries. We compare our BERTScore clustering with the fixed industry classification (FIC) by Hoberg & Phillips [-@hoberg_text-based_2016]. Furthermore, we calculate the BERTScore between the summaries of different years for a single company. This approach enables the measurement of changes in the business model (BM) over time as the distance between the BM summary of one year to another. There is evidence that an increase in BMI is associated with improved firm performance [@cucculelli_business_2015; @latifi_business_2021; @white_exploring_2022]. In order to test the validity of our measure, we regress financial numbers on our measure, hoping to find a positive relationship.
 
@@ -154,7 +154,10 @@ TODO
 
 -   Descriptive Table3 for length of summary
 -   Description of Table2, Table3, and the final dataset
--   something (Table or Figure) for looking at distribution of BERTScore
+
+## BERT and BERTScore
+
+BERT is a pre-trained and transformer-based model for natural language processing (NPL) based on artificial neural networks. It works according to the so-called transformer architecture, which was first mentioned by Vaswani et al. [-@vaswani2017attention]. According to these authors, this architecture consists of two main components, the encoder and the decoder. The encoder consists of several identical layers, which initially use the so-called self-attention mechanism to generate context-dependent representations of each word in the sentence. This mechanism can be parallelized and therefore enables different aspects of the context to be captured in the same way. The decoder, on the other hand, works in a similar way and is responsible for processing the information from the encoder and forming it into an output sequence. However, this is not relevant for BERT, as no sequence-to-sequence transformation is carried out in BERT. In contrast to Hoberg & Philips [-@hoberg_text-based_2016] word-to-vec approach, BERT works bidirectional and takes into account the context from both sides of each word simultaneously. Therefore, BERT is able to capture deeper semantics in texts such as 10-K reports. The BERTScore now computes the cosine similarity between word or text meanings, that have been determined by representations (or embeddings) learned from BERT. The scale is from -1 to 1, where 1 describes a perfect similarity.
 
 ## Methodology
 
@@ -168,7 +171,20 @@ As mentioned, our approach differs not marginally from the original paper by Hob
 
   **H3**: Our measure for BMI shows a positive relationship with firm performance.
 
-# Replication
+# Estimation Strategy
+
+A number of studies have examined the relationship between BMI and the financial performance of a company. Cucculelli & Bettinelli [-@cucculelli_business_2015] investigate the effect of BMI on sales growth, return on sales (ROS) and total factor productivity (TFP). The results provide support for the hypothesis that BMI has a positive effect on firm performance, with the effect increasing in line with the intensity of the innovation. Latifi et al. [-@latifi_business_2021] also find evidence that provides support for the hypothesis that a company engaging in BMI will improve its overall firm performance. In their study, the firm performance is evaluated subjectively. Zott & Amit [-@zott_fit_2008] analyse the effect of the BM and the product market strategy on firm performance. They measure the firm performance with the market value of equity as the stock price multiplied with the number of shares outstanding. White et al. [-@white_exploring_2022] conducted a meta-analysis based on the extant BMI literature. They found a positive relationship between BMI and firm performance, and that this relationship is shaped by factors including the firm age, industry, the economic and political environment and BMI characteristics.
+
+Following paragraph is still preliminary:
+- Based on the literature (mostly on [@white_exploring_2022] and [@zott_fit_2008]) we build our estimation strategy; use multiple multivariate regressions; 
+- dependent variables: sales growth, market equity (growth), Tobins Q
+- independent variable: distance between summaries (makes the measure more intuitive; if distance grows/ similarity decreases, summaries are more dissimilar -> BMI)
+- controls: firm age and size, might need to consider how to measure size (employees, firm value), Tobins Q might also be used
+- fixed effects for year and industry might me useful. company FE? 
+
+# Results and Discussion
+
+## Comparison
 
 Our study builds on the idea of Hoberg & Phillips [-@hoberg_text-based_2016] to utilize text data from 10-K filings to classify companies based on their similarity to each other into dynamic industries. Our approach differs in two ways: Firstly, in contrast to the TNIC and FIC, which employ word-to-vec, our approach utilises BERT to represent text. Accordingly, the BERTScore is employed instead of the cosine similarity as our similarity measure. Secondly, our analysis is focused on the description of the BM rather than on the product descriptions. In order to set a benchmark for our BERTScore industry classification, we have replicated the FIC approach as described by Hoberg & Phillips [-@hoberg_text-based_2016]. Subsequently, a comparison is made between the industry classification produced in this study and the aforementioned benchmark.
 
@@ -210,33 +226,6 @@ Figure1
 ```
 
 [^3]: For the database see: https://hobergphillips.tuck.dartmouth.edu.
-
-# Empirical Framework
-
-```{r eval = FALSE, echo=FALSE, warning = FALSE, message = FALSE, results='asis'}
-#The definition of BM includes according to Spieth & Schneider [-@spieth_business_2016] the three components value proposition, value creation and its revenue model logic. We used the pre-processing of Item I texts with Gemini to control these texts using a specific prompt in that the focus of the texts is on the definition of these three components. Hence, our BERT-based similarity scores between processed texts represent an index for BMI that can be used for empirical studies. A preliminary validity check of these similarity scores should be performed.
-
-# bereits teil von 2.1
-```
-
-
-## BERT and BERTScore
-
-BERT is a pre-trained and transformer-based model for natural language processing (NPL) based on artificial neural networks. It works according to the so-called transformer architecture, which was first mentioned by Vaswani et al. [-@vaswani2017attention]. According to these authors, this architecture consists of two main components, the encoder and the decoder. The encoder consists of several identical layers, which initially use the so-called self-attention mechanism to generate context-dependent representations of each word in the sentence. This mechanism can be parallelized and therefore enables different aspects of the context to be captured in the same way. The decoder, on the other hand, works in a similar way and is responsible for processing the information from the encoder and forming it into an output sequence. However, this is not relevant for BERT, as no sequence-to-sequence transformation is carried out in BERT. In contrast to Hoberg & Philips [-@hoberg_text-based_2016] word-to-vec approach, BERT works bidirectional and takes into account the context from both sides of each word simultaneously. Therefore, BERT is able to capture deeper semantics in texts such as 10-K reports. The BERTScore now computes the cosine similarity between word or text meanings, that have been determined by representations (or embeddings) learned from BERT. The scale is from -1 to 1, where 1 describes a perfect similarity.
-
-## Estimation Strategy
-
-A number of studies have examined the relationship between BMI and the financial performance of a company. Cucculelli & Bettinelli [-@cucculelli_business_2015] investigate the effect of BMI on sales growth, return on sales (ROS) and total factor productivity (TFP). The results provide support for the hypothesis that BMI has a positive effect on firm performance, with the effect increasing in line with the intensity of the innovation. Latifi et al. [-@latifi_business_2021] also find evidence that provides support for the hypothesis that a company engaging in BMI will improve its overall firm performance. In their study, the firm performance is evaluated subjectively. Zott & Amit [-@zott_fit_2008] analyse the effect of the BM and the product market strategy on firm performance. They measure the firm performance with the market value of equity as the stock price multiplied with the number of shares outstanding. White et al. [-@white_exploring_2022] conducted a meta-analysis based on the extant BMI literature. They found a positive relationship between BMI and firm performance, and that this relationship is shaped by factors including the firm age, industry, the economic and political environment and BMI characteristics.
-
-Following paragraph is still preliminary:
-- Based on the literature (mostly on [@white_exploring_2022] and [@zott_fit_2008]) we build our estimation strategy; use multiple multivariate regressions; 
-- dependent variables: sales growth, market equity (growth), Tobins Q
-- independent variable: distance between summaries (makes the measure more intuitive; if distance grows/ similarity decreases, summaries are more dissimilar -> BMI)
-- controls: firm age and size, might need to consider how to measure size (employees, firm value), Tobins Q might also be used
-- fixed effects for year and industry might me useful. company FE? 
-
-# Results and Discussion
-
 ```{r eval = FALSE, echo=FALSE, warning = FALSE, message = FALSE, results='asis'}
 #Limitations: Four potential problems
 #- Changes in texts could also be attributable to changes in regulatory adjustments, changes in Markets or other external factors
@@ -262,3 +251,5 @@ Following paragraph is still preliminary:
 {{< pagebreak >}}
 
 # Appendix
+
+- distribution of BERT Scores
