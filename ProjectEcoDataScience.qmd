@@ -200,7 +200,8 @@ library(ggplot2)
 
 #Load and edit data
 Figure1 = read.csv("./TableData/Figure1.csv") %>%
-  mutate(Firms = ifelse(Firms>50,50,Firms))
+  mutate(Firms = ifelse(Firms>50,50,Firms))%>%
+  mutate(Clustering = ifelse(Clustering == "Hoberg","FIC",Clustering))
 
 #create plot
 Figure1 = Figure1 %>%
@@ -209,7 +210,7 @@ Figure1 = Figure1 %>%
   scale_x_continuous(breaks = seq(0, 50, by = 5), labels = c(seq(0, 45, by = 5), "50+")) +
   facet_wrap(~ Clustering, ncol = 1) +
   labs(
-    title = "Figure 1: Comparison between FIC and BERT Classification",
+    title = "Figure 1: Comparison between BERT Classification, FIC and SIC",
     x = "Number of Firms in Industry",
     y = "Frequency",
     fill = "Gruppe"
