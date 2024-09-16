@@ -251,30 +251,27 @@ Business model innovation (BMI) is a key activity to maintain
 competitiveness and even gain a competitive advantage (Pucihar et al.
 2019; Teece 2018). It is therefore no surprise that the interest in BMI
 and methods of measuring it has grown rapidly over the last twenty
-years. Researchers have recently called for a BMI measurement instrument
-that is more comprehensive and advanced than already existing ones
-(Huang and Ichikohji 2023). The scale developed by Spieth \& Schneider
-(2016) provides managers and practitioners with a measurement index for
-business model innovativeness. This measurement model only validates
-applicability of BMI theory (Huang and Ichikohji 2023) and is
-insufficient for longitudinal studies (Clauss 2017). Hence, this measure
-is not adequate for a time series analysis of BMI. Furthermore, it
-refers only to BMI as new-to-the-firm and is not able to grasp BMI in
-the sense of new-to-the-industry and new-to-market. Clauss (2017)
-developed a similar measure with comparable limitations.
+years.
 
-This gap is addressed by proposing a novel approach to measuring BMI.
+-Paragraph 1: Write further why BMI is important
+
+Scales and Measures used in the BMI literature (Clauss 2017; Spieth and
+Schneider 2016) provide managers and practitioners with a measurement
+index for business model innovativeness. But these measures only
+validate applicability of BMI theory (Huang and Ichikohji 2023) and are
+insufficient for longitudinal studies (Clauss 2017). Hence, these
+measures are not adequate for a time series analysis of BMI.
+Furthermore, they refer only to BMI as new-to-the-firm and are not able
+to grasp BMI in the sense of new-to-the-industry and new-to-market. This
+gap is addressed by proposing a novel approach to measuring BMI.
 US-based companies are obliged by the United States Security and
 Exchange Commission (SEC) to submit annual 10-K filings, wherein a
 detailed description of the company's business operations is required.
-Hoberg \& Phillips (2016) use this filings to create word vectors about
-the companies products in order to cluster them into industries and
-thereby proposing a new industry classification. This study builds on
-their work and methods. We summarize these descriptions with Gemini,
-utilize the BERTScore as a similarity measure to calculate the
-similarities between companies and cluster them into industries. We
-compare our BERTScore clustering with the fixed industry classification
-(FIC) by Hoberg \& Phillips (2016). Furthermore, we calculate the
+Hoberg \& Phillips (2016), on which this study builds, use these filings
+to create word vectors about the companies products in order to cluster
+them into industries. We, on the other hand summarize, these
+descriptions with Gemini, calculate the similarities between companies
+and thereby cluster them into industries. Furthermore, we calculate the
 BERTScore between the summaries of different years for a single company.
 This approach enables the measurement of changes in the business model
 (BM) over time as the distance between the BM summary of one year to
@@ -603,11 +600,11 @@ BERT. The scale is from -1 to 1, where 1 describes a perfect similarity.
 After processing the data, we calculate the BERTScore between the
 summaries of different companies in one year and between the summaries
 for the same company over different years. The similarity between
-different companies in the same year is utilized in Section 3 to compare
-the FIC by Hoberg \& Phillips (2016) with the industry classification by
-the BERTScore. Hoberg \& Phillips (2016) calculate the cosine similarity
-between word vectors of product descriptions while we utilise the
-BERTScore to calculate the similarity between our BM summaries. The
+different companies in the same year is utilized to compare our
+BERTScore industry classification with the FIC by Hoberg \& Phillips
+(2016) and the SIC. Hoberg \& Phillips (2016) calculate the cosine
+similarity between word vectors of product descriptions while we utilise
+the BERTScore to calculate the similarity between our BM summaries. The
 methodology and object of research differ between the two studys. But
 the product of a company is by the definition of Spieth \& Schneider
 (2016) a part of its value offering and thereby a part of the BM.
@@ -686,16 +683,16 @@ in two ways: Firstly, in contrast to the TNIC and FIC, which employ
 word-to-vec, our approach utilises BERT to represent text. Accordingly,
 the BERTScore is employed instead of the cosine similarity as our
 similarity measure. Secondly, our analysis is focused on the description
-of the BM rather than on the product descriptions. In order to set a
-benchmark for our BERTScore industry classification, we have replicated
-the FIC approach as described by Hoberg \& Phillips (2016).
-Subsequently, a comparison is made between the industry classification
-produced in this study and the aforementioned benchmark.
+of the BM rather than on the product descriptions. Nevertheless, in the
+following subsection, the BERTScore industry classification is compared
+with the FIC and the SIC.
 
 The data employed for the industry classification with the BERTScore is
-the same as described in Section 2. In order to establish a benchmark,
-we have utilized the similarity scores provided by Hoberg-Phillips Data
-Library.\footnote{For the database see:
+the same as described in Section 2. The SIC comes from the SEC
+website\footnote{The list can be found here:
+  https://www.sec.gov/search-filings/standard-industrial-classification-sic-code-list.}.
+For the FIC we have utilized the similarity scores provided by
+Hoberg-Phillips Data Library.\footnote{For the database see:
   https://hobergphillips.tuck.dartmouth.edu.} The data consists of the
 gvkeys of two companies, the year and the cosine similarity between
 these two companies. In order to ensure comparability, only companies
@@ -709,22 +706,14 @@ Hoberg \& Phillips (2016) perform two steps to create the FIC. Firstly,
 a hierarchical agglomerative clustering algorithm is employed to cluster
 companies based on their similarity and maximize ex-post within cluster
 similarity. This enables a classification with any number of clusters.
-They perform this step in increments of 50, but focus on 300 industries
-since this is very analogous to the number of industries of the SIC and
-the NAICS. Therefore, a comparison is made between our industry
-classification and the FIC based on 300 industries. In the second step,
-the authors compute aggregated word vectors for each industry. These
-vectors now represent the industries. Subsequently, the similarity
-between industries and firms is calculated for each of the following
-years. From the second year onwards, firms are classified according to
-the industry with which they are most similar. The FIC satisfies the
-binary membership transitivity property and the fixed location property.
-The binary membership transitivity property states that if two firms are
-in the same industry and a third firm is in the same industry as one of
-the other two, then it is also in the same industry as the other. The
-fixed location property dictates that clusters are not recalculated on
-an annual basis, but rather remain fixed until the codes are updated
-(Hoberg and Phillips 2016).
+In our dataset, companies are from 320 different SIC Codes. Therefore,
+the number of industries chosen for our industry classification and the
+FIC is 320. In the second step, the authors compute aggregated word
+vectors for each industry. These vectors now represent the industries.
+Subsequently, the similarity between industries and firms is calculated
+for each of the following years. From the second year onwards, firms are
+classified according to the industry with which they are most similar.
+Due to our methodology this step is omitted.
 
 Figure 1 presents a comparison of the distribution of industry size for
 the BERTScore classification and the FIC. Both the BERTScore
@@ -745,22 +734,18 @@ two classifications. The Adjusted Rand Index (ARI) (Hubert and Arabie
 1985) is situated at 0.0002, which is close to zero, indicating that the
 overlap is random. These findings do not provide support for H2.
 
-The industries in the FIC are fixed, but by dropping the fixed location
-property, the industry classification are time-varying. Furthermore, if
-the binary membership transitivity property is relaxed, the result is
-the TNIC by Hoberg \& Phillips (2016). The removal of the fixed location
-property encourages the notion of not fixing a specific year and
-calculating the similarities between different companies, but rather
-fixing a company and calculating the similarity between this firm and
-others over time.Such considerations result in a shift in focus away
-from industry classification towards an analysis of a company's
-evolution. As previously stated, 10-K filings are rich on information
-and contain a wealth of data beyond mere product descriptions. The
-additional information can be leveraged to investigate a company's BM.
-The combination of both rationales -- fixing a company over time and
-analysing the BM -- constitutes the primary concept of this study.
+\begin{itemize}
+\tightlist
+\item
+  update clustering an numbers; comparison BERTScore - SIC; explain how
+  we further utilize our classification in the estimation
+\end{itemize}
 
 \includegraphics{ProjectEcoDataScience_files/figure-pdf/unnamed-chunk-4-1.pdf}
+
+\subsection{Results}\label{results}
+
+\subsection{Robustness Checks}\label{robustness-checks}
 
 \section{Conclusion}\label{conclusion}
 
