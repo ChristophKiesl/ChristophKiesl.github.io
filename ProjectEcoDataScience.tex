@@ -384,11 +384,10 @@ phrases in the keyword vectors, to enhance the reliability of the
 approach (Lee and Hong 2014).
 
 The rest of the paper proceeds as follows. Section 2 describes the
-preprocessing with Gemini, our data and our methodology. Section 3
-compares the industry classification based on product descriptions by
-Hoberg \& Phillips (2016) with our classification based on the BM.
-Section 4 lays out the BERT-model and our estimations. Section 5
-discusses our results, and Section 6 concludes our study.
+preprocessing with Gemini, our data and our methodology. Section 3 our
+estimations strategy. Section 4 provides a comparison of the BERTScore
+Classification and the FIC as well as the discussion of our results.
+Section 5 concludes our study.
 
 \newpage{}
 
@@ -664,13 +663,13 @@ economic and political environment and BMI characteristics.
 Following paragraph is still preliminary: - Based on the literature
 (mostly on (White et al. 2022) and (Zott and Amit 2008)) we build our
 estimation strategy; use multiple multivariate regressions; - dependent
-variables: sales growth, market equity (growth), Tobins Q - independent
-variable: distance between summaries (makes the measure more intuitive;
-if distance grows/ similarity decreases, summaries are more dissimilar
--\textgreater{} BMI) - controls: firm age and size, might need to
-consider how to measure size (employees, firm value), Tobins Q might
-also be used - fixed effects for year and industry might me useful.
-company FE?
+variables: revenue growth, market equity (growth), Tobins Q -
+independent variable: distance between summaries (makes the measure more
+intuitive; if distance grows/ similarity decreases, summaries are more
+dissimilar -\textgreater{} BMI) - controls: firm age and size, might
+need to consider how to measure size (employees, firm value), Tobins Q
+might also be used - fixed effects for year and industry might me
+useful. company FE?
 
 \section{Results and Discussion}\label{results-and-discussion}
 
@@ -688,7 +687,7 @@ following subsection, the BERTScore industry classification is compared
 with the FIC and the SIC.
 
 The data employed for the industry classification with the BERTScore is
-the same as described in Section 2. The SIC comes from the SEC
+the same as described in Section 2. The SIC codes come from the SEC
 website\footnote{The list can be found here:
   https://www.sec.gov/search-filings/standard-industrial-classification-sic-code-list.}.
 For the FIC we have utilized the similarity scores provided by
@@ -706,39 +705,40 @@ Hoberg \& Phillips (2016) perform two steps to create the FIC. Firstly,
 a hierarchical agglomerative clustering algorithm is employed to cluster
 companies based on their similarity and maximize ex-post within cluster
 similarity. This enables a classification with any number of clusters.
-In our dataset, companies are from 320 different SIC Codes. Therefore,
+In our dataset, companies are from 320 different SIC codes. Therefore,
 the number of industries chosen for our industry classification and the
 FIC is 320. In the second step, the authors compute aggregated word
 vectors for each industry. These vectors now represent the industries.
 Subsequently, the similarity between industries and firms is calculated
 for each of the following years. From the second year onwards, firms are
 classified according to the industry with which they are most similar.
-Due to our methodology this step is omitted.
+But due to our methodology this step is omitted.
 
 Figure 1 presents a comparison of the distribution of industry size for
-the BERTScore classification and the FIC. Both the BERTScore
+the BERTScore classification, the FIC and the SIC. Both the BERTScore
 classification and the FIC show a similar distribution, displaying a
 leftward skew with the majority of industries comprising fewer than ten
-firms. The distribution of the FIC is steeper than the on of the
-BERTScore classification. It is notable that the largest industry in the
-BERTScore classification comprises only 27 companies, whereas the FIC
-contains industries with a greater number of firms, with some exceeding
-50. This suggests that the BERTScore classification groups small to
-medium-sized industries, comprising between two and fourteen firms per
-industry, with fewer large industries. The FIC also comprises mostly of
-small to medium-sized industries, with a few larger ones. Despite these
-minor differences, this supports H1. The degree of homogeneity between
-the BERTScore classification and the FIC is 0.63, while the completeness
-is 0.6. This demonstrates only a medium degree of overlap between the
-two classifications. The Adjusted Rand Index (ARI) (Hubert and Arabie
-1985) is situated at 0.0002, which is close to zero, indicating that the
+firms. The SIC shows as well a left skewed distribution but with most
+industries only containing one company. The distribution of the FIC is
+steeper than the on of the BERTScore classification. It is notable that
+the largest industry in the BERTScore classification comprises only 20
+companies, whereas the FIC and SIC contain industries with a greater
+number of firms, with some exceeding 50. This suggests that the
+BERTScore classification groups small to medium-sized industries,
+comprising between two and fourteen firms per industry, with fewer large
+industries. The FIC also comprises mostly of small to medium-sized
+industries, with a few larger ones. Despite these minor differences,
+this supports H1. The degree of homogeneity between the BERTScore
+classification and the FIC is 0.63, while the completeness is 0.6. This
+demonstrates only a medium degree of overlap between the two
+classifications. The Adjusted Rand Index (ARI) (Hubert and Arabie 1985)
+is situated at 0.0002, which is close to zero, indicating that the
 overlap is random. These findings do not provide support for H2.
 
 \begin{itemize}
 \tightlist
 \item
-  update clustering an numbers; comparison BERTScore - SIC; explain how
-  we further utilize our classification in the estimation
+  explain how we further utilize our classification in the estimation
 \end{itemize}
 
 \includegraphics{ProjectEcoDataScience_files/figure-pdf/unnamed-chunk-4-1.pdf}
@@ -861,7 +861,7 @@ Performance.''} \emph{Strategic Management Journal} 29 (1): 1--26.
 \begin{itemize}
 \tightlist
 \item
-  distribution of BERT Scores
+  distribution of BERTScores
 \end{itemize}
 
 
