@@ -81,11 +81,9 @@ registerS3method(
 
 # Introduction
 
-Business model innovation (BMI) is a key activity to maintain competitiveness and even gain a competitive advantage [@pucihar_drivers_2019; @teece_business_2018]. It is therefore no surprise that the interest in BMI and methods of measuring it has grown rapidly over the last twenty years. 
+Business model innovation (BMI) is a key activity to maintain competitiveness and even gain a competitive advantage [@pucihar_drivers_2019; @teece_business_2018]. It is therefore no surprise that the interest in BMI has grown rapidly over the last twenty years. In particular, research examining the impact of BMI on firm performance has been a prominent area of investigation, with numerous research papers published in this field [@cucculelli_business_2015; @latifi_business_2021; @zott_fit_2008; @white_exploring_2022]. While the financial literature offers a  wide range of established methods for measuring a company's performance, the BMI literature provides only a limited number of measures, all of which face similar challenges [@white_exploring_2022]. Furthermore, these measures vary largely. In order to further validate and advance the BMI research field, more sophisticated and comprehensive measurement instruments are necessary [@huang_review_2023].
 
--Paragraph 1: Write further why BMI is important
-
-Scales and Measures used in the BMI literature [@clauss_measuring_2017;@spieth_business_2016] provide managers and practitioners with a measurement index for business model innovativeness. But these measures only validate applicability of BMI theory [@huang_review_2023] and are insufficient for longitudinal studies [@clauss_measuring_2017]. Hence, these measures are not adequate for a time series analysis of BMI. Furthermore, they refer only to BMI as new-to-the-firm and are not able to grasp BMI in the sense of new-to-the-industry and new-to-market. This gap is addressed by proposing a novel approach to measuring BMI. US-based companies are obliged by the United States Security and Exchange Commission (SEC) to submit annual 10-K filings, wherein a detailed description of the company's business operations is required. Hoberg & Phillips [-@hoberg_text-based_2016], on which this study builds, use these filings to create word vectors about the companies products in order to cluster them into industries. We, on the other hand summarize, these descriptions with Gemini, calculate the similarities between companies and thereby cluster them into industries. Furthermore, we calculate the BERTScore between the summaries of different years for a single company. This approach enables the measurement of changes in the business model (BM) over time as the distance between the BM summary of one year to another. There is evidence that an increase in BMI is associated with improved firm performance [@cucculelli_business_2015; @latifi_business_2021; @white_exploring_2022]. In order to test the validity of our measure, we regress financial numbers on our measure, hoping to find a positive relationship.
+Scales and Measures used in the BMI literature [@clauss_measuring_2017;@spieth_business_2016] provide managers and practitioners with a measurement index for business model innovativeness. But these measures only validate applicability of BMI theory [@huang_review_2023] and are insufficient for longitudinal studies [@clauss_measuring_2017]. Hence, these measures are not adequate for a time series analysis of BMI. Furthermore, they refer only to BMI as new-to-the-firm and are not able to grasp BMI in the sense of new-to-the-industry and new-to-market. This gap is addressed by proposing a novel approach to measuring BMI. US-based companies are obliged by the United States Security and Exchange Commission (SEC) to submit annual 10-K filings, wherein a detailed description of the company's business operations is required. Hoberg & Phillips [-@hoberg_text-based_2016], on which this study builds, use these filings to create word vectors about the companies products in order to cluster them into industries. We, on the other hand summarize, these descriptions with Gemini, calculate the similarities between companies and thereby cluster them into industries. Furthermore, we calculate the BERTScore between the summaries of different years for a single company. This approach enables the measurement of changes in the business model (BM) over time as the distance between the BM summary of one year to another. There is evidence that an increase in BMI is associated with improved firm performance [@cucculelli_business_2015; @latifi_business_2021; @white_exploring_2022]. In order to test the validity of our measure, we regress revenue growth on our measure.
 
 -   Key findings (and Contribution, already down below)
 
@@ -182,7 +180,7 @@ Following paragraph is still preliminary:
 - dependent variables: revenue growth, market equity (growth), Tobins Q
 - independent variable: distance between summaries (makes the measure more intuitive; if distance grows/ similarity decreases, summaries are more dissimilar -> BMI)
 - controls: firm age and size, might need to consider how to measure size (employees, firm value), Tobins Q might also be used
-- fixed effects for year and industry might me useful. company FE? 
+- fixed effects for year and industry might me useful.
 
 # Results and Discussion
 
@@ -243,6 +241,8 @@ Figure1
 
 ## Robustness Checks
 
+## Discussion
+
 # Conclusion
 
 # Acknowledgement
@@ -261,4 +261,35 @@ Figure1
 
 # Appendix
 
-- distribution of BERTScores
+## Appendix A
+
+- lore ipsum
+
+```{r echo=FALSE, warning = FALSE, message = FALSE, results='asis'}
+library(tidyverse)
+library(ggplot2)
+
+Figure2 <- read.csv("./TableData/Regression/RegressionData.csv")%>%
+  select(c("Score")) %>%
+  ggplot(aes(x=Score)) +
+  geom_density(fill = "grey", alpha = 0.5) +
+  labs(title = "Density BertScore", x = "BERTScore", y = "Density") +
+  theme_minimal()
+
+Figure2
+```
+
+## Appendix B
+
+```{r echo=FALSE, warning = FALSE, message = FALSE, results='asis'}
+#| label: Table 1 Appendix
+#| tbl-cap: "Descriptive Statistics Original Filings"
+#| layout-ncol: 1
+library(tidyverse)
+library(knitr)
+
+#Table1Appendix = read.csv("./TableData/Regression/RegressionData.csv")
+
+#Table1Appendix
+```
+
