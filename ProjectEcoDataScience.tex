@@ -221,21 +221,12 @@ The ability of a company to continuously innovate its business model is
 a pivotal determinant of long-term success in dynamic markets. It is
 therefore crucial to ensure the reliability of business model innovation
 measurement. In this study, we utilise business descriptions from 10-K
-filings between 2017 and 2023 to measure business model innovation. The
-methodology employed is as follows: Firstly, we employ Google's Gemini
-to summarize the core elements of the business model from the 10-K
-reports. Subsequently, we apply a BERT model (Bidirectional Encoder
-Representation from Transformers) and calculate the similarity between
-the summaries of a company over the observation period with the
-BERTScore. This approach enables us to identify changes in a company's
-business model over time. To evaluate the effectiveness of our measure,
-we regress firm performance on the distance between two summaries in
-consecutive years. Based on the existing literature, we hypothesise that
-there will be a positive relationship. We find that (\ldots). The
-findings of this study offer insights into the extent to which textual
-similarities in regulatory reports can be employed as a reliable
-indicator for business model innovation. Thus, this method represent a
-novel approach to analyzing business model innovation over time.
+filings between 2017 and 2023 to measure business model innovation. We
+find that (\ldots). These findings offer insights into the extent to
+which textual similarities in regulatory reports can be employed as a
+reliable indicator for business model innovation. Thus, this method
+represent a novel approach to analyzing business model innovation over
+time.
 \end{abstract}
 {\bfseries \emph Keywords}
 \def\sep{\textbullet\ }
@@ -248,68 +239,54 @@ Gemini
 \section{Introduction}\label{introduction}
 
 Business model innovation (BMI) is a key activity to maintain
-competitiveness and even gain a competitive advantage (Pucihar et al.
-2019; Teece 2018). It is therefore no surprise that the interest in BMI
-has grown rapidly over the last twenty years. In particular, research
-examining the impact of BMI on firm performance has been a prominent
-area of investigation, with numerous research papers published in this
-field (Cucculelli and Bettinelli 2015; Latifi, Nikou, and Bouwman 2021;
-Zott and Amit 2008; White et al. 2022). While the financial literature
-offers a wide range of established methods for measuring a company's
-performance, the BMI literature provides only a limited number of
-measures, all of which face similar challenges (White et al. 2022).
-Furthermore, these measures vary largely. In order to further validate
-and advance the BMI research field, more sophisticated and comprehensive
-measurement instruments are necessary (Huang and Ichikohji 2023).
+competitiveness and even gain a competitive advantage in todays fast
+paced markets (Pucihar et al. 2019; Teece 2018). It is therefore no
+surprise that the interest in BMI has grown rapidly over the last twenty
+years. In particular, research examining the impact of BMI on firm
+performance has been a prominent area of investigation, with numerous
+research papers published in this field (Cucculelli and Bettinelli 2015;
+Latifi, Nikou, and Bouwman 2021; Zott and Amit 2008; White et al. 2022).
+While the financial literature offers a wide range of established
+methods for measuring a company's performance, the BMI literature
+provides only a limited number of measures, all of which face similar
+challenges (White et al. 2022). Furthermore, these measures vary
+largely. In order to further validate and advance the BMI research
+field, more sophisticated and comprehensive measurement instruments are
+necessary (Huang and Ichikohji 2023).
 
-Scales and Measures used in the BMI literature (Clauss 2017; Spieth and
+Scales and measures used in the BMI literature (Clauss 2017; Spieth and
 Schneider 2016) provide managers and practitioners with a measurement
 index for business model innovativeness. But these measures only
 validate applicability of BMI theory (Huang and Ichikohji 2023) and are
 insufficient for longitudinal studies (Clauss 2017). Hence, these
-measures are not adequate for a time series analysis of BMI.
-Furthermore, they refer only to BMI as new-to-the-firm and are not able
-to grasp BMI in the sense of new-to-the-industry and new-to-market. This
-gap is addressed by proposing a novel approach to measuring BMI.
-US-based companies are obliged by the United States Security and
-Exchange Commission (SEC) to submit annual 10-K filings, wherein a
-detailed description of the company's business operations is required.
-Hoberg \& Phillips (2016), on which this study builds, use these filings
-to create word vectors about the companies products in order to cluster
-them into industries. We, on the other hand summarize, these
-descriptions with Gemini, calculate the similarities between companies
-and thereby cluster them into industries. Furthermore, we calculate the
-BERTScore between the summaries of different years for a single company.
-This approach enables the measurement of changes in the business model
-(BM) over time as the distance between the BM summary of one year to
-another. There is evidence that an increase in BMI is associated with
-improved firm performance (Cucculelli and Bettinelli 2015; Latifi,
-Nikou, and Bouwman 2021; White et al. 2022). In order to test the
-validity of our measure, we regress revenue growth on our measure.
+measures are not adequate for a time series analysis of BMI. We address
+this gap by proposing a novel approach to measuring BMI. US-based
+companies are obliged by the United States Security and Exchange
+Commission (SEC) to submit annual 10-K filings, wherein a detailed
+description of the company's business operations is required. Hoberg \&
+Phillips (2016), on which we build this study, use these filings to
+cluster companies into industries. We, on the other hand, summarize
+these descriptions with Gemini and calculate the BERTScore between the
+summaries of different years for a single company. This approach enables
+the measurement of changes in the business model (BM) over time as the
+distance between the BM summary of one year to another. In order to test
+the validity of our measure, we regress revenue growth on our measure.
+Additionally, we use our own industry classification based on the
+BERTScore of different companies in the same year.
 
 \begin{itemize}
 \tightlist
 \item
-  Key findings (and Contribution, already down below)
+  Key findings and Contribution
 \end{itemize}
 
-Our contribution is made in two ways. Firstly, we build on the concept
-of alternative industry classification put forth by Hoberg \& Phillips
-(2016) and propose an industry classification system based on a firm's
-BM. Secondly, we propose a novel measure for BMI that is sufficient for
-longitudinal studies.
-
 The SEC mandates that the majority of public companies based in the
-United States submit specific documents in certain intervals. One such
-document is the annual 10-K filing. These filings follow a set order of
-topics and contain a range of information, including details about
-managerial discussions, risk factors for the company, legal proceedings
-and financial data. In the first section under the subtitle
-``Business,'' a company presents its general business, encompassing
-information about its products and services. In some instances
-additional topics may be addressed, such as labor issues or competition
-(SEC 2024). In conclusion, this section contains the most useful
-information for describing a company's BM (Lee and Hong 2014).
+United States submit an annual 10-K filing. In the first section under
+the subtitle ``Business,'' a company presents its general business,
+encompassing information about its products and services. In some
+instances additional topics may be addressed, such as labor issues or
+competition (SEC 2024). In conclusion, this section contains the most
+useful information for describing a company's BM (Lee and Hong 2014).
 Furthermore, 10-K filings are a reliable source of information, given
 that US law prohibits false or misleading statements in the filings. The
 SEC monitors the compliance of the companies with the requirements and
@@ -321,13 +298,13 @@ comments where disclosure appears to be inconsistent (SEC 2024).
   paragraph 5 (robustness checks)
 \end{itemize}
 
-In spite of the growing interest in BMI and the increasing number of
+Despite the growing interest in BMI and the increasing number of
 theoretical and empirical studies in this field, the research of BMI is
 still in a preliminary state (Huang and Ichikohji 2023). Consequently,
 there is considerable variation in the definitions of BMI, with some
 definitions being more similar to one another than others (Foss and
-Saebi 2017). Spieth \& Schneider (2016) identify three core dimensions a
-company's BM is comprised of: its value proposition, its value creation
+Saebi 2017). Spieth \& Schneider (2016) identify three core dimensions
+that comprise a company's BM: its value proposition, its value creation
 architecture and its revenue model logic. Based on this, BMI can be
 conceptualized as a change that is new-to-the-firm in at least one of
 these dimensions. Furthermore, Spieth and Schneider (2016) introduce a
@@ -335,59 +312,46 @@ measurement model to evaluate these three dimensions of BMI. They
 develop an index by first specifying the contents, followed by a
 specification of the indicators and assessing their content validity,
 assessing the indicators collinearity and finally assessing the external
-validity. A total of twelve indicators for measuring the innovativeness
-of the BM were identified through a comprehensive literature review and
-through engagement with industry practitioners. The external validity of
-the formative indicators was successfully validated through a survey of
-200 experts in strategy and innovation management (Spieth and Schneider
-2016). Clauss (2017) employs a very similar approach. After specifying
-the domain and dimensionality of BMI trough literature research, the
-author divides his scale into three hierarchical levels consisting of 41
-reflective items, 10 subconstructs and three main dimensions, which are
-similar to the ones mentioned earlier. The scale was validated through
-two samples from the manufacturing industry and further demonstrated
-nomological validity (Clauss 2017). However, both measures are subject
-to three significant limitations. Firstly, both measures lack a temporal
+validity. Clauss (2017) employs a very similar approach. After
+specifying the domain and dimensionality of BMI through literature
+research, the author divides his scale into three hierarchical levels,
+which are very similar to the ones of Spieth and Schneider (2016). We
+build on these conceptualizations to design our prompt we use in the
+preprocessing with Gemini. However, both measures are subject to three
+significant limitations. Firstly, both measures lack a temporal
 component. Consequently, they are inadequate for use in longitudinal
 studies or ex-post evaluations of BMI. Secondly, BMI is only measured at
 the new-to-the-firm level rather than at the new-to-the-industry or
 new-to-the-market level. Thirdly, both measures rely on interviews and
 questionnaires, which makes conducting large-scale studies
 time-consuming and reliant on the willingness of the companies to
-cooperate (Clauss 2017; Spieth and Schneider 2016).
+cooperate (Clauss 2017; Spieth and Schneider 2016). Our novel
+measurement approach tackles the first and third issue.
 
-The process of text mining 10-K filings is not a novel concept. Hoberg
-\& Phillips (2016) present a novel approach to defining industry
-boundaries. This is achieved through the parsing of the product
-descriptions provided by firm 10-K filings and creating word vectors.
-Specifically, the authors identify and exclude proper nouns, which
-include common words and geographic locations. They then create word
-vectors for each firm and year, which enables the measurement of product
-similarity over time. They propose two novel industry classification
-methods: the FIC and the text-based network industry classification
-(TNIC). Firstly, they cluster companies based on the similarity of the
-word vectors into fixed industries. Secondly, they define a minimum
-similarity threshold, above which firms are considered in the same
-industry. This relaxes their prior properties of binary membership
+Hoberg \& Phillips (2016) present a novel approach to defining industry
+boundaries. They propose two novel industry classification methods: the
+fixed industry classification (FIC) and the text-based network industry
+classification (TNIC). Firstly, they cluster companies based on the
+similarity of word vectors into fixed industries. Secondly, they define
+a minimum similarity threshold, above which firms are considered in the
+same industry. This relaxes their prior properties of binary membership
 transitivity and fixed industry location. This way the authors
 demonstrate shortcomings in the traditional industry classification
 systems such as the Standard Industry Classification (SIC) and the North
 American Industry Classification System (NAICS), which are not able to
 account for temporal changes. The new method is capable of capturing
 changes in industry boundaries and competitor sets over time, thereby
-providing a dynamic industry classification system. In their study, Lee
-\& Hong (2014) examine the evolution of a firm's BM over time. The
-authors represent each document as a vector of keywords, which is
-similar to the approach utilized by Hoberg \& Phillips (2016). After
-identifying the Item 1 part of the 10-K filings as the most crucial part
-for describing a firm's BM, Lee \& Hong (2014) filter these for relevant
-sentences. Subsequently, the authors construct keyword vectors, which
-represent the concept of the BM. Therefore, the evolution of the BM is
-depicted as the change in the distribution of keywords over time.
-Nevertheless, this approach is not without shortcomings. The authors
-advocate for a more robust methodology, such as incorporating multi-word
-phrases in the keyword vectors, to enhance the reliability of the
-approach (Lee and Hong 2014).
+providing a dynamic industry classification system. Based on the FIC we
+propose our own BERTScores industry classification and utilize it in our
+estimation. In their study, Lee \& Hong (2014) examine the evolution of
+a firm's BM over time. After filtering the Item 1 parts of the 10-K
+filings for relevant sentences, Lee \& Hong (2014) construct keyword
+vectors, which represent the concept of the BM. Therefore, the evolution
+of the BM is depicted as the change in the distribution of keywords over
+time. The authors advocate for a more robust methodology, such as
+incorporating multi-word phrases in the keyword vectors, to enhance the
+reliability of the approach (Lee and Hong 2014). Our study pursues a
+similar goal but with a novel methodology.
 
 The rest of the paper proceeds as follows. Section 2 describes the
 preprocessing with Gemini, our data and our methodology. Section 3 our
@@ -395,9 +359,84 @@ estimations strategy. Section 4 provides a comparison of the BERTScore
 Classification and the FIC as well as the discussion of our results.
 Section 5 concludes our study.
 
-\newpage{}
-
 \section{Data and Methodology}\label{data-and-methodology}
+
+\subsection{The Dataset}\label{the-dataset}
+
+We collect 10-K filings from the digital SEC Database, using the
+category ``10-K'' as extraction condition. Since the focus of our study
+lies on company's BM, we merely use the Item 1 part, since this is the
+most crucial part of the 10-K filings for describing the companies BM
+(Lee and Hong 2014). Our observations are limited to an intersection of
+such companies, which on the one hand has been made available to the SEC
+since 2001 in a publicly accessible list of 10,284 companies (Appendix),
+of which 7,590 are currently listed on NASDAQ, NYSE or over-the-counter.
+We extracted 10-K filings that were submitted between 2017 and 2023
+based on underlying Central Index Keys (CIK). We exclude companies from
+the financial sector, namely companies with a SIC Code starting with
+six. Corresponding to Table 2, multiple steps of pre-processing were
+required to obtain the final amount of 21,683 observations for seven
+years. Financial key figures, including net income, total assets and
+others were originally extracted from the SEC, but also challenged with
+financial values from DataStream. A total of 4,225 companies are
+included in the sample, although the availability of filings could not
+always be guaranteed for all years. This is due on the one hand to the
+quality of the API to the SEC and on the other hand to companies that
+did not file 10-K reports or were listed on the stock exchange for the
+entire period under review. Finally, we have access to the financial key
+figures of the companies for the respective year, the Item I text
+pre-processed with the help of Gemini, company-specific identification
+features and the conventional SIC industry classification.
+
+\begin{figure}
+
+\begin{minipage}{\linewidth}
+
+\begin{longtable}[t]{>{\centering\arraybackslash}p{8cm}cc}
+\caption{10-K Sample Creation}\tabularnewline
+
+\toprule
+Source/Filter & Sample Size & Observations Removed\\
+\midrule
+1. Extracted 10-K filings from the SEC & 35731 & \\
+2. Excluding filings from financial companies (SIC-code starting with '6') & 27569 & 8162\\
+3. Verify for Item 1 text availability (removed oberservations that are attributable to API quality) & 23982 & 3587\\
+4. Extracting dates for which the filings are reporting for and removing of duplicated filings & 23971 & 11\\
+5. Delete observations with incorrect date assignment & 22161 & 1810\\
+\addlinespace
+6. Merged Gemini processed Item 1 text to the underlying data set. We did not consider texts that were not processable & 21697 & 464\\
+7. Extract financials statements from SEC and merge them. Also remove observations for years prior to 2016 & 21686 & 11\\
+\bottomrule
+\multicolumn{3}{l}{\rule{0pt}{1em}\textit{Note: }}\\
+\multicolumn{3}{l}{\rule{0pt}{1em}Filings submitted between 2017 and 2023 are considered}\\
+\end{longtable}
+
+\end{minipage}%
+
+\end{figure}%
+
+\subsection{BERT and BERTScore}\label{bert-and-bertscore}
+
+BERT is a pre-trained and transformer-based model for natural language
+processing (NPL) based on artificial neural networks. It works according
+to the so-called transformer architecture, which was first mentioned by
+Vaswani et al. (2017). According to these authors, this architecture
+consists of two main components, the encoder and the decoder. The
+encoder consists of several identical layers, which initially use the
+so-called self-attention mechanism to generate context-dependent
+representations of each word in the sentence. This mechanism can be
+parallelized and therefore enables different aspects of the context to
+be captured in the same way. The decoder, on the other hand, works in a
+similar way and is responsible for processing the information from the
+encoder and forming it into an output sequence. However, this is not
+relevant for BERT, as no sequence-to-sequence transformation is carried
+out in BERT. In contrast to Hoberg \& Philips (2016) word-to-vec
+approach, BERT works bidirectional and takes into account the context
+from both sides of each word simultaneously. Therefore, BERT is able to
+capture deeper semantics in texts such as 10-K reports. The BERTScore
+now computes the cosine similarity between word or text meanings, that
+have been determined by representations (or embeddings) learned from
+BERT. The scale is from -1 to 1, where 1 describes a perfect similarity.
 
 \subsection{Preprocessing with Gemini}\label{preprocessing-with-gemini}
 
@@ -413,35 +452,15 @@ length of 512 tokens. The summaries were created between 26 June 2024
 and 6 August 2024. The model employed was Gemini Flash 1.5. The prompt
 was inserted at the beginning of each text file and it was passed via an
 API to Gemini \footnote{We forked and used following Github repository:
-  https://github.com/skranz/gemini\_ex.}. We used following prompt:
-``Summarize the business model from the following text. Answer with a
-continuous text and with five hundred twelve tokens at max. Set your
-focus on sources of revenue, the intended customer base, products,
-distribution channels and details of financing. Use only information
-from the following the text''.\footnote{The spelling error in the last
-  sentence of the prompt was found after processing Item 1. After
-  evaluating the summaries, this error did not cause any issues.}
-``intended customer base'' and ``product'' refer to the value offering,
-``distribution channels'' refers to the value architecture, and
-``sources of revenue'' and ``details of financing'' refer to the revenue
-model. Consequently, this prompt covers all aspects of the definition of
-BMI proposed by Spieth \& Schneider (2016). The term `tokens' was used
-deliberately in preference to `words', given that the number of tokens
-and the number of words in a text may vary depending on the tokeniser.
-This way, we wanted to ensure that the whole summary is used by the BERT
-model. To assess the quality and accuracy of the summaries produced by
-Gemini, a random sample of 100 filings was selected for comparison with
-the original text. More precise,the original file was initially read
-with a focus on the points mentioned in the prompt. Subsequently, the
-summary was evaluated to ascertain whether it contained these same
-points. A list of the sample with the summaries is provided in the
-Appendix.
-
-\begin{itemize}
-\tightlist
-\item
-  result of this check
-\end{itemize}
+  https://github.com/skranz/gemini\_ex.}. Our prompt covers all aspects
+of the definition of BMI proposed by Spieth \& Schneider (2016). For
+more details, see Appendix A. To assess the quality and accuracy of the
+summaries produced by Gemini, a random sample of 100 filings was
+selected for comparison with the original text. More precise,the
+original file was initially read with a focus on the points mentioned in
+the prompt. Subsequently, the summary was evaluated to ascertain whether
+it contained these same points. A list of the sample with the summaries
+is provided in the Appendix.
 
 \begin{figure}
 
@@ -512,93 +531,6 @@ Maximum
 \end{minipage}%
 
 \end{figure}%
-
-\subsection{The Dataset}\label{the-dataset}
-
-We collect 10-K filings from the digital SEC Database, using the
-category ``10-K'' as extraction condition. Since the focus of our study
-lies on company's BM, we merely use the Item 1 part, since this is the
-most crucial part of the 10-K filings for describing the companies BM
-(Lee and Hong 2014). Our observations are limited to an intersection of
-such companies, which on the one hand has been made available to the SEC
-since 2001 in a publicly accessible list of 10,284 companies (Appendix),
-of which 7,590 are currently listed on NASDAQ, NYSE or over-the-counter.
-We extracted 10-K filings that were submitted between 2017 and 2023
-based on underlying Central Index Keys (CIK). We exclude companies from
-the financial sector, namely companies with a SIC Code starting with
-six. Corresponding to Table 2, multiple steps of pre-processing were
-required to obtain the final amount of 21,683 observations for seven
-years. Financial key figures, including net income, total assets and
-others were originally extracted from the SEC, but also challenged with
-financial values from DataStream. A total of 4,225 companies are
-included in the sample, although the availability of filings could not
-always be guaranteed for all years. This is due on the one hand to the
-quality of the API to the SEC and on the other hand to companies that
-did not file 10-K reports or were listed on the stock exchange for the
-entire period under review. Finally, we have access to the financial key
-figures of the companies for the respective year, the Item I text
-pre-processed with the help of Gemini, company-specific identification
-features and the conventional SIC industry classification.
-
-\begin{figure}
-
-\begin{minipage}{\linewidth}
-
-\begin{longtable}[t]{>{\centering\arraybackslash}p{8cm}cc}
-\caption{10-K Sample Creation}\tabularnewline
-
-\toprule
-Source/Filter & Sample Size & Observations Removed\\
-\midrule
-1. Extracted 10-K filings from the SEC & 35731 & \\
-2. Excluding filings from financial companies (SIC-code starting with '6') & 27569 & 8162\\
-3. Verify for Item 1 text availability (removed oberservations that are attributable to API quality) & 23982 & 3587\\
-4. Extracting dates for which the filings are reporting for and removing of duplicated filings & 23971 & 11\\
-5. Delete observations with incorrect date assignment & 22161 & 1810\\
-\addlinespace
-6. Merged Gemini processed Item 1 text to the underlying data set. We did not consider texts that were not processable & 21697 & 464\\
-7. Extract financials statements from SEC and merge them. Also remove observations for years prior to 2016 & 21686 & 11\\
-\bottomrule
-\multicolumn{3}{l}{\rule{0pt}{1em}\textit{Note: }}\\
-\multicolumn{3}{l}{\rule{0pt}{1em}Filings submitted between 2017 and 2023 are considered}\\
-\end{longtable}
-
-\end{minipage}%
-
-\end{figure}%
-
-TODO
-
-\begin{itemize}
-\tightlist
-\item
-  Descriptive Table3 for length of summary
-\item
-  Description of Table2, Table3, and the final dataset
-\end{itemize}
-
-\subsection{BERT and BERTScore}\label{bert-and-bertscore}
-
-BERT is a pre-trained and transformer-based model for natural language
-processing (NPL) based on artificial neural networks. It works according
-to the so-called transformer architecture, which was first mentioned by
-Vaswani et al. (2017). According to these authors, this architecture
-consists of two main components, the encoder and the decoder. The
-encoder consists of several identical layers, which initially use the
-so-called self-attention mechanism to generate context-dependent
-representations of each word in the sentence. This mechanism can be
-parallelized and therefore enables different aspects of the context to
-be captured in the same way. The decoder, on the other hand, works in a
-similar way and is responsible for processing the information from the
-encoder and forming it into an output sequence. However, this is not
-relevant for BERT, as no sequence-to-sequence transformation is carried
-out in BERT. In contrast to Hoberg \& Philips (2016) word-to-vec
-approach, BERT works bidirectional and takes into account the context
-from both sides of each word simultaneously. Therefore, BERT is able to
-capture deeper semantics in texts such as 10-K reports. The BERTScore
-now computes the cosine similarity between word or text meanings, that
-have been determined by representations (or embeddings) learned from
-BERT. The scale is from -1 to 1, where 1 describes a perfect similarity.
 
 \subsection{Methodology}\label{methodology}
 
@@ -680,6 +612,13 @@ useful.
 \section{Results and Discussion}\label{results-and-discussion}
 
 \subsection{Comparison}\label{comparison}
+
+They achieve this through the parsing of the product descriptions
+provided by firms 10-K filings and creating word vectors. Specifically,
+the authors identify and exclude proper nouns, which include common
+words and geographic locations. They then create word vectors for each
+firm and year, which enables the measurement of product similarity over
+time.
 
 Our study builds on the idea of Hoberg \& Phillips (2016) to utilize
 text data from 10-K filings to classify companies based on their
@@ -868,15 +807,30 @@ Performance.''} \emph{Strategic Management Journal} 29 (1): 1--26.
 
 \subsection{Appendix A}\label{appendix-a}
 
+We used following prompt: ``Summarize the business model from the
+following text. Answer with a continuous text and with five hundred
+twelve tokens at max. Set your focus on sources of revenue, the intended
+customer base, products, distribution channels and details of financing.
+Use only information from the following the text''.\footnote{The
+  spelling error in the last sentence of the prompt was found after
+  processing Item 1. After evaluating the summaries, this error did not
+  cause any issues.} ``intended customer base'' and ``product'' refer to
+the value offering, ``distribution channels'' refers to the value
+architecture, and ``sources of revenue'' and ``details of financing''
+refer to the revenue model. The term `tokens' was used deliberately in
+preference to `words', given that the number of tokens and the number of
+words in a text may vary depending on the tokeniser. This way, we wanted
+to ensure that the whole summary is used by the BERT model.
+
 \begin{itemize}
 \tightlist
 \item
-  lore ipsum
+  Descriptive Table3 for length of summary
 \end{itemize}
 
-\includegraphics{ProjectEcoDataScience_files/figure-pdf/unnamed-chunk-6-1.pdf}
-
 \subsection{Appendix B}\label{appendix-b}
+
+\includegraphics{ProjectEcoDataScience_files/figure-pdf/unnamed-chunk-6-1.pdf}
 
 \begin{figure}%
 \end{figure}%

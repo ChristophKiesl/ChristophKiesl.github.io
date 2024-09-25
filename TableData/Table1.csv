@@ -1,9 +1,7 @@
-year,Mean,Sd,Minimum,Q25,Median,Q75,Maximum
-2016,7842,6104,155,3705,6026,10271,51227
-2017,7542,6320,155,3522,5767,9700,70611
-2018,7604,6272,180,3528,5771,9669,71700
-2019,8009,6631,189,3669,5971,10410,78270
-2020,8660,7195,171,3943,6449,10971,57980
-2021,10324,8406,235,4670,7568,13563,78799
-2022,9471,7997,171,4309,7042,11897,73937
-2023,6646,4771,190,3660,5814,8401,43523
+1. Extracted 10-K filings from the SEC,35731,
+2. Excluding filings from financial companies (SIC-code starting with '6'),27569,8162
+3. Verify for Item 1 text availability (removed oberservations that are attributable to API quality),23982,3587
+4. Extracting dates for which the filings are reporting for and removing of duplicated filings,23971,11
+5. Delete observations with incorrect date assignment,22161,1810
+6. Merged Gemini processed Item 1 text to the underlying data set. We did not consider texts that were not processable,21697,464
+7. Extract financials statements from SEC and merge them. Also remove observations for years prior to 2016,21686,11
