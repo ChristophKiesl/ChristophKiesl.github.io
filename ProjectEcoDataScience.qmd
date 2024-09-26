@@ -160,20 +160,22 @@ As mentioned, our approach differs not marginally from the original paper by Hob
 
 # Estimation Strategy
 
-A number of studies have examined the relationship between BMI and the financial performance of a company. Cucculelli & Bettinelli [-@cucculelli_business_2015] investigate the effect of BMI on sales growth, return on sales (ROS) and total factor productivity (TFP). The results provide support for the hypothesis that BMI has a positive effect on firm performance, with the effect increasing in line with the intensity of the innovation. Latifi et al. [-@latifi_business_2021] also find evidence that provides support for the hypothesis that a company engaging in BMI will improve its overall firm performance. In their study, the firm performance is evaluated subjectively. Zott & Amit [-@zott_fit_2008] analyse the effect of the BM and the product market strategy on firm performance. They measure the firm performance with the market value of equity as the stock price multiplied with the number of shares outstanding. White et al. [-@white_exploring_2022] conducted a meta-analysis based on the extant BMI literature. They found a positive relationship between BMI and firm performance, and that this relationship is shaped by factors including the firm age, industry, the economic and political environment and BMI characteristics.
+A number of studies have examined the relationship between BMI and the financial performance of a company. Cucculelli & Bettinelli [-@cucculelli_business_2015] investigate the effect of BMI on sales growth, return on sales (ROS) and total factor productivity (TFP). The results provide support for the hypothesis that BMI has a positive effect on firm performance, with the effect increasing in line with the intensity of the innovation. Latifi et al. [-@latifi_business_2021] also find evidence that provides support for the hypothesis that a company engaging in BMI will improve its overall firm performance. In their study, the firm performance is evaluated subjectively. White et al. [-@white_exploring_2022] conducted a meta-analysis based on the extant BMI literature. They found a positive relationship between BMI and firm performance, and that this relationship is shaped by factors including the firm age, industry, the economic and political environment and BMI characteristics.
 
 Following paragraph is still preliminary:
-- Based on the literature (mostly on [@white_exploring_2022] and [@zott_fit_2008]) we build our estimation strategy; use multiple multivariate regressions; 
-- dependent variables: revenue growth, market equity (growth), Tobins Q
+
+- dependent variables: revenue growth [@brannon2016analysis], Tobin's Q [@Desyllas2022;] Sales Growth [@cucculelli_business_2015]
 - independent variable: distance between summaries (makes the measure more intuitive; if distance grows/ similarity decreases, summaries are more dissimilar -> BMI)
-- controls: firm age and size, might need to consider how to measure size (employees, firm value), Tobins Q might also be used
-- fixed effects for year and industry might me useful.
+- controls: firm size as log(TotalAssets) and log(Market Value) [@dang2018measuring;@white_exploring_2022]
+- fixed effects for year and industry (SIC and our BERTScore Classification) [@white_exploring_2022]
 
 # Results and Discussion
 
 ## Comparison
 
-They achieve this through the parsing of the product descriptions provided by firms 10-K filings and creating word vectors. Specifically, the authors identify and exclude proper nouns, which include common words and geographic locations. They then create word vectors for each firm and year, which enables the measurement of product similarity over time.
+```{r}
+#They achieve this through the parsing of the product descriptions provided by firms 10-K filings and creating word vectors. Specifically, the authors identify and exclude proper nouns, which include common words and geographic locations. They then create word vectors for each firm and year, which enables the measurement of product similarity over time.
+```
 
 Our study builds on the idea of Hoberg & Phillips [-@hoberg_text-based_2016] to utilize text data from 10-K filings to classify companies based on their similarity to each other into dynamic industries. Our approach differs in two ways: Firstly, in contrast to the TNIC and FIC, which employ word-to-vec, our approach utilises BERT to represent text. Accordingly, the BERTScore is employed instead of the cosine similarity as our similarity measure. Secondly, our analysis is focused on the description of the BM rather than on the product descriptions. Nevertheless, in the following subsection, the BERTScore industry classification is compared with the FIC and the SIC.
 

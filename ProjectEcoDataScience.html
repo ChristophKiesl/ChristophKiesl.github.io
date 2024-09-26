@@ -27,6 +27,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 /* CSS for citations */
 div.csl-bib-body { }
 div.csl-entry {
@@ -247,82 +281,82 @@ div.csl-indent {
 <tbody>
 <tr class="odd">
 <td style="text-align: center;">2016</td>
-<td style="text-align: center;">7842</td>
-<td style="text-align: center;">6104</td>
-<td style="text-align: center;">155</td>
-<td style="text-align: center;">3705</td>
-<td style="text-align: center;">6026</td>
-<td style="text-align: center;">10271</td>
+<td style="text-align: center;">7765</td>
+<td style="text-align: center;">6053</td>
+<td style="text-align: center;">134</td>
+<td style="text-align: center;">3658</td>
+<td style="text-align: center;">5972</td>
+<td style="text-align: center;">10251</td>
 <td style="text-align: center;">51227</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">2017</td>
-<td style="text-align: center;">7542</td>
-<td style="text-align: center;">6320</td>
-<td style="text-align: center;">155</td>
-<td style="text-align: center;">3522</td>
-<td style="text-align: center;">5767</td>
-<td style="text-align: center;">9700</td>
+<td style="text-align: center;">7426</td>
+<td style="text-align: center;">6162</td>
+<td style="text-align: center;">134</td>
+<td style="text-align: center;">3474</td>
+<td style="text-align: center;">5689</td>
+<td style="text-align: center;">9538</td>
 <td style="text-align: center;">70611</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">2018</td>
-<td style="text-align: center;">7604</td>
-<td style="text-align: center;">6272</td>
-<td style="text-align: center;">180</td>
-<td style="text-align: center;">3528</td>
-<td style="text-align: center;">5771</td>
-<td style="text-align: center;">9669</td>
-<td style="text-align: center;">71700</td>
+<td style="text-align: center;">7552</td>
+<td style="text-align: center;">6290</td>
+<td style="text-align: center;">49</td>
+<td style="text-align: center;">3492</td>
+<td style="text-align: center;">5738</td>
+<td style="text-align: center;">9599</td>
+<td style="text-align: center;">74351</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">2019</td>
-<td style="text-align: center;">8009</td>
-<td style="text-align: center;">6631</td>
-<td style="text-align: center;">189</td>
-<td style="text-align: center;">3669</td>
-<td style="text-align: center;">5971</td>
-<td style="text-align: center;">10410</td>
+<td style="text-align: center;">7943</td>
+<td style="text-align: center;">6562</td>
+<td style="text-align: center;">59</td>
+<td style="text-align: center;">3646</td>
+<td style="text-align: center;">5961</td>
+<td style="text-align: center;">10241</td>
 <td style="text-align: center;">78270</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">2020</td>
-<td style="text-align: center;">8660</td>
-<td style="text-align: center;">7195</td>
-<td style="text-align: center;">171</td>
-<td style="text-align: center;">3943</td>
-<td style="text-align: center;">6449</td>
-<td style="text-align: center;">10971</td>
+<td style="text-align: center;">8610</td>
+<td style="text-align: center;">7156</td>
+<td style="text-align: center;">59</td>
+<td style="text-align: center;">3930</td>
+<td style="text-align: center;">6418</td>
+<td style="text-align: center;">10914</td>
 <td style="text-align: center;">57980</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">2021</td>
-<td style="text-align: center;">10324</td>
-<td style="text-align: center;">8406</td>
+<td style="text-align: center;">10304</td>
+<td style="text-align: center;">8347</td>
 <td style="text-align: center;">235</td>
-<td style="text-align: center;">4670</td>
-<td style="text-align: center;">7568</td>
-<td style="text-align: center;">13563</td>
+<td style="text-align: center;">4671</td>
+<td style="text-align: center;">7614</td>
+<td style="text-align: center;">13637</td>
 <td style="text-align: center;">78799</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">2022</td>
-<td style="text-align: center;">9471</td>
-<td style="text-align: center;">7997</td>
-<td style="text-align: center;">171</td>
-<td style="text-align: center;">4309</td>
-<td style="text-align: center;">7042</td>
-<td style="text-align: center;">11897</td>
+<td style="text-align: center;">9478</td>
+<td style="text-align: center;">7977</td>
+<td style="text-align: center;">57</td>
+<td style="text-align: center;">4321</td>
+<td style="text-align: center;">7057</td>
+<td style="text-align: center;">11919</td>
 <td style="text-align: center;">73937</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">2023</td>
-<td style="text-align: center;">6646</td>
-<td style="text-align: center;">4771</td>
+<td style="text-align: center;">6626</td>
+<td style="text-align: center;">4750</td>
 <td style="text-align: center;">190</td>
-<td style="text-align: center;">3660</td>
-<td style="text-align: center;">5814</td>
-<td style="text-align: center;">8401</td>
+<td style="text-align: center;">3667</td>
+<td style="text-align: center;">5807</td>
+<td style="text-align: center;">8366</td>
 <td style="text-align: center;">43523</td>
 </tr>
 </tbody>
@@ -342,21 +376,29 @@ div.csl-indent {
 </section>
 <section id="estimation-strategy" class="level1">
 <h1>Estimation Strategy</h1>
-<p>A number of studies have examined the relationship between BMI and the financial performance of a company. Cucculelli &amp; Bettinelli <span class="citation" data-cites="cucculelli_business_2015">(<a href="#ref-cucculelli_business_2015" role="doc-biblioref">2015</a>)</span> investigate the effect of BMI on sales growth, return on sales (ROS) and total factor productivity (TFP). The results provide support for the hypothesis that BMI has a positive effect on firm performance, with the effect increasing in line with the intensity of the innovation. Latifi et al. <span class="citation" data-cites="latifi_business_2021">(<a href="#ref-latifi_business_2021" role="doc-biblioref">2021</a>)</span> also find evidence that provides support for the hypothesis that a company engaging in BMI will improve its overall firm performance. In their study, the firm performance is evaluated subjectively. Zott &amp; Amit <span class="citation" data-cites="zott_fit_2008">(<a href="#ref-zott_fit_2008" role="doc-biblioref">2008</a>)</span> analyse the effect of the BM and the product market strategy on firm performance. They measure the firm performance with the market value of equity as the stock price multiplied with the number of shares outstanding. White et al. <span class="citation" data-cites="white_exploring_2022">(<a href="#ref-white_exploring_2022" role="doc-biblioref">2022</a>)</span> conducted a meta-analysis based on the extant BMI literature. They found a positive relationship between BMI and firm performance, and that this relationship is shaped by factors including the firm age, industry, the economic and political environment and BMI characteristics.</p>
-<p>Following paragraph is still preliminary: - Based on the literature (mostly on <span class="citation" data-cites="white_exploring_2022">(<a href="#ref-white_exploring_2022" role="doc-biblioref">White et al. 2022</a>)</span> and <span class="citation" data-cites="zott_fit_2008">(<a href="#ref-zott_fit_2008" role="doc-biblioref">Zott and Amit 2008</a>)</span>) we build our estimation strategy; use multiple multivariate regressions; - dependent variables: revenue growth, market equity (growth), Tobins Q - independent variable: distance between summaries (makes the measure more intuitive; if distance grows/ similarity decreases, summaries are more dissimilar -&gt; BMI) - controls: firm age and size, might need to consider how to measure size (employees, firm value), Tobins Q might also be used - fixed effects for year and industry might me useful.</p>
+<p>A number of studies have examined the relationship between BMI and the financial performance of a company. Cucculelli &amp; Bettinelli <span class="citation" data-cites="cucculelli_business_2015">(<a href="#ref-cucculelli_business_2015" role="doc-biblioref">2015</a>)</span> investigate the effect of BMI on sales growth, return on sales (ROS) and total factor productivity (TFP). The results provide support for the hypothesis that BMI has a positive effect on firm performance, with the effect increasing in line with the intensity of the innovation. Latifi et al. <span class="citation" data-cites="latifi_business_2021">(<a href="#ref-latifi_business_2021" role="doc-biblioref">2021</a>)</span> also find evidence that provides support for the hypothesis that a company engaging in BMI will improve its overall firm performance. In their study, the firm performance is evaluated subjectively. White et al. <span class="citation" data-cites="white_exploring_2022">(<a href="#ref-white_exploring_2022" role="doc-biblioref">2022</a>)</span> conducted a meta-analysis based on the extant BMI literature. They found a positive relationship between BMI and firm performance, and that this relationship is shaped by factors including the firm age, industry, the economic and political environment and BMI characteristics.</p>
+<p>Following paragraph is still preliminary:</p>
+<ul>
+<li>dependent variables: revenue growth <span class="citation" data-cites="brannon2016analysis">(<a href="#ref-brannon2016analysis" role="doc-biblioref">Brannon and Wiklund 2016</a>)</span>, Tobin’s Q [<span class="citation" data-cites="Desyllas2022">Desyllas, Salter, and Alexy (<a href="#ref-Desyllas2022" role="doc-biblioref">2022</a>)</span>;] Sales Growth <span class="citation" data-cites="cucculelli_business_2015">(<a href="#ref-cucculelli_business_2015" role="doc-biblioref">Cucculelli and Bettinelli 2015</a>)</span></li>
+<li>independent variable: distance between summaries (makes the measure more intuitive; if distance grows/ similarity decreases, summaries are more dissimilar -&gt; BMI)</li>
+<li>controls: firm size as log(TotalAssets) and log(Market Value) <span class="citation" data-cites="dang2018measuring white_exploring_2022">(<a href="#ref-dang2018measuring" role="doc-biblioref">Dang, Li, and Yang 2018</a>; <a href="#ref-white_exploring_2022" role="doc-biblioref">White et al. 2022</a>)</span></li>
+<li>fixed effects for year and industry (SIC and our BERTScore Classification) <span class="citation" data-cites="white_exploring_2022">(<a href="#ref-white_exploring_2022" role="doc-biblioref">White et al. 2022</a>)</span></li>
+</ul>
 </section>
 <section id="results-and-discussion" class="level1">
 <h1>Results and Discussion</h1>
 <section id="comparison" class="level2">
 <h2 class="anchored" data-anchor-id="comparison">Comparison</h2>
-<p>They achieve this through the parsing of the product descriptions provided by firms 10-K filings and creating word vectors. Specifically, the authors identify and exclude proper nouns, which include common words and geographic locations. They then create word vectors for each firm and year, which enables the measurement of product similarity over time.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#They achieve this through the parsing of the product descriptions provided by firms 10-K filings and creating word vectors. Specifically, the authors identify and exclude proper nouns, which include common words and geographic locations. They then create word vectors for each firm and year, which enables the measurement of product similarity over time.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p>Our study builds on the idea of Hoberg &amp; Phillips <span class="citation" data-cites="hoberg_text-based_2016">(<a href="#ref-hoberg_text-based_2016" role="doc-biblioref">2016</a>)</span> to utilize text data from 10-K filings to classify companies based on their similarity to each other into dynamic industries. Our approach differs in two ways: Firstly, in contrast to the TNIC and FIC, which employ word-to-vec, our approach utilises BERT to represent text. Accordingly, the BERTScore is employed instead of the cosine similarity as our similarity measure. Secondly, our analysis is focused on the description of the BM rather than on the product descriptions. Nevertheless, in the following subsection, the BERTScore industry classification is compared with the FIC and the SIC.</p>
 <p>The data employed for the industry classification with the BERTScore is the same as described in Section 2. The SIC codes come from the SEC website<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>. For the FIC we have utilized the similarity scores provided by Hoberg-Phillips Data Library.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> The data consists of the gvkeys of two companies, the year and the cosine similarity between these two companies. In order to ensure comparability, only companies present in both the present study’s dataset and that provided by the authors are included in the analysis. Because we use CIKs and accession numbers to identify firms and filings, and the fact that the data library employs Compustat’s gvkeys, the matching of CIKs with gvkeys inevitably results in the loss of some observations. Ultimately, the clustering algorithm was applied to 1,958 firms for the year 2017. Hoberg &amp; Phillips <span class="citation" data-cites="hoberg_text-based_2016">(<a href="#ref-hoberg_text-based_2016" role="doc-biblioref">2016</a>)</span> perform two steps to create the FIC. Firstly, a hierarchical agglomerative clustering algorithm is employed to cluster companies based on their similarity and maximize ex-post within cluster similarity. This enables a classification with any number of clusters. In our dataset, companies are from 320 different SIC codes. Therefore, the number of industries chosen for our industry classification and the FIC is 320. In the second step, the authors compute aggregated word vectors for each industry. These vectors now represent the industries. Subsequently, the similarity between industries and firms is calculated for each of the following years. From the second year onwards, firms are classified according to the industry with which they are most similar. But due to our methodology this step is omitted.</p>
 <p>Figure 1 presents a comparison of the distribution of industry size for the BERTScore classification, the FIC and the SIC. Both the BERTScore classification and the FIC show a similar distribution, displaying a leftward skew with the majority of industries comprising fewer than ten firms. The SIC shows as well a left skewed distribution but with most industries only containing one company. The distribution of the FIC is steeper than the on of the BERTScore classification. It is notable that the largest industry in the BERTScore classification comprises only 20 companies, whereas the FIC and SIC contain industries with a greater number of firms, with some exceeding 50. This suggests that the BERTScore classification groups small to medium-sized industries, comprising between two and fourteen firms per industry, with fewer large industries. The FIC also comprises mostly of small to medium-sized industries, with a few larger ones. Despite these minor differences, this supports H1. The degree of homogeneity between the BERTScore classification and the FIC is 0.63, while the completeness is 0.6. This demonstrates only a medium degree of overlap between the two classifications. The Adjusted Rand Index (ARI) <span class="citation" data-cites="hubert_comparing_1985">(<a href="#ref-hubert_comparing_1985" role="doc-biblioref">Hubert and Arabie 1985</a>)</span> is situated at 0.0002, which is close to zero, indicating that the overlap is random. These findings do not provide support for H2.</p>
 <ul>
 <li>explain how we further utilize our classification in the estimation</li>
 </ul>
-<p><img src="ProjectEcoDataScience_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+<p><img src="ProjectEcoDataScience_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
 </section>
 <section id="results" class="level2">
 <h2 class="anchored" data-anchor-id="results">Results</h2>
@@ -382,11 +424,20 @@ div.csl-indent {
 <section id="references" class="level1">
 <h1>References</h1>
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-brannon2016analysis" class="csl-entry" role="listitem">
+Brannon, David L, and Johan Wiklund. 2016. <span>“An Analysis of Business Models: Firm Characteristics, Innovation and Performance.”</span> <em>Academy of Entrepreneurship Journal</em> 22 (1): 1–20.
+</div>
 <div id="ref-clauss_measuring_2017" class="csl-entry" role="listitem">
 Clauss, Thomas. 2017. <span>“Measuring Business Model Innovation: Conceptualization, Scale Development, and Proof of Performance.”</span> <em>R&amp;D Management</em> 47 (3): 385–403. <a href="https://doi.org/10.1111/radm.12186">https://doi.org/10.1111/radm.12186</a>.
 </div>
 <div id="ref-cucculelli_business_2015" class="csl-entry" role="listitem">
 Cucculelli, Marco, and Cristina Bettinelli. 2015. <span>“Business Models, Intangibles and Firm Performance: Evidence on Corporate Entrepreneurship from <span>Italian</span> Manufacturing <span>SMEs</span>.”</span> <em>Small Business Economics</em> 45 (2): 329–50. <a href="https://doi.org/10.1007/s11187-015-9631-7">https://doi.org/10.1007/s11187-015-9631-7</a>.
+</div>
+<div id="ref-dang2018measuring" class="csl-entry" role="listitem">
+Dang, Chongyu, Zhichuan Frank Li, and Chen Yang. 2018. <span>“Measuring Firm Size in Empirical Corporate Finance.”</span> <em>Journal of Banking &amp; Finance</em> 86: 159–76.
+</div>
+<div id="ref-Desyllas2022" class="csl-entry" role="listitem">
+Desyllas, Panos, Ammon Salter, and Oliver Alexy. 2022. <span>“The Breadth of Business Model Reconfiguration and Firm Performance.”</span> <em>Strategic Organization</em> 20 (2): 231–69. <a href="https://doi.org/10.1177/1476127020955138">https://doi.org/10.1177/1476127020955138</a>.
 </div>
 <div id="ref-foss_fifteen_2017" class="csl-entry" role="listitem">
 Foss, Nicolai J., and Tina Saebi. 2017. <span>“Fifteen <span>Years</span> of <span>Research</span> on <span>Business</span> <span>Model</span> <span>Innovation</span>: <span>How</span> <span>Far</span> <span>Have</span> <span>We</span> <span>Come</span>, and <span>Where</span> <span>Should</span> <span>We</span> <span>Go</span>?”</span> <em>Journal of Management</em> 43 (1): 200–227. <a href="https://doi.org/10.1177/0149206316675927">https://doi.org/10.1177/0149206316675927</a>.
@@ -441,7 +492,7 @@ Zott, Christoph, and Raphael Amit. 2008. <span>“The Fit Between Product Market
 </section>
 <section id="appendix-b" class="level2">
 <h2 class="anchored" data-anchor-id="appendix-b">Appendix B</h2>
-<p><img src="ProjectEcoDataScience_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+<p><img src="ProjectEcoDataScience_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
 <div>
 
 </div>

@@ -518,14 +518,14 @@ Maximum
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-2016 & 7842 & 6104 & 155 & 3705 & 6026 & 10271 & 51227 \\
-2017 & 7542 & 6320 & 155 & 3522 & 5767 & 9700 & 70611 \\
-2018 & 7604 & 6272 & 180 & 3528 & 5771 & 9669 & 71700 \\
-2019 & 8009 & 6631 & 189 & 3669 & 5971 & 10410 & 78270 \\
-2020 & 8660 & 7195 & 171 & 3943 & 6449 & 10971 & 57980 \\
-2021 & 10324 & 8406 & 235 & 4670 & 7568 & 13563 & 78799 \\
-2022 & 9471 & 7997 & 171 & 4309 & 7042 & 11897 & 73937 \\
-2023 & 6646 & 4771 & 190 & 3660 & 5814 & 8401 & 43523 \\
+2016 & 7765 & 6053 & 134 & 3658 & 5972 & 10251 & 51227 \\
+2017 & 7426 & 6162 & 134 & 3474 & 5689 & 9538 & 70611 \\
+2018 & 7552 & 6290 & 49 & 3492 & 5738 & 9599 & 74351 \\
+2019 & 7943 & 6562 & 59 & 3646 & 5961 & 10241 & 78270 \\
+2020 & 8610 & 7156 & 59 & 3930 & 6418 & 10914 & 57980 \\
+2021 & 10304 & 8347 & 235 & 4671 & 7614 & 13637 & 78799 \\
+2022 & 9478 & 7977 & 57 & 4321 & 7057 & 11919 & 73937 \\
+2023 & 6626 & 4750 & 190 & 3667 & 5807 & 8366 & 43523 \\
 \end{longtable}
 
 \end{minipage}%
@@ -589,36 +589,35 @@ effect increasing in line with the intensity of the innovation. Latifi
 et al. (2021) also find evidence that provides support for the
 hypothesis that a company engaging in BMI will improve its overall firm
 performance. In their study, the firm performance is evaluated
-subjectively. Zott \& Amit (2008) analyse the effect of the BM and the
-product market strategy on firm performance. They measure the firm
-performance with the market value of equity as the stock price
-multiplied with the number of shares outstanding. White et al. (2022)
-conducted a meta-analysis based on the extant BMI literature. They found
-a positive relationship between BMI and firm performance, and that this
-relationship is shaped by factors including the firm age, industry, the
-economic and political environment and BMI characteristics.
+subjectively. White et al. (2022) conducted a meta-analysis based on the
+extant BMI literature. They found a positive relationship between BMI
+and firm performance, and that this relationship is shaped by factors
+including the firm age, industry, the economic and political environment
+and BMI characteristics.
 
-Following paragraph is still preliminary: - Based on the literature
-(mostly on (White et al. 2022) and (Zott and Amit 2008)) we build our
-estimation strategy; use multiple multivariate regressions; - dependent
-variables: revenue growth, market equity (growth), Tobins Q -
-independent variable: distance between summaries (makes the measure more
-intuitive; if distance grows/ similarity decreases, summaries are more
-dissimilar -\textgreater{} BMI) - controls: firm age and size, might
-need to consider how to measure size (employees, firm value), Tobins Q
-might also be used - fixed effects for year and industry might me
-useful.
+Following paragraph is still preliminary:
+
+\begin{itemize}
+\tightlist
+\item
+  dependent variables: revenue growth (Brannon and Wiklund 2016),
+  Tobin's Q {[}Desyllas, Salter, and Alexy (2022);{]} Sales Growth
+  (Cucculelli and Bettinelli 2015)
+\item
+  independent variable: distance between summaries (makes the measure
+  more intuitive; if distance grows/ similarity decreases, summaries are
+  more dissimilar -\textgreater{} BMI)
+\item
+  controls: firm size as log(TotalAssets) and log(Market Value) (Dang,
+  Li, and Yang 2018; White et al. 2022)
+\item
+  fixed effects for year and industry (SIC and our BERTScore
+  Classification) (White et al. 2022)
+\end{itemize}
 
 \section{Results and Discussion}\label{results-and-discussion}
 
 \subsection{Comparison}\label{comparison}
-
-They achieve this through the parsing of the product descriptions
-provided by firms 10-K filings and creating word vectors. Specifically,
-the authors identify and exclude proper nouns, which include common
-words and geographic locations. They then create word vectors for each
-firm and year, which enables the measurement of product similarity over
-time.
 
 Our study builds on the idea of Hoberg \& Phillips (2016) to utilize
 text data from 10-K filings to classify companies based on their
@@ -686,7 +685,7 @@ overlap is random. These findings do not provide support for H2.
   explain how we further utilize our classification in the estimation
 \end{itemize}
 
-\includegraphics{ProjectEcoDataScience_files/figure-pdf/unnamed-chunk-4-1.pdf}
+\includegraphics{ProjectEcoDataScience_files/figure-pdf/unnamed-chunk-5-1.pdf}
 
 \subsection{Results}\label{results}
 
@@ -712,6 +711,11 @@ overlap is random. These findings do not provide support for H2.
 
 \phantomsection\label{refs}
 \begin{CSLReferences}{1}{0}
+\bibitem[\citeproctext]{ref-brannon2016analysis}
+Brannon, David L, and Johan Wiklund. 2016. {``An Analysis of Business
+Models: Firm Characteristics, Innovation and Performance.''}
+\emph{Academy of Entrepreneurship Journal} 22 (1): 1--20.
+
 \bibitem[\citeproctext]{ref-clauss_measuring_2017}
 Clauss, Thomas. 2017. {``Measuring Business Model Innovation:
 Conceptualization, Scale Development, and Proof of Performance.''}
@@ -723,6 +727,17 @@ Cucculelli, Marco, and Cristina Bettinelli. 2015. {``Business Models,
 Intangibles and Firm Performance: Evidence on Corporate Entrepreneurship
 from {Italian} Manufacturing {SMEs}.''} \emph{Small Business Economics}
 45 (2): 329--50. \url{https://doi.org/10.1007/s11187-015-9631-7}.
+
+\bibitem[\citeproctext]{ref-dang2018measuring}
+Dang, Chongyu, Zhichuan Frank Li, and Chen Yang. 2018. {``Measuring Firm
+Size in Empirical Corporate Finance.''} \emph{Journal of Banking \&
+Finance} 86: 159--76.
+
+\bibitem[\citeproctext]{ref-Desyllas2022}
+Desyllas, Panos, Ammon Salter, and Oliver Alexy. 2022. {``The Breadth of
+Business Model Reconfiguration and Firm Performance.''} \emph{Strategic
+Organization} 20 (2): 231--69.
+\url{https://doi.org/10.1177/1476127020955138}.
 
 \bibitem[\citeproctext]{ref-foss_fifteen_2017}
 Foss, Nicolai J., and Tina Saebi. 2017. {``Fifteen {Years} of {Research}
@@ -830,7 +845,7 @@ to ensure that the whole summary is used by the BERT model.
 
 \subsection{Appendix B}\label{appendix-b}
 
-\includegraphics{ProjectEcoDataScience_files/figure-pdf/unnamed-chunk-6-1.pdf}
+\includegraphics{ProjectEcoDataScience_files/figure-pdf/unnamed-chunk-7-1.pdf}
 
 \begin{figure}%
 \end{figure}%
