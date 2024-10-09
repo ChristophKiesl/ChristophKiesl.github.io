@@ -412,18 +412,18 @@ features and the conventional SIC industry classification.
 \caption{\label{tab:tbl-table1}10-K Sample Creation}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\begin{tabu} to \linewidth {>{\raggedright\arraybackslash}p{8cm}>{\raggedleft}X>{\raggedright}X}
+\begin{tabu} to \linewidth {>{\raggedright\arraybackslash}p{8cm}>{\raggedright}X>{\raggedright}X}
 \toprule
 Source/Filter & Sample Size & Observations Removed\\
 \midrule
-1. Extracted 10-K filings from the SEC & 35731 & \\
-2. Excluding filings from financial companies (SIC-code starting with '6') & 27569 & 8162\\
-3. Verify for Item 1 text availability (removed oberservations that are attributable to API quality) & 23982 & 3587\\
-4. Extracting dates for which the filings are reporting for and removing of duplicated filings & 23971 & 11\\
-5. Delete observations with incorrect date assignment & 22161 & 1810\\
+1. Original (exchanged listed) companies, whose 10-K filings are extracted from SEC & 47,226 & 0\\
+2. Removing observations from financial companies whose SIC-code start with '6' & 37,750 & 9,476\\
+3. Verify for Item 1 text availability (removed oberservations that are attributable to API quality) & 32,611 & 5,139\\
+4. Extracting dates for which the filings are reporting for and removing of duplicated filings & 31,289 & 1,322\\
+5. Delete observations with incorrect date assignment & 30,029 & 1,260\\
 \addlinespace
-6. Merged Gemini processed Item 1 text to the underlying data set. We did not consider texts that were not processable & 21697 & 464\\
-7. Extract financials statements from SEC and merge them. Also remove observations for years prior to 2016 & 21686 & 11\\
+6. Merged Gemini processed Item 1 text to the underlying data set. We did not consider texts that were not processable & 28,161 & 1,868\\
+7. Extract financials statements from SEC and merge them. Also remove observations for years prior to 2016 & 23,882 & 4,279\\
 \bottomrule
 \multicolumn{3}{l}{\rule{0pt}{1em}\textit{Note: }}\\
 \multicolumn{3}{l}{\rule{0pt}{1em}Filings submitted between 2017 and 2023 are considered.}\\
@@ -560,16 +560,29 @@ Following paragraph is still preliminary:
   Tobin's Q {[}Desyllas, Salter, and Alexy (2022);{]} Sales Growth
   (Cucculelli and Bettinelli 2015)
 \item
-  independent variable: distance between summaries (makes the measure
-  more intuitive; if distance grows/ similarity decreases, summaries are
-  more dissimilar -\textgreater{} BMI)
-\item
-  controls: firm size as log(TotalAssets) and log(Market Value) (Dang,
-  Li, and Yang 2018; White et al. 2022)
-\item
-  fixed effects for year and industry (SIC and our BERTScore
-  Classification) (White et al. 2022)
+  independent variable: ((distance/average distance)-1)*100 = our
+  measure
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Reason for normalizing: Summaries between years differ on average
+    very little. Difference may be due to small changes in 10-K and
+    preprocessing with Gemini. Makes the interpretation easy.
+  \item
+    Interpretation: If a companies BM changes 1 percentage point more
+    than the market's average, the company has a x percentage points
+    higher revenue growth.
+  \end{itemize}
 \end{itemize}
+
+We control for firm size with the logarithm of the market value. To test
+the robustness we further use the logarithm of the total assets (Dang,
+Li, and Yang 2018). We use fixed effects for the year and our BERTScore
+industry classification. In the robustness check we use the SIC codes
+instead of our BERTScore industry classification. We do not control for
+economical and political environment as White et al. (2022) suggests
+since all of our companies are U.S. based companies.
 
 \section{Results and Discussion}\label{results-and-discussion}
 
@@ -811,6 +824,8 @@ to ensure that the whole summary is used by the BERT model.
 \end{itemize}
 
 \subsection{Appendix B}\label{appendix-b}
+
+Average distance = 0.103999 and standard deviation = 0.2681622
 
 \includegraphics{ProjectEcoDataScience_files/figure-pdf/unnamed-chunk-7-1.pdf}
 

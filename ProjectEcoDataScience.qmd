@@ -109,8 +109,9 @@ We collect 10-K filings from the digital SEC Database, using the category "10-K"
 library(tidyverse)
 library(knitr)
 library(kableExtra)
+library(readxl)
 
-Table1 = read.csv("./TableData/Table1.csv", header=FALSE,sep=",")%>%
+Table1 = read_excel("./TableData/Table1.xlsx")%>%
   mutate(V3 = as.character(V3))%>%
   replace_na(list(V1="",V2="",V3=""))%>%
   kable(format = 'latex',label="tbl-table1",col.names = c("Source/Filter","Sample Size","Observations Removed"), caption = "10-K Sample Creation", booktabs = T)%>%
@@ -160,10 +161,13 @@ As mentioned, our approach differs from the original paper by Hoberg & Phillips 
 
 Following paragraph is still preliminary:
 
+
 - dependent variables: revenue growth [@brannon2016analysis], Tobin's Q [@Desyllas2022;] Sales Growth [@cucculelli_business_2015]
-- independent variable: distance between summaries (makes the measure more intuitive; if distance grows/ similarity decreases, summaries are more dissimilar -> BMI)
-- controls: firm size as log(TotalAssets) and log(Market Value) [@dang2018measuring;@white_exploring_2022]
-- fixed effects for year and industry (SIC and our BERTScore Classification) [@white_exploring_2022]
+- independent variable: ((distance/average distance)-1)*100 = our measure
+    - Reason for normalizing: Summaries between years differ on average very little. Difference may be due to small changes in 10-K and   preprocessing with Gemini. Makes the interpretation easy. 
+    - Interpretation: If a companies BM changes 1 percentage point more than the market's average, the company has a x percentage points higher revenue growth. 
+
+We control for firm size with the logarithm of the market value. To test the robustness we further use the logarithm of the total assets [@dang2018measuring]. We use fixed effects for the year and our BERTScore industry classification. In the robustness check we use the SIC codes instead of our BERTScore industry classification. We do not control for economical and political environment as White et al. [-@white_exploring_2022] suggests since all of our companies are U.S. based companies.
 
 # Results and Discussion
 
@@ -261,15 +265,17 @@ We used following prompt: "Summarize the business model from the following text.
 
 ## Appendix B
 
+Average distance = 0.103999 and standard deviation = 0.2681622
+
 ```{r echo=FALSE, warning = FALSE, message = FALSE, results='asis'}
 library(tidyverse)
 library(ggplot2)
 
 Figure2 <- read.csv("./TableData/Regression/RegressionData.csv")%>%
   select(c("Score")) %>%
-  ggplot(aes(x=Score)) +
+  ggplot(aes(x=1-Score)) +
   geom_density(fill = "grey", alpha = 0.5) +
-  labs(title = "Density BertScore", x = "BERTScore", y = "Density") +
+  labs(title = "Density Distance", x = "Distance", y = "Density") +
   theme_minimal()
 
 Figure2
