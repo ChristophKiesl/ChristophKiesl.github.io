@@ -256,6 +256,35 @@ Figure2
 
 ## Results
 
+```{r echo=FALSE, warning = FALSE, message = FALSE, results='asis'}
+library(tidyverse)
+library(stargazer)
+library(readxl)
+library(lfe)
+library(DescTools)
+
+RegressionData = read.csv("./TableData/Regression/RegressionData.csv") %>%
+  filter(Market_Value>0)%>%
+  mutate(z_score = (RevenueGrowth - mean(RevenueGrowth))/sd(RevenueGrowth)) %>%
+  filter(z_score < 3)%>%
+  mutate(year=as.factor(year),
+         Industry = as.factor(Industry))
+
+#Revenue Growth
+Reg1 = felm(RevenueGrowth~NormalizedDistance + log(Market_Value) | year + Industry | 0 | 0 ,data=RegressionData)
+Reg2 = felm(RevenueGrowth~NormalizedDistance + log(Market_Value) | year * Industry | 0 | 0 ,data=RegressionData)
+
+#Sales Growth
+#Reg3 = felm(RevenueGrowth~NormalizedDistance + log(Market_Value) | year + Industry | 0 | 0 ,data=RegressionData)
+#Reg4 = felm(RevenueGrowth~NormalizedDistance + log(Market_Value) | year * Industry | 0 | 0 ,data=RegressionData)
+
+#Tobin's Q
+#Reg5 = felm(RevenueGrowth~NormalizedDistance + log(Market_Value) | year + Industry | 0 | 0 ,data=RegressionData)
+#Reg6 = felm(RevenueGrowth~NormalizedDistance + log(Market_Value) | year * Industry | 0 | 0 ,data=RegressionData)
+
+stargazer(Reg1, Reg2)
+```
+
 ## Robustness Checks
 
 ## Discussion
