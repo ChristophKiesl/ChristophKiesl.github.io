@@ -27,40 +27,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 /* CSS for citations */
 div.csl-bib-body { }
 div.csl-entry {
@@ -95,6 +61,35 @@ div.csl-indent {
 <link href="ProjectEcoDataScience_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="ProjectEcoDataScience_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -161,8 +156,8 @@ div.csl-indent {
 </ul>
 <p>Despite the growing interest in BMI and the increasing number of theoretical and empirical studies in this field, the research of BMI is still in a preliminary state <span class="citation" data-cites="huang_review_2023">(<a href="#ref-huang_review_2023" role="doc-biblioref">Huang and Ichikohji 2023</a>)</span>. Consequently, there is considerable variation in the definitions of BMI, with some definitions being more similar to one another than others <span class="citation" data-cites="foss_fifteen_2017">(<a href="#ref-foss_fifteen_2017" role="doc-biblioref">Foss and Saebi 2017</a>)</span>. Spieth &amp; Schneider <span class="citation" data-cites="spieth_business_2016">(<a href="#ref-spieth_business_2016" role="doc-biblioref">2016</a>)</span> identify three core dimensions that comprise a company’s BM: its value proposition, its value creation architecture and its revenue model logic. Based on this, BMI can be conceptualized as a change that is new-to-the-firm in at least one of these dimensions. Furthermore, Spieth and Schneider <span class="citation" data-cites="spieth_business_2016">(<a href="#ref-spieth_business_2016" role="doc-biblioref">2016</a>)</span> introduce a measurement model to evaluate these three dimensions of BMI. They develop an index by first specifying the contents, followed by a specification of the indicators and assessing their content validity, assessing the indicators collinearity and finally assessing the external validity. Clauss <span class="citation" data-cites="clauss_measuring_2017">(<a href="#ref-clauss_measuring_2017" role="doc-biblioref">2017</a>)</span> employs a very similar approach. After specifying the domain and dimensionality of BMI through literature research, the author divides his scale into three hierarchical levels, which are very similar to the ones of Spieth and Schneider <span class="citation" data-cites="spieth_business_2016">(<a href="#ref-spieth_business_2016" role="doc-biblioref">2016</a>)</span>. We build on these conceptualizations to design our prompt we use in the preprocessing with Gemini. However, both measures are subject to three significant limitations. Firstly, both measures lack a temporal component. Consequently, they are inadequate for use in longitudinal studies or ex-post evaluations of BMI. Secondly, BMI is only measured at the new-to-the-firm level rather than at the new-to-the-industry or new-to-the-market level. Thirdly, both measures rely on interviews and questionnaires, which makes conducting large-scale studies time-consuming and reliant on the willingness of the companies to cooperate <span class="citation" data-cites="clauss_measuring_2017 spieth_business_2016">(<a href="#ref-clauss_measuring_2017" role="doc-biblioref">Clauss 2017</a>; <a href="#ref-spieth_business_2016" role="doc-biblioref">Spieth and Schneider 2016</a>)</span>. Our novel measurement approach tackles the first and third issue.</p>
 <p>A number of studies have examined the relationship between BMI and the financial performance of a company. Cucculelli &amp; Bettinelli <span class="citation" data-cites="cucculelli_business_2015">(<a href="#ref-cucculelli_business_2015" role="doc-biblioref">2015</a>)</span> investigate the effect of BMI on sales growth, return on sales (ROS) and total factor productivity (TFP). The results support the hypothesis that BMI has a positive effect on firm performance, with the effect increasing in line with the intensity of the innovation. Brannon &amp; Wiklund <span class="citation" data-cites="brannon2016analysis">(<a href="#ref-brannon2016analysis" role="doc-biblioref">2016</a>)</span> examine the BM of wineries in the state of New York. They use a firms revenue growth as a measure for firm performance. Their research shows that BMI is an important factor for small companies to improve firm performance. Desyllas et al. <span class="citation" data-cites="Desyllas2022">(<a href="#ref-Desyllas2022" role="doc-biblioref">2022</a>)</span> find that BMI has a small effect on performance of incumbent firms. They measure firm performance by Tobin’s Q growth. White et al. <span class="citation" data-cites="white_exploring_2022">(<a href="#ref-white_exploring_2022" role="doc-biblioref">2022</a>)</span> conducted a meta-analysis based on the extant BMI literature. They found a positive relationship between BMI and firm performance, and that this relationship is shaped by factors including the firm age, industry, the economic and political environment and BMI characteristics. Based on this, we derive the dependent and control variables in the estimation strategy.</p>
-<p>Hoberg &amp; Phillips <span class="citation" data-cites="hoberg_text-based_2016">(<a href="#ref-hoberg_text-based_2016" role="doc-biblioref">2016</a>)</span> present a novel approach to defining industry boundaries. They propose two novel industry classification methods: the fixed industry classification (FIC) and the text-based network industry classification (TNIC). Firstly, they cluster companies based on the similarity of word vectors into fixed industries. Secondly, they define a minimum similarity threshold, above which firms are considered in the same industry. This relaxes their prior properties of binary membership transitivity and fixed industry location. This way the authors demonstrate shortcomings in the traditional industry classification systems such as the Standard Industry Classification (SIC) and the North American Industry Classification System (NAICS), which are not able to account for temporal changes. The new method is capable of capturing changes in industry boundaries and competitor sets over time, thereby providing a dynamic industry classification system. Based on the FIC we propose our own BERTScores industry classification and utilize it in our estimation. In their study, Lee &amp; Hong <span class="citation" data-cites="lee_business_2014">(<a href="#ref-lee_business_2014" role="doc-biblioref">2014</a>)</span> examine the evolution of a firm’s BM over time. After filtering the Item 1 parts of the 10-K filings for relevant sentences, Lee &amp; Hong <span class="citation" data-cites="lee_business_2014">(<a href="#ref-lee_business_2014" role="doc-biblioref">2014</a>)</span> construct keyword vectors, which represent the concept of the BM. Therefore, the evolution of the BM is depicted as the change in the distribution of keywords over time. The authors advocate for a more robust methodology, such as incorporating multi-word phrases in the keyword vectors, to enhance the reliability of the approach <span class="citation" data-cites="lee_business_2014">(<a href="#ref-lee_business_2014" role="doc-biblioref">Lee and Hong 2014</a>)</span>. Our study pursues a similar goal but with a novel methodology.</p>
-<p>The rest of the paper proceeds as follows. Section 2 describes the preprocessing with Gemini, our data and our methodology. Section 3 our estimations strategy. Section 4 provides a comparison of the BERTScore Classification and the FIC as well as the discussion of our results. Section 5 concludes our study.</p>
+<p>Hoberg &amp; Phillips <span class="citation" data-cites="hoberg_text-based_2016">(<a href="#ref-hoberg_text-based_2016" role="doc-biblioref">2016</a>)</span> present a novel approach to defining industry boundaries. They propose two novel industry classification methods: the fixed industry classification (FIC) and the text-based network industry classification (TNIC). Firstly, they cluster companies based on the similarity of word vectors into fixed industries. Secondly, they define a minimum similarity threshold, above which firms are considered in the same industry. This second step relaxes their prior properties of binary membership transitivity and fixed industry location. The authors demonstrate shortcomings in the traditional industry classification systems such as the Standard Industry Classification (SIC) and the North American Industry Classification System (NAICS), which are not able to account for temporal changes. The new method is capable of capturing changes in industry boundaries and competitor sets over time, thereby providing a dynamic industry classification system. Based on the FIC we propose our own BERTScores industry classification and utilize it in our estimation. In their study, Lee &amp; Hong <span class="citation" data-cites="lee_business_2014">(<a href="#ref-lee_business_2014" role="doc-biblioref">2014</a>)</span> examine the evolution of a firm’s BM over time. After filtering the Item 1 parts of the 10-K filings for relevant sentences, Lee &amp; Hong <span class="citation" data-cites="lee_business_2014">(<a href="#ref-lee_business_2014" role="doc-biblioref">2014</a>)</span> construct keyword vectors, which represent the concept of the BM. Therefore, the evolution of the BM is depicted as the change in the distribution of keywords over time. The authors advocate for a more robust methodology, such as incorporating multi-word phrases in the keyword vectors, to enhance the reliability of the approach <span class="citation" data-cites="lee_business_2014">(<a href="#ref-lee_business_2014" role="doc-biblioref">Lee and Hong 2014</a>)</span>. Our study pursues a similar goal but with a novel methodology.</p>
+<p>The rest of the paper proceeds as follows. Section 2 describes our data, our usage of BERT, the preprocessing with Gemini and our methodology. Section 3 lays out our estimations strategy. Section 4 provides our results as well as the discussion. Section 5 concludes our study.</p>
 </section>
 <section id="data-and-methodology" class="level1">
 <h1>Data and Methodology</h1>
@@ -176,50 +171,54 @@ div.csl-indent {
 </section>
 <section id="preprocessing-with-gemini" class="level2">
 <h2 class="anchored" data-anchor-id="preprocessing-with-gemini">Preprocessing with Gemini</h2>
-<p>10-K filings are typically very large text documents, and Item 1 of these filings is no exception. Table 2 shows the descriptive measures of the length of the original Item 1 section in our final sample. The length of a document was measured by the word count without punctuation. The document length ranges from a minimum if 49 words up to 78,799 words. On average the documents are between 6,626 and 10,304 words long. In order to utilise the entirety of the information regarding the BM in the Item 1 section and pass the text to our BERT model, we decided to let Google’s GenAI chatbot Gemini summarize them to a maximum length of 512 tokens. The summaries were created between 26 June 2024 and 6 August 2024. The model employed was Gemini Flash 1.5. The prompt was inserted at the beginning of each text file and it was passed via an API to Gemini <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. Our prompt covers all aspects of the definition of BMI proposed by Spieth &amp; Schneider <span class="citation" data-cites="spieth_business_2016">(<a href="#ref-spieth_business_2016" role="doc-biblioref">2016</a>)</span>. For more details, see Appendix A. To assess the quality and accuracy of the summaries produced by Gemini, a random sample of 100 filings was selected for comparison with the original text. More precise,the original file was initially read with a focus on the points mentioned in the prompt. Subsequently, the summary was evaluated to ascertain whether it contained these same points. A list of the sample with the summaries is provided in the Appendix.</p>
+<p>10-K filings are typically very large text documents, and Item 1 of these filings is no exception. Table 2 shows the descriptive measures of the length of the original Item 1 section in our final sample. The length of a document was measured by the word count without punctuation. The document length ranges from a minimum if 49 words up to 78,799 words. On average the documents are between 6,626 and 10,304 words long. In order to utilise the entirety of the information regarding the BM in the Item 1 section and pass the text to our BERT model, we decided to let Google’s GenAI chatbot Gemini summarize them to a maximum length of 512 tokens. The summaries were created between 26 June 2024 and 6 August 2024. The model employed was Gemini Flash 1.5. The prompt was inserted at the beginning of each text file and it was passed via an API to Gemini <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. Our prompt covers all aspects of the definition of BMI proposed by Spieth &amp; Schneider <span class="citation" data-cites="spieth_business_2016">(<a href="#ref-spieth_business_2016" role="doc-biblioref">2016</a>)</span>. For more details, see Appendix A. To assess the quality and accuracy of the summaries produced by Gemini, a random sample of 100 filings was selected for comparison with the original text. More precise,the original file was initially read with a focus on the points mentioned in the prompt. Subsequently, the summary was evaluated to ascertain whether it contained these same points. A list of the sample with the summaries is provided in the Appendix C.</p>
 </section>
 <section id="methodology" class="level2">
 <h2 class="anchored" data-anchor-id="methodology">Methodology</h2>
-<p>After processing the data, we calculate the BERTScore between the summaries of different companies in one year and between the summaries for the same company over different years. The similarity between different companies in the same year is utilized to compare our BERTScore industry classification with the FIC by Hoberg &amp; Phillips <span class="citation" data-cites="hoberg_text-based_2016">(<a href="#ref-hoberg_text-based_2016" role="doc-biblioref">2016</a>)</span> and the SIC. For the FIC, Hoberg &amp; Phillips <span class="citation" data-cites="hoberg_text-based_2016">(<a href="#ref-hoberg_text-based_2016" role="doc-biblioref">2016</a>)</span> calculate the cosine similarity between word vectors of product descriptions, which they extracted from Item 1 of the 10-K filings. For our Industry classification we utilise the BERTScore to calculate the similarity between our BM summaries. Based on these similarites we cluster the companies into industries via an agglomerative clustering algorithm. The methodology and object of research differ between the two studies. In accordance with the definition provided by Spieth &amp; Schneider <span class="citation" data-cites="spieth_business_2016">(<a href="#ref-spieth_business_2016" role="doc-biblioref">2016</a>)</span>, a company’s product constitutes a component of its value proposition and, consequently, a constituent of the BM. Because the product is thereby entangled with the BM, companies that have similar products might have similar BMs. So despite the different methodology and object of research, we expect a similar distribution as Hoberg for the FIC, which is very granular and contains lot of small industries. Thus, we hypothesize:</p>
+<p>After processing the data, we calculate the BERTScore between the summaries of different companies in one year and between the summaries for the same company over different years. The similarity between different companies in the same year is utilized to compute our BERTScore industry classification. We firstly compare the BERTScore industry classification with the FIC by Hoberg &amp; Phillips <span class="citation" data-cites="hoberg_text-based_2016">(<a href="#ref-hoberg_text-based_2016" role="doc-biblioref">2016</a>)</span> and the SIC. Furthermore, we use our BERTScore industry classification in our estimation. For the FIC, Hoberg &amp; Phillips <span class="citation" data-cites="hoberg_text-based_2016">(<a href="#ref-hoberg_text-based_2016" role="doc-biblioref">2016</a>)</span> calculate the cosine similarity between word vectors of product descriptions, which they extracted from Item 1 of the 10-K filings. For our Industry classification we utilise the BERTScore to calculate the similarity between our BM summaries. Based on these similarites we cluster the companies into industries via an agglomerative clustering algorithm. The methodology and object of research differ between the two studies. In accordance with the definition provided by Spieth &amp; Schneider <span class="citation" data-cites="spieth_business_2016">(<a href="#ref-spieth_business_2016" role="doc-biblioref">2016</a>)</span>, a company’s product constitutes a component of its value proposition and, consequently, a constituent of the BM. Because the product is thereby entangled with the BM, companies that have similar products might have similar BMs. So despite the different methodology and object of research, we expect a similar distribution as Hoberg for the FIC, which is very granular and contains lot of small industries. Thus, we hypothesize:</p>
 <p><strong>H1</strong>: Our BERTScore industry classification shows a similar distribution compared to the FIC.</p>
 <p><strong>H2</strong>: Our BERTScore industry classification has a high overlap with the FIC.</p>
-<p>As mentioned, our approach differs from the original paper by Hoberg &amp; Phillips <span class="citation" data-cites="hoberg_text-based_2016">(<a href="#ref-hoberg_text-based_2016" role="doc-biblioref">2016</a>)</span>. We fix the company and calculate the BERTScore between the summaries of different years. When a company innovates its BM over time, the 10-K filings change and thus the summaries of these filings. We subtract the BERTScores from one to get the distance instead of the similarity between summaries. Utilizing the distance as our measure yields a more intuitive interpretation: The higher the distance, the more do the BM summaries differ. This allows us to measure the change in a company’s BM. We assume that a company that changes its BM, will not return back to its original BM. Under this assumption our measure measures BMI on the new-to-the-firm level. In the case that our measure is able to measure BMI, we expect to find a positive relationship between our BMI measure and firm performance. Therefore, we hypothesize that:</p>
+<p>As mentioned, our approach differs from the original paper by Hoberg &amp; Phillips <span class="citation" data-cites="hoberg_text-based_2016">(<a href="#ref-hoberg_text-based_2016" role="doc-biblioref">2016</a>)</span>. We fix the company and calculate the BERTScore between the summaries of different years. When a company innovates its BM over time, the 10-K filings change and thus the summaries of these filings. We subtract the BERTScores from one to get the distance instead of the similarity between summaries, because the distance yields a more intuitive interpretation: The higher the distance, the more do the BM summaries differ. Figure 1 shows the density function of the distance. The distance looks normally distributed and has a mean of 0.104 and a standard deviation of 0.027. The values range from near zero to 0.216. This means that on average the summaries of a company differ slightly. We attribute these small differences to our preprocessing rather than that companies on average slightly change their BM every year. Even if the summaries are very similar in terms of content, Gemini might use different phrases and wordings which result in different BERTScores and thereby in a higher distance. Hence, we normalize the distance by dividing by its mean. Furthermore, we subtract one and multiply it by one-hundred. This results in the following definition of our measure:</p>
+<p><span class="math display">\[
+NormalizedDistance = (Distance/Mean(Distance) - 1)*100
+\]</span>.</p>
+<p>This Normalized Distance measures the change of a company’s BM above the market average in percentage points. We assume that a company that changes its BM, will not return back to its original BM. Under this assumption the Normalized Distance measures BMI on the new-to-the-firm level. In the case that our measure is able to measure BMI, we expect to find a positive relationship between our BMI measure and firm performance. Therefore, we hypothesize that:</p>
 <p><strong>H3</strong>: Our measure for BMI is positively correlated with firm performance.</p>
-</section>
-</section>
-<section id="estimation-strategy" class="level1">
-<h1>Estimation Strategy</h1>
-<p>Following paragraph is still preliminary:</p>
-<ul>
-<li>dependent variables: revenue growth <span class="citation" data-cites="brannon2016analysis">(<a href="#ref-brannon2016analysis" role="doc-biblioref">Brannon and Wiklund 2016</a>)</span>, Tobin’s Q [<span class="citation" data-cites="Desyllas2022">Desyllas, Salter, and Alexy (<a href="#ref-Desyllas2022" role="doc-biblioref">2022</a>)</span>;] Sales Growth <span class="citation" data-cites="cucculelli_business_2015">(<a href="#ref-cucculelli_business_2015" role="doc-biblioref">Cucculelli and Bettinelli 2015</a>)</span></li>
-<li>independent variable: ((distance/average distance)-1)*100 = our measure
-<ul>
-<li>Reason for normalizing: Summaries between years differ on average very little. Difference may be due to small changes in 10-K and preprocessing with Gemini. Makes the interpretation easy.</li>
-<li>Interpretation: If a companies BM changes 1 percentage point more than the market’s average, the company has a x percentage points higher revenue growth.</li>
-</ul></li>
-</ul>
-<p>We control for firm size with the logarithm of the market value. To test the robustness we further use the logarithm of the total assets <span class="citation" data-cites="dang2018measuring">(<a href="#ref-dang2018measuring" role="doc-biblioref">Dang, Li, and Yang 2018</a>)</span>. We use fixed effects for the year and our BERTScore industry classification. In the robustness check we use the SIC codes instead of our BERTScore industry classification. We do not control for economical and political environment as White et al. <span class="citation" data-cites="white_exploring_2022">(<a href="#ref-white_exploring_2022" role="doc-biblioref">2022</a>)</span> suggests since all of our companies are U.S. based companies.</p>
-</section>
-<section id="results-and-discussion" class="level1">
-<h1>Results and Discussion</h1>
-<section id="comparison" class="level2">
-<h2 class="anchored" data-anchor-id="comparison">Comparison</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#They achieve this through the parsing of the product descriptions provided by firms 10-K filings and creating word vectors. Specifically, the authors identify and exclude proper nouns, which include common words and geographic locations. They then create word vectors for each firm and year, which enables the measurement of product similarity over time.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Our study builds on the idea of Hoberg &amp; Phillips <span class="citation" data-cites="hoberg_text-based_2016">(<a href="#ref-hoberg_text-based_2016" role="doc-biblioref">2016</a>)</span> to utilize text data from 10-K filings to classify companies based on their similarity to each other into dynamic industries. Our approach differs in two ways: Firstly, in contrast to the TNIC and FIC, which employ word-to-vec, our approach utilises BERT to represent text. Accordingly, the BERTScore is employed instead of the cosine similarity as our similarity measure. Secondly, our analysis is focused on the description of the BM rather than on the product descriptions. Nevertheless, in the following subsection, the BERTScore industry classification is compared with the FIC and the SIC.</p>
-<p>The data employed for the industry classification with the BERTScore is the same as described in Section 2. The SIC codes come from the SEC website<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>. For the FIC we have utilized the similarity scores provided by Hoberg-Phillips Data Library.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> The data consists of the gvkeys of two companies, the year and the cosine similarity between these two companies. In order to ensure comparability, only companies present in both the present study’s dataset and that provided by the authors are included in the analysis. Because we use CIKs and accession numbers to identify firms and filings, and the fact that the data library employs Compustat’s gvkeys, the matching of CIKs with gvkeys inevitably results in the loss of some observations. Ultimately, the clustering algorithm was applied to 1,958 firms for the year 2017. Hoberg &amp; Phillips <span class="citation" data-cites="hoberg_text-based_2016">(<a href="#ref-hoberg_text-based_2016" role="doc-biblioref">2016</a>)</span> perform two steps to create the FIC. Firstly, a hierarchical agglomerative clustering algorithm is employed to cluster companies based on their similarity and maximize ex-post within cluster similarity. This enables a classification with any number of clusters. In our dataset, companies are from 320 different SIC codes. Therefore, the number of industries chosen for our industry classification and the FIC is 320. In the second step, the authors compute aggregated word vectors for each industry. These vectors now represent the industries. Subsequently, the similarity between industries and firms is calculated for each of the following years. From the second year onwards, firms are classified according to the industry with which they are most similar. But due to our methodology this step is omitted.</p>
-<p>Figure 1 presents a comparison of the distribution of industry size for the BERTScore classification, the FIC and the SIC. Both the BERTScore classification and the FIC show a similar distribution, displaying a leftward skew with the majority of industries comprising fewer than ten firms. The SIC shows as well a left skewed distribution but with most industries only containing one company. The distribution of the FIC is steeper than the on of the BERTScore classification. It is notable that the largest industry in the BERTScore classification comprises only 20 companies, whereas the FIC and SIC contain industries with a greater number of firms, with some exceeding 50. This suggests that the BERTScore classification groups small to medium-sized industries, comprising between two and fourteen firms per industry, with fewer large industries. The FIC also comprises mostly of small to medium-sized industries, with a few larger ones. Despite these minor differences, this supports H1. The degree of homogeneity between the BERTScore classification and the FIC is 0.63, while the completeness is 0.6. This demonstrates only a medium degree of overlap between the two classifications. The Adjusted Rand Index (ARI) <span class="citation" data-cites="hubert_comparing_1985">(<a href="#ref-hubert_comparing_1985" role="doc-biblioref">Hubert and Arabie 1985</a>)</span> is situated at 0.0002, which is close to zero, indicating that the overlap is random. These findings do not provide support for H2.</p>
-<ul>
-<li>explain how we further utilize our classification in the estimation</li>
-</ul>
 <div id="fig-1" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="ProjectEcoDataScience_files/figure-html/fig-1-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: Comparison between BERT Classification, FIC and SIC
+Figure&nbsp;1: Density Function of the Distance
+</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="estimation-strategy" class="level1">
+<h1>Estimation Strategy</h1>
+<p>We test H3 using multivariate regression techniques. As the independent variable we use the Normalized Distance which we defined above.</p>
+<ul>
+<li>dependent variables: revenue growth <span class="citation" data-cites="brannon2016analysis">(<a href="#ref-brannon2016analysis" role="doc-biblioref">Brannon and Wiklund 2016</a>)</span>, Tobin’s Q <span class="citation" data-cites="Desyllas2022">(<a href="#ref-Desyllas2022" role="doc-biblioref">Desyllas, Salter, and Alexy 2022</a>)</span> Sales Growth <span class="citation" data-cites="cucculelli_business_2015">(<a href="#ref-cucculelli_business_2015" role="doc-biblioref">Cucculelli and Bettinelli 2015</a>)</span></li>
+</ul>
+<p>We control for firm size with the logarithm of the market value. To test the robustness, we further use the logarithm of the total assets <span class="citation" data-cites="dang2018measuring">(<a href="#ref-dang2018measuring" role="doc-biblioref">Dang, Li, and Yang 2018</a>)</span>. We use fixed effects for the year and for our BERTScore industry classification. In the robustness check we use further the SIC codes instead of our BERTScore industry classification. We do not control for economical and political environment as White et al. <span class="citation" data-cites="white_exploring_2022">(<a href="#ref-white_exploring_2022" role="doc-biblioref">2022</a>)</span> suggest since all of our companies are U.S. based.</p>
+</section>
+<section id="results-and-discussion" class="level1">
+<h1>Results and Discussion</h1>
+<section id="comparison" class="level2">
+<h2 class="anchored" data-anchor-id="comparison">Comparison</h2>
+<p>Our study builds on the idea of Hoberg &amp; Phillips <span class="citation" data-cites="hoberg_text-based_2016">(<a href="#ref-hoberg_text-based_2016" role="doc-biblioref">2016</a>)</span> to utilize text data from 10-K filings to classify companies based on their product similarity into dynamic industries. They achieve this through the parsing of the product descriptions provided by Item 1 of firms 10-K filings and creating word vectors. Specifically, the authors identify and exclude proper nouns, which include common words and geographic locations. They then create word vectors for each firm and year, which enables the measurement of product similarity over time. They perform two steps to create the FIC. Firstly, a hierarchical agglomerative clustering algorithm is employed to cluster companies based on their similarity and maximize ex-post within cluster similarity. This enables a classification with any number of clusters. In the second step, the authors compute aggregated word vectors for each industry. These vectors now represent the industries. Subsequently, the similarity between industries and firms is calculated for each of the following years. From the second year onwards, firms are classified according to the industry with which they are most similar. Our approach differs in two ways: Firstly, in contrast to the TNIC and FIC, which employ word-to-vec, our approach utilises BERT to represent text, which allows us to capture the context of words. Accordingly, the BERTScore is employed instead of the cosine similarity as our similarity measure. Secondly, our analysis is focused on the description of the BM rather than on the product descriptions. Nevertheless, in the following subsection, the BERTScore industry classification is compared with the FIC and the SIC.</p>
+<p>The BERTScores employed for the BERTScore industry classification are calculated between the summaries of different firms for the same year. The SIC codes come from the SEC website<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>. For the FIC we have utilized the similarity scores provided by Hoberg-Phillips Data Library<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>. The data consists of the gvkeys of two companies, the year and the cosine similarity between these two companies. In order to ensure comparability, only companies present in both the present study’s dataset and that provided by the authors are included in the analysis. Because we use CIKs and accession numbers to identify firms and filings, and the fact that the data library employs Compustat’s gvkeys, the matching of CIKs with gvkeys inevitably results in the loss of some observations. Ultimately, for the comparison the clustering algorithm was applied to 1,958 of the 3,246 firms in our sample for the year 2017. In our dataset, companies are from 320 different SIC codes. Therefore, for the comparison the number of industries chosen for our industry classification and the FIC is 320.</p>
+<p>Figure 2 compares the distribution of industry size for the BERTScore classification, the FIC and the SIC. Both the BERTScore classification and the FIC show a similar distribution, displaying a leftward skew with the majority of industries comprising fewer than ten firms. The SIC shows as well a left skewed distribution but with most industries only containing one company. The distribution of the FIC is steeper than the one of the BERTScore classification. It is notable that the largest industry in the BERTScore classification comprises only 20 companies, whereas the FIC and SIC contain industries with a greater number of firms, with some exceeding 50. This suggests that the BERTScore classification groups small to medium-sized industries, comprising between two and fourteen firms per industry, with fewer large industries. The FIC also comprises mostly of small to medium-sized industries, with a few larger ones. Despite these minor differences, this supports H1. The degree of homogeneity between the BERTScore classification and the FIC is 0.63, while the completeness is 0.6. This demonstrates only a medium degree of overlap between the two classifications. The Adjusted Rand Index (ARI) <span class="citation" data-cites="hubert_comparing_1985">(<a href="#ref-hubert_comparing_1985" role="doc-biblioref">Hubert and Arabie 1985</a>)</span> is situated at 0.0002, which is close to zero, indicating that the overlap might be random. These findings do not provide support for H2.</p>
+<p>In order to use our BERTScore industry classification in our estimation, we classify all 3,246 companies from the year 2017 as described above. Since we use BERT and do not have word vectors for each industry, our methodology differs in the second step from Hoberg &amp; Phillips <span class="citation" data-cites="hoberg_text-based_2016">(<a href="#ref-hoberg_text-based_2016" role="doc-biblioref">2016</a>)</span>. We assign companies of which we do not have data in the year 2017 but later to the industry</p>
+<div id="fig-2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="ProjectEcoDataScience_files/figure-html/fig-2-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Distribution Comparison between BERT Classification, FIC and SIC
 </figcaption>
 </figure>
 </div>
@@ -242,6 +241,7 @@ Figure&nbsp;1: Comparison between BERT Classification, FIC and SIC
 <ul>
 <li>Jonathan for IT Support</li>
 <li>Prof.&nbsp;Kranz for Repo</li>
+<li>bw unicluster</li>
 </ul>
 <div style="page-break-after: always;"></div>
 </section>
@@ -311,19 +311,27 @@ Zott, Christoph, and Raphael Amit. 2008. <span>“The Fit Between Product Market
 <h2 class="anchored" data-anchor-id="appendix-a">Appendix A</h2>
 <p>We used following prompt: “Summarize the business model from the following text. Answer with a continuous text and with five hundred twelve tokens at max. Set your focus on sources of revenue, the intended customer base, products, distribution channels and details of financing. Use only information from the following the text”.<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> “intended customer base” and “product” refer to the value offering, “distribution channels” refers to the value architecture, and “sources of revenue” and “details of financing” refer to the revenue model. The term ‘tokens’ was used deliberately in preference to ‘words’, given that the number of tokens and the number of words in a text may vary depending on the tokeniser. This way, we wanted to ensure that the whole summary is used by the BERT model.</p>
 <ul>
-<li>Descriptive Table3 for length of summary</li>
+<li>Descriptive Table3 for length of summaries</li>
 </ul>
 </section>
 <section id="appendix-b" class="level2">
 <h2 class="anchored" data-anchor-id="appendix-b">Appendix B</h2>
-<p>Average distance = 0.103999 and standard deviation = 0.2681622</p>
-<p><img src="ProjectEcoDataScience_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
 <div>
 
 </div>
 <div class="cell quarto-layout-panel" data-layout-ncol="1" data-tbl-cap="Descriptive Statistics Original Filings">
 
 </div>
+</section>
+<section id="appendix-c" class="level2">
+<h2 class="anchored" data-anchor-id="appendix-c">Appendix C</h2>
+<p>list of summaries we checked</p>
+</section>
+<section id="appendix-d" class="level2">
+<h2 class="anchored" data-anchor-id="appendix-d">Appendix D</h2>
+<p>explain, why we drop some data points.</p>
+<p>boxplot showing growth rates</p>
+<p>show regression without dropped data points</p>
 </section>
 </section>
 

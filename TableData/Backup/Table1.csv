@@ -1,0 +1,7 @@
+"1. Original (exchanged listed) companies, whose 10-K filings are extracted from SEC; 47,226;0"
+"2. Removing observations from financial companies whose SIC-code start with '6'""; 37,750;9,476"
+"3. Verify for Item 1 text availability (removed oberservations that are attributable to API quality); 32,611;5,139"
+"4. Extracting dates for which the filings are reporting for and removing of duplicated filings; 31,289;1,322"
+"5. Delete observations with incorrect date assignment; 30,029;1,260"
+"6. Merged Gemini processed Item 1 text to the underlying data set. We did not consider texts that were not processable; 28,161;1,868"
+"7. Extract financials statements from SEC and merge them. Also remove observations for years prior to 2016; 23,882;4,279"
