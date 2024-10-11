@@ -128,7 +128,7 @@ BERT is a pre-trained and transformer-based model for natural language processin
 
 ## Preprocessing with Gemini
 
-10-K filings are typically very large text documents, and Item 1 of these filings is no exception. Table 2 shows the descriptive measures of the length of the original Item 1 section in our final sample. The length of a document was measured by the word count without punctuation. The document length ranges from a minimum if 49 words up to 78,799 words. On average the documents are between 6,626 and 10,304 words long. In order to utilise the entirety of the information regarding the BM in the Item 1 section and pass the text to our BERT model, we decided to let Google's GenAI chatbot Gemini summarize them to a maximum length of 512 tokens. The summaries were created between 26 June 2024 and 6 August 2024. The model employed was Gemini Flash 1.5. The prompt was inserted at the beginning of each text file and it was passed via an API to Gemini [^1]. Our prompt covers all aspects of the definition of BMI proposed by Spieth & Schneider [-@spieth_business_2016]. For more details, see Appendix A. To assess the quality and accuracy of the summaries produced by Gemini, a random sample of 100 filings was selected for comparison with the original text. More precise,the original file was initially read with a focus on the points mentioned in the prompt. Subsequently, the summary was evaluated to ascertain whether it contained these same points. A list of the sample with the summaries is provided in the Appendix C.
+10-K filings are typically very large text documents, and Item 1 of these filings is no exception. Table 2 shows the descriptive measures of the length of the original Item 1 section in our final sample. The length of a document was measured by the word count without punctuation. The document length ranges from a minimum if 49 words up to 78,799 words. On average the documents are between 6,626 and 10,304 words long. In order to utilise the entirety of the information regarding the BM in the Item 1 section and pass the text to our BERT model, we decided to let Google's GenAI chatbot Gemini summarize them to a maximum length of 512 tokens. The summaries were created between 26 June 2024 and 6 August 2024. The model employed was Gemini Flash 1.5. The prompt was inserted at the beginning of each text file and it was passed via an API to Gemini [^1]. Our prompt covers all aspects of the definition of BMI proposed by Spieth & Schneider [-@spieth_business_2016]. For more details, see Appendix A. To assess the quality and accuracy of the summaries produced by Gemini, a random sample of 100 filings was selected for comparison with the original text. More precise,the original file was initially read with a focus on the points mentioned in the prompt. Subsequently, the summary was evaluated to ascertain whether it contained these same points. A list of the sample with the summaries is provided in the Appendix B.
 
 [^1]: We forked and used following Github repository: https://github.com/skranz/gemini_ex.
 
@@ -139,7 +139,7 @@ library(kableExtra)
 library(readxl)
 
 Table2 = read_excel("./TableData/Table2.xlsx")%>%
-    kable(format="latex",label="tbl-table2",col.names = c("Report for Year","Average Word Count","Standard Deviation","Minimum","25th Percentile","Median","75th Percentile","Maximum"),booktabs = T, caption = "Descriptive Statistics of Number of Words in Original Filings")%>%
+    kable(format="latex",label="tbl-table2",col.names = c("Report-for Year","Average Word Count","Standard Deviation","Minimum","25th Percentile","Median","75th Percentile","Maximum"),booktabs = T, caption = "Descriptive Statistics of Number of Words in Original Filings")%>%
   kable_styling(latex_options = c("scale_down","HOLD_position"))%>%
   footnote("All 23,882 original filings were considered.")
 
@@ -159,6 +159,8 @@ As mentioned, our approach differs from the original paper by Hoberg & Phillips 
 $$
 NormalizedDistance = (Distance/Mean(Distance) - 1)*100
 $$. 
+
+
 
 This Normalized Distance measures the change of a company's BM above the market average in percentage points. We assume that a company that changes its BM, will not return back to its original BM. Under this assumption the Normalized Distance measures BMI on the new-to-the-firm level. In the case that our measure is able to measure BMI, we expect to find a positive relationship between our BMI measure and firm performance. Therefore, we hypothesize that:
 
@@ -182,13 +184,14 @@ max = max(1-Figure1$Score)
 Figure1 = Figure1%>%
   ggplot(aes(x=1-Score)) +
   geom_density(alpha = 0.5, fill="grey") +
-  labs(caption= "only distances for same company between different years",x = "Distance", y = "Density") +
+  labs(caption= "Note:\nOnly distances for same company between different years.",x = "Distance", y = "Density") +
   theme_minimal()+
   geom_vline(xintercept=Mean,alpha=0.8)+
   annotate("text", x=Mean+0.002, y=14.9, label="Mean", angle=90, size= 3)
 
 Figure1
 ```
+
 # Estimation Strategy
 
 We test H3 using multivariate regression techniques. As the independent variable we use the Normalized Distance which we defined above. 
@@ -196,6 +199,8 @@ We test H3 using multivariate regression techniques. As the independent variable
 - dependent variables: revenue growth [@brannon2016analysis], Tobin's Q [@Desyllas2022] Sales Growth [@cucculelli_business_2015]
 
 We control for firm size with the logarithm of the market value. To test the robustness, we further use the logarithm of the total assets [@dang2018measuring]. We use fixed effects for the year and for our BERTScore industry classification. In the robustness check we use further the SIC codes instead of our BERTScore industry classification. We do not control for economical and political environment as White et al. [-@white_exploring_2022] suggest since all of our companies are U.S. based.
+
+- Data
 
 # Results and Discussion
 
@@ -246,17 +251,10 @@ Figure2
 [^2]: The list can be found here: https://www.sec.gov/search-filings/standard-industrial-classification-sic-code-list. 
 [^3]: For the database see: https://hobergphillips.tuck.dartmouth.edu.
 
-```{r eval = FALSE, echo=FALSE, warning = FALSE, message = FALSE, results='asis'}
-#Limitations: Four potential problems
-#- Changes in texts could also be attributable to changes in regulatory adjustments, changes in Markets or other external factors
-#- Gemini processes could have lead to a lose of information
-#- Item 1 texts are strictly ruled, actual changes in BM could be neglected (or not written down for business policy purposes) 
-#- Missing Differentiation between incremental innovation and radical innovation -> differences in BERTscores
-```
-
 ## Results
 
 ```{r echo=FALSE, warning = FALSE, message = FALSE, results='asis'}
+#Main Regression Results
 library(tidyverse)
 library(stargazer)
 library(readxl)
@@ -264,19 +262,16 @@ library(lfe)
 library(DescTools)
 
 RegressionData = read.csv("./TableData/Regression/RegressionData.csv") %>%
-  filter(Market_Value>0)%>%
+  filter(Market_Value>0, Total.Assets >0)%>%
   mutate(z_score = (RevenueGrowth - mean(RevenueGrowth))/sd(RevenueGrowth)) %>%
   filter(z_score < 3)%>%
   mutate(year=as.factor(year),
          Industry = as.factor(Industry))
 
 #Revenue Growth
-Reg1 = felm(RevenueGrowth~NormalizedDistance + log(Market_Value) | year + Industry | 0 | 0 ,data=RegressionData)
-Reg2 = felm(RevenueGrowth~NormalizedDistance + log(Market_Value) | year * Industry | 0 | 0 ,data=RegressionData)
+Reg1 = felm(RevenueGrowth~NormalizedDistance + log(Market_Value) | year * Industry | 0 | 0 ,data=RegressionData)
+Reg2 = felm(RevenueGrowth~NormalizedDistance + log(Total.Assets) | year * Industry | 0 | 0 ,data=RegressionData)
 
-#Sales Growth
-#Reg3 = felm(RevenueGrowth~NormalizedDistance + log(Market_Value) | year + Industry | 0 | 0 ,data=RegressionData)
-#Reg4 = felm(RevenueGrowth~NormalizedDistance + log(Market_Value) | year * Industry | 0 | 0 ,data=RegressionData)
 
 #Tobin's Q
 #Reg5 = felm(RevenueGrowth~NormalizedDistance + log(Market_Value) | year + Industry | 0 | 0 ,data=RegressionData)
@@ -287,14 +282,39 @@ stargazer(Reg1, Reg2)
 
 ## Robustness Checks
 
+```{r echo=FALSE, warning = FALSE, message = FALSE, results='asis'}
+#Robustness Check
+library(tidyverse)
+library(stargazer)
+library(readxl)
+library(lfe)
+library(DescTools)
+
+RegressionData = read.csv("./TableData/Regression/RegressionData.csv") %>%
+  filter(Market_Value>0, Total.Assets >0)%>%
+  mutate(z_score = (RevenueGrowth - mean(RevenueGrowth))/sd(RevenueGrowth)) %>%
+  filter(z_score < 3)%>%
+  mutate(year=as.factor(year),
+         Industry = as.factor(Industry),
+         sic = as.factor(sic))
+
+#Revenue Growth
+Reg1Robustness = felm(RevenueGrowth~NormalizedDistance + log(Market_Value) | year * sic | 0 | 0 ,data=RegressionData)
+Reg2Robustness = felm(RevenueGrowth~NormalizedDistance + log(Total.Assets) | year * sic | 0 | 0 ,data=RegressionData)
+
+#Tobin's Q
+#Reg5Robustness = felm(RevenueGrowth~NormalizedDistance + log(Market_Value) | year + sic | 0 | 0 ,data=RegressionData)
+#Reg6Robustness = felm(RevenueGrowth~NormalizedDistance + log(Market_Value) | year * sic | 0 | 0 ,data=RegressionData)
+
+stargazer(Reg1Robustness, Reg2Robustness)
+```
+
 ## Discussion
 
 This study represents an innovative extension of Hoberg’s work regarding their approach. While using the BERT-Score compels us to shorten and condense the descriptions of business models, it integrates semantics into the similarity calculation. As a result, the entire text is considered, which appears to provide better informational value compared to solely relying on frequently occurring nouns. However, one potential critique of BERT is its limited ability to recognize implicit and subtle meanings (1). The approach can only process the textual descriptions. In this work, we exclusively examine business models that provide little insight into current success in practice. Notably, there are no clear objective statements, as with many key financial indicators, that can be categorized as positive or negative. A positive description of negative aspects is unlikely in this context, which justifies the use of the BERT-Score.
 The use of BERT, and the consequent limitation regarding text length, posed additional challenges in this research. In recent years, the possibilities for utilizing AI have grown immensely. With the help of GitHub Actions, we were able to obtain suitable access to Gemini. This brings us to the most critical point of this work. This approach raises transparency issues for the results. The system does not provide explainable intelligence, meaning we cannot fully verify how exactly the texts are generated. Our only option is to delegate the task and trust the results’ accuracy.
 Nevertheless, we consider the current approach as the best possible solution for condensing our business models. On the one hand, the extracted texts do not follow the same structure across companies, and on the other, cutting the business models arbitrarily poses too great a risk. Losing up to 90% of the content would be unacceptable in this case, and due to structural differences, this becomes impossible beyond certain key points. Moreover, the summaries generated by GPT have sometimes been perceived as better than models specifically designed for this purpose (2).
 A significant portion of this work involved data collection, which proved to be a major challenge. Due to the lack of access to Compustat, commonly used in financial studies and for SEC-related information, we had to rely on extensive research. Various approaches had to be abandoned as they failed to meet expectations. Nonetheless, we were able to complete our work, though with a few compromises regarding data volume.
-
-
 
 # Conclusion
 
@@ -326,27 +346,36 @@ We used following prompt: "Summarize the business model from the following text.
 
 ## Appendix B
 
-
-```{r echo=FALSE, warning = FALSE, message = FALSE, results='asis'}
-#| label: Table 1 Appendix
-#| tbl-cap: "Descriptive Statistics Original Filings"
-#| layout-ncol: 1
-library(tidyverse)
-library(knitr)
-
-#Table1Appendix = read.csv("./TableData/Regression/RegressionData.csv")
-
-#Table1Appendix
-```
-
-## Appendix C
-
 list of summaries we checked
 
-## Appendix D
+## Appendix C
 
 explain, why we drop some data points.
 
 boxplot showing growth rates
 
 show regression without dropped data points
+
+```{r echo=FALSE, warning = FALSE, message = FALSE, results='asis'}
+#Appendix
+library(tidyverse)
+library(stargazer)
+library(readxl)
+library(lfe)
+library(DescTools)
+
+RegressionData = read.csv("./TableData/Regression/RegressionData.csv") %>%
+  filter(Market_Value>0, Total.Assets>0)%>%
+  mutate(year=as.factor(year),
+         Industry = as.factor(Industry))
+
+#Revenue Growth
+Reg1Appendix = felm(RevenueGrowth~NormalizedDistance + log(Market_Value) | year * Industry | 0 | 0 ,data=RegressionData)
+Reg2Appendix = felm(RevenueGrowth~NormalizedDistance + log(Total.Assets) | year * Industry | 0 | 0 ,data=RegressionData)
+
+#Tobin's Q
+#Reg5Appendix = felm(RevenueGrowth~NormalizedDistance + log(Market_Value) | year + Industry | 0 | 0 ,data=RegressionData)
+#Reg6Appendix = felm(RevenueGrowth~NormalizedDistance + log(Market_Value) | year * Industry | 0 | 0 ,data=RegressionData)
+
+stargazer(Reg1Appendix,Reg2Appendix)
+```
