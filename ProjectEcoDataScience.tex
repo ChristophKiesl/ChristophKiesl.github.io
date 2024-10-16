@@ -270,9 +270,10 @@ these descriptions with Gemini and calculate the BERTScore between the
 summaries of different years for a single company. This approach enables
 the measurement of changes in the business model (BM) over time as the
 distance between the BM summary of one year to another. In order to test
-the validity of our measure, we regress revenue growth on our measure.
-Additionally, we use our own industry classification based on the
-BERTScore of different companies in the same year.
+the validity of our measure, we regress revenue growth and Tobins Q on
+our measure. Additionally, we create our own industry classification
+based on BERTScores of business descriptions of same firms within the
+same year.
 
 \begin{itemize}
 \tightlist
@@ -290,7 +291,15 @@ useful information for describing a company's BM (Lee and Hong 2014).
 Furthermore, 10-K filings are a reliable source of information, given
 that US law prohibits false or misleading statements in the filings. The
 SEC monitors the compliance of the companies with the requirements and
-comments where disclosure appears to be inconsistent (SEC 2024).
+comments where disclosure appears to be inconsistent (SEC 2024). Because
+of these guidelines, these descriptions are particularly suitable for a
+text analysis in order to quantify a BM. We therefore compare the text
+similarities of the same companies over several years and find that
+above-average changes in the texts have a significantly positive effect
+on performance measures such as revenue growth and Tobins Q. However,
+BMI affects companies of different sizes differently, which is why we
+classify company size based on turnover and find that the larger the
+company, the smaller the effect of BMI on company performance.
 
 \begin{itemize}
 \tightlist
@@ -317,7 +326,7 @@ specifying the domain and dimensionality of BMI through literature
 research, the author divides his scale into three hierarchical levels,
 which are very similar to the ones of Spieth and Schneider (2016). We
 build on these conceptualizations to design our prompt we use in the
-preprocessing with Gemini. However, both measures are subject to three
+pre-processing with Gemini. However, both measures are subject to three
 significant limitations. Firstly, both measures lack a temporal
 component. Consequently, they are inadequate for use in longitudinal
 studies or ex-post evaluations of BMI. Secondly, BMI is only measured at
@@ -333,19 +342,15 @@ financial performance of a company. Cucculelli \& Bettinelli (2015)
 investigate the effect of BMI on sales growth, return on sales (ROS) and
 total factor productivity (TFP). The results support the hypothesis that
 BMI has a positive effect on firm performance, with the effect
-increasing in line with the intensity of the innovation. Brannon \&
-Wiklund (2016) examine the BM of wineries in the state of New York. They
-use a firms revenue growth as a measure for firm performance. Their
-research shows that BMI is an important factor for small companies to
-improve firm performance. Desyllas et al. (2022) find that BMI has a
-small effect on performance of incumbent firms. They measure firm
-performance by Tobin's Q growth. White et al. (2022) conducted a
-meta-analysis based on the extant BMI literature. They found a positive
-relationship between BMI and firm performance, and that this
-relationship is shaped by factors including the firm age, industry, the
-economic and political environment and BMI characteristics. Based on
-this, we derive the dependent and control variables in the estimation
-strategy.
+increasing in line with the intensity of the innovation. Desyllas et al.
+(2022) find that BMI has a small effect on performance of incumbent
+firms. They measure firm performance by Tobin's Q growth. White et al.
+(2022) conducted a meta-analysis based on the extant BMI literature.
+They found a positive relationship between BMI and firm performance, and
+that this relationship is shaped by factors including the firm age,
+industry, the economic and political environment and BMI
+characteristics. Based on this, we derive the dependent and control
+variables in the estimation strategy.
 
 Hoberg \& Phillips (2016) present a novel approach to defining industry
 boundaries. They propose two novel industry classification methods: the
@@ -372,10 +377,11 @@ incorporating multi-word phrases in the keyword vectors, to enhance the
 reliability of the approach (Lee and Hong 2014). Our study pursues a
 similar goal but with a novel methodology.
 
-The rest of the paper proceeds as follows. Section 2 describes our data,
-our usage of BERT, the preprocessing with Gemini and our methodology.
-Section 3 lays out our estimations strategy. Section 4 provides our
-results as well as the discussion. Section 5 concludes our study.
+The remainder of the paper is organized as follows. Section 2 describes
+the origin and preparation of our data, the use and functioning of BERT,
+the preprocessing with Gemini and our methodology. Section 3 lays out
+our estimation strategy. Section 4 contains our results and discussion.
+Section 5 concludes our study.
 
 \section{Data and Methodology}\label{data-and-methodology}
 
@@ -423,10 +429,10 @@ Source/Filter & Sample Size & Observations Removed\\
 2. Removing observations from financial companies whose SIC-code start with '6' & 37,750 & 9,476\\
 3. Verify for Item 1 text availability (removed oberservations that are attributable to API quality) & 32,611 & 5,139\\
 4. Extracting dates for which the filings are reporting for and removing of duplicated filings & 31,289 & 1,322\\
-5. Delete observations with incorrect date assignment & 30,029 & 1,260\\
+5. Delete observations with incorrect date assignment (some companies submitted two or more filings due to addendums or data quality) & 30,029 & 1,260\\
 \addlinespace
-6. Merged Gemini processed Item 1 text to the underlying data set. We did not consider texts that were not processable & 28,161 & 1,868\\
-7. Extract financials statements from SEC and merge them. Also remove observations for years prior to 2016 & 23,882 & 4,279\\
+6. Merged Gemini processed Item 1 text to the underlying data set. We did not consider texts that were not processable (e.g. due to recitation errors) & 28,161 & 1,868\\
+7. Extract financials statements from DataStream and merge them. Also remove observations for report-for-years prior to 2016 & 23,882 & 4,279\\
 \bottomrule
 \multicolumn{3}{l}{\rule{0pt}{1em}\textit{Note: }}\\
 \multicolumn{3}{l}{\rule{0pt}{1em}Filings submitted between 2017 and 2023 are considered.}\\
@@ -516,16 +522,16 @@ Report-for Year & Average Word Count & Standard Deviation & Minimum & 25th Perce
 From the dataset containing all the summaries and financials per company
 per year we construct three datasets for our further analysis. The first
 dataset is used for the BERTScore industry classification. Therefore, we
-filter for all summaries of 2017 and for the first summary of companies
-which do not appear first in 2017 but in a later year. We then calculate
-the BERTScores between all these summaries. The second and third dataset
-are used for the regression analysis of our measure. For the second
-dataset, we fix the company and calculate the BERTScore of the summaries
-of one year and its direct consecutive year as well as the sales growth
-rate. The third dataset contains the Tobin's Q growth calculated as the
-difference between the natural logarithm of Tobin's Q in the last and
-the first year of our observed period as well as the BERTScore between
-the summaries of the respective year of a company.
+filter for all summaries of 2017 and for the first available summary of
+companies which do not appear first in 2017 but in a later year. We then
+calculate the BERTScores between all these summaries. The second and
+third dataset are used for the regression analysis of our measure. For
+the second dataset, we fix the company and calculate the BERTScore of
+the summaries of one year and its direct consecutive year as well as the
+sales growth rate. The third dataset contains the Tobin's Q growth
+calculated as the difference between the natural logarithm of Tobin's Q
+in the last and the first year of our observed period as well as the
+BERTScore between the summaries of the respective year of a company.
 
 The first dataset is utilized to compute our BERTScore industry
 classification. We firstly compare the BERTScore industry classification
@@ -718,8 +724,8 @@ Classification, FIC and SIC}
 \subsection{Results}\label{results}
 
 \% Table created by stargazer v.5.2.3 by Marek Hlavac, Social Policy
-Institute. E-mail: marek.hlavac at gmail.com \% Date and time: So, Okt
-13, 2024 - 17:57:16
+Institute. E-mail: marek.hlavac at gmail.com \% Date and time: Mi, Okt
+16, 2024 - 13:56:21
 
 \begin{table}[!htbp] \centering 
   \caption{} 
@@ -755,8 +761,8 @@ Residual Std. Error (df = 11060) & 360.703 & 360.545 \\
 \subsection{Robustness Checks}\label{robustness-checks}
 
 \% Table created by stargazer v.5.2.3 by Marek Hlavac, Social Policy
-Institute. E-mail: marek.hlavac at gmail.com \% Date and time: So, Okt
-13, 2024 - 17:57:16
+Institute. E-mail: marek.hlavac at gmail.com \% Date and time: Mi, Okt
+16, 2024 - 13:56:21
 
 \begin{table}[!htbp] \centering 
   \caption{} 
@@ -804,15 +810,18 @@ models that provide little insight into current success in practice.
 Notably, there are no clear objective statements, as with many key
 financial indicators, that can be categorized as positive or negative. A
 positive description of negative aspects is unlikely in this context,
-which justifies the use of the BERT-Score. The use of BERT, and the
-consequent limitation regarding text length, posed additional challenges
-in this research. In recent years, the possibilities for utilizing AI
-have grown immensely. With the help of GitHub Actions, we were able to
-obtain suitable access to Gemini. This brings us to the most critical
-point of this work. This approach raises transparency issues for the
-results. The system does not provide explainable intelligence, meaning
-we cannot fully verify how exactly the texts are generated. Our only
-option is to delegate the task and trust the results' accuracy.
+which justifies the use of the BERT-Score.
+
+The use of BERT, and the consequent limitation regarding text length,
+posed additional challenges in this research. In recent years, the
+possibilities for utilizing AI have grown immensely. With the help of
+GitHub Actions, we were able to obtain suitable access to Gemini. This
+brings us to the most critical point of this work. This approach raises
+transparency issues for the results. The system does not provide
+explainable intelligence, meaning we cannot fully verify how exactly the
+texts are generated. Our only option is to delegate the task and trust
+the results' accuracy.
+
 Nevertheless, we consider the current approach as the best possible
 solution for condensing our business models. On the one hand, the
 extracted texts do not follow the same structure across companies, and
@@ -849,11 +858,6 @@ compromises regarding data volume.
 
 \phantomsection\label{refs}
 \begin{CSLReferences}{1}{0}
-\bibitem[\citeproctext]{ref-brannon2016analysis}
-Brannon, David L, and Johan Wiklund. 2016. {``An Analysis of Business
-Models: Firm Characteristics, Innovation and Performance.''}
-\emph{Academy of Entrepreneurship Journal} 22 (1): 1--20.
-
 \bibitem[\citeproctext]{ref-clauss_measuring_2017}
 Clauss, Thomas. 2017. {``Measuring Business Model Innovation:
 Conceptualization, Scale Development, and Proof of Performance.''}
@@ -989,13 +993,23 @@ list of summaries we checked
 
 explain, why we drop some data points.
 
-boxplot showing growth rates
-
 show regression without dropped data points
 
+\begin{figure}
+
+\centering{
+
+\includegraphics{ProjectEcoDataScience_files/figure-pdf/fig-3-1.pdf}
+
+}
+
+\caption{\label{fig-3}Distribution of the Revenue Growth}
+
+\end{figure}%
+
 \% Table created by stargazer v.5.2.3 by Marek Hlavac, Social Policy
-Institute. E-mail: marek.hlavac at gmail.com \% Date and time: So, Okt
-13, 2024 - 17:57:16
+Institute. E-mail: marek.hlavac at gmail.com \% Date and time: Mi, Okt
+16, 2024 - 13:56:21
 
 \begin{table}[!htbp] \centering 
   \caption{} 
