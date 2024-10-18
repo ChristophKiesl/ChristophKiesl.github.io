@@ -269,26 +269,21 @@ Reg1 = felm(RevenueGrowth~NormalizedDistance + log(MV) | year * Industry | 0 | 0
 Reg2 = felm(RevenueGrowth~NormalizedDistance + log(Total.Assets) | year * Industry | 0 | 0 ,data=RegressionData)
 
 #Tobin's Q
-#Reg3 = felm(RevenueGrowth~NormalizedDistance + log(Market_Value) | year + Industry | 0 | 0 ,data=RegressionData)
-#Reg4 = felm(RevenueGrowth~NormalizedDistance + log(Market_Value) | year * Industry | 0 | 0 ,data=RegressionData)
+TobinsQ = read.csv("./TableData/Regression/TobinsQGrowth.csv") %>%
+    filter(MeanMV>0, MeanAssets >0,TimeDiff>0)%>%
+    mutate(Industry = as.factor(Industry))
 
-stargazer(Reg1, Reg2, title= "Regression Results",
+Reg3 = felm(TobinsQGrowth~NormalizedDistance + log(MeanAssets) + TimeDiff| Industry | 0 | 0 ,data=TobinsQ)
+Reg4 = felm(TobinsQGrowth~NormalizedDistance + log(MeanMV) + TimeDiff| Industry | 0 | 0 ,data=TobinsQ)
+
+stargazer(Reg1, Reg2, Reg3, Reg4, title= "Regression Results",
           dep.var.labels=c("Sales Growth","Tobin's Q Growth"),
-          add.lines = list(c("Fixed Effects","Yes","Yes")),
+          add.lines = list(c("Industry x Year Fixed Effects","Yes","Yes","No","No"),
+                           c("Industry Fixed Effects","No","No","Yes","Yes")),
           covariate.labels=c("Normalized Distance","log(Market Value)","log(Assets)"),
           header = FALSE,
-          keep.stat = c("rsq","n")
+          omit.stat = c("adj.rsq")
 )
-```
-
-```{r echo=FALSE, warning = FALSE, message = FALSE, results='asis'}
-#Pooled Regression Results
-library(tidyverse)
-library(readxl)
-library(lfe)
-library(DescTools)
-library(stargazer)
-
 ```
 
 {{< pagebreak >}}
@@ -305,20 +300,31 @@ library(stargazer)
 
 RegressionData = read.csv("./TableData/Regression/RegressionData.csv") %>%
   filter(MV>0, Total.Assets >0)%>%
-  mutate(sic=as.factor(sic),
-         Industry = as.factor(Industry))
+  mutate(year=as.factor(year),
+         sic = as.factor(sic))
 
 RegressionData$RevenueGrowth = Winsorize(RegressionData$RevenueGrowth,probs=c(0,0.99))
 
 #Revenue Growth
-Reg1 = felm(RevenueGrowth~NormalizedDistance + log(MV) | sic * Industry | 0 | 0 ,data=RegressionData)
-Reg2 = felm(RevenueGrowth~NormalizedDistance + log(Total.Assets) | sic * Industry | 0 | 0 ,data=RegressionData)
+Reg1 = felm(RevenueGrowth~NormalizedDistance + log(MV) | year * sic | 0 | 0 ,data=RegressionData)
+Reg2 = felm(RevenueGrowth~NormalizedDistance + log(Total.Assets) | year * sic | 0 | 0 ,data=RegressionData)
 
 #Tobin's Q
-#Reg3 = felm(RevenueGrowth~NormalizedDistance + log(Market_Value) | sic + Industry | 0 | 0 ,data=RegressionData)
-#Reg4 = felm(RevenueGrowth~NormalizedDistance + log(Market_Value) | sic * Industry | 0 | 0 ,data=RegressionData)
+TobinsQ = read.csv("./TableData/Regression/TobinsQGrowth.csv") %>%
+    filter(MeanMV>0, MeanAssets >0,TimeDiff>0)%>%
+    mutate(SIC = as.factor(sic))
 
-stargazer(Reg1, Reg2, title= "Results", column.labels=c("default","robust"), header = FALSE)
+Reg3 = felm(TobinsQGrowth~NormalizedDistance + log(MeanAssets) + TimeDiff| SIC | 0 | 0 ,data=TobinsQ)
+Reg4 = felm(TobinsQGrowth~NormalizedDistance + log(MeanMV) + TimeDiff| SIC | 0 | 0 ,data=TobinsQ)
+
+stargazer(Reg1, Reg2, Reg3, Reg4, title= "Robustness Check",
+          dep.var.labels=c("Sales Growth","Tobin's Q Growth"),
+          add.lines = list(c("Industry x Year Fixed Effects","Yes","Yes","No","No"),
+                           c("Industry Fixed Effects","No","No","Yes","Yes")),
+          covariate.labels=c("Normalized Distance","log(Market Value)","log(Assets)"),
+          header = FALSE,
+          omit.stat = c("adj.rsq")
+)
 ```
 
 {{< pagebreak >}}
@@ -355,8 +361,24 @@ A significant portion of this work involved data collection, which proved to be 
 
 We used following prompt: "Summarize the business model from the following text. Answer with a continuous text and with five hundred twelve tokens at max. Set your focus on sources of revenue, the intended customer base, products, distribution channels and details of financing. Use only information from the following the text".[^4] "intended customer base" and "product" refer to the value offering, "distribution channels" refers to the value architecture, and "sources of revenue" and "details of financing" refer to the revenue model. The term 'tokens' was used deliberately in preference to 'words', given that the number of tokens and the number of words in a text may vary depending on the tokeniser. This way, we wanted to ensure that the whole summary is used by the BERT model.
 
--   Descriptive Table3 for length of summaries
+```{r echo=FALSE, warning = FALSE, message = FALSE, results='asis'}
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+library(readxl)
 
+Table3 = read_excel("./TableData/Table3.xlsx")%>%
+  select(-c("...1"))%>%
+  mutate(durchschnitt = round(durchschnitt,0),
+         standardabweichung= round(standardabweichung,0),
+         `25%_quantil` = round(`25%_quantil`,0),
+         `75%_quantil` = round(`75%_quantil`,0))%>%
+    kable(format="latex",label="tbl-table5",col.names = c("Report-for Year","Average Word Count","Standard Deviation","Minimum","25th Percentile","Median","75th Percentile","Maximum"),booktabs = T, caption = "Descriptive Statistics of Number of Words of our Summaries")%>%
+  kable_styling(latex_options = c("scale_down","HOLD_position"))%>%
+  footnote("All 21,417 original filings were considered.")
+
+Table3
+```
 
 [^4]: The spelling error in the last sentence of the prompt was found after processing Item 1. After evaluating the summaries, this error did not cause any issues.
 
@@ -388,25 +410,37 @@ Figure3 = RegressionData %>%
   theme_minimal()+
     theme(axis.title.x=element_blank(),
           axis.text.x=element_blank())+
-    scale_y_log10(breaks=c(0.1,10,100,1000,10000,100000),labels=c("0.1%","10%","100%","1,000%","10,000%","100,000%"))
+    scale_y_log10(breaks=c(0.1,1,10,100,1000,10000,100000),labels=c("0.1%","1%","10%","100%","1,000%","10,000%","100,000%"))
 
 Figure3
 ```
 
 ```{r echo=FALSE, warning = FALSE, message = FALSE, results='asis'}
 #Appendix
-RegressionData = RegressionData %>%
-  filter(MV>0, Total.Assets>0)%>%
+library(tidyverse)
+library(readxl)
+library(lfe)
+library(DescTools)
+library(stargazer)
+
+RegressionData = read.csv("./TableData/Regression/RegressionData.csv") %>%
+  filter(MV>0, Total.Assets >0)%>%
   mutate(year=as.factor(year),
          Industry = as.factor(Industry))
 
-#Sales Growth
-Reg1Appendix = felm(RevenueGrowth~NormalizedDistance + log(MV) | year * Industry | 0 | 0 ,data=RegressionData)
-Reg2Appendix = felm(RevenueGrowth~NormalizedDistance + log(Total.Assets) | year * Industry | 0 | 0 ,data=RegressionData)
+#Revenue Growth
+Reg1 = felm(RevenueGrowth~NormalizedDistance + log(MV) | year * Industry | 0 | 0 ,data=RegressionData)
+Reg2 = felm(RevenueGrowth~NormalizedDistance + log(Total.Assets) | year * Industry | 0 | 0 ,data=RegressionData)
 
 #Tobin's Q
-#Reg5Appendix = felm(RevenueGrowth~NormalizedDistance + log(MV) | year + Industry | 0 | 0 ,data=RegressionData)
-#Reg6Appendix = felm(RevenueGrowth~NormalizedDistance + log(Total.Assets) | year * Industry | 0 | 0 ,data=RegressionData)
+#Reg3 = felm(RevenueGrowth~NormalizedDistance + log(Market_Value) | year + Industry | 0 | 0 ,data=RegressionData)
+#Reg4 = felm(RevenueGrowth~NormalizedDistance + log(Market_Value) | year * Industry | 0 | 0 ,data=RegressionData)
 
-stargazer(Reg1Appendix,Reg2Appendix,header = FALSE)
+stargazer(Reg1, Reg2, title= "Regression Results",
+          dep.var.labels=c("Sales Growth","Tobin's Q Growth"),
+          add.lines = list(c("Industry x Year Fixed Effects","Yes","Yes")),
+          covariate.labels=c("Normalized Distance","log(Market Value)","log(Assets)"),
+          header = FALSE,
+          omit.stat = c("adj.rsq")
+)
 ```
