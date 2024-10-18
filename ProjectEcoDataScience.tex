@@ -270,10 +270,10 @@ these descriptions with Gemini and calculate the BERTScore between the
 summaries of different years for a single company. This approach enables
 the measurement of changes in the business model (BM) over time as the
 distance between the BM summary of one year to another. In order to test
-the validity of our measure, we regress revenue growth and Tobins Q on
-our measure. Additionally, we create our own industry classification
-based on BERTScores of business descriptions of same firms within the
-same year.
+the validity of our measure, we regress sales growth and Tobin's Q
+growth on our measure. Additionally, we create our own industry
+classification based on BERTScores of business descriptions of same
+firms within the same year.
 
 \begin{itemize}
 \tightlist
@@ -296,8 +296,8 @@ of these guidelines, these descriptions are particularly suitable for a
 text analysis in order to quantify a BM. We therefore compare the text
 similarities of the same companies over several years and find that
 above-average changes in the texts have a significantly positive effect
-on performance measures such as revenue growth and Tobins Q. However,
-BMI affects companies of different sizes differently, which is why we
+on performance measures such as sales growth and Tobin's Q. However, BMI
+affects companies of different sizes differently, which is why we
 classify company size based on turnover and find that the larger the
 company, the smaller the effect of BMI on company performance.
 
@@ -401,20 +401,20 @@ period for which we are reporting to 2016-2023, with fewer observations
 available for 2016 and 2023 as a result. We exclude companies from the
 financial sector, namely companies with a SIC Code starting with six.
 Corresponding to Table 2, multiple steps of pre-processing were required
-to obtain the final amount of 23,882 observations for seven years.
-Financial key figures, including revenues, total assets, market values
-and others were extracted from DataStream. A total of 4,884 companies
-are included in the sample, although the availability of filings could
-not always be guaranteed for all years. This is due on the one hand to
-the quality of the API to the SEC and on the other hand to companies
-that did not file 10-K reports or were listed on the stock exchange for
-the entire period under review. Finally, we have access to the financial
-key figures of the companies for the respective year, the Item I text
+to obtain the final amount of 21,417 observations for seven years.
+Financial key figures, including sales, total assets, market values and
+Tobin's Q were extracted from DataStream. A total of 4,494 companies are
+included in the sample, although the availability of filings could not
+always be guaranteed for all years. This is due on the one hand to the
+quality of the API to the SEC and on the other hand to companies that
+did not file 10-K reports or were listed on the stock exchange for the
+entire period under review. Finally, we have access to the financial key
+figures of the companies for the respective year, the Item I text
 pre-processed with the help of Gemini, company-specific identification
 features and the conventional SIC industry classification. The
 information on SIC sector classification is limited to companies that
-are currently actively filing. Therefore, 2196 observations are no
-longer actively filing, e.g.~due to company bankruptcies, mergers, etc.
+are currently actively filing. Therefore, 609 firms are no longer
+actively filing, e.g.~due to company bankruptcies, mergers, etc.
 
 \begin{table}[H]
 \centering
@@ -428,11 +428,11 @@ Source/Filter & Sample Size & Observations Removed\\
 1. Original (exchanged listed) companies, whose 10-K filings are extracted from SEC & 47,226 & 0\\
 2. Removing observations from financial companies whose SIC-code start with '6' & 37,750 & 9,476\\
 3. Verify for Item 1 text availability (removed oberservations that are attributable to API quality) & 32,611 & 5,139\\
-4. Extracting dates for which the filings are reporting for and removing of duplicated filings & 31,289 & 1,322\\
-5. Delete observations with incorrect date assignment (some companies submitted two or more filings due to addendums or data quality) & 30,029 & 1,260\\
+4. Extracting dates for which the filings are reporting for and removing of duplicated filings & 30,737 & 1,874\\
+5. Delete observations with incorrect date assignment (some companies submitted two or more filings due to addendums or data quality) & 30,131 & 0,606\\
 \addlinespace
-6. Merged Gemini processed Item 1 text to the underlying data set. We did not consider texts that were not processable (e.g. due to recitation errors) & 28,161 & 1,868\\
-7. Extract financials statements from DataStream and merge them. Also remove observations for report-for-years prior to 2016 & 23,882 & 4,279\\
+6. Merged Gemini processed Item 1 text to the underlying data set. We did not consider texts that were not processable (e.g. due to recitation errors) & 28,350 & 1,781\\
+7. Extract financials statements from DataStream and merge them. Also remove observations for report-for-years prior to 2016 & 21,417 & 6,933\\
 \bottomrule
 \multicolumn{3}{l}{\rule{0pt}{1em}\textit{Note: }}\\
 \multicolumn{3}{l}{\rule{0pt}{1em}Filings submitted between 2017 and 2023 are considered.}\\
@@ -513,7 +513,7 @@ Report-for Year & Average Word Count & Standard Deviation & Minimum & 25th Perce
 2023 & 6,626 & 4,750 & 190 & 3,667 & 5,807 & 8,366 & 43,523\\
 \bottomrule
 \multicolumn{8}{l}{\rule{0pt}{1em}\textit{Note: }}\\
-\multicolumn{8}{l}{\rule{0pt}{1em}All 23,882 original filings were considered.}\\
+\multicolumn{8}{l}{\rule{0pt}{1em}All 21,417 original filings were considered.}\\
 \end{tabular}}
 \end{table}
 
@@ -723,49 +723,42 @@ Classification, FIC and SIC}
 
 \subsection{Results}\label{results}
 
-\% Table created by stargazer v.5.2.3 by Marek Hlavac, Social Policy
-Institute. E-mail: marek.hlavac at gmail.com \% Date and time: Mi, Okt
-16, 2024 - 13:56:21
-
 \begin{table}[!htbp] \centering 
-  \caption{} 
+  \caption{Regression Results} 
   \label{} 
 \begin{tabular}{@{\extracolsep{5pt}}lcc} 
 \\[-1.8ex]\hline 
 \hline \\[-1.8ex] 
  & \multicolumn{2}{c}{\textit{Dependent variable:}} \\ 
 \cline{2-3} 
-\\[-1.8ex] & \multicolumn{2}{c}{RevenueGrowth} \\ 
+\\[-1.8ex] & \multicolumn{2}{c}{Sales Growth} \\ 
 \\[-1.8ex] & (1) & (2)\\ 
 \hline \\[-1.8ex] 
- NormalizedDistance & 0.691$^{***}$ & 0.705$^{***}$ \\ 
-  & (0.136) & (0.136) \\ 
+ Normalized Distance & 0.294$^{***}$ & 0.296$^{***}$ \\ 
+  & (0.107) & (0.107) \\ 
   & & \\ 
- log(Market\_Value) & $-$4.315$^{***}$ &  \\ 
-  & (1.401) &  \\ 
+ log(Market Value) & $-$0.943 &  \\ 
+  & (0.891) &  \\ 
   & & \\ 
- log(Total.Assets) &  & $-$6.103$^{***}$ \\ 
-  &  & (1.393) \\ 
+ log(Assets) &  & $-$2.018$^{**}$ \\ 
+  &  & (0.887) \\ 
   & & \\ 
 \hline \\[-1.8ex] 
-Observations & 13,355 & 13,355 \\ 
-R$^{2}$ & 0.220 & 0.221 \\ 
-Adjusted R$^{2}$ & 0.059 & 0.060 \\ 
-Residual Std. Error (df = 11060) & 360.703 & 360.545 \\ 
+Fixed Effects & Yes & Yes \\ 
+Observations & 12,571 & 12,571 \\ 
+R$^{2}$ & 0.248 & 0.248 \\ 
 \hline 
 \hline \\[-1.8ex] 
 \textit{Note:}  & \multicolumn{2}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
 \end{tabular} 
 \end{table}
+
+\newpage{}
 
 \subsection{Robustness Checks}\label{robustness-checks}
 
-\% Table created by stargazer v.5.2.3 by Marek Hlavac, Social Policy
-Institute. E-mail: marek.hlavac at gmail.com \% Date and time: Mi, Okt
-16, 2024 - 13:56:21
-
 \begin{table}[!htbp] \centering 
-  \caption{} 
+  \caption{Results} 
   \label{} 
 \begin{tabular}{@{\extracolsep{5pt}}lcc} 
 \\[-1.8ex]\hline 
@@ -773,27 +766,30 @@ Institute. E-mail: marek.hlavac at gmail.com \% Date and time: Mi, Okt
  & \multicolumn{2}{c}{\textit{Dependent variable:}} \\ 
 \cline{2-3} 
 \\[-1.8ex] & \multicolumn{2}{c}{RevenueGrowth} \\ 
+ & default & robust \\ 
 \\[-1.8ex] & (1) & (2)\\ 
 \hline \\[-1.8ex] 
- NormalizedDistance & 0.728$^{***}$ & 0.737$^{***}$ \\ 
-  & (0.157) & (0.156) \\ 
+ NormalizedDistance & 0.243$^{**}$ & 0.238$^{**}$ \\ 
+  & (0.105) & (0.105) \\ 
   & & \\ 
- log(Market\_Value) & $-$7.048$^{***}$ &  \\ 
-  & (1.534) &  \\ 
+ log(MV) & 4.880$^{***}$ &  \\ 
+  & (1.461) &  \\ 
   & & \\ 
- log(Total.Assets) &  & $-$9.123$^{***}$ \\ 
-  &  & (1.446) \\ 
+ log(Total.Assets) &  & 6.740$^{***}$ \\ 
+  &  & (1.495) \\ 
   & & \\ 
 \hline \\[-1.8ex] 
-Observations & 12,225 & 12,225 \\ 
-R$^{2}$ & 0.098 & 0.100 \\ 
-Adjusted R$^{2}$ & $-$0.125 & $-$0.123 \\ 
-Residual Std. Error (df = 9793) & 400.174 & 399.793 \\ 
+Observations & 11,530 & 11,530 \\ 
+R$^{2}$ & 0.249 & 0.250 \\ 
+Adjusted R$^{2}$ & 0.048 & 0.049 \\ 
+Residual Std. Error (df = 9096) & 231.047 & 230.931 \\ 
 \hline 
 \hline \\[-1.8ex] 
 \textit{Note:}  & \multicolumn{2}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
 \end{tabular} 
 \end{table}
+
+\newpage{}
 
 \subsection{Discussion}\label{discussion}
 
@@ -1003,13 +999,9 @@ show regression without dropped data points
 
 }
 
-\caption{\label{fig-3}Distribution of the Revenue Growth}
+\caption{\label{fig-3}Distribution of the Sales Growth}
 
 \end{figure}%
-
-\% Table created by stargazer v.5.2.3 by Marek Hlavac, Social Policy
-Institute. E-mail: marek.hlavac at gmail.com \% Date and time: Mi, Okt
-16, 2024 - 13:56:21
 
 \begin{table}[!htbp] \centering 
   \caption{} 
@@ -1022,20 +1014,20 @@ Institute. E-mail: marek.hlavac at gmail.com \% Date and time: Mi, Okt
 \\[-1.8ex] & \multicolumn{2}{c}{RevenueGrowth} \\ 
 \\[-1.8ex] & (1) & (2)\\ 
 \hline \\[-1.8ex] 
- NormalizedDistance & 2.345$^{*}$ & 2.316$^{*}$ \\ 
-  & (1.334) & (1.334) \\ 
+ NormalizedDistance & 40.139 & 39.941 \\ 
+  & (48.158) & (48.164) \\ 
   & & \\ 
- log(Market\_Value) & $-$3.550 &  \\ 
-  & (13.734) &  \\ 
+ log(MV) & 548.108 &  \\ 
+  & (400.383) &  \\ 
   & & \\ 
- log(Total.Assets) &  & 10.950 \\ 
-  &  & (13.665) \\ 
+ log(Total.Assets) &  & 305.987 \\ 
+  &  & (398.902) \\ 
   & & \\ 
 \hline \\[-1.8ex] 
-Observations & 13,380 & 13,380 \\ 
-R$^{2}$ & 0.237 & 0.237 \\ 
-Adjusted R$^{2}$ & 0.079 & 0.079 \\ 
-Residual Std. Error (df = 11083) & 3,539.842 & 3,539.750 \\ 
+Observations & 12,571 & 12,571 \\ 
+R$^{2}$ & 0.458 & 0.458 \\ 
+Adjusted R$^{2}$ & 0.338 & 0.338 \\ 
+Residual Std. Error (df = 10305) & 99,677.710 & 99,683.920 \\ 
 \hline 
 \hline \\[-1.8ex] 
 \textit{Note:}  & \multicolumn{2}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
