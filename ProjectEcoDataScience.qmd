@@ -340,6 +340,17 @@ A significant portion of this work involved data collection, which proved to be 
 
 # Conclusion
 
+- Summary of Findings: Summarize the main findings, emphasizing the replication
+and your original contributions.
+- Contribution to the Literature: Restate how your paper advances the field,
+particularly in light of the replication. This is where you can argue for the robustness
+of your findings and their implications.
+- Policy Implications: If applicable, discuss any policy implications of your results,
+grounding them in the empirical evidence presented.
+- Final Remarks: Conclude with any thoughts on future research or unresolved
+questions that your study raises.
+
+
 # Acknowledgement
 
 -   Jonathan for IT Support
