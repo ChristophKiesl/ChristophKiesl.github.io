@@ -126,7 +126,7 @@ Table1
 
 BERT is a pre-trained and transformer-based model for natural language processing (NLP) based on artificial neural networks. It works according to the transformer architecture, which was first mentioned by Vaswani et al. [-@vaswani2017attention]. In contrast to Hoberg & Philips [-@hoberg_text-based_2016] word-to-vec approach, BERT works bidirectionally and takes into account the context from both sides of each word simultaneously. Its bidirectional design helps clarify word meanings based on context, resulting in more accurate similarity calculations between texts that may use the same words but have different meanings. BERT can also be fine-tuned for specific tasks, making it adaptable to different datasets, which improves its performance even with limited labeled data. Therefore, BERT is able to capture deeper semantics in texts such as 10-K reports. The BERTScore now computes the cosine similarity between word or text meanings, that have been determined by representations (or embeddings) learned from BERT. The scale is from -1 to 1, where 1 describes a perfect similarity.
 
-We employ the 'bert-base-uncased' model. The BERT tokenizer first converts the input text into tensors that the model can process. Then, the BERT model generates embeddings for the input text, and we compute the average of the token embeddings from the last hidden state to represent each text. These embeddings are calculated for each text entry in a CSV file and stored in a new column called 'embedding'. Afterward, we compute pairwise cosine similarity scores between the embeddings to assess the semantic similarity of different text entries. The similarity scores, along with relevant metadata like CIK and year, are stored in a new dataframe and saved to a CSV file.
+In our study, we employ the 'bert-base-uncased' model. The BERT tokenizer first converts the input text into tensors that the model can process. Then, the BERT model generates embeddings for the input text, and we compute the average of the token embeddings from the last hidden state to represent each text. These embeddings are calculated for each text entry. Afterwards, we compute pairwise cosine similarity scores between the embeddings to assess the semantic similarity of different text entries. The similarity scores, along with relevant metadata like CIK and year, are stored in a dataset. The study uses two different types of calculations. One as an input of similarity scores for determining an industry classification, for which BERTScores are calculated between all firms in their first year of appearance (for n=4494 we obtain a total of 10,100,265 similarity scores according to the Gaussian sum formula). The other to calculate such BERT scores between the same companies over the observed years. These values form the basis for calculating the distance of the empirical analysis.
 
 ## Preprocessing with Gemini
 
@@ -290,6 +290,8 @@ stargazer(Reg1, Reg2, Reg3, Reg4, title= "Regression Results",
 
 ## Robustness Checks
 
+To check the validity and reliability of this study, we conduct a series of robustness checks, illustrating alternative models. We do not logarithmize revenue growth and normalized distance. Revenue growth can assume negative values and is a relative measure. The normalized distance is also a relative measure, and the distance itself is characterized by a norm distribution (according to Figure 1). Logarithmization is therefore not necessary. The use of market value and total assets as control variables makes it possible to control for the size of the company, which results on the one hand from supply and demand on the capital market, and on the other hand from the actual book value of the company. The correlation between these two variables is approximately 0.5. In Table 4, we perform a regression using SIC codes instead of the industry classification based on BERTScores as fixed effects. 
+
 ```{r echo=FALSE, warning = FALSE, message = FALSE, results='asis'}
 #Main Regression Results
 library(tidyverse)
@@ -326,6 +328,8 @@ stargazer(Reg1, Reg2, Reg3, Reg4, title= "Robustness Check",
           omit.stat = c("adj.rsq")
 )
 ```
+
+The number of observations decreases due to missing SIC codes for non-surviving companies. As a result Table 4 rather tend to contain a survivalship bias. Furthermore, the coefficients for sales growth are not significant anymore, the standard errors of the coefficients are increasing despite lower coefficient values. The value for $R^2$ also decreases for every model. The number of observations decreases due to missing SIC codes for non-surviving companies. As a result, the models in Table 4 contain a survivalship bias. In addition, the coefficients for sales growth are no longer significant, the standard errors of the coefficients increase despite lower coefficient values. The value for $R^2$ also decreases for each model. As a result, BERT-based industry classifications as fixed effects tend to contain industry-based endogenous effects and thus increase the validity of the model and the informative value of the model. 
 
 {{< pagebreak >}}
 
