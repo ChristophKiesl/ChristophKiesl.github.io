@@ -253,6 +253,8 @@ Figure2
 [^2]: The list can be found here: https://www.sec.gov/search-filings/standard-industrial-classification-sic-code-list. 
 [^3]: For the database see: https://hobergphillips.tuck.dartmouth.edu.
 
+{{< pagebreak >}}
+
 ## Results
 
 Table 3 presents the four regressions related to hypothesis H3. The theory posits that changes in the business model are positively correlated with firm performance. As previously described, this relationship is examined using sales growth and Tobin's Q growth as performance indicators. The first two regressions focus on sales growth as the dependent variable. Both regressions yield similar results when considering the key parameter relevant to our hypothesis. As anticipated from our hypothesis formulation, we expected a positive relationship between business model changes and performance. This is confirmed in both regressions, providing support for H3. Importantly, this finding holds regardless of whether we include the logarithm of the market value or the logarithm of the total capital as a control variable.
@@ -393,6 +395,8 @@ questions that your study raises.
 
 We used following prompt: "Summarize the business model from the following text. Answer with a continuous text and with five hundred twelve tokens at max. Set your focus on sources of revenue, the intended customer base, products, distribution channels and details of financing. Use only information from the following the text".[^4] "intended customer base" and "product" refer to the value offering, "distribution channels" refers to the value architecture, and "sources of revenue" and "details of financing" refer to the revenue model. The term 'tokens' was used deliberately in preference to 'words', given that the number of tokens and the number of words in a text may vary depending on the tokeniser. This way, we wanted to ensure that the whole summary is used by the BERT model.
 
+Table 5 presents the descriptive measures of the length of our summaries. On average our summaries are 350 till 371 words long with the 75th percentile ranging between 404 and 432 words. Looking at the maxima, some summaries are significantly longer than the average with a couple thousand words. Most of the summaries are short enough to be processed by BERT as a whole, while some summaries are too long for BERT. These outliners are only a few and therefore negligible.
+
 ```{r echo=FALSE, warning = FALSE, message = FALSE, results='asis'}
 library(tidyverse)
 library(knitr)
@@ -407,7 +411,7 @@ Table3 = read_excel("./TableData/Table3.xlsx")%>%
          `75%_quantil` = round(`75%_quantil`,0))%>%
     kable(format="latex",label="tbl-table5",col.names = c("Report-for Year","Average Word Count","Standard Deviation","Minimum","25th Percentile","Median","75th Percentile","Maximum"),booktabs = T, caption = "Descriptive Statistics of Number of Words of our Summaries")%>%
   kable_styling(latex_options = c("scale_down","HOLD_position"))%>%
-  footnote("All 21,417 original filings were considered.")
+  footnote("All 21,417 summaries were considered.")
 
 Table3
 ```
@@ -420,9 +424,7 @@ list of summaries we checked
 
 ## Appendix C
 
-explain, why we drop some data points.
-
-show regression without dropped data points
+In our second dataset we winsorize only the top quantile. Figure 3 presents a boxplot of the distribution of the sales growth and also explains our reasoning behind this decision. The boxplot shows that the big majority of observations has a growth rate below 1,000 percent. Sales growth rates of multiple ten thousand percent or even of a couple million percent seem very unrealistic and are probably due to poor data quality. By winsorizing at the top one percent quantile, we get ride of these unrealistically high values. For the sake of completeness, Table 6 reports the regression results without winsorizing the data. All coefficients are not significant anymore while their values and their standard errors increase massively. The residual standard error also increases by over 400,000 percent between the results from Table 4 and Table 6.
 
 ```{r echo=FALSE, warning = FALSE, message = FALSE, results='asis'}
 #| label: fig-3
@@ -442,7 +444,8 @@ Figure3 = RegressionData %>%
   theme_minimal()+
     theme(axis.title.x=element_blank(),
           axis.text.x=element_blank())+
-    scale_y_log10(breaks=c(0.1,1,10,100,1000,10000,100000,1000000,10000000),labels=c("0.1%","1%","10%","100%","1,000%","10,000%","100,000%","1,000,000%","10,000,000%"))
+    scale_y_log10(breaks=c(0.1,1,10,100,1000,10000,100000,1000000,10000000),labels=c("0.1%","1%","10%","100%","1,000%","10,000%","100,000%","1,000,000%","10,000,000%"))+
+  ylab("Sales Growth in Percent")
 
 Figure3
 ```
@@ -467,7 +470,7 @@ Reg2 = felm(RevenueGrowth~NormalizedDistance + log(Total.Assets) | year * Indust
 
 stargazer(Reg1, Reg2, title= "Regression Results (Not Winsorized)",
           dep.var.labels=c("Sales Growth"),
-          add.lines = c("Industry x Year Fixed Effects","Yes","Yes"),
+          add.lines = list(c("Industry x Year Fixed Effects","Yes","Yes")),
           covariate.labels=c("Normalized Distance","log(Market Value)","log(Assets)"),
           header = FALSE,
           omit.stat = c("adj.rsq")
