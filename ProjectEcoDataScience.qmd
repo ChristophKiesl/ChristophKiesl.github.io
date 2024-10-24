@@ -255,6 +255,12 @@ Figure2
 
 ## Results
 
+Table 3 presents the four regressions related to hypothesis H3. The theory posits that changes in the business model are positively correlated with firm performance. As previously described, this relationship is examined using sales growth and Tobin's Q growth as performance indicators. The first two regressions focus on sales growth as the dependent variable. Both regressions yield similar results when considering the key parameter relevant to our hypothesis. As anticipated from our hypothesis formulation, we expected a positive relationship between business model changes and performance. This is confirmed in both regressions, providing support for H3. Importantly, this finding holds regardless of whether we include the logarithm of the market value or the logarithm of the total capital as a control variable.
+
+Both control variables reduce the effect on sales growth, with market value being insignificant and having a smaller impact. While this result is not particularly relevant for the first two regressions, it suggests a direction in which Tobin's Q might change in response to business model adjustments. Since Tobin's Q is defined as market value divided by total capital, the relationship should mirror the patterns observed with market value and total capital in the previous regressions. This effect is observed in both regressions where Tobin's Q is the dependent variable. In regression (4), both control variables are significant, while in regression (3), only TimeDiff shows significance.
+
+In summary, the findings indicate that business model adaptation has a significant impact on firm performance. Specifically, business model changes have a positive effect on operational metrics such as sales growth, which can be viewed as a positive outcome. However, the stock market does not respond as favorably to such changes. Tobin's Q ratio decreases when companies adjust their business models, meaning the ratio of market value to total capital declines. This effect is not necessarily problematic, as market value is influenced by stock trading, which incorporates subjective evaluations that are reflected in this metric.
+
 ```{r echo=FALSE, warning = FALSE, message = FALSE, results='asis'}
 #Main Regression Results
 library(tidyverse)
@@ -294,16 +300,11 @@ stargazer(Reg1, Reg2, Reg3, Reg4, title= "Regression Results",
 
 {{< pagebreak >}}
 
-
-Table 3 presents the four regressions related to hypothesis H3. The theory posits that changes in the business model are positively correlated with firm performance. As previously described, this relationship is examined using sales growth and Tobin's Q growth as performance indicators. The first two regressions focus on sales growth as the dependent variable. Both regressions yield similar results when considering the key parameter relevant to our hypothesis. As anticipated from our hypothesis formulation, we expected a positive relationship between business model changes and performance. This is confirmed in both regressions, providing support for H3. Importantly, this finding holds regardless of whether we include the logarithm of the market value or the logarithm of the total capital as a control variable.
-
-Both control variables reduce the effect on sales growth, with market value being insignificant and having a smaller impact. While this result is not particularly relevant for the first two regressions, it suggests a direction in which Tobin's Q might change in response to business model adjustments. Since Tobin's Q is defined as market value divided by total capital, the relationship should mirror the patterns observed with market value and total capital in the previous regressions. This effect is observed in both regressions where Tobin's Q is the dependent variable. In regression (4), both control variables are significant, while in regression (3), only TimeDiff shows significance.
-
-In summary, the findings indicate that business model adaptation has a significant impact on firm performance. Specifically, business model changes have a positive effect on operational metrics such as sales growth, which can be viewed as a positive outcome. However, the stock market does not respond as favorably to such changes. Tobin's Q ratio decreases when companies adjust their business models, meaning the ratio of market value to total capital declines. This effect is not necessarily problematic, as market value is influenced by stock trading, which incorporates subjective evaluations that are reflected in this metric.
-
 ## Robustness Checks
 
-To check the validity and reliability of this study, we conduct a series of robustness checks, illustrating alternative models. We do not logarithmize revenue growth and normalized distance. Revenue growth can assume negative values and is a relative measure. The normalized distance is also a relative measure, and the distance itself is characterized by a norm distribution (according to Figure 1). Logarithmization is therefore not necessary. The use of market value and total assets as control variables makes it possible to control for the size of the company, which results on the one hand from supply and demand on the capital market, and on the other hand from the actual book value of the company. The correlation between these two variables is approximately 0.5. In Table 4, we perform a regression using SIC codes instead of the industry classification based on BERTScores as fixed effects. 
+To check the validity and reliability of this study, we conduct a series of robustness checks, illustrating alternative models. We do not logarithmize revenue growth and normalized distance. Revenue growth can assume negative values and is a relative measure. The normalized distance is also a relative measure, and the distance itself is characterized by a norm distribution (according to Figure 1). Logarithmization is therefore not necessary. The use of market value and total assets as control variables makes it possible to control for the size of the company, which results on the one hand from supply and demand on the capital market, and on the other hand from the actual book value of the company. The correlation between these two variables is approximately 0.5. In Table 4, we perform a regression using SIC codes instead of the industry classification based on BERTScores as fixed effects.
+
+The number of observations decreases due to missing SIC codes for non-surviving companies. As a result Table 4 rather tend to contain a survivalship bias. Furthermore, the coefficients for sales growth are not significant anymore, the standard errors of the coefficients are increasing despite lower coefficient values. The value for $R^2$ also decreases for every model. The number of observations decreases due to missing SIC codes for non-surviving companies. As a result, the models in Table 4 contain a survivalship bias. In addition, the coefficients for sales growth are no longer significant, the standard errors of the coefficients increase despite lower coefficient values. The value for $R^2$ also decreases for each model. As a result, BERT-based industry classifications as fixed effects tend to contain industry-based endogenous effects and thus increase the validity of the model and the informative value of the model. 
 
 ```{r echo=FALSE, warning = FALSE, message = FALSE, results='asis'}
 #Main Regression Results
@@ -341,8 +342,6 @@ stargazer(Reg1, Reg2, Reg3, Reg4, title= "Robustness Check",
           omit.stat = c("adj.rsq")
 )
 ```
-
-The number of observations decreases due to missing SIC codes for non-surviving companies. As a result Table 4 rather tend to contain a survivalship bias. Furthermore, the coefficients for sales growth are not significant anymore, the standard errors of the coefficients are increasing despite lower coefficient values. The value for $R^2$ also decreases for every model. The number of observations decreases due to missing SIC codes for non-surviving companies. As a result, the models in Table 4 contain a survivalship bias. In addition, the coefficients for sales growth are no longer significant, the standard errors of the coefficients increase despite lower coefficient values. The value for $R^2$ also decreases for each model. As a result, BERT-based industry classifications as fixed effects tend to contain industry-based endogenous effects and thus increase the validity of the model and the informative value of the model. 
 
 {{< pagebreak >}}
 
@@ -443,7 +442,7 @@ Figure3 = RegressionData %>%
   theme_minimal()+
     theme(axis.title.x=element_blank(),
           axis.text.x=element_blank())+
-    scale_y_log10(breaks=c(0.1,1,10,100,1000,10000,100000),labels=c("0.1%","1%","10%","100%","1,000%","10,000%","100,000%"))
+    scale_y_log10(breaks=c(0.1,1,10,100,1000,10000,100000,1000000,10000000),labels=c("0.1%","1%","10%","100%","1,000%","10,000%","100,000%","1,000,000%","10,000,000%"))
 
 Figure3
 ```
@@ -465,13 +464,10 @@ RegressionData = read.csv("./TableData/Regression/RegressionData.csv") %>%
 Reg1 = felm(RevenueGrowth~NormalizedDistance + log(MV) | year * Industry | 0 | 0 ,data=RegressionData)
 Reg2 = felm(RevenueGrowth~NormalizedDistance + log(Total.Assets) | year * Industry | 0 | 0 ,data=RegressionData)
 
-#Tobin's Q
-#Reg3 = felm(RevenueGrowth~NormalizedDistance + log(Market_Value) | year + Industry | 0 | 0 ,data=RegressionData)
-#Reg4 = felm(RevenueGrowth~NormalizedDistance + log(Market_Value) | year * Industry | 0 | 0 ,data=RegressionData)
 
-stargazer(Reg1, Reg2, title= "Regression Results",
-          dep.var.labels=c("Sales Growth","Tobin's Q Growth"),
-          add.lines = list(c("Industry x Year Fixed Effects","Yes","Yes")),
+stargazer(Reg1, Reg2, title= "Regression Results (Not Winsorized)",
+          dep.var.labels=c("Sales Growth"),
+          add.lines = c("Industry x Year Fixed Effects","Yes","Yes"),
           covariate.labels=c("Normalized Distance","log(Market Value)","log(Assets)"),
           header = FALSE,
           omit.stat = c("adj.rsq")
