@@ -85,9 +85,9 @@ Business model innovation (BMI) is a key activity to maintain competitiveness an
 
 Scales and measures used in the BMI literature [@clauss_measuring_2017;@spieth_business_2016] provide managers and practitioners with a measurement index for business model innovativeness. But these measures only validate applicability of BMI theory [@huang_review_2023] and are insufficient for longitudinal studies [@clauss_measuring_2017]. Hence, these measures are not adequate for a time series analysis of BMI. We address this gap by proposing a novel approach to measuring BMI. US-based companies are obliged by the United States Security and Exchange Commission (SEC) to submit annual 10-K filings, wherein a detailed description of the company's business operations is required. Hoberg & Phillips [-@hoberg_text-based_2016], on which we build this study, use these filings to cluster companies into industries. We, on the other hand, summarize these descriptions with Gemini and calculate the BERTScore between the summaries of different years for a single company. This approach enables the measurement of changes in the business model (BM) over time as the distance between the BM summary of one year to another. In order to test the validity of our measure, we regress sales growth and Tobin's Q growth on our measure. Additionally, we create our own industry classification based on BERTScores of business descriptions of same firms within the same year.
 
--   Key findings and Contribution
+-   Key findings and Contribution: We therefore compare the text similarities of the same companies over several years and find that above-average changes in the texts have a significantly positive effect on performance measures such as sales growth and Tobin's Q. However, BMI affects companies of different sizes differently, which is why we classify company size based on turnover and find that the larger the company, the smaller the effect of BMI on company performance.
 
-The SEC mandates that the majority of public companies based in the United States submit an annual 10-K filing. In the first section under the subtitle "Business," a company presents its general business, encompassing information about its products and services. In some instances additional topics may be addressed, such as labor issues or competition [@sec_investor_2024]. In conclusion, this section contains the most useful information for describing a company's BM [@lee_business_2014]. Furthermore, 10-K filings are a reliable source of information, given that US law prohibits false or misleading statements in the filings. The SEC monitors the compliance of the companies with the requirements and comments where disclosure appears to be inconsistent [@sec_investor_2024]. Because of these guidelines, these descriptions are particularly suitable for a text analysis in order to quantify a BM. We therefore compare the text similarities of the same companies over several years and find that above-average changes in the texts have a significantly positive effect on performance measures such as sales growth and Tobin's Q. However, BMI affects companies of different sizes differently, which is why we classify company size based on turnover and find that the larger the company, the smaller the effect of BMI on company performance.
+The SEC mandates that the majority of public companies based in the United States submit an annual 10-K filing. In the first section under the subtitle "Business," a company presents its general business, encompassing information about its products and services. In some instances additional topics may be addressed, such as labor issues or competition [@sec_investor_2024]. In conclusion, this section contains the most useful information for describing a company's BM [@lee_business_2014]. Furthermore, 10-K filings are a reliable source of information, given that US law prohibits false or misleading statements in the filings. The SEC monitors the compliance of the companies with the requirements and comments where disclosure appears to be inconsistent [@sec_investor_2024]. Because of these guidelines, these descriptions are particularly suitable for a text analysis in order to quantify a BM. 
 
 -   paragraph 5 (robustness checks)
 
@@ -269,7 +269,8 @@ library(tidyverse)
 library(readxl)
 library(lfe)
 library(DescTools)
-library(stargazer)
+library(modelsummary)
+library(kableExtra)
 
 RegressionData = read.csv("./TableData/Regression/RegressionData.csv") %>%
   filter(MV>0, Total.Assets >0)%>%
@@ -290,14 +291,24 @@ TobinsQ = read.csv("./TableData/Regression/TobinsQGrowth.csv") %>%
 Reg3 = felm(TobinsQGrowth~NormalizedDistance + log(MeanAssets) + TimeDiff| Industry | 0 | 0 ,data=TobinsQ)
 Reg4 = felm(TobinsQGrowth~NormalizedDistance + log(MeanMV) + TimeDiff| Industry | 0 | 0 ,data=TobinsQ)
 
-stargazer(Reg1, Reg2, Reg3, Reg4, title= "Regression Results",
-          dep.var.labels=c("Sales Growth","Tobin's Q Growth"),
-          add.lines = list(c("Industry x Year Fixed Effects","Yes","Yes","No","No"),
-                           c("Industry Fixed Effects","No","No","Yes","Yes")),
-          covariate.labels=c("Normalized Distance","log(Market Value)","log(Assets)"),
-          header = FALSE,
-          omit.stat = c("adj.rsq")
-)
+#stargazer(Reg1, Reg2, Reg3, Reg4, title= "Regression Results",
+#          dep.var.labels=c("Sales Growth","Tobin's Q Growth"),
+#          add.lines = list(c("Industry x Year Fixed Effects","Yes","Yes","No","No"),
+#                           c("Industry Fixed Effects","No","No","Yes","Yes")),
+#          covariate.labels=c("Normalized Distance","log(Market Value)","log(Assets)"),
+#          header = FALSE,
+#          omit.stat = c("adj.rsq")
+#)
+
+modelsummary(models = list("(1)" = Reg1, "(2)" = Reg2, "(3)" = Reg3, "(4)" = Reg4),
+             output = "kableExtra",
+             title = "Regression Results",
+             coef_map = c("NormalizedDistance" = "Normalized Distance", "log(MV)" = "log(Market Value)", "log(Total.Assets)" = "log(Assets)"),
+             gof_map = c("nobs", "r.squared")
+             )%>%
+  add_header_above(c(" " = 1, "Sales Growth" = 2, "Tobin's Q Growth" = 2)) %>%
+  kable_styling(latex_options = c("scale_down","HOLD_position"))
+
 ```
 
 {{< pagebreak >}}
@@ -393,7 +404,7 @@ questions that your study raises.
 
 ## Appendix A
 
-We used following prompt: "Summarize the business model from the following text. Answer with a continuous text and with five hundred twelve tokens at max. Set your focus on sources of revenue, the intended customer base, products, distribution channels and details of financing. Use only information from the following the text".[^4] "intended customer base" and "product" refer to the value offering, "distribution channels" refers to the value architecture, and "sources of revenue" and "details of financing" refer to the revenue model. The term 'tokens' was used deliberately in preference to 'words', given that the number of tokens and the number of words in a text may vary depending on the tokeniser. This way, we wanted to ensure that the whole summary is used by the BERT model.
+We used following prompt: "Summarize the business model from the following text. Answer with a continuous text and with five hundred twelve tokens at max. Set your focus on sources of revenue, the intended customer base, products, distribution channels and details of financing. Use only information from the following the text".[^4] "Intended customer base" and "product" refer to the value offering, "distribution channels" refers to the value architecture, and "sources of revenue" and "details of financing" refer to the revenue model. The term 'tokens' was used deliberately in preference to 'words', given that the number of tokens and the number of words in a text may vary depending on the tokeniser. This way, we wanted to ensure that the whole summary is used by the BERT model.
 
 Table 5 presents the descriptive measures of the length of our summaries. On average our summaries are 350 till 371 words long with the 75th percentile ranging between 404 and 432 words. Looking at the maxima, some summaries are significantly longer than the average with a couple thousand words. Most of the summaries are short enough to be processed by BERT as a whole, while some summaries are too long for BERT. These outliners are only a few and therefore negligible.
 
