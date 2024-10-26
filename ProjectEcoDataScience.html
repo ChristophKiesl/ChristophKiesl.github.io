@@ -190,7 +190,7 @@ window.Quarto = {
 <p><span class="math display">\[
 {NormalizedDistance} = \left( \frac{{Distance}_i}{\frac{1}{n} \sum_{i=0}^{n} {Distance}_i} - 1 \right) \cdot 100
 \]</span></p>
-<p>This Normalized Distance measures the change of a company’s BM above the market average in percentage points. We assume that a company that changes its BM, will not return back to its original BM. Under this assumption the Normalized Distance measures BMI on the new-to-the-firm level. In the case that our measure is able to measure BMI, we expect to find a positive relationship between our BMI measure and firm performance. Therefore, we hypothesize that:</p>
+<p>The Normalized Distance measures the difference in the distance between two consecutive summaries of some company above the market average in percentage points. Under the assumption that the summaries reliably represent the firms’ BM, the Normalized Distance measures the change of a company’s BM above the market average in percentage points from one year to the next. We further assume that a company that changes its BM, will not return back to its original BM. Under this assumption the Normalized Distance measures BMI on the new-to-the-firm level. The literature posits that changes in the business model can be positively correlated with firm performance. In the case that our measure is able to measure BMI, we expect to find a positive relationship between our BMI measure and firm performance. Therefore, we hypothesize that:</p>
 <p><strong>H3</strong>: Our measure for BMI is positively correlated with firm performance.</p>
 <div id="fig-1" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -207,7 +207,7 @@ Figure&nbsp;1: Density Function of the Distance
 <section id="estimation-strategy" class="level1">
 <h1>Estimation Strategy</h1>
 <p>We test H3 using multivariate regression techniques. The independent variable is the Normalized Distance, as previously defined. Two different dependent variables are employed in order to measure a company’s performance. In the initial specification, the sales growth is used as the dependent variable as by Cucculelli &amp; Bettinelli <span class="citation" data-cites="cucculelli_business_2015">(<a href="#ref-cucculelli_business_2015" role="doc-biblioref">2015</a>)</span>. For this specification, the second dataset is employed, and all observations with zero values for market value and total assets were removed in order to take the logarithms. We control for firm size by once using the logarithm of the market value and once the logarithm of total assets <span class="citation" data-cites="dang2018measuring">(<a href="#ref-dang2018measuring" role="doc-biblioref">Dang, Li, and Yang 2018</a>)</span>. Moreover, outliners are winsorized only above the 99th percentile. For a more detailed discussion of this step, see Appendix C. We use the interaction term of the year and our BERTScore industry classification as a fixed effect. The interaction term of the year and the industry is employed to capture potential heterogeneous effects of the industry classification across different years. The economic and political environment is not controlled for, as White et al. <span class="citation" data-cites="white_exploring_2022">(<a href="#ref-white_exploring_2022" role="doc-biblioref">2022</a>)</span> suggest, as all of the companies in question are based in the United States.</p>
-<p>In the second specification the growth of Tobin’s Q is employed as described by Desyllas et al. <span class="citation" data-cites="Desyllas2022">(<a href="#ref-Desyllas2022" role="doc-biblioref">2022</a>)</span>. To account for differences between companies, we us growth rates instead of absolute values. The third dataset is used for this specification. As in the first specification, we control once for the logarithm of the market value and once for the logarithm of the total assets. Furthermore, the number of years between the initial and final years utilized for Tobin’s Q growth is controlled for. The reason behind this is, that some companies in the dataset initially appear later than 2017 or lastly do not appear in 2023. We use industry fixed effects to control for heterogeneous effects between industries. As in the first specification, we do not control for the economic and political environment.</p>
+<p>In the second specification the growth of Tobin’s Q is employed as described by Desyllas et al. <span class="citation" data-cites="Desyllas2022">(<a href="#ref-Desyllas2022" role="doc-biblioref">2022</a>)</span>. To account for differences between companies, we us growth rates instead of absolute values. The third dataset is used for this specification. Since every company is one observation in the dataset, we control for the firm size once with the logarithm of the mean market value and once with the logarithm of the mean total assets of a company. The mean is calculated with all available years per company. Furthermore, the number of years between the initial and final years utilized for Tobin’s Q growth is controlled for. The reason behind this is, that some companies in the dataset initially appear later than 2017 or lastly do not appear in 2023. We use fixed effects to control for this difference. Furthermore, we use industry fixed effects to control for heterogeneous effects between industries. As in the first specification, we do not control for the economic and political environment.</p>
 </section>
 <section id="results-and-discussion" class="level1">
 <h1>Results and Discussion</h1>
@@ -231,104 +231,299 @@ Figure&nbsp;2: Distribution Comparison between BERT Classification, FIC and SIC
 </section>
 <section id="results" class="level2">
 <h2 class="anchored" data-anchor-id="results">Results</h2>
-<p>Table 3 presents the four regressions related to hypothesis H3. The theory posits that changes in the business model are positively correlated with firm performance. As previously described, this relationship is examined using sales growth and Tobin’s Q growth as performance indicators. The first two regressions focus on sales growth as the dependent variable. Both regressions yield similar results when considering the key parameter relevant to our hypothesis. As anticipated from our hypothesis formulation, we expected a positive relationship between business model changes and performance. This is confirmed in both regressions, providing support for H3. Importantly, this finding holds regardless of whether we include the logarithm of the market value or the logarithm of the total capital as a control variable.</p>
-<p>Both control variables reduce the effect on sales growth, with market value being insignificant and having a smaller impact. While this result is not particularly relevant for the first two regressions, it suggests a direction in which Tobin’s Q might change in response to business model adjustments. Since Tobin’s Q is defined as market value divided by total capital, the relationship should mirror the patterns observed with market value and total capital in the previous regressions. This effect is observed in both regressions where Tobin’s Q is the dependent variable. In regression (4), both control variables are significant, while in regression (3), only TimeDiff shows significance.</p>
-<p>In summary, the findings indicate that business model adaptation has a significant impact on firm performance. Specifically, business model changes have a positive effect on operational metrics such as sales growth, which can be viewed as a positive outcome. However, the stock market does not respond as favorably to such changes. Tobin’s Q ratio decreases when companies adjust their business models, meaning the ratio of market value to total capital declines. This effect is not necessarily problematic, as market value is influenced by stock trading, which incorporates subjective evaluations that are reflected in this metric.</p>
-<table class="table caption-top" data-quarto-postprocess="true">
+<p>Table 3 presents the four regressions related to hypothesis H3. As previously described, this relationship is examined using sales growth and Tobin’s Q growth as firm performance indicators. Models 1 and 2 use sales growth as the dependent variable. Model 1 shows a significant positive effect for the Normalized Distance (<span class="math inline">\(beta\)</span> = 0.289, p &lt; 0.01) on the sales growth. The results can be interpreted as that a company, that changes its BM in one year one percentage point more than the market average, experiences on average 0.289 percentage points more growth in sales. Model 2 as well shows this significant positive effect (<span class="math inline">\(beta\)</span> = 0.292, p &lt; 0.01). Both regressions yield very similar results regardless of whether we include the logarithm of the market value (<span class="math inline">\(beta\)</span> = -1.014, p &gt; 0.1) or the logarithm of the total assets (<span class="math inline">\(beta\)</span> = -2.155, p &lt; 0.05) as a control variable for the firm size. These results provide support for H3.</p>
+<p>Model 3 and 4 assess the effect of the Normalized Distance on Tobin’s Q growth. Both Models show a negative significant effect (<span class="math inline">\(beta\)</span> = -0.007, p &lt; 0.001 and <span class="math inline">\(beta\)</span> = -0.008, p &lt; 0.001). This can be interpreted as indicating that a company that changes its BM by one percentage point more than the market average over the observation period will experience, on average, a reduction in Tobin’s Q growth of 0.008, respectively 0.007, percentage points. As in Model 1 and 2, the coefficients for the Normalized Distance only change very little when controlling for the logarithm of the market value instead of the logarithm of the total assets. The results do not support H3, since we anticipated a positive effect.</p>
+<p>In summary, the findings indicate that business model adaptation has a significant impact on firm performance. Specifically, business model changes have a positive effect on operational metrics such as sales growth, which can be viewed as a positive outcome. However, the stock market does not respond as favorably to such changes. Tobin’s Q growth decreases when companies adjust their business models, meaning the ratio of market value to total capital declines. This effect is not necessarily problematic, as market value is influenced by stock trading, which incorporates subjective evaluations that are reflected in this metric.</p>
+<table style="NAborder-bottom: 0; width: auto !important; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;border-bottom: 0;" class="table table">
 <caption>Regression Results</caption>
-<colgroup>
-<col style="width: 20%">
-<col style="width: 20%">
-<col style="width: 20%">
-<col style="width: 20%">
-<col style="width: 20%">
-</colgroup>
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th" style="text-align: left; empty-cells: hide; border-bottom: hidden;"></th>
-<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-bottom: hidden; padding-bottom: 0; padding-left: 3px; padding-right: 3px;"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
-Sales Growth
-</div></th>
-<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-bottom: hidden; padding-bottom: 0; padding-left: 3px; padding-right: 3px;"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
-Tobin's Q Growth
-</div></th>
+ <thead>
+<tr>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="1"></th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">Sales Growth</div></th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">Tobin's Q Growth</div></th>
 </tr>
-<tr class="odd">
-<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
-<th style="text-align: center;" data-quarto-table-cell-role="th">&nbsp;(1)</th>
-<th style="text-align: center;" data-quarto-table-cell-role="th">&nbsp;&nbsp;(2)</th>
-<th style="text-align: center;" data-quarto-table-cell-role="th">&nbsp;&nbsp;(3)</th>
-<th style="text-align: center;" data-quarto-table-cell-role="th">&nbsp;&nbsp;(4)</th>
-</tr>
-</thead>
+  <tr>
+   <th style="text-align:left;">   </th>
+   <th style="text-align:center;"> &nbsp;(1) </th>
+   <th style="text-align:center;"> &nbsp;&nbsp;(2) </th>
+   <th style="text-align:center;"> &nbsp;&nbsp;(3) </th>
+   <th style="text-align:center;"> &nbsp;&nbsp;(4) </th>
+  </tr>
+ </thead>
 <tbody>
-<tr class="odd">
-<td style="text-align: left;">Normalized Distance</td>
-<td style="text-align: center;">0.289</td>
-<td style="text-align: center;">0.292</td>
-<td style="text-align: center;">-0.008</td>
-<td style="text-align: center;">-0.008</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"></td>
-<td style="text-align: center;">(0.110)</td>
-<td style="text-align: center;">(0.110)</td>
-<td style="text-align: center;">(0.001)</td>
-<td style="text-align: center;">(0.001)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">log(Market Value)</td>
-<td style="text-align: center;">-1.014</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"></td>
-<td style="text-align: center;">(0.921)</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">log(Assets)</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">-2.155</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left; box-shadow: 0px 1.5px;"></td>
-<td style="text-align: center; box-shadow: 0px 1.5px;"></td>
-<td style="text-align: center; box-shadow: 0px 1.5px;">(0.927)</td>
-<td style="text-align: center; box-shadow: 0px 1.5px;"></td>
-<td style="text-align: center; box-shadow: 0px 1.5px;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Num.Obs.</td>
-<td style="text-align: center;">12155</td>
-<td style="text-align: center;">12155</td>
-<td style="text-align: center;">3341</td>
-<td style="text-align: center;">3341</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">R2</td>
-<td style="text-align: center;">0.248</td>
-<td style="text-align: center;">0.248</td>
-<td style="text-align: center;">0.193</td>
-<td style="text-align: center;">0.194</td>
-</tr>
+  <tr>
+   <td style="text-align:left;"> Normalized Distance </td>
+   <td style="text-align:center;"> 0.289** </td>
+   <td style="text-align:center;"> 0.292** </td>
+   <td style="text-align:center;"> -0.007*** </td>
+   <td style="text-align:center;"> -0.008*** </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;"> (0.110) </td>
+   <td style="text-align:center;"> (0.110) </td>
+   <td style="text-align:center;"> (0.001) </td>
+   <td style="text-align:center;"> (0.001) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> log(Market Value) </td>
+   <td style="text-align:center;"> -1.014 </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;"> (0.921) </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> log(Assets) </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;"> -2.155* </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;"> (0.927) </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> log(Mean Market Value) </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;"> 0.022* </td>
+   <td style="text-align:center;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;"> (0.011) </td>
+   <td style="text-align:center;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> log(Mean Assets) </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;"> -0.001 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;box-shadow: 0px 1.5px">  </td>
+   <td style="text-align:center;box-shadow: 0px 1.5px">  </td>
+   <td style="text-align:center;box-shadow: 0px 1.5px">  </td>
+   <td style="text-align:center;box-shadow: 0px 1.5px">  </td>
+   <td style="text-align:center;box-shadow: 0px 1.5px"> (0.010) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Industry x Year Fixed Effects </td>
+   <td style="text-align:center;"> Yes </td>
+   <td style="text-align:center;"> Yes </td>
+   <td style="text-align:center;"> No </td>
+   <td style="text-align:center;"> No </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Industry Fixed Effects </td>
+   <td style="text-align:center;"> No </td>
+   <td style="text-align:center;"> No </td>
+   <td style="text-align:center;"> Yes </td>
+   <td style="text-align:center;"> Yes </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Time Difference Fixed Effects </td>
+   <td style="text-align:center;"> No </td>
+   <td style="text-align:center;"> No </td>
+   <td style="text-align:center;"> Yes </td>
+   <td style="text-align:center;"> Yes </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Num.Obs. </td>
+   <td style="text-align:center;"> 12155 </td>
+   <td style="text-align:center;"> 12155 </td>
+   <td style="text-align:center;"> 3341 </td>
+   <td style="text-align:center;"> 3341 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> R2 </td>
+   <td style="text-align:center;"> 0.248 </td>
+   <td style="text-align:center;"> 0.248 </td>
+   <td style="text-align:center;"> 0.196 </td>
+   <td style="text-align:center;"> 0.195 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> RMSE </td>
+   <td style="text-align:center;"> 201.04 </td>
+   <td style="text-align:center;"> 200.99 </td>
+   <td style="text-align:center;"> 1.26 </td>
+   <td style="text-align:center;"> 1.26 </td>
+  </tr>
 </tbody>
+<tfoot><tr><td style="padding: 0; " colspan="100%">
+<sup></sup> + p &lt; 0.1, * p &lt; 0.05, ** p &lt; 0.01, *** p &lt; 0.001</td></tr></tfoot>
+<tfoot>
+<tr><td style="padding: 0; " colspan="100%"><span style="font-style: italic;">Note: </span></td></tr>
+<tr><td style="padding: 0; " colspan="100%">
+<sup></sup> Industry classification by BERTScore.</td></tr>
+</tfoot>
 </table>
 
-
-<div style="page-break-after: always;"></div>
 </section>
 <section id="robustness-checks" class="level2">
 <h2 class="anchored" data-anchor-id="robustness-checks">Robustness Checks</h2>
 <p>To check the validity and reliability of this study, we conduct a series of robustness checks, illustrating alternative models. We do not logarithmize revenue growth and normalized distance. Revenue growth can assume negative values and is a relative measure. The normalized distance is also a relative measure, and the distance itself is characterized by a norm distribution (according to Figure 1). Logarithmization is therefore not necessary. The use of market value and total assets as control variables makes it possible to control for the size of the company, which results on the one hand from supply and demand on the capital market, and on the other hand from the actual book value of the company. The correlation between these two variables is approximately 0.5. In Table 4, we perform a regression using SIC codes instead of the industry classification based on BERTScores as fixed effects.</p>
-<p>The number of observations decreases due to missing SIC codes for non-surviving companies. As a result Table 4 rather tend to contain a survivalship bias. Furthermore, the coefficients for sales growth are not significant anymore, the standard errors of the coefficients are increasing despite lower coefficient values. The value for <span class="math inline">\(R^2\)</span> also decreases for every model. The number of observations decreases due to missing SIC codes for non-surviving companies. As a result, the models in Table 4 contain a survivalship bias. In addition, the coefficients for sales growth are no longer significant, the standard errors of the coefficients increase despite lower coefficient values. The value for <span class="math inline">\(R^2\)</span> also decreases for each model. As a result, BERT-based industry classifications as fixed effects tend to contain industry-based endogenous effects and thus increase the validity of the model and the informative value of the model.</p>
-<div style="page-break-after: always;"></div>
+<p>The number of observations decreases due to missing SIC codes for non-surviving companies. As a result Table 4 rather tend to contain a survivor ship bias. Furthermore, the coefficients for sales growth are not significant anymore, the standard errors of the coefficients are increasing despite lower coefficient values. The value for <span class="math inline">\(R^2\)</span> also decreases for every model. The number of observations decreases due to missing SIC codes for non-surviving companies. As a result, the models in Table 4 contain a survivor ship bias. In addition, the coefficients for sales growth are no longer significant, the standard errors of the coefficients increase despite lower coefficient values. The value for <span class="math inline">\(R^2\)</span> also decreases for each model. As a result, BERT-based industry classifications as fixed effects tend to contain industry-based endogenous effects and thus increase the validity of the model and the informative value of the model.</p>
+<table style="NAborder-bottom: 0; width: auto !important; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;border-bottom: 0;" class="table table">
+<caption>Robustness Check</caption>
+ <thead>
+<tr>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="1"></th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">Sales Growth</div></th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">Tobin's Q Growth</div></th>
+</tr>
+  <tr>
+   <th style="text-align:left;">   </th>
+   <th style="text-align:center;"> &nbsp;(1) </th>
+   <th style="text-align:center;"> &nbsp;&nbsp;(2) </th>
+   <th style="text-align:center;"> &nbsp;&nbsp;(3) </th>
+   <th style="text-align:center;"> &nbsp;&nbsp;(4) </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> Normalized Distance </td>
+   <td style="text-align:center;"> 0.180 </td>
+   <td style="text-align:center;"> 0.185 </td>
+   <td style="text-align:center;"> -0.009*** </td>
+   <td style="text-align:center;"> -0.009*** </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;"> (0.129) </td>
+   <td style="text-align:center;"> (0.129) </td>
+   <td style="text-align:center;"> (0.001) </td>
+   <td style="text-align:center;"> (0.001) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> log(Market Value) </td>
+   <td style="text-align:center;"> -4.112*** </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;"> (1.010) </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> log(Assets) </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;"> -5.157*** </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;"> (0.965) </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> log(Mean Assets) </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;"> 0.029** </td>
+   <td style="text-align:center;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;"> (0.010) </td>
+   <td style="text-align:center;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> log(Mean Market Value) </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;"> 0.049*** </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;"> (0.011) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Time Difference </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;"> 0.098*** </td>
+   <td style="text-align:center;"> 0.096*** </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;box-shadow: 0px 1.5px">  </td>
+   <td style="text-align:center;box-shadow: 0px 1.5px">  </td>
+   <td style="text-align:center;box-shadow: 0px 1.5px">  </td>
+   <td style="text-align:center;box-shadow: 0px 1.5px"> (0.018) </td>
+   <td style="text-align:center;box-shadow: 0px 1.5px"> (0.018) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Industry x Year Fixed Effects </td>
+   <td style="text-align:center;"> Yes </td>
+   <td style="text-align:center;"> Yes </td>
+   <td style="text-align:center;"> No </td>
+   <td style="text-align:center;"> No </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Industry Fixed Effects </td>
+   <td style="text-align:center;"> No </td>
+   <td style="text-align:center;"> No </td>
+   <td style="text-align:center;"> Yes </td>
+   <td style="text-align:center;"> Yes </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Num.Obs. </td>
+   <td style="text-align:center;"> 11187 </td>
+   <td style="text-align:center;"> 11187 </td>
+   <td style="text-align:center;"> 2977 </td>
+   <td style="text-align:center;"> 2977 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> R2 </td>
+   <td style="text-align:center;"> 0.139 </td>
+   <td style="text-align:center;"> 0.140 </td>
+   <td style="text-align:center;"> 0.131 </td>
+   <td style="text-align:center;"> 0.134 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> RMSE </td>
+   <td style="text-align:center;"> 219.86 </td>
+   <td style="text-align:center;"> 219.71 </td>
+   <td style="text-align:center;"> 1.33 </td>
+   <td style="text-align:center;"> 1.33 </td>
+  </tr>
+</tbody>
+<tfoot><tr><td style="padding: 0; " colspan="100%">
+<sup></sup> + p &lt; 0.1, * p &lt; 0.05, ** p &lt; 0.01, *** p &lt; 0.001</td></tr></tfoot>
+<tfoot>
+<tr><td style="padding: 0; " colspan="100%"><span style="font-style: italic;">Note: </span></td></tr>
+<tr><td style="padding: 0; " colspan="100%">
+<sup></sup> Industry classification by SIC codes.</td></tr>
+</tfoot>
+</table>
+
 </section>
 <section id="discussion" class="level2">
 <h2 class="anchored" data-anchor-id="discussion">Discussion</h2>
@@ -336,7 +531,7 @@ Tobin's Q Growth
 <p>The use of BERT, and the consequent limitation regarding text length, posed additional challenges in this research. In recent years, the possibilities for utilizing AI have grown immensely. With the help of GitHub Actions, we were able to obtain suitable access to Gemini. This brings us to the most critical point of this work. This approach raises transparency issues for the results. The system does not provide explainable intelligence, meaning we cannot fully verify how exactly the texts are generated. Our only option is to delegate the task and trust the results’ accuracy.</p>
 <p>Nevertheless, we consider the current approach as the best possible solution for condensing our business models. On the one hand, the extracted texts do not follow the same structure across companies, and on the other, cutting the business models arbitrarily poses too great a risk. Losing up to 90% of the content would be unacceptable in this case, and due to structural differences, this becomes impossible beyond certain key points. Moreover, the summaries generated by GPT have sometimes been perceived as better than models specifically designed for this purpose (2). A significant portion of this work involved data collection, which proved to be a major challenge. Due to the lack of access to Compustat, commonly used in financial studies and for SEC-related information, we had to rely on extensive research. Various approaches had to be abandoned as they failed to meet expectations. Nonetheless, we were able to complete our work, though with a few compromises regarding data volume.</p>
 <p>A significant portion of this work involved data collection, which proved to be a major challenge. Due to the lack of access to Compustat, commonly used in financial studies and for SEC-related information, we had to rely on extensive research. Various approaches had to be abandoned as they failed to meet expectations. Nonetheless, we were able to complete our work, though with a few compromises regarding data volume.</p>
-<p>In conclusion, the findings of our study suggest that Business Model Innovation (BMI) is associated with improved performance, specifically in terms of operating revenue. However, we can only report a correlation rather than a causal effect, as the complexity of organizations is substantial, and our dataset does not allow for definitive conclusions regarding causality. Nonetheless, this study can be viewed as a continuation of the approach by Hoberg et al., and the examination of BMI’s impact on performance could be further explored in future studies, offering valuable extensions to this research.</p>
+<p>In conclusion, the findings of our study suggest that BMI is associated with improved performance, specifically in terms of operating revenue. However, we can only report a correlation rather than a causal effect, as the complexity of organizations is substantial, and our dataset does not allow for definitive conclusions regarding causality. Nonetheless, this study can be viewed as a continuation of the approach by Hoberg &amp; Phillips <span class="citation" data-cites="hoberg_text-based_2016">(<a href="#ref-hoberg_text-based_2016" role="doc-biblioref">2016</a>)</span>, and the examination of BMI’s impact on performance could be further explored in future studies, offering valuable extensions to this research.</p>
 </section>
 </section>
 <section id="conclusion" class="level1">
@@ -427,7 +622,7 @@ Zott, Christoph, and Raphael Amit. 2008. <span>“The Fit Between Product Market
 </section>
 <section id="appendix-c" class="level2">
 <h2 class="anchored" data-anchor-id="appendix-c">Appendix C</h2>
-<p>In our second dataset we winsorize only the top quantile. Figure 3 presents a boxplot of the distribution of the sales growth and also explains our reasoning behind this decision. The boxplot shows that the big majority of observations has a growth rate below 1,000 percent. Sales growth rates of multiple ten thousand percent or even of a couple million percent seem very unrealistic and are probably due to poor data quality. By winsorizing at the top one percent quantile, we get ride of these unrealistically high values. For the sake of completeness, Table 6 reports the regression results without winsorizing the data. All coefficients are not significant anymore while their values and their standard errors increase massively. The residual standard error also increases by over 400,000 percent between the results from Table 4 and Table 6.</p>
+<p>In our second dataset we winsorize only the top quantile. Figure 3 presents a boxplot of the distribution of the sales growth and also explains our reasoning behind this decision. The boxplot shows that the big majority of observations has a growth rate below 1,000 percent. Sales growth rates of multiple ten thousand percent or even of a couple million percent seem very unrealistic and are probably due to poor data quality. By winsorizing at the top one percent quantile, we get ride of these unrealistically high values. For the sake of completeness, Table 6 reports the regression results without winsorizing the data. All coefficients are not significant anymore while their values and their standard errors increase massively.</p>
 <div id="fig-3" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -438,6 +633,80 @@ Figure&nbsp;3: Distribution of the Sales Growth
 </figcaption>
 </figure>
 </div>
+<table style="NAborder-bottom: 0; width: auto !important; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;border-bottom: 0;" class="table table">
+<caption>Regression Results (Not Winsorized)</caption>
+ <thead>
+<tr>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="1"></th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">Sales Growth</div></th>
+</tr>
+  <tr>
+   <th style="text-align:left;">   </th>
+   <th style="text-align:center;"> &nbsp;(1) </th>
+   <th style="text-align:center;"> &nbsp;&nbsp;(2) </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> Normalized Distance </td>
+   <td style="text-align:center;"> 41.999 </td>
+   <td style="text-align:center;"> 41.800 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;"> (50.080) </td>
+   <td style="text-align:center;"> (50.087) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> log(Market Value) </td>
+   <td style="text-align:center;"> 581.110 </td>
+   <td style="text-align:center;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;"> (420.543) </td>
+   <td style="text-align:center;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> log(Assets) </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;"> 330.692 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;box-shadow: 0px 1.5px">  </td>
+   <td style="text-align:center;box-shadow: 0px 1.5px">  </td>
+   <td style="text-align:center;box-shadow: 0px 1.5px"> (423.289) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Num.Obs. </td>
+   <td style="text-align:center;"> 12155 </td>
+   <td style="text-align:center;"> 12155 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Industry x Year Fixed Effects </td>
+   <td style="text-align:center;"> Yes </td>
+   <td style="text-align:center;"> Yes </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> R2 </td>
+   <td style="text-align:center;"> 0.458 </td>
+   <td style="text-align:center;"> 0.458 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> RMSE </td>
+   <td style="text-align:center;"> 91778.53 </td>
+   <td style="text-align:center;"> 91784.54 </td>
+  </tr>
+</tbody>
+<tfoot><tr><td style="padding: 0; " colspan="100%">
+<sup></sup> + p &lt; 0.1, * p &lt; 0.05, ** p &lt; 0.01, *** p &lt; 0.001</td></tr></tfoot>
+<tfoot>
+<tr><td style="padding: 0; " colspan="100%"><span style="font-style: italic;">Note: </span></td></tr>
+<tr><td style="padding: 0; " colspan="100%">
+<sup></sup> This is the same estimation as in Table 3, but without winsorizing the data.</td></tr>
+</tfoot>
+</table>
+
 </section>
 </section>
 
