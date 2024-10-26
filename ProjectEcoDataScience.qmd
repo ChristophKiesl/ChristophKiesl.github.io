@@ -171,6 +171,10 @@ $$
 The Normalized Distance measures the difference in the distance between two consecutive summaries of some company above the market average in percentage points. Under the assumption that the summaries reliably represent the firms' BM, the Normalized Distance measures the change of a company's BM above the market average in percentage points from one year to the next. We further assume that a company that changes its BM, will not return back to its original BM. Under this assumption the Normalized Distance measures BMI on the new-to-the-firm level. The literature posits that changes in the business model can be positively correlated with firm performance. In the case that our measure is able to measure BMI, we expect to find a positive relationship between our BMI measure and firm performance. Therefore, we hypothesize that:
 
   **H3**: Our measure for BMI is positively correlated with firm performance.
+  
+When measuring BMI, Guldmann and Huulgaard (2019) assume several barriers to BMI in the circular economy, comparing differences between company sizes and equal company sizes. They found that even same-sized companies face different barriers to BMI, but also identify company size, industry and customer segments as drivers of differences in barriers to BMI. There is a gap in the literature when it comes to investigating the effect of BMI on the performance of different company sizes. According to our database, we expect higher effects for companies with lower market capitalization, while companies with medium or high market capitalization tend to show a zero effect, which is why we put forward the following hypothesis:
+
+  **H4**: Business Model Innovation (BMI) has a stronger positive impact on the performance of small companies compared to medium and large companies. 
 
 ```{r echo=FALSE, warning = FALSE, message = FALSE, results='asis'}
 #| label: fig-1
@@ -202,7 +206,7 @@ Figure1
 
 We test H3 using multivariate regression techniques. The independent variable is the Normalized Distance, as previously defined. Two different dependent variables are employed in order to measure a company's performance. In the initial specification, the sales growth is used as the dependent variable as by Cucculelli & Bettinelli [-@cucculelli_business_2015]. For this specification, the second dataset is employed, and all observations with zero values for market value and total assets were removed in order to take the logarithms. We control for firm size by once using the logarithm of the market value and once the logarithm of total assets [@dang2018measuring]. Moreover, outliners are winsorized only above the 99th percentile. For a more detailed discussion of this step, see Appendix C. We use the interaction term of the year and our BERTScore industry classification as a fixed effect. The interaction term of the year and the industry is employed to capture potential heterogeneous effects of the industry classification across different years. The economic and political environment is not controlled for, as White et al. [-@white_exploring_2022] suggest, as all of the companies in question are based in the United States.
 
-In the second specification the growth of Tobin's Q is employed as described by Desyllas et al. [-@Desyllas2022]. To account for differences between companies, we us growth rates instead of absolute values. The third dataset is used for this specification. Since every company is one observation in the dataset, we control for the firm size once with the logarithm of the mean market value and once with the logarithm of the mean total assets of a company. The mean is calculated with all available years per company. Furthermore, the number of years between the initial and final years utilized for Tobin's Q growth is controlled for. The reason behind this is, that some companies in the dataset initially appear later than 2017 or lastly do not appear in 2023. We use fixed effects to control for this difference. Furthermore, we use industry fixed effects to control for heterogeneous effects between industries. As in the first specification, we do not control for the economic and political environment.
+In the second specification the growth of Tobin's Q is employed as described by Desyllas et al. [-@Desyllas2022]. To account for differences between companies, we us growth rates instead of absolute values. The third dataset is used for this specification. Since every company is one observation in the dataset, we control for the firm size once with the logarithm of the mean market value and once with the logarithm of the mean total assets of a company. The mean is calculated with all available years per company. Furthermore, the number of years between the initial and final years utilized for Tobin's Q growth is controlled for. The reason behind this is, that some companies in the dataset initially appear later than 2017 or lastly do not appear in 2023. We use industry fixed effects to control for heterogeneous effects between industries. As in the first specification, we do not control for the economic and political environment.
 
 # Results and Discussion
 ## Comparison
@@ -256,11 +260,13 @@ Figure2
 
 ## Results
 
-Table 3 presents the four regressions related to hypothesis H3. As previously described, this relationship is examined using sales growth and Tobin's Q growth as firm performance indicators. Models 1 and 2 use sales growth as the dependent variable. Model 1 shows a significant positive effect for the Normalized Distance ($beta$ = 0.289, p < 0.01) on the sales growth. The results can be interpreted as that a company, that changes its BM in one year one percentage point more than the market average, experiences on average 0.289 percentage points more growth in sales. Model 2 as well shows this significant positive effect ($beta$ = 0.292, p < 0.01). Both regressions yield very similar results regardless of whether we include the logarithm of the market value ($beta$ = -1.014, p > 0.1) or the logarithm of the total assets ($beta$ = -2.155, p < 0.05) as a control variable for the firm size. These results provide support for H3.
+Table 3 presents the four regressions related to hypothesis H3. As previously described, this relationship is examined using sales growth and Tobin's Q growth as firm performance indicators. Models 1 and 2 use sales growth as the dependent variable. Model 1 shows a significant positive effect for the Normalized Distance ($beta$ = 0.289, p < 0.01) on the sales growth. The results can be interpreted as that a company, that innovates its BM in one year one percentage point more than the market average, experiences on average 0.289 percentage points more growth in sales. Model 2 as well shows this significant positive effect ($beta$ = 0.292, p < 0.01). Both regressions yield very similar results regardless of whether we include the logarithm of the market value ($beta$ = -1.014, p > 0.1) or the logarithm of the total assets ($beta$ = -2.155, p < 0.05) as a control variable for the firm size. These results provide support for H3.
 
-Model 3 and 4 assess the effect of the Normalized Distance on Tobin's Q growth. Both Models show a negative significant effect ($beta$ = -0.007, p < 0.001 and $beta$ = -0.008, p < 0.001). This can be interpreted as indicating that a company that changes its BM by one percentage point more than the market average over the observation period will experience, on average, a reduction in Tobin's Q growth of 0.008, respectively 0.007, percentage points. As in Model 1 and 2, the coefficients for the Normalized Distance only change very little when controlling for the logarithm of the market value instead of the logarithm of the total assets. The results do not support H3, since we anticipated a positive effect.
+Model 3 and 4 evaluate the effect of the Normalized Distance on Tobin's Q growth. Both specifications show the same negative significant effect($beta$ = -0.008, p < 0.001)
 
-In summary, the findings indicate that business model adaptation has a significant impact on firm performance. Specifically, business model changes have a positive effect on operational metrics such as sales growth, which can be viewed as a positive outcome. However, the stock market does not respond as favorably to such changes. Tobin's Q growth decreases when companies adjust their business models, meaning the ratio of market value to total capital declines. This effect is not necessarily problematic, as market value is influenced by stock trading, which incorporates subjective evaluations that are reflected in this metric.
+Since Tobin's Q is defined as market value divided by total capital, the relationship should mirror the patterns observed with market value and total capital in the previous regressions. This effect is observed in both regressions where Tobin's Q is the dependent variable. In regression (4), both control variables are significant, while in regression (3), only TimeDiff shows significance.
+
+In summary, the findings indicate that business model adaptation has a significant impact on firm performance. Specifically, business model changes have a positive effect on operational metrics such as sales growth, which can be viewed as a positive outcome. However, the stock market does not respond as favorably to such changes. Tobin's Q ratio decreases when companies adjust their business models, meaning the ratio of market value to total capital declines. This effect is not necessarily problematic, as market value is influenced by stock trading, which incorporates subjective evaluations that are reflected in this metric.
 
 ```{r echo=FALSE, warning = FALSE, message = FALSE, results='asis'}
 #Main Regression Results
@@ -286,23 +292,21 @@ Reg2 = felm(RevenueGrowth~NormalizedDistance + log(Total.Assets) | year * Indust
 #Tobin's Q
 TobinsQ = read.csv("./TableData/Regression/TobinsQGrowth.csv") %>%
     filter(MeanMV>0, MeanAssets >0,TimeDiff>0)%>%
-    mutate(Industry = as.factor(Industry),
-           TimeDiff = as.factor(TimeDiff))
+    mutate(Industry = as.factor(Industry))
 
-Reg3 = felm(TobinsQGrowth~NormalizedDistance + log(MeanMV) + TimeDiff| Industry | 0 | 0 ,data=TobinsQ)
-Reg4 = felm(TobinsQGrowth~NormalizedDistance + log(MeanAssets) + TimeDiff| Industry | 0 | 0 ,data=TobinsQ)
+Reg3 = felm(TobinsQGrowth~NormalizedDistance + log(MeanAssets) + TimeDiff| Industry | 0 | 0 ,data=TobinsQ)
+Reg4 = felm(TobinsQGrowth~NormalizedDistance + log(MeanMV) + TimeDiff| Industry | 0 | 0 ,data=TobinsQ)
 
 #model summary output
 rows <- tribble(~term, ~Reg1, ~Reg2, ~Reg3, ~Reg4,
                 'Industry x Year Fixed Effects', 'Yes', 'Yes', 'No', 'No',
-                'Industry Fixed Effects', 'No', 'No', 'Yes', 'Yes',
-                'Time Difference Fixed Effects', 'No', 'No', 'Yes', 'Yes')
-attr(rows, 'position') <- c(11, 12, 13)
+                'Industry Fixed Effects', 'No', 'No', 'Yes', 'Yes')
+attr(rows, 'position') <- c(13, 14)
 
 modelsummary(models = list("(1)" = Reg1, "(2)" = Reg2, "(3)" = Reg3, "(4)" = Reg4),
              output = "kableExtra",
              title = "Regression Results",
-             coef_map = c("NormalizedDistance" = "Normalized Distance", "log(MV)" = "log(Market Value)", "log(Total.Assets)" = "log(Assets)", "log(MeanMV)" = "log(Mean Market Value)", "log(MeanAssets)" = "log(Mean Assets)"),
+             coef_map = c("NormalizedDistance" = "Normalized Distance", "log(MV)" = "log(Market Value)", "log(Total.Assets)" = "log(Assets)", "log(MeanAssets)" = "log(Mean Assets)", "log(MeanMV)" = "log(Mean Market Value)", "TimeDiff" = "Time Difference"),
              gof_map = c("nobs", "r.squared","rmse"),
              stars = TRUE,
              add_rows = rows
@@ -315,7 +319,7 @@ modelsummary(models = list("(1)" = Reg1, "(2)" = Reg2, "(3)" = Reg3, "(4)" = Reg
 
 ## Robustness Checks
 
-To check the validity and reliability of this study, we conduct a series of robustness checks, illustrating alternative models. We do not logarithmize revenue growth and normalized distance. Revenue growth can assume negative values and is a relative measure. The normalized distance is also a relative measure, and the distance itself is characterized by a norm distribution (according to Figure 1). Logarithmization is therefore not necessary. The use of market value and total assets as control variables makes it possible to control for the size of the company, which results on the one hand from supply and demand on the capital market, and on the other hand from the actual book value of the company. The correlation between these two variables is approximately 0.5. In Table 4, we perform a regression using SIC codes instead of the industry classification based on BERTScores as fixed effects.
+To check the validity and reliability of this study, we conduct a series of robustness checks, illustrating alternative models. The revenue growth and the normalized distance are not logarithmized in this specification. Revenue growth can assume negative values and is a relative measure. The normalized distance is also a relative measure, and the distance itself is characterized by a norm distribution (according to Figure 1). Logarithmization is therefore not required. The use of market value and total assets as control variables makes it possible to control for the size of the company, which results on the one hand from supply and demand on the capital market, and on the other hand from the actual book value of the company. The correlation between these two variables is approximately 0.5. In Table 4, we perform a regression using SIC codes instead of the industry classification based on BERTScores as fixed effects.
 
 The number of observations decreases due to missing SIC codes for non-surviving companies. As a result Table 4 rather tend to contain a survivor ship bias. Furthermore, the coefficients for sales growth are not significant anymore, the standard errors of the coefficients are increasing despite lower coefficient values. The value for $R^2$ also decreases for every model. The number of observations decreases due to missing SIC codes for non-surviving companies. As a result, the models in Table 4 contain a survivor ship bias. In addition, the coefficients for sales growth are no longer significant, the standard errors of the coefficients increase despite lower coefficient values. The value for $R^2$ also decreases for each model. As a result, BERT-based industry classifications as fixed effects tend to contain industry-based endogenous effects and thus increase the validity of the model and the informative value of the model. 
 
