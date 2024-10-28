@@ -85,7 +85,7 @@ Business model innovation (BMI) is a key activity to maintain competitiveness an
 
 Scales and measures used in the BMI literature [@clauss_measuring_2017;@spieth_business_2016] provide managers and practitioners with a measurement index for business model innovativeness. But these measures only validate applicability of BMI theory [@huang_review_2023] and are insufficient for longitudinal studies [@clauss_measuring_2017]. Hence, these measures are not adequate for a time series analysis of BMI. We address this gap by proposing a novel approach to measuring BMI. US-based companies are obliged by the United States Security and Exchange Commission (SEC) to submit annual 10-K filings, wherein a detailed description of the company's business operations is required. Hoberg & Phillips [-@hoberg_text-based_2016], on which we build this study, use these filings to cluster companies into industries. We, on the other hand, summarize these descriptions with Gemini and calculate the BERTScore between the summaries of different years for a single company. This approach enables the measurement of changes in the business model (BM) over time as the distance between the BM summary of one year to another. In order to test the validity of our measure, we regress sales growth and Tobin's Q growth on our measure. Additionally, we create our own industry classification based on BERTScores of business descriptions of same firms within the same year.
 
--   Key findings and Contribution: We therefore compare the text similarities of the same companies over several years and find that above-average changes in the texts have a significantly positive effect on performance measures such as sales growth and Tobin's Q. However, BMI affects companies of different sizes differently, which is why we classify company size based on turnover and find that the larger the company, the smaller the effect of BMI on company performance.
+-   Key findings and Contribution: We therefore compare the text similarities of the same companies over several years and find that above-average changes in the texts have a significantly positive effect on performance measures such as sales growth and Tobin's Q. However, BMI affects companies of different sizes differently, which is why we classify company size by market value and find that BMI has a greater impact on company performance for smaller companies than medium and large companies. 
 
 The SEC mandates that the majority of public companies based in the United States submit an annual 10-K filing. In the first section under the subtitle "Business," a company presents its general business, encompassing information about its products and services. In some instances additional topics may be addressed, such as labor issues or competition [@sec_investor_2024]. In conclusion, this section contains the most useful information for describing a company's BM [@lee_business_2014]. Furthermore, 10-K filings are a reliable source of information, given that US law prohibits false or misleading statements in the filings. The SEC monitors the compliance of the companies with the requirements and comments where disclosure appears to be inconsistent [@sec_investor_2024]. Because of these guidelines, these descriptions are particularly suitable for a text analysis in order to quantify a BM. 
 
@@ -208,6 +208,9 @@ We test H3 using multivariate regression techniques. The independent variable is
 
 In the second specification the growth of Tobin's Q is employed as described by Desyllas et al. [-@Desyllas2022]. To account for differences between companies, we us growth rates instead of absolute values. The third dataset is used for this specification. Since every company is one observation in the dataset, we control for the firm size once with the logarithm of the mean market value and once with the logarithm of the mean total assets of a company. The mean is calculated with all available years per company. Furthermore, the number of years between the initial and final years utilized for Tobin's Q growth is controlled for. The reason behind this is, that some companies in the dataset initially appear later than 2017 or lastly do not appear in 2023. We use fixed effects to control for this difference. Furthermore, we use industry fixed effects to control for heterogeneous effects between industries. As in the first specification, we do not control for the economic and political environment.
 
+We use a similar multivariate regression model to test hypothesis 4. In contrast to the previous specification, we only use sales growth as the dependent variable, as we would otherwise have too few observations available for our model due to the sample split. We divide the data set into three different groups, using a flat split of market capitalization defined by NASDAQ as the thresholds. Accordingly, companies with a market capitalization of up to 1 billion US dollars are assigned to small-cap firms, up to 5 billion US dollars to mid-cap firms and beyond that to large-cap firms. Finally, all models are controlled for total assets while fixed effects are used for the years of observation and the BERT-based industry. 
+
+
 # Results and Discussion
 ## Comparison
 
@@ -264,8 +267,6 @@ Table 3 presents the four regressions related to hypothesis H3. As previously de
 
 Model 3 and 4  assess the effect of the Normalized Distance on Tobin's Q growth. Both Models show a negative significant effect ($beta$ = -0.007, p < 0.001 and $beta$ = -0.008, p < 0.001). This can be interpreted as indicating that a company that changes its BM by one percentage point more than the market average over the observation period will experience, on average, a reduction in Tobin's Q growth of 0.008, respectively 0.007, percentage points. As in Model 1 and 2, the coefficients for the Normalized Distance only change very little when controlling for the logarithm of the market value instead of the logarithm of the total assets. The results do not support H3, since we anticipated a positive effect.
 
-In summary, the findings indicate that business model adaptation has a significant impact on firm performance. Specifically, business model changes have a positive effect on operational metrics such as sales growth, which can be viewed as a positive outcome. However, the stock market does not respond as favorably to such changes. Tobin's Q growth decreases when companies adjust their business models, meaning the ratio of market value to total capital declines. This effect is not necessarily problematic, as market value is influenced by stock trading, which incorporates subjective evaluations that are reflected in this metric.
-
 ```{r echo=FALSE, warning = FALSE, message = FALSE, results='asis'}
 #Main Regression Results
 library(tidyverse)
@@ -316,6 +317,20 @@ modelsummary(models = list("(1)" = Reg1, "(2)" = Reg2, "(3)" = Reg3, "(4)" = Reg
   footnote("Industry classification by BERTScore.")
 
 ```
+
+With regard to company size, Table 4 confirms hypothesis 4, in which we expect a stronger positive effect ($beta$ = 0.838) for (1) small-cap companies than for (2) mid-cap ($beta$ =-0.124) and (3) large-cap (3) ($beta$ = 0.007) companies. We only obtain a significant coefficient for the small-cap specification (p < 0.01), which is why a null hypothesis cannot be rejected for the models (2) and (3). 
+
+In summary, the findings indicate that business model adaptation has a significant impact on firm performance. Specifically, business model changes have a positive effect on operational metrics such as sales growth, which can be viewed as a positive outcome. A differentiated view of market capitalization shows that the business model innovation (BMI) of smaller companies predominantly has a positive impact on sales growth. In contrast, medium-sized companies have a negative effect, while large companies only show a marginal positive effect. However, the stock market does not respond as favorably to such changes. Tobin's Q growth decreases when companies adjust their business models, meaning the ratio of market value to total capital declines. This effect is not necessarily problematic, as market value is influenced by stock trading, which incorporates subjective evaluations that are reflected in this metric.
+
+
+
+
+
+
+
+
+
+
 
 ## Robustness Checks
 
