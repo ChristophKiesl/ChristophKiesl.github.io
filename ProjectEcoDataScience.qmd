@@ -263,7 +263,7 @@ Table 3 presents the four regressions related to hypothesis H3. As previously de
 
 Model 3 and 4  assess the effect of the Normalized Distance on Tobin's Q growth. Both Models show a negative significant effect ($beta$ = -0.007, p < 0.001 and $beta$ = -0.008, p < 0.001). This can be interpreted as indicating that a company that changes its BM by one percentage point more than the market average over the observation period will experience, on average, a reduction in Tobin's Q growth of 0.008, respectively 0.007, percentage points. As in Model 1 and 2, the coefficients for the Normalized Distance only change very little when controlling for the logarithm of the market value instead of the logarithm of the total assets. The results do not support H3, since we anticipated a positive effect.
 
-Table 4 shows the results of the split model. We find a significant positive effect ($beta$ = 0.536, p < 0.01) for small-cap companies and no significant effect for mid-cap ($beta$ =0.008, p > 0.1) and large-cap ($beta$ = 0.106, p > 0.1) companies. These results shows that the positive effect of BMI is in fact stronger than for mid-cap and large-cap companies since for both the coefficients are not significant. This supports H4.
+Version 1: Table 4 shows the results of the split model. We find a significant positive effect ($beta$ = 0.536, p < 0.01) for small-cap companies and no significant effect for mid-cap ($beta$ =0.008, p > 0.1) and large-cap ($beta$ = 0.106, p > 0.1) companies. These results shows that the positive effect of BMI is in fact stronger than for mid-cap and large-cap companies since for both the coefficients are not significant. This supports H4.
 
 In summary, the findings indicate that business model adaptation has a significant impact on firm performance. Specifically, business model changes have a positive effect on operational metrics such as sales growth, which can be viewed as a positive outcome. A differentiated view of market capitalization shows that the BMI of smaller companies predominantly has a positive impact on sales growth. In contrast, medium-sized companies have a negative effect, while large companies only show a marginal positive effect. However, the stock market does not respond as favorably to such changes. Tobin's Q growth decreases when companies adjust their business models, meaning the ratio of market value to total capital declines. This effect is not necessarily problematic, as market value is influenced by stock trading, which incorporates subjective evaluations that are reflected in this metric.
 
@@ -358,7 +358,7 @@ modelsummary(models = list("Small-Cap" = Reg1, "Mid-Cap" = Reg2, "Large-Cap" = R
 ```
 
 
-Table 4 illustrates how the previously demonstrated effects influences individual firm sizes. In the overall analysis, the effects are significant and support our hypothesis. When we differentiate the companies into Small-cap (6,573 observations), Mid-cap (2,923 observations), and Large-cap (2,659 observations), the explanatory coefficients reveal substantial differences. The small firms exhibit by far the most significant effect on the altered distance, which is also significant at the 5% level. In contrast, for large companies, we observe only approximately 20% of the effect of the business model change on sales figures. Furthermore, the coefficient does not even exceed one standard deviation, indicating a lack of significance. The situation is even less favorable for mid-sized companies, as evidenced by both the coefficient and standard deviation. The value of the distance effect accounts for merely 8% of that observed in large companies, while the standard deviation stands at 0.254, more than twice as high. Therefore, we can conclude that the previously observed effect across all firms can primarily be attributed to small firms. For medium to large firms, no discernible impact is evident.
+Version 2: Table 4 illustrates how the previously demonstrated effects influences individual firm sizes. In the overall analysis, the effects are significant and support our hypothesis. When we differentiate the companies into Small-cap (6,573 observations), Mid-cap (2,923 observations), and Large-cap (2,659 observations), the explanatory coefficients reveal substantial differences. The small firms exhibit by far the most significant effect on the altered distance, which is also significant at the 5% level. In contrast, for large companies, we observe only approximately 20% of the effect of the business model change on sales figures. Furthermore, the coefficient does not even exceed one standard deviation, indicating a lack of significance. The situation is even less favorable for mid-sized companies, as evidenced by both the coefficient and standard deviation. The value of the distance effect accounts for merely 8% of that observed in large companies, while the standard deviation stands at 0.254, more than twice as high. Therefore, we can conclude that the previously observed effect across all firms can primarily be attributed to small firms. For medium to large firms, no discernible impact is evident.
 
 
 
@@ -485,17 +485,17 @@ library(knitr)
 library(kableExtra)
 library(readxl)
 
-Table3 = read_excel("./TableData/Table3.xlsx")%>%
+Table6 = read_excel("./TableData/Table6.xlsx")%>%
   select(-c("...1"))%>%
-  mutate(durchschnitt = round(durchschnitt,0),
-         standardabweichung= round(standardabweichung,0),
+  mutate(average = round(average,0),
+         standard_deviation= round(standard_deviation,0),
          `25%_quantil` = round(`25%_quantil`,0),
          `75%_quantil` = round(`75%_quantil`,0))%>%
     kable(format="latex",label="tbl-table5",col.names = c("Report-for Year","Average Word Count","Standard Deviation","Minimum","25th Percentile","Median","75th Percentile","Maximum"),booktabs = T, caption = "Descriptive Statistics of Number of Words of our Summaries")%>%
   kable_styling(latex_options = c("scale_down","HOLD_position"))%>%
   footnote("All 21,417 summaries were considered.")
 
-Table3
+Table6
 ```
 
 [^4]: The spelling error in the last sentence of the prompt was found after processing Item 1. After evaluating the summaries, this error did not cause any issues.
