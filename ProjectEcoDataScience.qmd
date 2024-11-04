@@ -509,6 +509,7 @@ kable(format="latex",label="tbl-table6",col.names = c("Company Name","Year","Acc
 Table7
 ```
 
+We find that the summaries are valid overall and consistently reflect the business model. It must also be taken into account that the evaluation criteria “Accuracy” and “Relevance” are to a certain extent in a trade-off situation. A suitable optimum was found in all summaries. One conspicuous feature was that although strong diversification tends to be mentioned in the summaries, no possible interaction between these areas is discussed. 
 
 ## Appendix C
 
