@@ -192,27 +192,28 @@ When measuring BMI, Guldmann & Huulgaard [-@guldmann_barriers_2020] assume sever
   
 # Estimation Strategy
 
-We test H3 using multivariate regression techniques. The independent variable is the Normalized Distance, as previously defined. Two different dependent variables are employed in order to measure a company's performance. In the initial specification, the sales growth is used as the dependent variable as by Cucculelli & Bettinelli [-@cucculelli_business_2015]. For this specification, the second dataset is employed, and all observations with zero values for market value and total assets were removed in order to take the logarithms. We control for firm size by once using the logarithm of the market value and once the logarithm of total assets [@dang2018measuring]. Moreover, outliners are winsorized only above the 99th percentile. For a more detailed discussion of this step, see Appendix C. We use the following regressions to estimate the normalized distance:
+We test H3 using multivariate regression techniques. The independent variable is the Normalized Distance, as previously defined. Two different dependent variables are employed in order to measure a company's performance. In the initial specification, the sales growth is used as the dependent variable as by Cucculelli & Bettinelli [-@cucculelli_business_2015]. For this specification, the second dataset is employed, and all observations with zero values for market value and total assets were removed in order to take the logarithms. We control for firm size by once using the logarithm of the market value and once the logarithm of total assets [@dang2018measuring]. Moreover, outliners are winsorized only above the 99th percentile. For a more detailed discussion of this step, see Appendix C. The following regressions are used to estimate the normalized distance:
 $$
-\begin{equation}
-Y_{SalesGrowth} = \beta_0 + \beta_1 X_{Normalized Distance} + \beta_2 X_{MarketValue} + \gamma_{\text{year} \times \text{industry}} + \epsilon_{it}
-\tag{1}
-\end{equation}
+\begin{array}{l}
+\text{(1) }Y_{\text{Sales Growth}} = \beta_0 + \beta_1 X_{\text{Normalized Distance}} + \beta_2 \ln(X_{\text{Market Value}}) + \gamma_{\text{year} \times \text{industry}} + \epsilon_{it}
+\\[0.5cm]
+\text{(2) }Y_{\text{Sales Growth}} = \beta_0 + \beta_1 X_{\text{Normalized Distance}} + \beta_2 \ln(X_{\text{Total Assets}}) + \gamma_{\text{year} \times \text{industry}} + \epsilon_{it}
+\\[0.5cm]
+\text{(3) }Y_{\text{Tobin's Q Growth}} = \beta_0 + \beta_1 X_{\text{Normalized Distance}} + \beta_2 \ln(X_{\text{Mean Market Value}}) + \gamma_{\text{industry}} + \epsilon_{it}
+\\[0.5cm]
+\text{(4) }Y_{\text{Tobin's Q Growth}} = \beta_0 + \beta_1 X_{\text{Normalized Distance}} + \beta_2 \ln(X_{\text{Mean Total Assets}}) + \gamma_{\text{industry}} + \epsilon_{it}
+\end{array}
 $$
-
-$$
-\begin{equation}
-Y_{it} = \beta_0 + \beta_1 X_{Normalized Distance} + \beta_2 X_{Total Assets} + \gamma_{\text{year} \times \text{industry}} + \epsilon_{it}
-\tag{1}
-\end{equation}
-$$
-
 
 We use the interaction term of the year and our BERTScore industry classification as a fixed effect. The interaction term of the year and the industry is employed to capture potential heterogeneous effects of the industry classification across different years. The economic and political environment is not controlled for, as White et al. [-@white_exploring_2022] suggest, as all of the companies in question are based in the United States.
+In the second specification the growth of Tobin's Q is employed as described by Desyllas et al. [-@Desyllas2022]. To account for differences between companies, we us growth rates instead of absolute values. The third dataset is used for this specification. Since every company is one observation in the dataset, we control for the firm size once with the logarithm of the mean market value and once with the logarithm of the mean total assets of a company. The mean is calculated with all available years per company. Furthermore, the number of years between the initial and final years utilized for Tobin's Q growth is controlled for. The reason behind this is, that some companies in the dataset initially appear later than 2017 or lastly do not appear in 2023. We use fixed effects to control for this difference. Furthermore, we use industry fixed effects to control for heterogeneous effects between industries. As in the first specification, we do not control for the economic and political environment. We use a similar multivariate regression model to test H4:
+$$
+\begin{array}{l}
+\text{(5) }Y_{\text{Sales Growth, k}} = \beta_{0, k} + \beta_{1, k} X_{\text{Normalized Distance}} + \beta_{2, k} \ln(X_{\text{Total Assets}}) + \gamma_{\text{year} \times \text{industry}} + \epsilon_{it, k}
+\end{array}
+$$
 
-In the second specification the growth of Tobin's Q is employed as described by Desyllas et al. [-@Desyllas2022]. To account for differences between companies, we us growth rates instead of absolute values. The third dataset is used for this specification. Since every company is one observation in the dataset, we control for the firm size once with the logarithm of the mean market value and once with the logarithm of the mean total assets of a company. The mean is calculated with all available years per company. Furthermore, the number of years between the initial and final years utilized for Tobin's Q growth is controlled for. The reason behind this is, that some companies in the dataset initially appear later than 2017 or lastly do not appear in 2023. We use fixed effects to control for this difference. Furthermore, we use industry fixed effects to control for heterogeneous effects between industries. As in the first specification, we do not control for the economic and political environment.
-
-We use a similar multivariate regression model to test H4. In contrast to the previous specification, we only use sales growth as the dependent variable, as we would otherwise have too few observations available for our model due to the sample split. We divide the dataset into three different groups, using a flat split of market capitalization defined by NASDAQ as the thresholds. Accordingly, companies with a market capitalization of up to one billion US dollars are assigned to small-cap firms, companies up to five billion US dollars to mid-cap firms and companies larger than that to large-cap firms. As in the first specification, we use the interaction term of the year and our BERTScore industry classification as a fixed effect and control for firm size via the logarithm of the total assets.
+$\text{whereby } k \in \{\text{Small-Cap}, \text{Mid-Cap}, \text{Large-Cap}\}$. In contrast to the previous specification, we only use sales growth as the dependent variable, as we would otherwise have too few observations available for our model due to the sample split. We divide the dataset into three different groups, using a flat split of market capitalization defined by NASDAQ as the thresholds. Accordingly, companies with a market capitalization of up to one billion US dollars are assigned to small-cap firms, companies up to five billion US dollars to mid-cap firms and companies larger than that to large-cap firms. As in the first specification, we use the interaction term of the year and our BERTScore industry classification as a fixed effect and control for firm size via the logarithm of the total assets.
 
 # Results and Discussion
 ## Comparison
@@ -269,13 +270,10 @@ In order to use our BERTScore industry classification in our estimation, we clas
 
 ## Results
 
-Table 3 presents the four regressions related to hypothesis H3. As previously described, this relationship is examined using sales growth and Tobin's Q growth as firm performance indicators. Models 1 and 2 use sales growth as the dependent variable. Model 1 shows a significant positive effect for the Normalized Distance ($beta$ = 0.289, p < 0.01) on the sales growth. The results can be interpreted as that a company, that changes its BM in one year one percentage point more than the market average, experiences on average 0.289 percentage points more growth in sales. Model 2 as well shows this significant positive effect ($beta$ = 0.292, p < 0.01). Both regressions yield very similar results regardless of whether we include the logarithm of the market value ($beta$ = -1.014, p > 0.1) or the logarithm of the total assets ($beta$ = -2.155, p < 0.05) as a control variable for the firm size. These results provide support for H3.
+Table 3 presents the four regressions related to hypothesis H3. As previously described, this relationship is examined using sales growth and Tobin's Q growth as firm performance indicators. Models 1 and 2 use sales growth as the dependent variable. Model 1 shows a significant positive effect for the Normalized Distance ($\hat{\beta_1}$ = 0.289, p < 0.01) on the sales growth. The results can be interpreted as that a company, that changes its BM in one year one percentage point more than the market average, experiences on average 0.289 percentage points more growth in sales. Model 2 as well shows this significant positive effect ($\hat{\beta_1}$ = 0.292, p < 0.01). Both regressions yield very similar results regardless of whether we include the logarithm of the market value ($\hat{\beta_2}$ = -1.014, p > 0.1) or the logarithm of the total assets ($\hat{\beta_1}$ = -2.155, p < 0.05) as a control variable for the firm size. These results provide support for H3.
 
-Model 3 and 4 assess the effect of the Normalized Distance on Tobin's Q growth. Both Models show a negative significant effect ($beta$ = -0.007, p < 0.001 and $beta$ = -0.008, p < 0.001). This can be interpreted as indicating that a company that changes its BM by one percentage point more than the market average over the observation period will experience, on average, a reduction in Tobin's Q growth of 0.008, respectively 0.007, percentage points. As in Model 1 and 2, the coefficients for the Normalized Distance only change very little when controlling for the logarithm of the market value instead of the logarithm of the total assets. The results do not support H3, since we anticipated a positive effect.
-
-Version 1: Table 4 shows the results of the split model. We find a significant positive effect ($beta$ = 0.536, p < 0.05) for small-cap companies and no significant effect for mid-cap ($beta$ =0.008, p > 0.1) and large-cap ($beta$ = 0.106, p > 0.1) companies. These results shows that the positive effect of BMI is in fact stronger than for mid-cap and large-cap companies since for both the coefficients are not significant. This supports H4.
-
-In summary, the findings indicate that BMI has a significant impact on firm performance. Specifically, BM changes have a positive effect on operational metrics such as sales growth, which can be viewed as a positive outcome. A differentiated view of market capitalization shows that the BMI of smaller companies predominantly has a positive impact on sales growth. In contrast, medium-sized companies have a negative effect, while large companies only show a marginal positive effect. However, the stock market does not respond as favorably to such changes. Tobin's Q growth decreases when companies adjust their business models, meaning the ratio of market value to total capital declines. This effect is not necessarily problematic, as market value is influenced by stock trading, which incorporates subjective evaluations that are reflected in this metric.
+Model 3 and 4 assess the effect of the Normalized Distance on Tobin's Q growth. Both Models show a negative significant effect ($\hat{\beta_1}$ = -0.007, p < 0.001 and $\hat{\beta_1}$ = -0.008, p < 0.001). This can be interpreted as indicating that a company that changes its BM by one percentage point more than the market average over the observation period will experience, on average, a reduction in Tobin's Q growth of 0.008, respectively 0.007, percentage points. As in Model 1 and 2, the coefficients for the Normalized Distance only change very little when controlling for the logarithm of the market value instead of the logarithm of the total assets. The results do not support H3, since we anticipated a positive effect.
+In summary, the findings indicate that BMI has a significant impact on firm performance. Specifically, BM changes have a positive effect on operational metrics such as sales growth, which can be viewed as a positive outcome. A differentiated view of market capitalization shows that the BMI of smaller companies predominantly has a positive impact on sales growth. In contrast, medium-sized companies have a negative effect, while large companies only show a marginal positive effect. However, the stock market does not respond as favorably to such changes. Tobin's Q growth decreases when companies adjust their business models, meaning the 
 
 ```{r echo=FALSE, warning = FALSE, message = FALSE, results='asis'}
 #Main Regression Results
@@ -326,6 +324,12 @@ modelsummary(models = list("(1)" = Reg1, "(2)" = Reg2, "(3)" = Reg3, "(4)" = Reg
   kable_styling(latex_options = c("scale_down","HOLD_position"))%>%
   footnote("Industry classification by BERTScore.")
 
+```
+
+ratio of market value to total capital declines. This effect is not necessarily problematic, as market value is influenced by stock trading, which incorporates subjective evaluations that are reflected in this metric.Table 4 illustrates how the previously demonstrated effects influences individual firm sizes. In the overall analysis, the effects are significant and support our hypothesis. When we differentiate the companies into Small-cap (6,573 observations),
+
+```{r echo=FALSE, warning = FALSE, message = FALSE, results='asis'}
+
 RegressionData = read.csv("./TableData/Regression/RegressionData.csv") %>%
   filter(MV>0, Total.Assets >0)%>%
   mutate(year=as.factor(year),
@@ -367,7 +371,7 @@ modelsummary(models = list("Small-Cap" = Reg1, "Mid-Cap" = Reg2, "Large-Cap" = R
 
 ```
 
-Version 2: Table 4 illustrates how the previously demonstrated effects influences individual firm sizes. In the overall analysis, the effects are significant and support our hypothesis. When we differentiate the companies into Small-cap (6,573 observations), Mid-cap (2,923 observations), and Large-cap (2,659 observations), the explanatory coefficients reveal substantial differences. The small firms exhibit by far the most significant effect on the altered distance, which is also significant at the 5% level. In contrast, for large companies, we observe only approximately 20% of the effect of the business model change on sales figures. Furthermore, the coefficient does not even exceed one standard deviation, indicating a lack of significance. The situation is even less favorable for mid-sized companies, as evidenced by both the coefficient and standard deviation. The value of the distance effect accounts for merely 0,008% of that observed in large companies, while the standard deviation stands at 0.254. Therefore, we can conclude that the previously observed effect across all firms can primarily be attributed to small firms. For medium to large firms, no discernible impact is evident.
+Mid-cap (2,923 observations), and Large-cap (2,659 observations), the explanatory coefficients reveal substantial differences. The small firms exhibit by far the most significant effect on the altered distance, which is also significant at the 1% level. In contrast, for large companies, we observe only approximately 20% of the effect of the business model change on sales figures. Furthermore, the coefficient does not even exceed one standard deviation, indicating a lack of significance. The situation is even less favorable for mid-sized companies, as evidenced by both the coefficient and standard deviation. The value of the distance effect accounts for merely 0,008% of that observed in large companies. Therefore, we can conclude that the previously observed effect across all firms can primarily be attributed to small firms. For medium to large firms, no discernible impact is evident.
 
 ## Robustness Checks
 
@@ -495,23 +499,21 @@ Table6
 
 summaries are 350 till 371 words long with the 75th percentile ranging between 404 and 432 words. Looking at the maxima, some summaries are significantly longer than the average with a couple thousand words. Most of the summaries are short enough to be processed by BERT as a whole, while some summaries are too long for BERT. These outliners are only a few and therefore negligible.
 
-
-
 [^4]: The spelling error in the last sentence of the prompt was found after processing Item 1. After evaluating the summaries, this error did not cause any issues.
 
 ## Appendix B
 
-To check the validity of the summaries generated by Gemini, we took a random sample of ten filings to evaluate them manually. We evaluated the summaries according to the criteria “Accuracy” (how well does the summary reflect the unabridged content), “Relevance” (how relevant is the information from the summary) and “Coherence” (is the summary logically structured and comprehensible). We use a rating scale from one to ten. The results are shown in Table 7.
+To check the validity of the summaries generated by Gemini, we took a random sample of ten filings to evaluate them manually. The results are shown in Table 7.
 
 ```{r echo=FALSE, warning = FALSE, message = FALSE, results='asis'}
 Table7 <- read_excel("./TableData/Table7.xlsx") %>%
-kable(format="latex",label="tbl-table6",col.names = c("Accession ID", "Company Name","Year","Accuracy", "Relevance", "Coherence"),booktabs = T, caption = "Subjective Evaluation of Random Item 1 Summaries")%>%
+kable(format="latex",label="tbl-table6",col.names = c("Accession ID", "Company Name","Year"),booktabs = T, caption = "Subjective Evaluation of Random Item 1 Summaries")%>%
   kable_styling(latex_options = c("scale_down","HOLD_position"))%>%
   footnote("A random sample of ten filings was drawn")
 Table7
 ```
 
-We find that the summaries are valid overall and consistently reflect the BM. It must also be taken into account that the evaluation criteria “Accuracy” and “Relevance” are to a certain extent in a trade-off situation. A suitable optimum was found in all summaries. One conspicuous feature was that although strong diversification tends to be mentioned in the summaries, no possible interaction between these areas is discussed.
+We find that the summaries are valid overall and consistently reflect the BM. Suitable representations of all Item 1 texts can be found in all corresponding summaries available in the sample. We therefore assume that the summaries are a valid representation of the original company descriptions. One conspicuous feature was that although strong diversification tends to be mentioned in the summaries, no possible interaction between these areas is discussed.
 
 ## Appendix C
 
