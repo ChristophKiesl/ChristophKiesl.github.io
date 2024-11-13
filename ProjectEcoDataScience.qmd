@@ -116,7 +116,7 @@ In our study, we employ the 'bert-base-uncased' model in two distinct but comple
 
 ## Preprocessing with Gemini
 
-10-K filings are typically very large text documents, and Item 1 of these filings is no exception. Table 2 shows the descriptive measures of the length of the original Item 1 section in our final sample. The length of a document was measured by the word count without punctuation. The document length ranges from a minimum if 49 words up to 78,799 words. On average the documents are between 6,626 and 10,304 words long. In order to utilize the entirety
+10-K filings are typically very large text documents, and Item 1 of these filings is no exception. Table 2 shows the descriptive measures of the length of the original Item 1 section in our final sample. The length of a document was measured by the word count without punctuation. The document length ranges from a minimum if 49 words up to 78,799 words. On average the documents are between 6,626 and 10,304 words long. In order to utilize the entirety of the information regarding the BM in the 
 
 ```{r echo=FALSE, warning = FALSE, message = FALSE, results='asis'}
 library(tidyverse)
@@ -132,7 +132,7 @@ Table2 = read_excel("./TableData/Table2.xlsx")%>%
 Table2
 ```
 
-of the information regarding the BM in the Item 1 section and pass the text to our BERT model, we decided to let Google's GenAI chatbot Gemini summarize them to a maximum length of 512 tokens. The summaries were created between 26 June 2024 and 6 August 2024. The model employed was Gemini Flash 1.5. The prompt was inserted at the beginning of each text file and it was passed via an API to Gemini [^1]. Our prompt covers all aspects of the definition of BMI proposed by Spieth & Schneider [-@spieth_business_2016]. For more details, see Appendix A. To assess the quality and accuracy of the summaries produced by Gemini, a random sample of 100 filings was selected for comparison with the original text. More precise,the original file was initially read with a focus on the points mentioned in the prompt. Subsequently, the summary was evaluated to ascertain whether it contained these same points. A list of the sample with the summaries is provided in the Appendix B.
+Item 1 section and pass the text to our BERT model, we decided to let Google's GenAI chatbot Gemini summarize them to a maximum length of 512 tokens. The summaries were created between 26 June 2024 and 6 August 2024. The model employed was Gemini Flash 1.5. The prompt was inserted at the beginning of each text file and it was passed via an API to Gemini [^1]. Our prompt covers all aspects of the definition of BMI proposed by Spieth & Schneider [-@spieth_business_2016]. For more details, see Appendix A. To assess the quality and accuracy of the summaries produced by Gemini, a random sample of 100 filings was selected for comparison with the original text. More precise,the original file was initially read with a focus on the points mentioned in the prompt. Subsequently, the summary was evaluated to ascertain whether it contained these same points. A list of the sample with the summaries is provided in the Appendix B.
 
 [^1]: We forked and used following Github repository: https://github.com/skranz/gemini_ex.
 
@@ -140,19 +140,17 @@ of the information regarding the BM in the Item 1 section and pass the text to o
 
 ## Methodology
 
-From the dataset containing all the summaries and financials per company per year we construct three datasets for our further analysis. The first dataset is used for the BERTScore industry classification. Therefore, we filter for all summaries of 2017 and for the first available summary of companies which do not appear first in 2017 but in a later year. We then calculate the BERTScores between all these summaries. The second and third dataset are used for the regression analysis of our measure. For the second dataset, we fix the company and calculate the BERTScore of the summaries of one year and its direct consecutive year as well as the sales growth rate. The third dataset contains the Tobin's Q growth calculated as the difference between the natural logarithm of Tobin's Q in the last and the first year of our observed period as well as the BERTScore between the summaries of the respective year of a company. The formulas of Sales Growth and Tobin's Q Growth are given by:
+From the dataset containing all the summaries and financials per company per year we construct three datasets for our further analysis. The first dataset is used for the BERTScore industry classification. We therefore filter all summaries by the first year in which the company submitted a filing (usually 2017). We then calculate the BERTScores between all these summaries. The second and third dataset are used for the regression analysis of our measure. In the second dataset, we fix the company and calculate the BERTScore of the summaries of one year and its direct consecutive year as well as the sales growth rate and the Tobin's Q growth rate (according to equation 2 and 3) . We merge this dataset with our BERTS scores calculated in pairs between the same companies in different years. 
 
 $$
-\text{Sales Growth} = (\frac{\text{Revenue in year } t}{\text{Revenue in year } t-1} - 1) \times 100
-$$
-
-
-$$
-\text{Tobin's Q Growth} = (\frac{\text{Tobin's Q in year } t}{\text{Tobins's Q in year } t-1} - 1) \times 100
-$$
-
-$$
-\quad \text{for } t \in \{2017, \dots, 2023\}
+\hspace*{-6cm}
+\begin{array}{@{}l}
+\text{(1) Sales Growth} = \left(\frac{\text{Revenue in year } t}{\text{Revenue in year } t-1} - 1\right) \times 100
+\\[0.5cm]
+\text{(2) Tobin's Q Growth} = \left(\frac{\text{Tobin's Q in year } t}{\text{Tobin's Q in year } t-1} - 1\right) \times 100
+\\[0.5cm]
+\text{for } t \in \{2017;2023\}
+\end{array}
 $$
 
 The first dataset is utilized to compute our BERTScore industry classification. We firstly compare the BERTScore industry classification with the FIC by Hoberg & Phillips [-@hoberg_text-based_2016] and the SIC. Furthermore, we use our BERTScore industry classification in our estimation. For the FIC, Hoberg & Phillips [-@hoberg_text-based_2016] calculate the cosine similarity between word vectors of product descriptions, which they extracted from Item 1 of the 10-K filings. For our Industry classification we utilize the BERTScore to calculate the similarity between our BM summaries. Based on these similarities we cluster the companies into industries via an agglomerative clustering algorithm. The methodology and object of research differ between the two studies. In accordance with the definition provided by Spieth & Schneider [-@spieth_business_2016], a company's product constitutes a component of its value proposition and, consequently, a constituent of the BM. Because the product is thereby entangled with the BM, companies that have similar products might have similar BMs. So despite the different methodology and object of research, we expect a similar distribution as Hoberg for the FIC, which is very granular and contains lot of small industries. Thus, we hypothesize:
@@ -192,7 +190,10 @@ Figure1
 The values range from zero to 0.216. This means that on average the summaries of a company differ slightly. We attribute these small differences to our preprocessing rather than that companies on average slightly change their BM every year. Even if the summaries are very similar in terms of content, Gemini might use different phrases and wordings which result in different BERTScores and thereby in a higher distance. Hence, we normalize the distance by dividing by its mean. Furthermore, we subtract one and multiply it by one-hundred in order to further ease the interpretation of the coefficient. This results in the following definition of our measure: 
 
 $$
-{\text{Normalized Distance}} = \left( \frac{{Distance}_i}{\frac{1}{n} \sum_{i=1}^{n} {Distance}_i} - 1 \right) \cdot 100
+\hspace*{-6cm}
+\begin{array}{@{}l}
+\text{(3) Normalized Distance} = \left( \frac{\text{Distance}_i}{\frac{1}{n} \sum_{i=1}^{n} \text{Distance}_i} - 1 \right) \cdot 100
+\end{array}
 $$
 
 where n denotes the number of observations in the dataset. The Normalized Distance measures the difference in the distance between two consecutive summaries of some company above the market average in percentage points. Under the assumption that the summaries reliably represent the firms' BM, the Normalized Distance measures the change of a company's BM above the market average in percentage points from one year to the next. We further assume that a company that changes its BM, will not return back to its original BM. Under this assumption the Normalized Distance measures BMI on the new-to-the-firm level. The literature posits that changes in the business model can be positively correlated with firm performance. In the case that our measure is able to measure BMI, we expect to find a positive relationship between our BMI measure and firm performance. Therefore, we hypothesize that:
@@ -205,26 +206,28 @@ When measuring BMI, Guldmann & Huulgaard [-@guldmann_barriers_2020] assume sever
   
 # Estimation Strategy
 
-We test H3 using multivariate regression techniques. The independent variable is the Normalized Distance, as previously defined. Two different dependent variables are employed in order to measure a company's performance. In the initial specification, the sales growth is used as the dependent variable as by Cucculelli & Bettinelli [-@cucculelli_business_2015]. For this specification, the second dataset is employed, and all observations with zero values for market value and total assets were removed in order to take the logarithms. We control for firm size by once using the logarithm of the market value and once the logarithm of total assets [@dang2018measuring]. Moreover, outliners are winsorized only above the 99th percentile. For a more detailed discussion of this step, see Appendix C. The following regressions are used to estimate the normalized distance:
+We test H3 using multivariate regression techniques. The independent variable is the Normalized Distance, as previously defined. Two different dependent variables are employed in order to measure a company's performance. In the initial specification, the sales growth is used as the dependent variable as by Cucculelli & Bettinelli [-@cucculelli_business_2015]. For this specification, the second dataset is employed, and all observations with zero values for market value and total assets were removed in order to take the logarithms. We control for firm size by once using the logarithm of the market value and once the logarithm of total assets [@dang2018measuring]. Moreover, outlier values are winsorized above the 99th percentile. For a more detailed discussion of this step, see Appendix C. The following regressions are used to estimate the normalized distance:
+
 $$
 \begin{array}{l}
-\text{(1) }Y_{\text{Sales Growth}} = \beta_0 + \beta_1 X_{\text{Normalized Distance}} + \beta_2 \ln(X_{\text{Market Value}}) + \gamma_{\text{year} \times \text{industry}} + \epsilon_{it}
+\text{(4) } Y_{\text{Sales Growth}} = \beta_0 + \beta_1 X_{\text{Normalized Distance}} + \beta_2 \ln(X_{\text{Market Value}}) + \gamma_{\text{year} \times \text{industry}} + \epsilon_{it}
 \\[0.5cm]
-\text{(2) }Y_{\text{Sales Growth}} = \beta_0 + \beta_1 X_{\text{Normalized Distance}} + \beta_2 \ln(X_{\text{Total Assets}}) + \gamma_{\text{year} \times \text{industry}} + \epsilon_{it}
+\text{(5) } Y_{\text{Sales Growth}} = \beta_0 + \beta_1 X_{\text{Normalized Distance}} + \beta_2 \ln(X_{\text{Total Assets}}) + \gamma_{\text{year} \times \text{industry}} + \epsilon_{it}
 \\[0.5cm]
-\text{(3) }Y_{\text{Tobin's Q Growth}} = \beta_0 + \beta_1 X_{\text{Normalized Distance}} + \beta_2 \ln(X_{\text{Market Value}}) + \gamma_{\text{year} \times \text{industry}} + \epsilon_{it}
+\text{(6) } Y_{\text{Tobin's Q Growth}} = \beta_0 + \beta_1 X_{\text{Normalized Distance}} + \beta_2 \ln(X_{\text{Market Value}}) + \gamma_{\text{year} \times \text{industry}} + \epsilon_{it}
 \\[0.5cm]
-\text{(4) }Y_{\text{Tobin's Q Growth}} = \beta_0 + \beta_1 X_{\text{Normalized Distance}} + \beta_2 \ln(X_{\text{Total Assets}}) + \gamma_{\text{year} \times \text{industry}} + \epsilon_{it}
+\text{(7) } Y_{\text{Tobin's Q Growth}} = \beta_0 + \beta_1 X_{\text{Normalized Distance}} + \beta_2 \ln(X_{\text{Total Assets}}) + \gamma_{\text{year} \times \text{industry}} + \epsilon_{it}
 \end{array}
 $$
 
-We use the interaction term of the year and our BERTScore industry classification as a fixed effect. The interaction term of the year and the industry is employed to capture potential heterogeneous effects of the industry classification across different years. The economic and political environment is not controlled for, as White et al. [-@white_exploring_2022] suggest, as all of the companies in question are based in the United States.
+We use the interaction term \gamma of the year and our BERTScore industry classification as fixed effects. The interaction term of the year and the industry is employed to capture potential heterogeneous effects of the industry classification across different years. The economic and political environment is not controlled for, as White et al. [-@white_exploring_2022] suggest, as all of the companies in question are based in the United States.
 In the second specification the growth of Tobin's Q is employed as described by Desyllas et al. [-@Desyllas2022]. To account for differences between companies, we us growth rates instead of absolute values. The third dataset is used for this specification. Since every company is one observation in the dataset, we control for the firm size once with the logarithm of the mean market value and once with the logarithm of the mean total assets of a company. The mean is calculated with all available years per company. Furthermore, the number of years between the initial and final years utilized for Tobin's Q growth is controlled for. The reason behind this is, that some companies in the dataset initially appear later than 2017 or lastly do not appear in 2023. We use fixed effects to control for this difference. Furthermore, we use industry fixed effects to control for heterogeneous effects between industries. As in the first specification, we do not control for the economic and political environment. We use a similar multivariate regression model to test H4:
 $$
 \begin{array}{l}
-\text{(5) }Y_{\text{Sales Growth, k}} = \beta_{0, k} + \beta_{1, k} X_{\text{Normalized Distance}} + \beta_{2, k} \ln(X_{\text{Total Assets}}) + \gamma_{\text{year} \times \text{industry}} + \epsilon_{it, k}
+\text{(8) }Y_{\text{Sales Growth, k}} = \beta_{0, k} + \beta_{1, k} X_{\text{Normalized Distance}} + \beta_{2, k} \ln(X_{\text{Total Assets}}) + \gamma_{\text{year} \times \text{industry}} + \epsilon_{it, k}
 \\[0.5cm]
-\text{(6) }Y_{\text{Tobin's Q Growth, k}} = \beta_{0, k} + \beta_{1, k} X_{\text{Normalized Distance}} + \beta_{2, k} \ln(X_{\text{Total Assets}}) + \gamma_{\text{year} \times \text{industry}} + \epsilon_{it, k}
+\text{(9) }Y_{\text{Tobin's Q Growth, k}} = \beta_{0, k} + \beta_{1, k} X_{\text{Normalized Distance}} + \beta_{2, k} \ln(X_{\text{Total Assets}}) + \gamma_{\text{year} \times \text{industry}} + \epsilon_{it, k}
+\\[0.5cm]
 \end{array}
 $$
 
