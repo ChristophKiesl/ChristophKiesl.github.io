@@ -140,7 +140,20 @@ of the information regarding the BM in the Item 1 section and pass the text to o
 
 ## Methodology
 
-From the dataset containing all the summaries and financials per company per year we construct three datasets for our further analysis. The first dataset is used for the BERTScore industry classification. Therefore, we filter for all summaries of 2017 and for the first available summary of companies which do not appear first in 2017 but in a later year. We then calculate the BERTScores between all these summaries. The second and third dataset are used for the regression analysis of our measure. For the second dataset, we fix the company and calculate the BERTScore of the summaries of one year and its direct consecutive year as well as the sales growth rate. The third dataset contains the Tobin's Q growth calculated as the difference between the natural logarithm of Tobin's Q in the last and the first year of our observed period as well as the BERTScore between the summaries of the respective year of a company. According to [-@Desyllas2022], the formula is given by
+From the dataset containing all the summaries and financials per company per year we construct three datasets for our further analysis. The first dataset is used for the BERTScore industry classification. Therefore, we filter for all summaries of 2017 and for the first available summary of companies which do not appear first in 2017 but in a later year. We then calculate the BERTScores between all these summaries. The second and third dataset are used for the regression analysis of our measure. For the second dataset, we fix the company and calculate the BERTScore of the summaries of one year and its direct consecutive year as well as the sales growth rate. The third dataset contains the Tobin's Q growth calculated as the difference between the natural logarithm of Tobin's Q in the last and the first year of our observed period as well as the BERTScore between the summaries of the respective year of a company. The formulas of Sales Growth and Tobin's Q Growth are given by:
+
+$$
+\text{Sales Growth} = (\frac{\text{Revenue in year } t}{\text{Revenue in year } t-1} - 1) \times 100
+$$
+
+
+$$
+\text{Tobin's Q Growth} = (\frac{\text{Tobin's Q in year } t}{\text{Tobins's Q in year } t-1} - 1) \times 100
+$$
+
+$$
+\quad \text{for } t \in \{2017, \dots, 2023\}
+$$
 
 The first dataset is utilized to compute our BERTScore industry classification. We firstly compare the BERTScore industry classification with the FIC by Hoberg & Phillips [-@hoberg_text-based_2016] and the SIC. Furthermore, we use our BERTScore industry classification in our estimation. For the FIC, Hoberg & Phillips [-@hoberg_text-based_2016] calculate the cosine similarity between word vectors of product descriptions, which they extracted from Item 1 of the 10-K filings. For our Industry classification we utilize the BERTScore to calculate the similarity between our BM summaries. Based on these similarities we cluster the companies into industries via an agglomerative clustering algorithm. The methodology and object of research differ between the two studies. In accordance with the definition provided by Spieth & Schneider [-@spieth_business_2016], a company's product constitutes a component of its value proposition and, consequently, a constituent of the BM. Because the product is thereby entangled with the BM, companies that have similar products might have similar BMs. So despite the different methodology and object of research, we expect a similar distribution as Hoberg for the FIC, which is very granular and contains lot of small industries. Thus, we hypothesize:
 
@@ -179,7 +192,7 @@ Figure1
 The values range from zero to 0.216. This means that on average the summaries of a company differ slightly. We attribute these small differences to our preprocessing rather than that companies on average slightly change their BM every year. Even if the summaries are very similar in terms of content, Gemini might use different phrases and wordings which result in different BERTScores and thereby in a higher distance. Hence, we normalize the distance by dividing by its mean. Furthermore, we subtract one and multiply it by one-hundred in order to further ease the interpretation of the coefficient. This results in the following definition of our measure: 
 
 $$
-{NormalizedDistance} = \left( \frac{{Distance}_i}{\frac{1}{n} \sum_{i=1}^{n} {Distance}_i} - 1 \right) \cdot 100
+{\text{Normalized Distance}} = \left( \frac{{Distance}_i}{\frac{1}{n} \sum_{i=1}^{n} {Distance}_i} - 1 \right) \cdot 100
 $$
 
 where n denotes the number of observations in the dataset. The Normalized Distance measures the difference in the distance between two consecutive summaries of some company above the market average in percentage points. Under the assumption that the summaries reliably represent the firms' BM, the Normalized Distance measures the change of a company's BM above the market average in percentage points from one year to the next. We further assume that a company that changes its BM, will not return back to its original BM. Under this assumption the Normalized Distance measures BMI on the new-to-the-firm level. The literature posits that changes in the business model can be positively correlated with firm performance. In the case that our measure is able to measure BMI, we expect to find a positive relationship between our BMI measure and firm performance. Therefore, we hypothesize that:
@@ -199,9 +212,9 @@ $$
 \\[0.5cm]
 \text{(2) }Y_{\text{Sales Growth}} = \beta_0 + \beta_1 X_{\text{Normalized Distance}} + \beta_2 \ln(X_{\text{Total Assets}}) + \gamma_{\text{year} \times \text{industry}} + \epsilon_{it}
 \\[0.5cm]
-\text{(3) }Y_{\text{Tobin's Q Growth}} = \beta_0 + \beta_1 X_{\text{Normalized Distance}} + \beta_2 \ln(X_{\text{Mean Market Value}}) + \gamma_{\text{industry}} + \epsilon_{it}
+\text{(3) }Y_{\text{Tobin's Q Growth}} = \beta_0 + \beta_1 X_{\text{Normalized Distance}} + \beta_2 \ln(X_{\text{Market Value}}) + \gamma_{\text{year} \times \text{industry}} + \epsilon_{it}
 \\[0.5cm]
-\text{(4) }Y_{\text{Tobin's Q Growth}} = \beta_0 + \beta_1 X_{\text{Normalized Distance}} + \beta_2 \ln(X_{\text{Mean Total Assets}}) + \gamma_{\text{industry}} + \epsilon_{it}
+\text{(4) }Y_{\text{Tobin's Q Growth}} = \beta_0 + \beta_1 X_{\text{Normalized Distance}} + \beta_2 \ln(X_{\text{Total Assets}}) + \gamma_{\text{year} \times \text{industry}} + \epsilon_{it}
 \end{array}
 $$
 
@@ -210,6 +223,8 @@ In the second specification the growth of Tobin's Q is employed as described by 
 $$
 \begin{array}{l}
 \text{(5) }Y_{\text{Sales Growth, k}} = \beta_{0, k} + \beta_{1, k} X_{\text{Normalized Distance}} + \beta_{2, k} \ln(X_{\text{Total Assets}}) + \gamma_{\text{year} \times \text{industry}} + \epsilon_{it, k}
+\\[0.5cm]
+\text{(6) }Y_{\text{Tobin's Q Growth, k}} = \beta_{0, k} + \beta_{1, k} X_{\text{Normalized Distance}} + \beta_{2, k} \ln(X_{\text{Total Assets}}) + \gamma_{\text{year} \times \text{industry}} + \epsilon_{it, k}
 \end{array}
 $$
 
@@ -293,6 +308,7 @@ RegressionData = read.csv("./TableData/Regression/RegressionData1.csv") %>%
 RegressionData$RevenueGrowth = Winsorize(RegressionData$RevenueGrowth,probs=c(0,0.99))
 RegressionData$TobinsQGrowth = Winsorize(RegressionData$TobinsQGrowth,probs=c(0,0.99))
 
+
 #Revenue Growth
 Reg1 = felm(RevenueGrowth~NormalizedDistance + log(MV) | year * Industry | 0 | 0 ,data=RegressionData)
 Reg2 = felm(RevenueGrowth~NormalizedDistance + log(Total.Assets) | year * Industry | 0 | 0 ,data=RegressionData)
@@ -311,13 +327,13 @@ rows <- tribble(~term, ~Reg1, ~Reg2, ~Reg3, ~Reg4,
                 'Industry x Year Fixed Effects', 'Yes', 'Yes', 'Yes', 'Yes')
 #                'Industry Fixed Effects', 'No', 'No', 'Yes', 'Yes',
 #                'Time Difference Fixed Effects', 'No', 'No', 'Yes', 'Yes')
-attr(rows, 'position') <- c(11)
+attr(rows, 'position') <- c(8)
 
 modelsummary(models = list("(1)" = Reg1, "(2)" = Reg2, "(3)" = Reg3, "(4)" = Reg4),
              output = "kableExtra",
              title = "Regression Results I",
              coef_map = c("NormalizedDistance" = "Normalized Distance", "log(MV)" = "log(Market Value)", "log(Total.Assets)" = "log(Assets)", "log(MeanMV)" = "log(Mean Market Value)", "log(MeanAssets)" = "log(Mean Assets)"),
-             gof_map = c("nobs", "r.squared","rmse"),
+             gof_map = c("nobs", "r.squared"),
              stars = TRUE,
              add_rows = rows
              )%>%
@@ -331,12 +347,13 @@ ratio of market value to total capital declines. This effect is not necessarily 
 
 ```{r echo=FALSE, warning = FALSE, message = FALSE, results='asis'}
 
-RegressionData = read.csv("./TableData/Regression/RegressionData.csv") %>%
+RegressionData = read.csv("./TableData/Regression/RegressionData1.csv") %>%
   filter(MV>0, Total.Assets >0)%>%
   mutate(year=as.factor(year),
          Industry = as.factor(Industry))
 
 RegressionData$RevenueGrowth = Winsorize(RegressionData$RevenueGrowth,probs=c(0,0.99))
+RegressionData$TobinsQGrowth = Winsorize(RegressionData$TobinsQGrowth,probs=c(0,0.99))
 
 RegressionData <- RegressionData %>%
  mutate(FirmSize = case_when(
@@ -354,19 +371,23 @@ Reg1 <- felm(RevenueGrowth~NormalizedDistance + log(Total.Assets) | year * Indus
 Reg2 <- felm(RevenueGrowth~NormalizedDistance + log(Total.Assets) | year * Industry | 0 | 0 ,data=filter(RegressionData,FirmSize == "Mid_Cap") )
 Reg3 <- felm(RevenueGrowth~NormalizedDistance + log(Total.Assets) | year * Industry | 0 | 0 ,data=filter(RegressionData,FirmSize == "Large_Cap"))
 
-rows <- tribble(~term, ~Reg1, ~Reg2, ~Reg3,
-                'Industry x Year Fixed Effects', 'Yes', 'Yes', 'Yes')
-attr(rows, 'position') <- c(5, 6, 7)
+Reg4 <- felm(TobinsQGrowth~NormalizedDistance + log(Total.Assets) | year * Industry | 0 | 0 ,data=filter(RegressionData,FirmSize == "Small_Cap"))
+Reg5 <- felm(TobinsQGrowth~NormalizedDistance + log(Total.Assets) | year * Industry | 0 | 0 ,data=filter(RegressionData,FirmSize == "Mid_Cap") )
+Reg6 <- felm(TobinsQGrowth~NormalizedDistance + log(Total.Assets) | year * Industry | 0 | 0 ,data=filter(RegressionData,FirmSize == "Large_Cap"))
 
-modelsummary(models = list("Small-Cap" = Reg1, "Mid-Cap" = Reg2, "Large-Cap" = Reg3),
+rows <- tribble(~term, ~Reg1, ~Reg2, ~Reg3, ~Reg4, ~Reg5, ~Reg6,
+                'Industry x Year Fixed Effects', 'Yes', 'Yes', 'Yes', 'Yes', 'Yes', 'Yes')
+attr(rows, 'position') <- c(5, 6, 7, 8, 9, 10)
+
+modelsummary(models = list("Small-Cap" = Reg1, "Mid-Cap" = Reg2, "Large-Cap" = Reg3, "Small-Cap" = Reg4, "Mid-Cap" = Reg5, "Large-Cap" = Reg6),
              output = "kableExtra",
              title = "Regression Results II",
              coef_map = c("NormalizedDistance" = "Normalized Distance", "log(Total.Assets)" = "log(Assets)"),
-             gof_map = c("nobs", "r.squared","rmse"),
+             gof_map = c("nobs", "r.squared"),
              stars = TRUE,
              add_rows = rows
              )%>%
-  add_header_above(c(" " = 1, "Sales Growth" = 3)) %>%
+  add_header_above(c(" " = 1, "Sales Growth" = 3, "Tobin's Q Growth" = 3)) %>%
   kable_styling(latex_options = c("scale_down","HOLD_position"))%>%
   footnote("Industry classification by BERTScore.")
 
