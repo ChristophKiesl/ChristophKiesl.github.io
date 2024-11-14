@@ -10,8 +10,6 @@
 <meta name="author" content="Wanshu Jiang">
 <meta name="author" content="Christoph Kiesl">
 <meta name="author" content="Leonard Pöhls">
-<meta name="author" content="Alexander Rieber">
-<meta name="author" content="Ansgar Scherp">
 <meta name="keywords" content="10-K, Business Model Innovation, BERT, Gemini">
 
 <title>From Text to Insight - A Novel Approach to Measuring Business Model Innovation</title>
@@ -120,8 +118,6 @@ window.Quarto = {
              <p>Wanshu Jiang <a href="mailto:wanshu.jiang@uni-ulm.de" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
              <p>Christoph Kiesl <a href="mailto:christoph.kiesl@uni-ulm.de" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
              <p>Leonard Pöhls <a href="mailto:leonard.poehls@uni-ulm.de" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
-             <p>Alexander Rieber <a href="mailto:alexander.rieber@uni-ulm.de" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
-             <p>Ansgar Scherp <a href="mailto:ansgar.scherp@uni-ulm.de" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
           </div>
   </div>
     
@@ -132,7 +128,7 @@ window.Quarto = {
 <div>
   <div class="abstract">
     <div class="block-title">Abstract</div>
-    <p>The ability of a company to continuously innovate its business model is a pivotal determinant of long-term success in dynamic markets. It is therefore crucial to ensure the reliability of business model innovation measurement. In this study, we utilize business descriptions from 10-K filings between 2017 and 2023, which have been summarized using the Gemini language model, to measure business model innovation. We find that above-market business model innovation, which we measure by the annual change in business description, has a positive effect on a firm’s sales growth but a negative effect on its Tobin’s Q growth. Additionally, we find that small-cap companies in particular can expect sales growth from business model innovation. These findings offer insights into the extent to which textual similarities in regulatory reports can be employed as a reliable indicator for business model innovation. Thus, this method represent a novel approach to analyzing business model innovation over time.</p>
+    <p>The ability of a company to continuously innovate its business model is a pivotal determinant of long-term success in dynamic markets. It is therefore crucial to ensure the reliability of business model innovation measurement. In this study, we analyze business descriptions from 10-K filings from a sample of 4492 different companies between 2017 and 2023, which we summarized using a large language model (LLM). The innovation of business models is measured on the basis of the annual changes in the business descriptions, with BERTS scores serving as quantitative comparison indices for the business descriptions. Our findings indicate that above-market business model innovation positively influences a firm’s sales growth but has a negative effect on Tobin’s Q growth. Notably, small-cap companies experience significant sales growth linked to business model innovation. These insights highlight the potential of textual similarity in regulatory filings as a robust indicator of business model innovation, offering a novel approach to tracking such innovation over time.</p>
   </div>
 </div>
 
@@ -157,12 +153,14 @@ window.Quarto = {
 <p>A number of studies have examined the relationship between BMI and the financial performance of a company. Cucculelli &amp; Bettinelli <span class="citation" data-cites="cucculelli_business_2015">(<a href="#ref-cucculelli_business_2015" role="doc-biblioref">2015</a>)</span> investigate the effect of BMI on sales growth, return on sales (ROS) and total factor productivity (TFP). The results support the hypothesis that BMI has a positive effect on firm performance, with the effect increasing in line with the intensity of the innovation. Desyllas et al. <span class="citation" data-cites="Desyllas2022">(<a href="#ref-Desyllas2022" role="doc-biblioref">2022</a>)</span> find that BMI has a small effect on performance of incumbent firms. They measure firm performance by Tobin’s Q growth. White et al. <span class="citation" data-cites="white_exploring_2022">(<a href="#ref-white_exploring_2022" role="doc-biblioref">2022</a>)</span> conducted a meta-analysis based on the extant BMI literature. They found a positive relationship between BMI and firm performance, and that this relationship is shaped by factors including the firm age, industry, the economic and political environment and BMI characteristics. Based on this, we derive the dependent and control variables in the estimation strategy.</p>
 <p>Hoberg &amp; Phillips <span class="citation" data-cites="hoberg_text-based_2016">(<a href="#ref-hoberg_text-based_2016" role="doc-biblioref">2016</a>)</span> present a novel approach to defining industry boundaries. They propose two novel industry classification methods: the fixed industry classification (FIC) and the text-based network industry classification (TNIC). Firstly, they cluster companies based on the similarity of word vectors into fixed industries. Secondly, they define a minimum similarity threshold, above which firms are considered in the same industry. This second step relaxes their prior properties of binary membership transitivity and fixed industry location. The authors demonstrate shortcomings in the traditional industry classification systems such as the Standard Industry Classification (SIC) and the North American Industry Classification System (NAICS), which are not able to account for temporal changes. The new method is capable of capturing changes in industry boundaries and competitor sets over time, thereby providing a dynamic industry classification system. Based on the FIC we propose our own BERTScores industry classification and utilize it in our estimation. In their study, Lee &amp; Hong <span class="citation" data-cites="lee_business_2014">(<a href="#ref-lee_business_2014" role="doc-biblioref">2014</a>)</span> examine the evolution of a firm’s BM over time. After filtering the Item 1 parts of the 10-K filings for relevant sentences, Lee &amp; Hong <span class="citation" data-cites="lee_business_2014">(<a href="#ref-lee_business_2014" role="doc-biblioref">2014</a>)</span> construct keyword vectors, which represent the concept of the BM. Therefore, the evolution of the BM is depicted as the change in the distribution of keywords over time. The authors advocate for a more robust methodology, such as incorporating multi-word phrases in the keyword vectors, to enhance the reliability of the approach <span class="citation" data-cites="lee_business_2014">(<a href="#ref-lee_business_2014" role="doc-biblioref">Lee and Hong 2014</a>)</span>. Our study pursues a similar goal but with a novel methodology.</p>
 <p>The remainder of the paper is organized as follows. Section 2 describes the origin and preparation of our data, the use and functioning of BERT, the preprocessing with Gemini and our methodology. Section 3 lays out our estimation strategy. Section 4 contains our results and discussion. Section 5 concludes our study.</p>
+<div style="page-break-after: always;"></div>
 </section>
 <section id="data-and-methodology" class="level1">
 <h1>Data and Methodology</h1>
 <section id="the-dataset" class="level2">
 <h2 class="anchored" data-anchor-id="the-dataset">The Dataset</h2>
-<p>We collect 10-K filings from the digital SEC Database, using the category “10-K” as extraction condition. Since the focus of our study lies on company’s BM, we merely use the Item 1 part, since this is the most crucial part of the 10-K filings for describing the companies BM <span class="citation" data-cites="lee_business_2014">(<a href="#ref-lee_business_2014" role="doc-biblioref">Lee and Hong 2014</a>)</span>. Our observations are limited to an intersection of such companies, which has been made available to the SEC since 2001 in a publicly accessible database. We extracted 10-K filings that were submitted between 2017 and 2023 based on underlying Central Index Keys (CIK). Occasionally, such filings are submitted retrospectively or are already submitted for the same year. We are therefore limiting the period for which we are reporting to 2016-2023, with fewer observations available for 2016 and 2023 as a result. We exclude companies from the financial sector, namely companies with a SIC Code starting with six. Corresponding to Table 2, multiple steps of pre-processing were required to obtain the final amount of 21,417 observations for seven years. Financial key figures, including sales, total assets, market values and Tobin’s Q were extracted from DataStream. A total of 4,494 companies are included in the sample, although the availability of filings could not always be guaranteed for all years. This is due on the one hand to the quality of the API to the SEC and on the other hand to companies that did not file 10-K reports or were listed on the stock exchange for the entire period under review. Finally, we have access to the financial key figures of the companies for the respective year, the Item I text pre-processed with the help of Gemini, company-specific identification features and the conventional SIC industry classification. The information on SIC sector classification is limited to companies that are currently actively filing. Therefore, 609 firms are no longer actively filing, e.g.&nbsp;due to company bankruptcies or mergers.</p>
+<p>We collect 10-K filings from the digital SEC Database, using the category “10-K” as extraction condition. Since the focus of our study lies on company’s BM, we merely use the Item 1 part, since this is the most crucial part of the 10-K filings for describing the companies BM <span class="citation" data-cites="lee_business_2014">(<a href="#ref-lee_business_2014" role="doc-biblioref">Lee and Hong 2014</a>)</span>. Our observations are limited to an intersection of such companies, which has been made available to the SEC since 2001 in a publicly accessible database. We extracted 10-K filings that were submitted between 2017 and 2023 based on underlying Central Index Keys (CIK). Occasionally, such filings are submitted retrospectively or are already submitted for the same year. We are therefore limiting the period for which we are reporting to 2016-2023, with fewer observations available for 2016 and 2023 as a result. We exclude companies from the financial sector, namely companies with a SIC Code starting with six. Corresponding to Table 2,</p>
+<p>multiple steps of pre-processing were required to obtain the final amount of 21,417 observations for seven years. Financial key figures, including sales, total assets, market values and Tobin’s Q were extracted from DataStream. A total of 4,494 companies are included in the sample, although the availability of filings could not always be guaranteed for all years. This is due on the one hand to the quality of the API to the SEC and on the other hand to companies that did not file 10-K reports or were listed on the stock exchange for the entire period under review. Finally, we have access to the financial key figures of the companies for the respective year, the Item I text pre-processed with the help of Gemini, company-specific identification features and the conventional SIC industry classification. The information on SIC sector classification is limited to companies that are currently actively filing. Therefore, 609 firms are no longer actively filing, e.g.&nbsp;due to company bankruptcies or mergers.</p>
 </section>
 <section id="bert-and-bertscore" class="level2">
 <h2 class="anchored" data-anchor-id="bert-and-bertscore">BERT and BERTScore</h2>
@@ -171,22 +169,26 @@ window.Quarto = {
 </section>
 <section id="preprocessing-with-gemini" class="level2">
 <h2 class="anchored" data-anchor-id="preprocessing-with-gemini">Preprocessing with Gemini</h2>
-<p>10-K filings are typically very large text documents, and Item 1 of these filings is no exception. Table 2 shows the descriptive measures of the length of the original Item 1 section in our final sample. The length of a document was measured by the word count without punctuation. The document length ranges from a minimum if 49 words up to 78,799 words. On average the documents are between 6,626 and 10,304 words long. In order to utilize the entirety of the information regarding the BM in the Item 1 section and pass the text to our BERT model, we decided to let Google’s GenAI chatbot Gemini summarize them to a maximum length of 512 tokens. The summaries were created between 26 June 2024 and 6 August 2024. The model employed was Gemini Flash 1.5. The prompt was inserted at the beginning of each text file and it was passed via an API to Gemini <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. Our prompt covers all aspects of the definition of BMI proposed by Spieth &amp; Schneider <span class="citation" data-cites="spieth_business_2016">(<a href="#ref-spieth_business_2016" role="doc-biblioref">2016</a>)</span>. For more details, see Appendix A. To assess the quality and accuracy of the summaries produced by Gemini, a random sample of 100 filings was selected for comparison with the original text. More precise,the original file was initially read with a focus on the points mentioned in the prompt. Subsequently, the summary was evaluated to ascertain whether it contained these same points. A list of the sample with the summaries is provided in the Appendix B.</p>
+<p>10-K filings are typically very large text documents, and Item 1 of these filings is no exception. Table 2 shows the descriptive measures of the length of the original Item 1 section in our final sample. The length of a document was measured by the word count without punctuation. The document length ranges from a minimum if 49 words up to 78,799 words. On average the documents are between 6,626 and 10,304 words long. In order to utilize the entirety of the information regarding the BM in the</p>
+<p>Item 1 section and pass the text to our BERT model, we decided to let Google’s GenAI chatbot Gemini summarize them to a maximum length of 512 tokens. The summaries were created between 26 June 2024 and 6 August 2024. The model employed was Gemini Flash 1.5. The prompt was inserted at the beginning of each text file and it was passed via an API to Gemini <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. Our prompt covers all aspects of the definition of BMI proposed by Spieth &amp; Schneider <span class="citation" data-cites="spieth_business_2016">(<a href="#ref-spieth_business_2016" role="doc-biblioref">2016</a>)</span>. For more details, see Appendix A. To assess the quality and accuracy of the summaries produced by Gemini, a random sample of 100 filings was selected for comparison with the original text. More precise,the original file was initially read with a focus on the points mentioned in the prompt. Subsequently, the summary was evaluated to ascertain whether it contained these same points. A list of the sample with the summaries is provided in the Appendix B.</p>
 </section>
 <section id="methodology" class="level2">
 <h2 class="anchored" data-anchor-id="methodology">Methodology</h2>
-<p>From the dataset containing all the summaries and financials per company per year we construct three datasets for our further analysis. The first dataset is used for the BERTScore industry classification. Therefore, we filter for all summaries of 2017 and for the first available summary of companies which do not appear first in 2017 but in a later year. We then calculate the BERTScores between all these summaries. The second and third dataset are used for the regression analysis of our measure. For the second dataset, we fix the company and calculate the BERTScore of the summaries of one year and its direct consecutive year as well as the sales growth rate. The third dataset contains the Tobin’s Q growth calculated as the difference between the natural logarithm of Tobin’s Q in the last and the first year of our observed period as well as the BERTScore between the summaries of the respective year of a company.</p>
+<p>From the dataset containing all the summaries and financials per company per year we construct three datasets for our further analysis. The first dataset is used for the BERTScore industry classification. We therefore filter all summaries by the first year in which the company submitted a filing (usually 2017). We then calculate the BERTScores between all these summaries. The second and third dataset are used for the regression analysis of our measure. In the second dataset, we fix the company and calculate the BERTScore of the summaries of one year and its direct consecutive year as well as the sales growth rate and the Tobin’s Q growth rate (according to equation 2 and 3) . We merge this dataset with our BERTS scores calculated in pairs between the same companies in different years.</p>
+<p><span class="math display">\[
+\hspace*{-6cm}
+\begin{array}{@{}l}
+\text{(1) Sales Growth} = \left(\frac{\text{Revenue in year } t}{\text{Revenue in year } t-1} - 1\right) \times 100
+\\[0.5cm]
+\text{(2) Tobin's Q Growth} = \left(\frac{\text{Tobin's Q in year } t}{\text{Tobin's Q in year } t-1} - 1\right) \times 100
+\\[0.5cm]
+\text{for } t \in \{2017;2023\}
+\end{array}
+\]</span></p>
 <p>The first dataset is utilized to compute our BERTScore industry classification. We firstly compare the BERTScore industry classification with the FIC by Hoberg &amp; Phillips <span class="citation" data-cites="hoberg_text-based_2016">(<a href="#ref-hoberg_text-based_2016" role="doc-biblioref">2016</a>)</span> and the SIC. Furthermore, we use our BERTScore industry classification in our estimation. For the FIC, Hoberg &amp; Phillips <span class="citation" data-cites="hoberg_text-based_2016">(<a href="#ref-hoberg_text-based_2016" role="doc-biblioref">2016</a>)</span> calculate the cosine similarity between word vectors of product descriptions, which they extracted from Item 1 of the 10-K filings. For our Industry classification we utilize the BERTScore to calculate the similarity between our BM summaries. Based on these similarities we cluster the companies into industries via an agglomerative clustering algorithm. The methodology and object of research differ between the two studies. In accordance with the definition provided by Spieth &amp; Schneider <span class="citation" data-cites="spieth_business_2016">(<a href="#ref-spieth_business_2016" role="doc-biblioref">2016</a>)</span>, a company’s product constitutes a component of its value proposition and, consequently, a constituent of the BM. Because the product is thereby entangled with the BM, companies that have similar products might have similar BMs. So despite the different methodology and object of research, we expect a similar distribution as Hoberg for the FIC, which is very granular and contains lot of small industries. Thus, we hypothesize:</p>
 <p><strong>H1</strong>: Our BERTScore industry classification shows a similar distribution compared to the FIC.</p>
 <p><strong>H2</strong>: Our BERTScore industry classification has a high overlap with the FIC.</p>
-<p>As mentioned, our approach differs from the original paper by Hoberg &amp; Phillips <span class="citation" data-cites="hoberg_text-based_2016">(<a href="#ref-hoberg_text-based_2016" role="doc-biblioref">2016</a>)</span>. We fix the company and calculate the BERTScore of the summaries of one year and the following year. When a company innovates its BM over time, the 10-K filings change and thus the summaries of these filings. We subtract the BERTScores from one to get the distance instead of the similarity between summaries, because the distance yields a more intuitive interpretation: The higher the distance, the more do the BM summaries differ. Figure 1 shows the density function of the distance. The distance looks normally distributed and has a mean of 0.104 and a standard deviation of 0.027. The values range from zero to 0.216. This means that on average the summaries of a company differ slightly. We attribute these small differences to our preprocessing rather than that companies on average slightly change their BM every year. Even if the summaries are very similar in terms of content, Gemini might use different phrases and wordings which result in different BERTScores and thereby in a higher distance. Hence, we normalize the distance by dividing by its mean. Furthermore, we subtract one and multiply it by one-hundred in order to further ease the interpretation of the coefficient. This results in the following definition of our measure:</p>
-<p><span class="math display">\[
-{NormalizedDistance} = \left( \frac{{Distance}_i}{\frac{1}{n} \sum_{i=1}^{n} {Distance}_i} - 1 \right) \cdot 100
-\]</span></p>
-<p>where n denotes the number of observations in the dataset. The Normalized Distance measures the difference in the distance between two consecutive summaries of some company above the market average in percentage points. Under the assumption that the summaries reliably represent the firms’ BM, the Normalized Distance measures the change of a company’s BM above the market average in percentage points from one year to the next. We further assume that a company that changes its BM, will not return back to its original BM. Under this assumption the Normalized Distance measures BMI on the new-to-the-firm level. The literature posits that changes in the business model can be positively correlated with firm performance. In the case that our measure is able to measure BMI, we expect to find a positive relationship between our BMI measure and firm performance. Therefore, we hypothesize that:</p>
-<p><strong>H3</strong>: Our measure for BMI is positively correlated with firm performance.</p>
-<p>When measuring BMI, Guldmann &amp; Huulgaard <span class="citation" data-cites="guldmann_barriers_2020">(<a href="#ref-guldmann_barriers_2020" role="doc-biblioref">2020</a>)</span> assume several barriers to BMI in the circular economy, comparing differences between company sizes and equal company sizes. They found that even same-sized companies face different barriers to BMI, but also identify company size, industry and customer segments as drivers of differences in barriers to BMI. There is a gap in the literature when it comes to investigating the effect of BMI on the performance of different company sizes. We expect higher effects for companies with lower market capitalization (according to Guldmann &amp; Huulgaard <span class="citation" data-cites="guldmann_barriers_2020">(<a href="#ref-guldmann_barriers_2020" role="doc-biblioref">2020</a>)</span>, smaller companies are more flexible in changing established processes), while companies with medium or high market capitalization tend to show a less strong effect, which is why we put forward the following hypothesis:</p>
-<p><strong>H4</strong>: BMI has a stronger positive effect on the performance of small companies compared to medium and large companies.</p>
+<p>As mentioned, our approach differs from the original paper by Hoberg &amp; Phillips <span class="citation" data-cites="hoberg_text-based_2016">(<a href="#ref-hoberg_text-based_2016" role="doc-biblioref">2016</a>)</span>. We fix the company and calculate the BERTScore of the summaries of one year and the following year. When a company innovates its BM over time, the 10-K filings change and thus the summaries of these filings. We subtract the BERTScores from one to get the distance instead of the similarity between summaries, because the distance yields a more intuitive interpretation: The higher the distance, the more do the BM summaries differ. Figure 1 shows the density function of the distance. The distance looks normally distributed and has a mean of 0.104 and a standard deviation of 0.027.</p>
 <div id="fig-1" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -197,22 +199,49 @@ Figure&nbsp;1: Density Function of the Distance
 </figcaption>
 </figure>
 </div>
+<p>The values range from zero to 0.216. This means that on average the summaries of a company differ slightly. We attribute these small differences to our preprocessing rather than that companies on average slightly change their BM every year. Even if the summaries are very similar in terms of content, Gemini might use different phrases and wordings which result in different BERTScores and thereby in a higher distance. Hence, we normalize the distance by dividing by its mean. Furthermore, we subtract one and multiply it by one-hundred in order to further ease the interpretation of the coefficient. This results in the following definition of our measure:</p>
+<p><span class="math display">\[
+\hspace*{-6cm}
+\begin{array}{@{}l}
+\text{(3) Normalized Distance} = \left( \frac{\text{Distance}_i}{\frac{1}{n} \sum_{i=1}^{n} \text{Distance}_i} - 1 \right) \cdot 100
+\end{array}
+\]</span></p>
+<p>where n denotes the number of observations in the dataset. The Normalized Distance measures the difference in the distance between two consecutive summaries of some company above the market average in percentage points. Under the assumption that the summaries reliably represent the firms’ BM, the Normalized Distance measures the change of a company’s BM above the market average in percentage points from one year to the next. We further assume that a company that changes its BM, will not return back to its original BM. Under this assumption the Normalized Distance measures BMI on the new-to-the-firm level. The literature posits that changes in the business model can be positively correlated with firm performance. In the case that our measure is able to measure BMI, we expect to find a positive relationship between our BMI measure and firm performance. Therefore, we hypothesize that:</p>
+<p><strong>H3</strong>: Our measure for BMI is positively correlated with firm performance.</p>
+<p>When measuring BMI, Guldmann &amp; Huulgaard <span class="citation" data-cites="guldmann_barriers_2020">(<a href="#ref-guldmann_barriers_2020" role="doc-biblioref">2020</a>)</span> assume several barriers to BMI in the circular economy, comparing differences between company sizes and equal company sizes. They found that even same-sized companies face different barriers to BMI, but also identify company size, industry and customer segments as drivers of differences in barriers to BMI. There is a gap in the literature when it comes to investigating the effect of BMI on the performance of different company sizes. We expect higher effects for companies with lower market capitalization (according to Guldmann &amp; Huulgaard <span class="citation" data-cites="guldmann_barriers_2020">(<a href="#ref-guldmann_barriers_2020" role="doc-biblioref">2020</a>)</span>, smaller companies are more flexible in changing established processes), while companies with medium or high market capitalization tend to show a less strong effect, which is why we put forward the following hypothesis:</p>
+<p><strong>H4</strong>: BMI has a stronger positive effect on the performance of small companies compared to medium and large companies.</p>
 </section>
 </section>
 <section id="estimation-strategy" class="level1">
 <h1>Estimation Strategy</h1>
-<p>We test H3 using multivariate regression techniques. The independent variable is the Normalized Distance, as previously defined. Two different dependent variables are employed in order to measure a company’s performance. In the initial specification, the sales growth is used as the dependent variable as by Cucculelli &amp; Bettinelli <span class="citation" data-cites="cucculelli_business_2015">(<a href="#ref-cucculelli_business_2015" role="doc-biblioref">2015</a>)</span>. For this specification, the second dataset is employed, and all observations with zero values for market value and total assets were removed in order to take the logarithms. We control for firm size by once using the logarithm of the market value and once the logarithm of total assets <span class="citation" data-cites="dang2018measuring">(<a href="#ref-dang2018measuring" role="doc-biblioref">Dang, Li, and Yang 2018</a>)</span>. Moreover, outliners are winsorized only above the 99th percentile. For a more detailed discussion of this step, see Appendix C. We use the interaction term of the year and our BERTScore industry classification as a fixed effect. The interaction term of the year and the industry is employed to capture potential heterogeneous effects of the industry classification across different years. The economic and political environment is not controlled for, as White et al. <span class="citation" data-cites="white_exploring_2022">(<a href="#ref-white_exploring_2022" role="doc-biblioref">2022</a>)</span> suggest, as all of the companies in question are based in the United States.</p>
-<p>In the second specification the growth of Tobin’s Q is employed as described by Desyllas et al. <span class="citation" data-cites="Desyllas2022">(<a href="#ref-Desyllas2022" role="doc-biblioref">2022</a>)</span>. To account for differences between companies, we us growth rates instead of absolute values. The third dataset is used for this specification. Since every company is one observation in the dataset, we control for the firm size once with the logarithm of the mean market value and once with the logarithm of the mean total assets of a company. The mean is calculated with all available years per company. Furthermore, the number of years between the initial and final years utilized for Tobin’s Q growth is controlled for. The reason behind this is, that some companies in the dataset initially appear later than 2017 or lastly do not appear in 2023. We use fixed effects to control for this difference. Furthermore, we use industry fixed effects to control for heterogeneous effects between industries. As in the first specification, we do not control for the economic and political environment.</p>
-<p>We use a similar multivariate regression model to test H4. In contrast to the previous specification, we only use sales growth as the dependent variable, as we would otherwise have too few observations available for our model due to the sample split. We divide the dataset into three different groups, using a flat split of market capitalization defined by NASDAQ as the thresholds. Accordingly, companies with a market capitalization of up to one billion US dollars are assigned to small-cap firms, companies up to five billion US dollars to mid-cap firms and companies larger than that to large-cap firms. As in the first specification, we use the interaction term of the year and our BERTScore industry classification as a fixed effect and control for firm size via the logarithm of the total assets.</p>
+<p>We test H3 using multivariate regression techniques. The independent variable is the Normalized Distance, as previously defined. Two different dependent variables are employed in order to measure a company’s performance. In the initial specification, the sales growth is used as the dependent variable as by Cucculelli &amp; Bettinelli <span class="citation" data-cites="cucculelli_business_2015">(<a href="#ref-cucculelli_business_2015" role="doc-biblioref">2015</a>)</span>. For this specification, the second dataset is employed, and all observations with zero values for market value and total assets were removed in order to take the logarithms. We control for firm size by once using the logarithm of the market value and once the logarithm of total assets <span class="citation" data-cites="dang2018measuring">(<a href="#ref-dang2018measuring" role="doc-biblioref">Dang, Li, and Yang 2018</a>)</span>. Moreover, outlier values are winsorized above the 99th percentile. For a more detailed discussion of this step, see Appendix C. The following regressions are used to estimate the normalized distance:</p>
+<p><span class="math display">\[
+\begin{array}{l}
+\text{(4) } Y_{\text{Sales Growth}} = \beta_0 + \beta_1 X_{\text{Normalized Distance}} + \beta_2 \ln(X_{\text{Market Value}}) + \gamma_{\text{year} \times \text{industry}} + \epsilon_{it}
+\\[0.5cm]
+\text{(5) } Y_{\text{Sales Growth}} = \beta_0 + \beta_1 X_{\text{Normalized Distance}} + \beta_2 \ln(X_{\text{Total Assets}}) + \gamma_{\text{year} \times \text{industry}} + \epsilon_{it}
+\\[0.5cm]
+\text{(6) } Y_{\text{Tobin's Q Growth}} = \beta_0 + \beta_1 X_{\text{Normalized Distance}} + \beta_2 \ln(X_{\text{Market Value}}) + \gamma_{\text{year} \times \text{industry}} + \epsilon_{it}
+\\[0.5cm]
+\text{(7) } Y_{\text{Tobin's Q Growth}} = \beta_0 + \beta_1 X_{\text{Normalized Distance}} + \beta_2 \ln(X_{\text{Total Assets}}) + \gamma_{\text{year} \times \text{industry}} + \epsilon_{it}
+\end{array}
+\]</span></p>
+<p>We use the interaction term of the year and our BERTScore industry classification as fixed effects. The interaction term of the year and the industry is employed to capture potential heterogeneous effects of the industry classification across different years. The economic and political environment is not controlled for, as White et al. <span class="citation" data-cites="white_exploring_2022">(<a href="#ref-white_exploring_2022" role="doc-biblioref">2022</a>)</span> suggest, as all of the companies in question are based in the United States. In the second specification the growth of Tobin’s Q is employed as described by Desyllas et al. <span class="citation" data-cites="Desyllas2022">(<a href="#ref-Desyllas2022" role="doc-biblioref">2022</a>)</span>. To account for differences between companies, we us growth rates instead of absolute values. The third dataset is used for this specification. Since every company is one observation in the dataset, we control for the firm size once with the logarithm of the mean market value and once with the logarithm of the mean total assets of a company. The mean is calculated with all available years per company. Furthermore, the number of years between the initial and final years utilized for Tobin’s Q growth is controlled for. The reason behind this is, that some companies in the dataset initially appear later than 2017 or lastly do not appear in 2023. We use fixed effects to control for this difference. Furthermore, we use industry fixed effects to control for heterogeneous effects between industries. As in the first specification, we do not control for the economic and political environment. We use a similar multivariate regression model to test H4: <span class="math display">\[
+\begin{array}{l}
+\text{(8) }Y_{\text{Sales Growth, k}} = \beta_{0, k} + \beta_{1, k} X_{\text{Normalized Distance}} + \beta_{2, k} \ln(X_{\text{Total Assets}}) + \gamma_{\text{year} \times \text{industry}} + \epsilon_{it, k}
+\\[0.5cm]
+\text{(9) }Y_{\text{Tobin's Q Growth, k}} = \beta_{0, k} + \beta_{1, k} X_{\text{Normalized Distance}} + \beta_{2, k} \ln(X_{\text{Total Assets}}) + \gamma_{\text{year} \times \text{industry}} + \epsilon_{it, k}
+\\[0.5cm]
+\end{array}
+\]</span></p>
+<p><span class="math inline">\(\text{whereby } k \in \{\text{Small-Cap}, \text{Mid-Cap}, \text{Large-Cap}\}\)</span>. In contrast to the previous specification, we only use sales growth as the dependent variable, as we would otherwise have too few observations available for our model due to the sample split. We divide the dataset into three different groups, using a flat split of market capitalization defined by NASDAQ as the thresholds. Accordingly, companies with a market capitalization of up to one billion US dollars are assigned to small-cap firms, companies up to five billion US dollars to mid-cap firms and companies larger than that to large-cap firms. As in the first specification, we use the interaction term of the year and our BERTScore industry classification as a fixed effect and control for firm size via the logarithm of the total assets.</p>
 </section>
 <section id="results-and-discussion" class="level1">
 <h1>Results and Discussion</h1>
 <section id="comparison" class="level2">
 <h2 class="anchored" data-anchor-id="comparison">Comparison</h2>
-<p>Our study builds on the idea of Hoberg &amp; Phillips <span class="citation" data-cites="hoberg_text-based_2016">(<a href="#ref-hoberg_text-based_2016" role="doc-biblioref">2016</a>)</span> to utilize text data from 10-K filings to classify companies based on their product similarity into dynamic industries. They achieve this through the parsing of the product descriptions provided by Item 1 of firms 10-K filings and creating word vectors. Specifically, the authors identify and exclude proper nouns, which include common words and geographic locations. They then create word vectors for each firm and year, which enables the measurement of product similarity over time. They perform two steps to create the FIC. Firstly, a hierarchical agglomerative clustering algorithm is employed to cluster companies based on their similarity and maximize ex-post within cluster similarity. This enables a classification with any number of clusters. In the second step, the authors compute aggregated word vectors for each industry. These vectors now represent the industries. Subsequently, the similarity between industries and firms is calculated for each of the following years. From the second year onwards, firms are classified according to the industry with which they are most similar. Our approach differs in two ways: Firstly, in contrast to the TNIC and FIC, which employ word-to-vec, our approach utilizes BERT to represent text, which allows us to capture the context of words. Accordingly, the BERTScore is employed instead of the cosine similarity as our similarity measure. Secondly, our analysis is focused on the description of the BM rather than on the product descriptions. Nevertheless, in the following subsection, the BERTScore industry classification is compared with the FIC and the SIC.</p>
-<p>We employ the first dataset for the BERTScore industry classification and the comparison. The SIC codes come from the SEC website<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>. For the FIC we have utilized the similarity scores provided by Hoberg-Phillips Data Library<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>. The data consists of the gvkeys of two companies, the year and the cosine similarity between these two companies. In order to ensure comparability, only companies present in both the present study’s dataset and that provided by the authors are included in the analysis. Because we use CIKs and accession numbers to identify firms and filings, and the fact that the data library employs Compustat’s gvkeys, the matching of CIKs with gvkeys inevitably results in the loss of some observations. Ultimately, for the comparison the clustering algorithm was applied to 1,958 of the 3,246 firms in our sample for the year 2017. In our dataset, companies are from 320 different SIC codes. Therefore, for the comparison the number of industries chosen for our industry classification and the FIC is 320.</p>
-<p>Figure 2 compares the distribution of industry size for the BERTScore classification, the FIC and the SIC. Both the BERTScore classification and the FIC show a similar distribution, displaying a leftward skew with the majority of industries comprising fewer than ten firms. The SIC shows as well a left skewed distribution but with most industries only containing one company. The distribution of the FIC is steeper than the one of the BERTScore classification. It is notable that the largest industry in the BERTScore classification comprises only 20 companies, whereas the FIC and SIC contain industries with a greater number of firms, with some exceeding 50. This suggests that the BERTScore classification groups small to medium-sized industries, comprising between two and fourteen firms per industry, with fewer large industries. The FIC also comprises mostly of small to medium-sized industries, with a few larger ones. Despite these minor differences, this supports H1. The degree of homogeneity between the BERTScore classification and the FIC is 0.63, while the completeness is 0.6. This demonstrates only a medium degree of overlap between the two classifications. The Adjusted Rand Index (ARI) <span class="citation" data-cites="hubert_comparing_1985">(<a href="#ref-hubert_comparing_1985" role="doc-biblioref">Hubert and Arabie 1985</a>)</span> is situated at 0.0002, which is close to zero, indicating that the overlap might be random. These findings do not provide support for H2.</p>
-<p>In order to use our BERTScore industry classification in our estimation, we classify all 3,246 companies from the year 2017 as described above. Since we use BERT and do not have word vectors for each industry, our methodology differs in the second step from Hoberg &amp; Phillips <span class="citation" data-cites="hoberg_text-based_2016">(<a href="#ref-hoberg_text-based_2016" role="doc-biblioref">2016</a>)</span>. We assign the remaining companies of which we do not have data for the year 2017 to the industry of the company which are already classified and which they are most similar to.</p>
+<p>Our study builds on the idea of Hoberg &amp; Phillips <span class="citation" data-cites="hoberg_text-based_2016">(<a href="#ref-hoberg_text-based_2016" role="doc-biblioref">2016</a>)</span> to utilize text data from 10-K filings to classify companies based on their product similarity into dynamic industries. They achieve this through the parsing of the product descriptions provided by Item 1 of firms 10-K filings and creating word vectors. Specifically, the authors identify and exclude proper nouns, which include common words and geographic locations. They then create word vectors for each firm and year, which enables the measurement of product similarity over time. They perform two steps to create the FIC. Firstly, a hierarchical agglomerative clustering algorithm is employed to cluster companies based on their similarity and maximize ex-post within cluster similarity. This enables a classification with any number of clusters. In the second step, the authors compute aggregated word vectors for each industry. These vectors now represent the industries. Subsequently, the similarity between industries and firms is calculated for each of the following years. From the second year onwards, firms are classified according to the industry with which they are most similar. Our approach differs in two ways: Firstly, in contrast to the TNIC and FIC, which employ word-to-vec, our approach utilizes BERT to represent text, which allows us to capture the context of words. Accordingly, the BERTScore is employed instead of the cosine similarity as our similarity measure. Secondly, our analysis is focused on the description of the BM rather than on the product descriptions. Nevertheless, in the following subsection, the BERTScore industry classification is compared with the FIC and the SIC. We employ the first dataset for the BERTScore industry classification and the comparison. The SIC codes come from the SEC website<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>. For the FIC we have utilized the similarity scores provided by Hoberg-Phillips Data Library<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>. The data consists of the gvkeys of two companies, the year and the cosine similarity between these two companies. In order to ensure comparability, only companies present in both the present study’s dataset and that provided by the authors are included in the analysis. Because we use CIKs and accession numbers to identify firms and filings, and the fact that the data library employs Compustat’s gvkeys, the matching of CIKs with gvkeys inevitably results in the loss of some observations. Ultimately, for the comparison the clustering algorithm was applied to 1,958 of the 3,246 firms in our sample for the year 2017. In our dataset, companies are from 320 different SIC codes. Therefore, for the comparison the number of industries chosen for our industry classification and the FIC is 320.</p>
+<p>Figure 2 compares the distribution of industry size for the BERTScore classification, the FIC and the SIC. Both the BERTScore classification and the FIC show a similar distribution, displaying a leftward skew with the majority of industries comprising fewer than ten firms.</p>
 <div id="fig-2" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -223,14 +252,13 @@ Figure&nbsp;2: Distribution Comparison between BERT Classification, FIC and SIC
 </figcaption>
 </figure>
 </div>
+<p>The SIC shows as well a left skewed distribution but with most industries only containing one company. The distribution of the FIC is steeper than the one of the BERTScore classification. It is notable that the largest industry in the BERTScore classification comprises only 20 companies, whereas the FIC and SIC contain industries with a greater number of firms, with some exceeding 50. This suggests that the BERTScore classification groups small to medium-sized industries, comprising between two and fourteen firms per industry, with fewer large industries. The FIC also comprises mostly of small to medium-sized industries, with a few larger ones. Despite these minor differences, this supports H1. The degree of homogeneity between the BERTScore classification and the FIC is 0.63, while the completeness is 0.6. This demonstrates only a medium degree of overlap between the two classifications. The Adjusted Rand Index (ARI) <span class="citation" data-cites="hubert_comparing_1985">(<a href="#ref-hubert_comparing_1985" role="doc-biblioref">Hubert and Arabie 1985</a>)</span> is situated at 0.0002, which is close to zero, indicating that the overlap might be random. These findings do not provide support for H2.</p>
+<p>In order to use our BERTScore industry classification in our estimation, we classify all 3,246 companies from the year 2017 as described above. Since we use BERT and do not have word vectors for each industry, our methodology differs in the second step from Hoberg &amp; Phillips <span class="citation" data-cites="hoberg_text-based_2016">(<a href="#ref-hoberg_text-based_2016" role="doc-biblioref">2016</a>)</span>. We assign the remaining companies of which we do not have data for the year 2017 to the industry of the company which are already classified and which they are most similar to.</p>
 <div style="page-break-after: always;"></div>
 </section>
 <section id="results" class="level2">
 <h2 class="anchored" data-anchor-id="results">Results</h2>
-<p>Table 3 presents the four regressions related to hypothesis H3. As previously described, this relationship is examined using sales growth and Tobin’s Q growth as firm performance indicators. Models 1 and 2 use sales growth as the dependent variable. Model 1 shows a significant positive effect for the Normalized Distance (<span class="math inline">\(beta\)</span> = 0.289, p &lt; 0.01) on the sales growth. The results can be interpreted as that a company, that changes its BM in one year one percentage point more than the market average, experiences on average 0.289 percentage points more growth in sales. Model 2 as well shows this significant positive effect (<span class="math inline">\(beta\)</span> = 0.292, p &lt; 0.01). Both regressions yield very similar results regardless of whether we include the logarithm of the market value (<span class="math inline">\(beta\)</span> = -1.014, p &gt; 0.1) or the logarithm of the total assets (<span class="math inline">\(beta\)</span> = -2.155, p &lt; 0.05) as a control variable for the firm size. These results provide support for H3.</p>
-<p>Model 3 and 4 assess the effect of the Normalized Distance on Tobin’s Q growth. Both Models show a negative significant effect (<span class="math inline">\(beta\)</span> = -0.007, p &lt; 0.001 and <span class="math inline">\(beta\)</span> = -0.008, p &lt; 0.001). This can be interpreted as indicating that a company that changes its BM by one percentage point more than the market average over the observation period will experience, on average, a reduction in Tobin’s Q growth of 0.008, respectively 0.007, percentage points. As in Model 1 and 2, the coefficients for the Normalized Distance only change very little when controlling for the logarithm of the market value instead of the logarithm of the total assets. The results do not support H3, since we anticipated a positive effect.</p>
-<p>Version 1: Table 4 shows the results of the split model. We find a significant positive effect (<span class="math inline">\(beta\)</span> = 0.536, p &lt; 0.01) for small-cap companies and no significant effect for mid-cap (<span class="math inline">\(beta\)</span> =0.008, p &gt; 0.1) and large-cap (<span class="math inline">\(beta\)</span> = 0.106, p &gt; 0.1) companies. These results shows that the positive effect of BMI is in fact stronger than for mid-cap and large-cap companies since for both the coefficients are not significant. This supports H4.</p>
-<p>In summary, the findings indicate that BMI has a significant impact on firm performance. Specifically, BM changes have a positive effect on operational metrics such as sales growth, which can be viewed as a positive outcome. A differentiated view of market capitalization shows that the BMI of smaller companies predominantly has a positive impact on sales growth. In contrast, medium-sized companies have a negative effect, while large companies only show a marginal positive effect. However, the stock market does not respond as favorably to such changes. Tobin’s Q growth decreases when companies adjust their business models, meaning the ratio of market value to total capital declines. This effect is not necessarily problematic, as market value is influenced by stock trading, which incorporates subjective evaluations that are reflected in this metric.</p>
+<p>Table 3 presents the four regressions related to hypothesis H3. As previously described, this relationship is examined using sales growth and Tobin’s Q growth as firm performance indicators. Models 1 and 2 use sales growth as the dependent variable. Model 1 shows a significant positive effect for the Normalized Distance (<span class="math inline">\(\hat{\beta_1}\)</span> = 0.289, p &lt; 0.01) on the sales growth. The results can be interpreted as that a company, that changes its BM in one year one percentage point more than the market average, experiences on average 0.289 percentage points more growth in sales. Model 2 as well shows this significant positive effect (<span class="math inline">\(\hat{\beta_1}\)</span> = 0.292, p &lt; 0.01). Both regressions yield very similar results regardless of whether we include the logarithm of the market value (<span class="math inline">\(\hat{\beta_2}\)</span> = -1.014, p &gt; 0.1) or the logarithm of the total assets (<span class="math inline">\(\hat{\beta_1}\)</span> = -2.155, p &lt; 0.05) as a control variable for the firm size. These results provide support for H3. Model 3 and 4 assess the effect of the Normalized Distance on Tobin’s Q growth. Both Models show a negative significant effect (<span class="math inline">\(\hat{\beta_1}\)</span> = -0.007, p &lt; 0.001 and <span class="math inline">\(\hat{\beta_1}\)</span> = -0.008, p &lt; 0.001). This can be interpreted as indicating that a company that changes its BM by one percentage point more than the market average over the observation period will experience, on average, a reduction in Tobin’s Q growth of 0.008, respectively 0.007, percentage points. As in Model 1 and 2, the coefficients for the Normalized Distance only change very little when controlling for the logarithm of the market value instead of the logarithm of the total assets. The results do not support H3, since we anticipated a positive effect.</p>
 <table style="NAborder-bottom: 0; width: auto !important; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;border-bottom: 0;" class="table table">
 <caption>Regression Results I</caption>
  <thead>
@@ -250,115 +278,66 @@ Figure&nbsp;2: Distribution Comparison between BERT Classification, FIC and SIC
 <tbody>
   <tr>
    <td style="text-align:left;"> Normalized Distance </td>
-   <td style="text-align:center;"> 0.289** </td>
-   <td style="text-align:center;"> 0.292** </td>
-   <td style="text-align:center;"> -0.007*** </td>
-   <td style="text-align:center;"> -0.008*** </td>
+   <td style="text-align:center;"> 0.322*** </td>
+   <td style="text-align:center;"> 0.326*** </td>
+   <td style="text-align:center;"> -0.098 </td>
+   <td style="text-align:center;"> -0.233 </td>
   </tr>
   <tr>
    <td style="text-align:left;">  </td>
-   <td style="text-align:center;"> (0.110) </td>
-   <td style="text-align:center;"> (0.110) </td>
-   <td style="text-align:center;"> (0.001) </td>
-   <td style="text-align:center;"> (0.001) </td>
+   <td style="text-align:center;"> (0.086) </td>
+   <td style="text-align:center;"> (0.086) </td>
+   <td style="text-align:center;"> (2.159) </td>
+   <td style="text-align:center;"> (2.159) </td>
   </tr>
   <tr>
    <td style="text-align:left;"> log(Market Value) </td>
-   <td style="text-align:center;"> -1.014 </td>
+   <td style="text-align:center;"> -0.476 </td>
    <td style="text-align:center;">  </td>
-   <td style="text-align:center;">  </td>
+   <td style="text-align:center;"> 46.965* </td>
    <td style="text-align:center;">  </td>
   </tr>
   <tr>
    <td style="text-align:left;">  </td>
-   <td style="text-align:center;"> (0.921) </td>
+   <td style="text-align:center;"> (0.882) </td>
    <td style="text-align:center;">  </td>
-   <td style="text-align:center;">  </td>
+   <td style="text-align:center;"> (22.211) </td>
    <td style="text-align:center;">  </td>
   </tr>
   <tr>
    <td style="text-align:left;"> log(Assets) </td>
    <td style="text-align:center;">  </td>
-   <td style="text-align:center;"> -2.155* </td>
+   <td style="text-align:center;"> -1.790* </td>
    <td style="text-align:center;">  </td>
-   <td style="text-align:center;">  </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;">  </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;"> (0.927) </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;">  </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> log(Mean Market Value) </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;"> 0.022* </td>
-   <td style="text-align:center;">  </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;">  </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;"> (0.011) </td>
-   <td style="text-align:center;">  </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> log(Mean Assets) </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;"> -0.001 </td>
+   <td style="text-align:center;"> 61.665** </td>
   </tr>
   <tr>
    <td style="text-align:left;box-shadow: 0px 1.5px">  </td>
    <td style="text-align:center;box-shadow: 0px 1.5px">  </td>
+   <td style="text-align:center;box-shadow: 0px 1.5px"> (0.888) </td>
    <td style="text-align:center;box-shadow: 0px 1.5px">  </td>
-   <td style="text-align:center;box-shadow: 0px 1.5px">  </td>
-   <td style="text-align:center;box-shadow: 0px 1.5px"> (0.010) </td>
+   <td style="text-align:center;box-shadow: 0px 1.5px"> (22.377) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Num.Obs. </td>
+   <td style="text-align:center;"> 12014 </td>
+   <td style="text-align:center;"> 12014 </td>
+   <td style="text-align:center;"> 12014 </td>
+   <td style="text-align:center;"> 12014 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> Industry x Year Fixed Effects </td>
    <td style="text-align:center;"> Yes </td>
    <td style="text-align:center;"> Yes </td>
-   <td style="text-align:center;"> No </td>
-   <td style="text-align:center;"> No </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Industry Fixed Effects </td>
-   <td style="text-align:center;"> No </td>
-   <td style="text-align:center;"> No </td>
    <td style="text-align:center;"> Yes </td>
    <td style="text-align:center;"> Yes </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Time Difference Fixed Effects </td>
-   <td style="text-align:center;"> No </td>
-   <td style="text-align:center;"> No </td>
-   <td style="text-align:center;"> Yes </td>
-   <td style="text-align:center;"> Yes </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Num.Obs. </td>
-   <td style="text-align:center;"> 12155 </td>
-   <td style="text-align:center;"> 12155 </td>
-   <td style="text-align:center;"> 3341 </td>
-   <td style="text-align:center;"> 3341 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> R2 </td>
-   <td style="text-align:center;"> 0.248 </td>
-   <td style="text-align:center;"> 0.248 </td>
-   <td style="text-align:center;"> 0.196 </td>
-   <td style="text-align:center;"> 0.195 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> RMSE </td>
-   <td style="text-align:center;"> 201.04 </td>
-   <td style="text-align:center;"> 200.99 </td>
-   <td style="text-align:center;"> 1.26 </td>
-   <td style="text-align:center;"> 1.26 </td>
+   <td style="text-align:center;"> 0.253 </td>
+   <td style="text-align:center;"> 0.254 </td>
+   <td style="text-align:center;"> 0.127 </td>
+   <td style="text-align:center;"> 0.127 </td>
   </tr>
 </tbody>
 <tfoot><tr><td style="padding: 0; " colspan="100%">
@@ -370,69 +349,88 @@ Figure&nbsp;2: Distribution Comparison between BERT Classification, FIC and SIC
 </tfoot>
 </table>
 
-``````````{=html}
+<p>The findings indicate that BMI has a significant impact on firm performance. Specifically, BM changes have a positive effect on operational metrics such as sales growth, which can be viewed as a positive outcome. A differentiated view of market capitalization shows that the BMI of smaller companies predominantly has a positive impact on sales growth. In contrast, medium-sized companies have a negative effect, while large companies only show a marginal positive effect. However, the stock market does not respond as favorably to such changes. Tobin’s Q growth decreases when companies adjust their BM, meaning the ratio of market value to total capital declines. This effect is not necessarily problematic, as market value is influenced by stock trading, which incorporates subjective evaluations that are reflected in this metric. Table 4 illustrates how the previously demonstrated effects influences individual firm sizes. When we differentiate the companies into Small-cap (6,573 observations), Mid-cap (2,923 observations), and Large-cap (2,659 observations), the explanatory coefficients reveal substantial differences. The small firms exhibit by far the most significant effect on the altered distance, which is also significant at the 1% level. In contrast, for large companies, we observe only approximately 20% of the effect of the BM change on sales figures. Furthermore, the coefficient does not even exceed one standard deviation, indicating a lack of significance. The situation is even less favorable for mid-sized companies, as evidenced by both the coefficient and standard deviation. The value of the distance effect accounts for merely 0,008% of that observed in large companies. Therefore, we can conclude that the previously observed effect across all firms can primarily be attributed to small firms. For medium to large firms, no discernible impact is evident. In the overall analysis, the effects are significant and support H4.</p>
 <table style="NAborder-bottom: 0; width: auto !important; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;border-bottom: 0;" class="table table">
 <caption>Regression Results II</caption>
  <thead>
 <tr>
 <th style="empty-cells: hide;border-bottom:hidden;" colspan="1"></th>
 <th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="3"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">Sales Growth</div></th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="3"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">Tobin's Q Growth</div></th>
 </tr>
   <tr>
    <th style="text-align:left;">   </th>
    <th style="text-align:center;"> Small-Cap </th>
    <th style="text-align:center;"> Mid-Cap </th>
    <th style="text-align:center;"> Large-Cap </th>
+   <th style="text-align:center;"> Small-Cap  </th>
+   <th style="text-align:center;"> Mid-Cap  </th>
+   <th style="text-align:center;"> Large-Cap  </th>
   </tr>
  </thead>
 <tbody>
   <tr>
    <td style="text-align:left;"> Normalized Distance </td>
-   <td style="text-align:center;"> 0.536** </td>
-   <td style="text-align:center;"> 0.008 </td>
-   <td style="text-align:center;"> 0.106 </td>
+   <td style="text-align:center;"> 0.614*** </td>
+   <td style="text-align:center;"> 0.010 </td>
+   <td style="text-align:center;"> 0.121 </td>
+   <td style="text-align:center;"> -0.402 </td>
+   <td style="text-align:center;"> 0.151 </td>
+   <td style="text-align:center;"> -0.057 </td>
   </tr>
   <tr>
    <td style="text-align:left;">  </td>
-   <td style="text-align:center;"> (0.197) </td>
-   <td style="text-align:center;"> (0.254) </td>
-   <td style="text-align:center;"> (0.122) </td>
+   <td style="text-align:center;"> (0.150) </td>
+   <td style="text-align:center;"> (0.203) </td>
+   <td style="text-align:center;"> (0.097) </td>
+   <td style="text-align:center;"> (4.568) </td>
+   <td style="text-align:center;"> (0.144) </td>
+   <td style="text-align:center;"> (0.076) </td>
   </tr>
   <tr>
    <td style="text-align:left;"> log(Assets) </td>
-   <td style="text-align:center;"> -1.041 </td>
-   <td style="text-align:center;"> -5.590 </td>
-   <td style="text-align:center;"> -2.169 </td>
+   <td style="text-align:center;"> -0.615 </td>
+   <td style="text-align:center;"> -5.552 </td>
+   <td style="text-align:center;"> -1.895 </td>
+   <td style="text-align:center;"> 161.384** </td>
+   <td style="text-align:center;"> -20.372*** </td>
+   <td style="text-align:center;"> -7.139*** </td>
   </tr>
   <tr>
    <td style="text-align:left;box-shadow: 0px 1.5px">  </td>
-   <td style="text-align:center;box-shadow: 0px 1.5px"> (1.921) </td>
-   <td style="text-align:center;box-shadow: 0px 1.5px"> (6.188) </td>
-   <td style="text-align:center;box-shadow: 0px 1.5px"> (2.291) </td>
+   <td style="text-align:center;box-shadow: 0px 1.5px"> (1.853) </td>
+   <td style="text-align:center;box-shadow: 0px 1.5px"> (5.947) </td>
+   <td style="text-align:center;box-shadow: 0px 1.5px"> (2.133) </td>
+   <td style="text-align:center;box-shadow: 0px 1.5px"> (56.499) </td>
+   <td style="text-align:center;box-shadow: 0px 1.5px"> (4.206) </td>
+   <td style="text-align:center;box-shadow: 0px 1.5px"> (1.667) </td>
   </tr>
   <tr>
    <td style="text-align:left;"> Industry x Year Fixed Effects </td>
    <td style="text-align:center;"> Yes </td>
    <td style="text-align:center;"> Yes </td>
    <td style="text-align:center;"> Yes </td>
+   <td style="text-align:center;"> Yes </td>
+   <td style="text-align:center;"> Yes </td>
+   <td style="text-align:center;"> Yes </td>
   </tr>
   <tr>
    <td style="text-align:left;"> Num.Obs. </td>
-   <td style="text-align:center;"> 6573 </td>
-   <td style="text-align:center;"> 2923 </td>
-   <td style="text-align:center;"> 2659 </td>
+   <td style="text-align:center;"> 6459 </td>
+   <td style="text-align:center;"> 2904 </td>
+   <td style="text-align:center;"> 2651 </td>
+   <td style="text-align:center;"> 6459 </td>
+   <td style="text-align:center;"> 2904 </td>
+   <td style="text-align:center;"> 2651 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> R2 </td>
-   <td style="text-align:center;"> 0.320 </td>
-   <td style="text-align:center;"> 0.411 </td>
-   <td style="text-align:center;"> 0.567 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> RMSE </td>
-   <td style="text-align:center;"> 223.76 </td>
-   <td style="text-align:center;"> 159.68 </td>
-   <td style="text-align:center;"> 81.49 </td>
+   <td style="text-align:center;"> 0.328 </td>
+   <td style="text-align:center;"> 0.419 </td>
+   <td style="text-align:center;"> 0.566 </td>
+   <td style="text-align:center;"> 0.147 </td>
+   <td style="text-align:center;"> 0.390 </td>
+   <td style="text-align:center;"> 0.576 </td>
   </tr>
 </tbody>
 <tfoot><tr><td style="padding: 0; " colspan="100%">
@@ -444,13 +442,14 @@ Figure&nbsp;2: Distribution Comparison between BERT Classification, FIC and SIC
 </tfoot>
 </table>
 
-<p>Version 2: Table 4 illustrates how the previously demonstrated effects influences individual firm sizes. In the overall analysis, the effects are significant and support our hypothesis. When we differentiate the companies into Small-cap (6,573 observations), Mid-cap (2,923 observations), and Large-cap (2,659 observations), the explanatory coefficients reveal substantial differences. The small firms exhibit by far the most significant effect on the altered distance, which is also significant at the 5% level. In contrast, for large companies, we observe only approximately 20% of the effect of the business model change on sales figures. Furthermore, the coefficient does not even exceed one standard deviation, indicating a lack of significance. The situation is even less favorable for mid-sized companies, as evidenced by both the coefficient and standard deviation. The value of the distance effect accounts for merely 8% of that observed in large companies, while the standard deviation stands at 0.254, more than twice as high. Therefore, we can conclude that the previously observed effect across all firms can primarily be attributed to small firms. For medium to large firms, no discernible impact is evident.</p>
+<p>The findings of this study contribute to the expansion of the considerations put forth by Hoberg &amp; Phillips <span class="citation" data-cites="hoberg_text-based_2016">(<a href="#ref-hoberg_text-based_2016" role="doc-biblioref">2016</a>)</span> Using BERT enables a semantic analysis of 10-K filings, allowing for a comprehensive company comparison. The categorization into industries can be updated annually, similar to Hoberg &amp; Phillips <span class="citation" data-cites="hoberg_text-based_2016">(<a href="#ref-hoberg_text-based_2016" role="doc-biblioref">2016</a>)</span> approach, albeit with a somewhat greater effort involved. However, this additional effort is justifiable, as the preliminary work with Gemini facilitates a holistic examination of the 10-Ks. This aspect is a significant advantage of our approach, which we believe surpasses the Word-to-Vec method employed by Hoberg. We fully utilize the description of the BM, although certain limitations may exist. However, the loss associated with the previous method is substantially greater, as most words do not contribute to the analysis at all.</p>
+<p>To broaden the scope of this study, we also address the financial aspects of the companies and how innovations impact these aspects. The previously applied model will be used to measure changes in the BM. This allows for the testing of new hypotheses and the generation of additional insights. In this study, the relationship with performance is measured using revenue growth and Tobin’s Q. We find a significant dependence of innovation on sales and Tobin’s Q, indicating that while revenue increases, the market value to asset ratio declines with increased changes in the BM. The result of revenue growth is not surprising; we anticipated this effect based on the premise that revenues would rise as companies aim to capture new markets and thereby generate more sales through changes in their business plans. Conversely, the decline in Tobin’s Q is somewhat unusual. A possible explanation for this could be that investors trading stocks are often risk-averse, perceiving the changes negatively rather than viewing them as opportunities (time-varying risk aversion). Consequently, demand may decrease, and the stock price may also experience negative shifts. Furthermore, the profits generated by the company may temporarily decline due to these decisions. While the company’s revenue is projected to increase on average, innovations may incur additional expenses that diminish profit and, consequently, dividends. (Business model innovation: it’s not just about technology anymore). This could further reduce demand for the stock. Additionally, the new BM may create tensions with the existing one, leading to increased workload and other implications. In our further analysis, we differentiate the companies by size to examine whether the effects of revenue growth vary accordingly. This assumption is confirmed, as significance is measured exclusively among smaller firms with a market capitalization of less than one billion. This implies that changes in the BM do not affect the performance of revenue growth in medium to large firms. A potential reason for this could be that smaller companies typically possess a less extensive product portfolio, making changes to a business segment or the addition of a new product more impactful.</p>
+<p>It should be noted that our approach is not without certain limitations. While using the BERTScore compels us to shorten and condense the descriptions of the BM, it integrates semantics into the similarity calculation. As a result, the entire text is considered, which appears to provide better informational value compared to solely relying on frequently occurring nouns. However, one potential critique of BERT is its limited ability to recognize implicit and subtle meanings <span class="citation" data-cites="acheampong_transformer_2021">(<a href="#ref-acheampong_transformer_2021" role="doc-biblioref">Acheampong, Nunoo-Mensah, and Chen 2021</a>)</span>. The approach can only process the textual descriptions. In this work, we exclusively examine business models that provide little insight into current success in practice. Notably, there are no clear objective statements, as with many key financial indicators, that can be categorized as positive or negative <span class="citation" data-cites="george_business_2011">(<a href="#ref-george_business_2011" role="doc-biblioref">George and Bock 2011</a>)</span>. A positive description of negative aspects is unlikely in this context, which justifies the use of the BERTScore. The use of BERT, and the consequent limitation regarding text length, posed additional challenges in this research. In recent years, the possibilities for utilizing AI have grown immensely. With the help of GitHub Actions, we were able to obtain suitable access to Gemini. This brings us to the most critical point of this work. This approach raises transparency issues for the results. The system does not provide explainable intelligence, meaning we cannot fully verify how exactly the texts are generated. Our only option is to delegate the task and trust the results’ accuracy. Nevertheless, we consider the current approach as the best possible solution for condensing our BMs. On the one hand, the extracted texts do not follow the same structure across companies, and on the other, cutting the business models arbitrarily poses too great a risk. Losing up to 90 percent of the content would be unacceptable in this case, and due to structural differences, this becomes impossible beyond certain key points. Moreover, the summaries generated by GPT have sometimes been perceived as better than models specifically designed for this purpose <span class="citation" data-cites="goyal_news_2023">(<a href="#ref-goyal_news_2023" role="doc-biblioref">Goyal, Li, and Durrett 2023</a>)</span>. A significant portion of this work involved data collection, which proved to be a major challenge. Due to the lack of access to Compustat, commonly used in financial studies and for SEC-related information, we had to rely on extensive research. Various approaches had to be abandoned as they failed to meet expectations. Nevertheless, we were able to complete our work, albeit with some compromises regarding the amount of data.</p>
+<p>In conclusion, the findings of our study indicate that there is a positive correlation between BMI and firm performance, particularly in terms of operating revenue. Nevertheless, it is imperative to acknowledge that the observed correlation does not necessarily imply a causal effect. The intricate nature of organisational structures and the limitations of the current dataset preclude us from drawing definitive conclusions regarding causality. Nevertheless, this study can be regarded as a continuation of the approach taken by Hoberg &amp; Phillips <span class="citation" data-cites="hoberg_text-based_2016">(<a href="#ref-hoberg_text-based_2016" role="doc-biblioref">Hoberg and Phillips 2016</a>)</span>, and the examination of BMI’s impact on performance could be further explored in future studies, offering valuable extensions to this research. Furthermore, our findings suggest that modifications to the BM have a positive impact on revenue growth for small firms. It is essential to avoid misinterpreting the results for larger firms by assuming that such adjustments are unprofitable or illogical. This study primarily focuses on short-term effects, making it more challenging to observe the impact on the products of larger companies. While long-term profitability resulting from innovation is acknowledged, it falls outside the scope of this analysis.</p>
 </section>
 <section id="robustness-checks" class="level2">
 <h2 class="anchored" data-anchor-id="robustness-checks">Robustness Checks</h2>
-<p>To check the validity and reliability of this study, we conduct a series of robustness checks, illustrating alternative models. The revenue growth and the normalized distance are not logarithmized in this specification. Revenue growth can assume negative values and is a relative measure. The normalized distance is also a relative measure, and the distance itself is characterized by a norm distribution (according to Figure 1). Logarithmization is therefore not required. The use of market value and total assets as control variables makes it possible to control for the size of the company, which results on the one hand from supply and demand on the capital market, and on the other hand from the actual book value of the company. The correlation between these two variables is approximately 0.5. In Table 4, we perform a regression using SIC codes instead of the industry classification based on BERTScores as fixed effects.</p>
-<p>The number of observations decreases due to missing SIC codes for non-surviving companies. As a result Table 5 rather tend to contain a survivor ship bias (the number of observations decreases due to missing SIC codes for non-surviving companies). In addition, the coefficients for sales growth are no longer significant, the standard errors of the coefficients increase despite lower coefficient values. The value for <span class="math inline">\(R^2\)</span> also decreases for each model. This suggests that BERT-based industry classifications as fixed effects likely capture industry-specific endogenous effects, thereby enhancing both the model’s validity and its informative value.</p>
-<p>With regard to Table 4, other threshold values could also have been selected for a sample split. Each institution (index providers, stock exchanges, financial analysts, etc.) defines its own thresholds, although these do not usually vary greatly. In our study, we use a flat threshold for small-cap and large-cap firms for simplicity, although definitions for very small or very large firms would also require more classifications for a sample split. Due to the limited number of observations, we consider it sensible to dispense with further classifications.</p>
+<p>To check the validity and reliability of this study, we conduct a series of robustness checks, illustrating alternative models. The revenue growth and the normalized distance are not logarithmized in this specification. Revenue growth can assume negative values and is a relative measure. The normalized distance is also a relative measure, and the distance itself is characterized by a norm distribution (according to Figure 1). Logarithmization is therefore not required. The use of market value and total assets as control variables makes it possible to control for the size of the company, which results on the one hand from supply and demand on the capital market, and on the other hand from the actual book value of the company. The correlation between these two variables is approximately 0.5. In Table 5, we perform a regression using SIC codes instead of the industry classification based on BERTScores as fixed effects.</p>
 <table style="NAborder-bottom: 0; width: auto !important; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;border-bottom: 0;" class="table table">
 <caption>Robustness Check</caption>
  <thead>
@@ -597,23 +596,7 @@ Figure&nbsp;2: Distribution Comparison between BERT Classification, FIC and SIC
 </tfoot>
 </table>
 
-</section>
-<section id="discussion" class="level2">
-<h2 class="anchored" data-anchor-id="discussion">Discussion</h2>
-<section id="interpretation" class="level3">
-<h3 class="anchored" data-anchor-id="interpretation">Interpretation</h3>
-<p>The findings of this study contribute to the expansion of the considerations put forth by Hoberg &amp; Phillips <span class="citation" data-cites="hoberg_text-based_2016">(<a href="#ref-hoberg_text-based_2016" role="doc-biblioref">2016</a>)</span> Using BERT enables a semantic analysis of 10-K filings, allowing for a comprehensive company comparison. The categorization into industries can be updated annually, similar to Hoberg &amp; Phillips <span class="citation" data-cites="hoberg_text-based_2016">(<a href="#ref-hoberg_text-based_2016" role="doc-biblioref">2016</a>)</span> approach, albeit with a somewhat greater effort involved. However, this additional effort is justifiable, as the preliminary work with Gemini facilitates a holistic examination of the 10-Ks. This aspect is a significant advantage of our approach, which we believe surpasses the Word-to-Vec method employed by Hoberg. We fully utilize the description of the BM, although certain limitations may exist. However, the loss associated with the previous method is substantially greater, as most words do not contribute to the analysis at all.</p>
-<p>To broaden the scope of this study, we also address the financial aspects of the companies and how innovations impact these aspects. The previously applied model will be used to measure changes in the BM. This allows for the testing of new hypotheses and the generation of additional insights. In this study, the relationship with performance is measured using revenue growth and Tobin’s Q. We find a significant dependence of innovation on sales and Tobin’s Q, indicating that while revenue increases, the market value to asset ratio declines with increased changes in the BM. The result of revenue growth is not surprising; we anticipated this effect based on the premise that revenues would rise as companies aim to capture new markets and thereby generate more sales through changes in their business plans. Conversely, the decline in Tobin’s Q is somewhat unusual. A possible explanation for this could be that investors trading stocks are often risk-averse, perceiving the changes negatively rather than viewing them as opportunities (time-varying risk aversion). Consequently, demand may decrease, and the stock price may also experience negative shifts. Furthermore, the profits generated by the company may temporarily decline due to these decisions. While the company’s revenue is projected to increase on average, innovations may incur additional expenses that diminish profit and, consequently, dividends. (Business model innovation: it’s not just about technology anymore) This could further reduce demand for the stock. Additionally, the new BM may create tensions with the existing one, leading to increased workload and other implications.</p>
-<p>In our further analysis, we differentiate the companies by size to examine whether the effects of revenue growth vary accordingly. This assumption is confirmed, as significance is measured exclusively among smaller firms with a market capitalization of less than one billion. This implies that changes in the BM do not affect the performance of revenue growth in medium to large firms. A potential reason for this could be that smaller companies typically possess a less extensive product portfolio, making changes to a business segment or the addition of a new product more impactful.</p>
-<p>In conclusion, we find that adjustments to the BM positively influence revenue growth for small firms. However, it is crucial not to misinterpret the results for larger firms by deeming such adjustments unprofitable or nonsensical. This study focuses primarily on short-term effects, making it more challenging to observe the impact on the products of larger companies. Long-term profitability resulting from innovation is acknowledged but falls outside the scope of this analysis.</p>
-</section>
-<section id="limitation" class="level3">
-<h3 class="anchored" data-anchor-id="limitation">Limitation</h3>
-<p>This study represents an innovative extension of Hoberg &amp; Phillips <span class="citation" data-cites="hoberg_text-based_2016">(<a href="#ref-hoberg_text-based_2016" role="doc-biblioref">2016</a>)</span> work regarding their approach. While using the BERTScore compels us to shorten and condense the descriptions of the BM, it integrates semantics into the similarity calculation. As a result, the entire text is considered, which appears to provide better informational value compared to solely relying on frequently occurring nouns. However, one potential critique of BERT is its limited ability to recognize implicit and subtle meanings <span class="citation" data-cites="acheampong_transformer_2021">(<a href="#ref-acheampong_transformer_2021" role="doc-biblioref">Acheampong, Nunoo-Mensah, and Chen 2021</a>)</span>. The approach can only process the textual descriptions. In this work, we exclusively examine business models that provide little insight into current success in practice. Notably, there are no clear objective statements, as with many key financial indicators, that can be categorized as positive or negative <span class="citation" data-cites="george_business_2011">(<a href="#ref-george_business_2011" role="doc-biblioref">George and Bock 2011</a>)</span>. A positive description of negative aspects is unlikely in this context, which justifies the use of the BERTScore.</p>
-<p>The use of BERT, and the consequent limitation regarding text length, posed additional challenges in this research. In recent years, the possibilities for utilizing AI have grown immensely. With the help of GitHub Actions, we were able to obtain suitable access to Gemini. This brings us to the most critical point of this work. This approach raises transparency issues for the results. The system does not provide explainable intelligence, meaning we cannot fully verify how exactly the texts are generated. Our only option is to delegate the task and trust the results’ accuracy.</p>
-<p>Nevertheless, we consider the current approach as the best possible solution for condensing our BMs. On the one hand, the extracted texts do not follow the same structure across companies, and on the other, cutting the business models arbitrarily poses too great a risk. Losing up to 90 percent of the content would be unacceptable in this case, and due to structural differences, this becomes impossible beyond certain key points. Moreover, the summaries generated by GPT have sometimes been perceived as better than models specifically designed for this purpose <span class="citation" data-cites="goyal_news_2023">(<a href="#ref-goyal_news_2023" role="doc-biblioref">Goyal, Li, and Durrett 2023</a>)</span>. A significant portion of this work involved data collection, which proved to be a major challenge. Due to the lack of access to Compustat, commonly used in financial studies and for SEC-related information, we had to rely on extensive research. Various approaches had to be abandoned as they failed to meet expectations. Nevertheless, we were able to complete our work, albeit with some compromises regarding the amount of data.</p>
-<p>In conclusion, the findings of our study suggest that BMI is associated with improved performance, specifically in terms of operating revenue. However, we can only report a correlation rather than a causal effect, as the complexity of organizations is substantial, and our dataset does not allow for definitive conclusions regarding causality. Nonetheless, this study can be viewed as a continuation of the approach by Hoberg &amp; Phillips <span class="citation" data-cites="hoberg_text-based_2016">(<a href="#ref-hoberg_text-based_2016" role="doc-biblioref">2016</a>)</span>, and the examination of BMI’s impact on performance could be further explored in future studies, offering valuable extensions to this research.</p>
-</section>
+<p>The number of observations decreases due to missing SIC codes for non-surviving companies. As a result Table 5 rather tend to contain a survivor ship bias (the number of observations decreases due to missing SIC codes for non-surviving companies). In addition, the coefficients for sales growth are no longer significant, the standard errors of the coefficients increase despite lower coefficient values. The value for <span class="math inline">\(R^2\)</span> also decreases for each model. This suggests that BERT-based industry classifications as fixed effects likely capture industry-specific endogenous effects, thereby enhancing both the model’s validity and its informative value. With regard to Table 4, other threshold values could also have been selected for a sample split. Each institution (index providers, stock exchanges, financial analysts, etc.) defines its own thresholds, although these do not usually vary greatly. In our study, we use a flat threshold for small-cap and large-cap firms for simplicity, although definitions for very small or very large firms would also require more classifications for a sample split. Due to the limited number of observations, we consider it sensible to dispense with further classifications.</p>
 </section>
 </section>
 <section id="conclusion" class="level1">
@@ -624,11 +607,7 @@ Figure&nbsp;2: Distribution Comparison between BERT Classification, FIC and SIC
 </section>
 <section id="acknowledgement" class="level1">
 <h1>Acknowledgement</h1>
-<ul>
-<li>Jonathan for IT Support</li>
-<li>Prof.&nbsp;Kranz for Repo</li>
-<li>bw unicluster</li>
-</ul>
+<p>The authors acknowledge support by the state of Baden-Württemberg through bwHPC. Additionally, we extend our sincere thanks to Prof.&nbsp;Dr.&nbsp;Sebastian Kranz for providing the GitHub repository and Jonathan Wunden for his assistance in working with bwHPC.</p>
 <div style="page-break-after: always;"></div>
 </section>
 <section id="references" class="level1">
@@ -704,17 +683,17 @@ Zott, Christoph, and Raphael Amit. 2008. <span>“The Fit Between Product Market
 <h1>Appendix</h1>
 <section id="appendix-a" class="level2">
 <h2 class="anchored" data-anchor-id="appendix-a">Appendix A</h2>
-<p>We used following prompt: “Summarize the business model from the following text. Answer with a continuous text and with five hundred twelve tokens at max. Set your focus on sources of revenue, the intended customer base, products, distribution channels and details of financing. Use only information from the following the text”.<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> “Intended customer base” and “product” refer to the value offering, “distribution channels” refers to the value architecture, and “sources of revenue” and “details of financing” refer to the revenue model. The term ‘tokens’ was used deliberately in preference to ‘words’, given that the number of tokens and the number of words in a text may vary depending on the tokeniser. This way, we wanted to ensure that the whole summary is used by the BERT model.</p>
-<p>Table 6 presents the descriptive measures of the length of our summaries. On average our summaries are 350 till 371 words long with the 75th percentile ranging between 404 and 432 words. Looking at the maxima, some summaries are significantly longer than the average with a couple thousand words. Most of the summaries are short enough to be processed by BERT as a whole, while some summaries are too long for BERT. These outliners are only a few and therefore negligible.</p>
+<p>We used following prompt: “Summarize the business model from the following text. Answer with a continuous text and with five hundred twelve tokens at max. Set your focus on sources of revenue, the intended customer base, products, distribution channels and details of financing. Use only information from the following the text”.<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> “Intended customer base” and “product” refer to the value offering, “distribution channels” refers to the value architecture, and “sources of revenue” and “details of financing” refer to the revenue model. The term ‘tokens’ was used deliberately in preference to ‘words’, given that the number of tokens and the number of words in a text may vary depending on the tokeniser. This way, we wanted to ensure that the whole summary is used by the BERT model. Table 6 presents the descriptive measures of the length of our summaries. On average our</p>
+<p>summaries are 350 till 371 words long with the 75th percentile ranging between 404 and 432 words. Looking at the maxima, some summaries are significantly longer than the average with a couple thousand words. Most of the summaries are short enough to be processed by BERT as a whole, while some summaries are too long for BERT. These outliners are only a few and therefore negligible.</p>
 </section>
 <section id="appendix-b" class="level2">
 <h2 class="anchored" data-anchor-id="appendix-b">Appendix B</h2>
-<p>To check the validity of the summaries generated by Gemini, we took a random sample of ten filings to evaluate them manually. We evaluated the summaries according to the criteria “Accuracy” (how well does the summary reflect the unabridged content), “Relevance” (how relevant is the information from the summary) and “Coherence” (is the summary logically structured and comprehensible). We use a rating scale from one to ten. The results are shown in Table 7.</p>
-<p>We find that the summaries are valid overall and consistently reflect the BM. It must also be taken into account that the evaluation criteria “Accuracy” and “Relevance” are to a certain extent in a trade-off situation. A suitable optimum was found in all summaries. One conspicuous feature was that although strong diversification tends to be mentioned in the summaries, no possible interaction between these areas is discussed.</p>
+<p>To check the validity of the summaries generated by Gemini, we took a random sample of ten filings to evaluate them manually. The results are shown in Table 7.</p>
+<p>We find that the summaries are valid overall and consistently reflect the BM. Suitable representations of all Item 1 texts can be found in all corresponding summaries available in the sample. We therefore assume that the summaries are a valid representation of the original company descriptions. One conspicuous feature was that although strong diversification tends to be mentioned in the summaries, no possible interaction between these areas is discussed.</p>
 </section>
 <section id="appendix-c" class="level2">
 <h2 class="anchored" data-anchor-id="appendix-c">Appendix C</h2>
-<p>In our second dataset we winsorize only the top quantile. Figure 3 presents a boxplot of the distribution of the sales growth and also explains our reasoning behind this decision. The boxplot shows that the big majority of observations has a growth rate below 1,000 percent. Sales growth rates of multiple ten thousand percent or even of a couple million percent seem very unrealistic and are probably due to poor data quality. By winsorizing at the top one percent quantile, we get ride of these unrealistically high values. For the sake of completeness, Table 8 reports the regression results without winsorizing the data. All coefficients are not significant anymore while their values and their standard errors increase massively.</p>
+<p>In our second dataset we winsorize only the top quantile. Figure 3 presents a boxplot of the</p>
 <div id="fig-3" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -725,6 +704,7 @@ Figure&nbsp;3: Distribution of the Sales Growth
 </figcaption>
 </figure>
 </div>
+<p>distribution of the sales growth and also explains our reasoning behind this decision. The boxplot shows that the big majority of observations has a growth rate below 1,000 percent. Sales growth rates of multiple ten thousand percent or even of a couple million percent seem very unrealistic and are probably due to poor data quality. By winsorizing at the top one percent quantile, we get ride of these unrealistically high values. For the sake of completeness, Table 8 reports the regression results without winsorizing the data. All coefficients are not significant anymore while their values and their standard errors increase massively.</p>
 <table style="NAborder-bottom: 0; width: auto !important; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;border-bottom: 0;" class="table table">
 <caption>Regression Results (Not Winsorized)</caption>
  <thead>
