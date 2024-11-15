@@ -570,3 +570,99 @@ modelsummary(models = list("(1)" = Reg1, "(2)" = Reg2),
   kable_styling(latex_options = c("scale_down","HOLD_position"))%>%
   footnote("This is the same estimation as in Table 3, but without winsorizing the data.")
 ```
+
+
+## Appendix D
+
+
+In this section, we aim to explore whether differences in revenue growth can be attributed to varying levels of innovation strength across different company sizes.
+
+
+```{r echo=FALSE, warning = FALSE, message = FALSE, results='asis'}
+#| label: fig-1-A
+#| echo: false
+#| fig-cap: "Density Function of the Distance for every Cap-Size"
+
+library(ggpattern)
+
+RegressionData <- read.csv("./TableData/Regression/RegressionData.csv")
+
+Figure1_2_dat <- RegressionData %>%
+ mutate(FirmSize = case_when(
+  MV < 1000 ~ "Small_Cap", 
+   MV >= 1000 & MV < 5000 ~ "Mid_Cap", 
+   TRUE ~ "Large_Cap"
+ ))
+
+
+desk_dat <- Figure1_2_dat%>%
+  group_by(FirmSize)%>%
+  summarise(Mean=1-mean(Score))
+
+Figure1_2 = Figure1_2_dat%>%
+  ggplot(aes(x=1-Score, fill = FirmSize, color = FirmSize)) +
+  geom_density(alpha = 0.25) +
+  labs(caption= "Note:\nOnly distances for same company between different years.",x = "Distance", y = "Density") +
+  theme_minimal()+
+  # geom_vline(xintercept=desk_dat$Mean[desk_dat$FirmSize=="Small_Cap"],alpha=0.5)+
+  geom_tile(aes(x = 0.2, y = 15), fill = "#619CFF", width = 0.062, height = 0.9, color = "#619CFF") + 
+  geom_tile(aes(x = 0.2, y = 14), fill = "#00BA38", width = 0.062, height = 0.9, color = "#00BA38") + 
+  geom_tile(aes(x = 0.2, y = 13), fill = "#F8766D", width = 0.062, height = 0.9, color = "#F8766D") +   
+  annotate("text", x=0.2, y=15, label=paste("Mean_SC: ", round(desk_dat$Mean[desk_dat$FirmSize=="Small_Cap"], 4)), angle=0, size= 4)+
+  # geom_vline(xintercept=desk_dat$Mean[desk_dat$FirmSize=="Mid_Cap"],alpha=0.5)+
+  annotate("text", x=0.2, y=14, label=paste("Mean_MC: ", round(desk_dat$Mean[desk_dat$FirmSize=="Mid_Cap"], 4)), angle=0, size= 4)+
+  # geom_vline(xintercept=desk_dat$Mean[desk_dat$FirmSize=="Large_Cap"],alpha=0.5)+
+  annotate("text", x=0.2, y=13, label=paste("Mean_LC: ", round(desk_dat$Mean[desk_dat$FirmSize=="Large_Cap"], 4)), angle=0, size= 4)+
+  scale_fill_manual(
+    values = c("Small_Cap" = "#F8766D", "Mid_Cap" = "#00BA38", "Large_Cap" = "#619CFF") )+
+  scale_color_manual(
+    values = c("Small_Cap" = "#F8766D", "Mid_Cap" = "#00BA38", "Large_Cap" = "#619CFF") )
+  
+
+Figure1_2
+
+```
+
+
+The figure presents three density distributions, each corresponding to a specific company size. Red represents data for small companies, green medium-sized firms, and blue shows the large companies. As noted in the Methodology chapter, these distributions appear to follow a normal distribution. There are subtle differences between the company sizes, with the small firms' distribution slightly shifted to the right. Additionally, the distribution for large companies is more concentrated around the mean, while the medium-sized firms show a broader distribution. Overall, the three densities look quite similar at first glance, making it difficult to draw definitive conclusions about the significance of these differences. In the top right corner of the chart, the mean values for each company size are displayed. This shows that the mean values for medium and large firms are very close, while the mean for small companies is slightly higher, which aligns with the previously mentioned rightward shift.
+
+
+
+
+```{r echo=FALSE, warning = FALSE, message = FALSE, results='asis'}
+
+# test if the difference is significant
+
+dat_reg_sig <- Figure1_2_dat%>%
+    mutate(year=as.factor(year),
+         Industry = as.factor(Industry))
+
+dat_reg_sig$FirmSize <- factor(dat_reg_sig$FirmSize, levels = c("Small_Cap", "Mid_Cap", "Large_Cap"))
+
+reg_sig_comp <- lm(formula =  distance ~ FirmSize, data = dat_reg_sig)
+
+reg_sig_comp_fe <- felm(formula =  distance ~ FirmSize | year*Industry | 0 | 0 , data = dat_reg_sig)
+
+
+rows <- tribble(~term, ~reg_sig_comp, ~reg_sig_comp_fe,
+                'Industry x Year Fixed Effects', 'No','Yes')
+attr(rows, 'position') <- c(5)
+
+modelsummary(models = list("all" = reg_sig_comp, "fe" = reg_sig_comp_fe),
+             output = "kableExtra",
+             title = "Regression Results: Difference of Distance",
+             coef_map = c("FirmSizeMid_Cap" = "Mid_Cap_Firm", "FirmSizeLarge_Cap" = "Large_Cap_Firm"),
+             gof_map = c("nobs", "r.squared","rmse"),
+             stars = TRUE,
+             add_rows = rows
+             )%>%
+  add_header_above(c(" " = 1, "Distance" = 2))%>%
+  kable_styling(latex_options = c("scale_down","HOLD_position"))
+
+```
+
+Due to the observed differences in mean values, we conducted two additional regression analyses to test the significance of the distance differences. In these regressions, Distance was used as the dependent variable and FirmSize as the independent variable, with small companies serving as the reference category. The results of the first regression indicate that the differences are statistically significant, suggesting that small companies engage in more innovation than medium and large firms. However, these results are not highly robust, as all companies were compared without considering fixed effects.
+
+To address this, we conducted the same regression, this time incorporating fixed effects for year and industry. The results of this adjusted regression suggest that company size is not a significant factor, thereby challenging the previous findings. This indicates that companies, regardless of size, innovate in a manner consistent with their industry, suggesting that innovation levels are not necessarily dependent on company size.
+
+
