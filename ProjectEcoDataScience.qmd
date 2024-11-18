@@ -105,7 +105,9 @@ Table1 = read_excel("./TableData/Table1.xlsx")%>%
 Table1
 ```
 
-multiple steps of pre-processing were required to obtain the final amount of 21,417 observations for seven years. Financial key figures, including sales, total assets, market values and Tobin's Q were extracted from DataStream. A total of 4,494 companies are included in the sample, although the availability of filings could not always be guaranteed for all years. This is due on the one hand to the quality of the API to the SEC and on the other hand to companies that did not file 10-K reports or were listed on the stock exchange for the entire period under review. Finally, we have access to the financial key figures of the companies for the respective year, the Item I text pre-processed with the help of Gemini, company-specific identification features and the conventional SIC industry classification. The information on SIC sector classification is limited to companies that are currently actively filing. Therefore, 609 firms are no longer actively filing, e.g. due to company bankruptcies or mergers.
+multiple steps of pre-processing were required to obtain the final amount of 21,417 observations for seven years. Financial key figures, including sales, total assets, market values and Tobin's Q were extracted from DataStream. A total of 4,494 companies are included in the sample, although the availability of filings could not always be guaranteed for all years. This is due on the one hand to the quality of the API to the SEC and on the other hand to companies that did not file 10-K reports or were listed on the stock exchange for the entire period under review. Furthermore, other financial databases (e.g. Compustat) are better suited for mapping with the SEC, as Compustat in particular has a better mapping match for identifiers [^1]. Ultimately, we have access to the financial key figures of the companies for the respective year, the Item I text pre-processed with the help of Gemini, company-specific identification features and the conventional SIC industry classification. The information on SIC sector classification is limited to companies that are currently actively filing. Therefore, 609 firms are no longer actively filing, e.g. due to company bankruptcies or mergers.
+
+[^1]: The University of Wharton provides an official mapping from gvkey to cik: https://wrds-www.wharton.upenn.edu/login/?next=/pages/get-data/wrds-sec-analytics-suite/wrds-sec-linking-tables/gvkey-cik-link-table/
 
 ## BERT and BERTScore
 
@@ -131,9 +133,9 @@ Table2 = read_excel("./TableData/Table2.xlsx")%>%
 Table2
 ```
 
-Item 1 section and pass the text to our BERT model, we decided to let Google's GenAI chatbot Gemini summarize them to a maximum length of 512 tokens. The summaries were created between 26 June 2024 and 6 August 2024. The model employed was Gemini Flash 1.5. The prompt was inserted at the beginning of each text file and it was passed via an API to Gemini [^1]. Our prompt covers all aspects of the definition of BMI proposed by Spieth & Schneider [-@spieth_business_2016]. For more details, see Appendix A. To assess the quality and accuracy of the summaries produced by Gemini, a random sample of 100 filings was selected for comparison with the original text. More precise,the original file was initially read with a focus on the points mentioned in the prompt. Subsequently, the summary was evaluated to ascertain whether it contained these same points. A list of the sample with the summaries is provided in the Appendix B.
+Item 1 section and pass the text to our BERT model, we decided to let Google's GenAI chatbot Gemini summarize them to a maximum length of 512 tokens. The summaries were created between 26 June 2024 and 6 August 2024. The model employed was Gemini Flash 1.5. The prompt was inserted at the beginning of each text file and it was passed via an API to Gemini [^2]. Our prompt covers all aspects of the definition of BMI proposed by Spieth & Schneider [-@spieth_business_2016]. For more details, see Appendix A. To assess the quality and accuracy of the summaries produced by Gemini, a random sample of 100 filings was selected for comparison with the original text. More precise,the original file was initially read with a focus on the points mentioned in the prompt. Subsequently, the summary was evaluated to ascertain whether it contained these same points. A list of the sample with the summaries is provided in the Appendix B.
 
-[^1]: We forked and used following Github repository: https://github.com/skranz/gemini_ex.
+[^2]: We forked and used following Github repository: https://github.com/skranz/gemini_ex.
 
 ## Methodology
 
@@ -142,9 +144,9 @@ From the dataset containing all the summaries and financials per company per yea
 $$
 \hspace*{-6cm}
 \begin{array}{@{}l}
-\text{(1) Sales Growth} = \left(\frac{\text{Revenue in year } t}{\text{Revenue in year } t-1} - 1\right) \times 100
+\text{(1) Sales Growth} = \left(\frac{\text{Revenue in year }_t}{\text{Revenue in year }_{t-1}} - 1\right) \times 100
 \\[0.5cm]
-\text{(2) Tobin's Q Growth} = \left(\frac{\text{Tobin's Q in year } t}{\text{Tobin's Q in year } t-1} - 1\right) \times 100
+\text{(2) Tobin's Q Growth} = \left(\frac{\text{Tobin's Q in year }_t}{\text{Tobin's Q in year }_{t-1}} - 1\right) \times 100
 \\[0.5cm]
 \text{for } t \in \{2017;2023\}
 \end{array}
@@ -234,7 +236,7 @@ $\text{whereby } k \in \{\text{Small-Cap}, \text{Mid-Cap}, \text{Large-Cap}\}$. 
 ## Comparison
 
 Our study builds on the idea of Hoberg & Phillips [-@hoberg_text-based_2016] to utilize text data from 10-K filings to classify companies based on their product similarity into dynamic industries. They achieve this through the parsing of the product descriptions provided by Item 1 of firms 10-K filings and creating word vectors. Specifically, the authors identify and exclude proper nouns, which include common words and geographic locations. They then create word vectors for each firm and year, which enables the measurement of product similarity over time. They perform two steps to create the FIC. Firstly, a hierarchical agglomerative clustering algorithm is employed to cluster companies based on their similarity and maximize ex-post within cluster similarity. This enables a classification with any number of clusters. In the second step, the authors compute aggregated word vectors for each industry. These vectors now represent the industries. Subsequently, the similarity between industries and firms is calculated for each of the following years. From the second year onwards, firms are classified according to the industry with which they are most similar. Our approach differs in two ways: Firstly, in contrast to the TNIC and FIC, which employ word-to-vec, our approach utilizes BERT to represent text, which allows us to capture the context of words. Accordingly, the BERTScore is employed instead of the cosine similarity as our similarity measure. Secondly, our analysis is focused on the description of the BM rather than on the product descriptions. Nevertheless, in the following subsection, the BERTScore industry classification is compared with the FIC and the SIC.
-We employ the first dataset for the BERTScore industry classification and the comparison. The SIC codes come from the SEC website[^2]. For the FIC we have utilized the similarity scores provided by Hoberg-Phillips Data Library[^3]. The data consists of the gvkeys of two companies, the year and the cosine similarity between these two companies. In order to ensure comparability, only companies present in both the present study's dataset and that provided by the authors are included in the analysis. Because we use CIKs and accession numbers to identify firms and filings, and the fact that the data library employs Compustat's gvkeys, the matching of CIKs with gvkeys inevitably results in the loss of some observations. Ultimately, for the comparison the clustering algorithm was applied to 1,958 of the 3,246 firms in our sample for the year 2017. In our dataset, companies are from 320 different SIC codes. Therefore, for the comparison the number of industries chosen for our industry classification and the FIC is 320.
+We employ the first dataset for the BERTScore industry classification and the comparison. The SIC codes come from the SEC website[^3]. For the FIC we have utilized the similarity scores provided by Hoberg-Phillips Data Library[^4]. The data consists of the gvkeys of two companies, the year and the cosine similarity between these two companies. In order to ensure comparability, only companies present in both the present study's dataset and that provided by the authors are included in the analysis. Because we use CIKs and accession numbers to identify firms and filings, and the fact that the data library employs Compustat's gvkeys, the matching of CIKs with gvkeys inevitably results in the loss of some observations. Ultimately, for the comparison the clustering algorithm was applied to 1,958 of the 3,246 firms in our sample for the year 2017. In our dataset, companies are from 320 different SIC codes. Therefore, for the comparison the number of industries chosen for our industry classification and the FIC is 320.
 
 Figure 2 compares the distribution of industry size for the BERTScore classification, the FIC and the SIC. Both the BERTScore classification and the FIC show a similar distribution, displaying a leftward skew with the majority of industries comprising fewer than ten firms. 
 
@@ -276,8 +278,8 @@ The SIC shows as well a left skewed distribution but with most industries only c
 
 In order to use our BERTScore industry classification in our estimation, we classify all 3,246 companies from the year 2017 as described above. Since we use BERT and do not have word vectors for each industry, our methodology differs in the second step from Hoberg & Phillips [-@hoberg_text-based_2016]. We assign the remaining companies of which we do not have data for the year 2017 to the industry of the company which are already classified and which they are most similar to.
 
-[^2]: The list can be found here: https://www.sec.gov/search-filings/standard-industrial-classification-sic-code-list. 
-[^3]: For the database see: https://hobergphillips.tuck.dartmouth.edu.
+[^3]: The list can be found here: https://www.sec.gov/search-filings/standard-industrial-classification-sic-code-list. 
+[^4]: For the database see: https://hobergphillips.tuck.dartmouth.edu.
 
 {{< pagebreak >}}
 
@@ -509,7 +511,7 @@ We find that the summaries are valid overall and consistently reflect the BM. Su
 
 ## Appendix C
 
-In our second dataset we winsorize only the top quantile. Figure 3 presents a boxplot of the
+In our second dataset we winsorize only the top quantile. Figure 3 presents a boxplot of the distribution of the sales growth
 
 ```{r echo=FALSE, warning = FALSE, message = FALSE, results='asis'}
 #| label: fig-3
@@ -535,7 +537,7 @@ Figure3 = RegressionData %>%
 Figure3
 ```
 
-distribution of the sales growth and also explains our reasoning behind this decision. The boxplot shows that the big majority of observations has a growth rate below 1,000 percent. Sales growth rates of multiple ten thousand percent or even of a couple million percent seem very unrealistic and are probably due to poor data quality. By winsorizing at the top one percent quantile, we get ride of these unrealistically high values. For the sake of completeness, Table 8 reports the regression results without winsorizing the data. All coefficients are not significant anymore while their values and their standard errors increase massively.
+and also explains our reasoning behind this decision. The boxplot shows that the big majority of observations has a growth rate below 1,000 percent. Sales growth rates of multiple ten thousand percent or even of a couple million percent seem very unrealistic and are probably due to poor data quality. By winsorizing at the top one percent quantile, we get ride of these 
 
 ```{r echo=FALSE, warning = FALSE, message = FALSE, results='asis'}
 #Appendix
@@ -571,6 +573,7 @@ modelsummary(models = list("(1)" = Reg1, "(2)" = Reg2),
   footnote("This is the same estimation as in Table 3, but without winsorizing the data.")
 ```
 
+unrealistically high values. For the sake of completeness, Table 8 reports the regression results without winsorizing the data. All coefficients are not significant anymore while their values and their standard errors increase massively.
 
 ## Appendix D
 
@@ -623,11 +626,7 @@ Figure1_2
 
 ```
 
-
 The figure presents three density distributions, each corresponding to a specific company size. Red represents data for small companies, green medium-sized firms, and blue shows the large companies. As noted in the Methodology chapter, these distributions appear to follow a normal distribution. There are subtle differences between the company sizes, with the small firms' distribution slightly shifted to the right. Additionally, the distribution for large companies is more concentrated around the mean, while the medium-sized firms show a broader distribution. Overall, the three densities look quite similar at first glance, making it difficult to draw definitive conclusions about the significance of these differences. In the top right corner of the chart, the mean values for each company size are displayed. This shows that the mean values for medium and large firms are very close, while the mean for small companies is slightly higher, which aligns with the previously mentioned rightward shift.
-
-
-
 
 ```{r echo=FALSE, warning = FALSE, message = FALSE, results='asis'}
 
