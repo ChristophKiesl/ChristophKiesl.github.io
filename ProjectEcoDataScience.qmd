@@ -205,7 +205,7 @@ When measuring BMI, Guldmann & Huulgaard [-@guldmann_barriers_2020] assume sever
   
 # Estimation Strategy
 
-We test H3 using multivariate regression techniques. The independent variable is the Normalized Distance, as previously defined. Two different dependent variables are employed in order to measure a company's performance. In the initial specification, the sales growth is used as the dependent variable as by Cucculelli & Bettinelli [-@cucculelli_business_2015]. For this specification, the second dataset is employed, and all observations with zero values for market value and total assets were removed in order to take the logarithms. We control for firm size by once using the logarithm of the market value and once the logarithm of total assets [@dang2018measuring]. Moreover, outlier values are winsorized above the 99th percentile. For a more detailed discussion of this step, see Appendix C. The following regressions are used to estimate the normalized distance:
+We test H3 using multivariate regression techniques. The independent variable is the Normalized Distance, as previously defined. Two different dependent variables are employed in order to measure a company's performance. In the initial specification, the sales growth is used as the dependent variable by Cucculelli & Bettinelli [-@cucculelli_business_2015]. For this specification, the second dataset is employed, and all observations with zero values for market value and total assets were removed before applying logarithms. We control for firm size by using the logarithm of the market value once and the logarithm of total assets once [@dang2018measuring]. Moreover, outlier values are winsorized above the 99th percentile. For a more detailed discussion of this step, see Appendix C. The following regressions are used to estimate the normalized distance:
 
 $$
 \begin{array}{l}
@@ -219,7 +219,7 @@ $$
 \end{array}
 $$
 
-We use the interaction term $\gamma$ of the year and our BERTScore industry classification as fixed effects. The interaction term of the year and the industry is employed to capture potential heterogeneous effects of the industry classification across different years. The economic and political environment is not controlled for, as White et al. [-@white_exploring_2022] suggest, as all of the companies in question are based in the United States.
+We use the interaction term $\gamma$ of the year and our BERTScore industry classification as fixed effects. The interaction term of the year and the industry is employed to capture potential heterogeneous effects of the industry classification across different years. The economic and political environment is not controlled for, as suggested by White et al. [-@white_exploring_2022], since all the companies in the study are based in the United States.
 In the second specification, the growth of Tobin's Q is used as described in equation (2). For the calculation of the growth rate of Tobin's Q, the same data set was used as for the calculation of the sales growth rate. In addition, we use fixed year and industry effects to control for heterogeneous effects between industries interacting with the respective year. As in the first specification, we do not control for the economic and political environment. We use a similar multivariate regression model to test H4:
 $$
 \begin{array}{l}
