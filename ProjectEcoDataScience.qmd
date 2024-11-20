@@ -133,7 +133,7 @@ Table2 = read_excel("./TableData/Table2.xlsx")%>%
 Table2
 ```
 
-Item 1 section and pass the text to our BERT model, we decided to have Google Gemini, a generative AI model, summarise it to a maximum length of 512 tokens. The summaries were created between 26 June 2024 and 6 August 2024. The model employed was Gemini Flash 1.5. The prompt was inserted at the beginning of each text file and it was passed via an API to Gemini [^2]. Our prompt covers all aspects of the definition of BMI proposed by Spieth & Schneider [-@spieth_business_2016]. For more details, see Appendix A. To assess the quality and accuracy of the summaries produced by Gemini, a random sample of 100 filings was selected for comparison with the original text. More precise,the original file was initially read with a focus on the points mentioned in the prompt. Subsequently, the summary was evaluated to ascertain whether it contained these same points. A list of the sample with the summaries is provided in the Appendix B.
+Item 1 section and pass the text to our BERT model, we decided to use Google Gemini, a generative AI model, summarise it to a maximum length of 512 tokens. The summaries were created between 26 June 2024 and 6 August 2024. The model employed was Gemini Flash 1.5. The prompt was inserted at the beginning of each text file and it was passed via an API to Gemini [^2]. Our prompt covers all aspects of the definition of BMI proposed by Spieth & Schneider [-@spieth_business_2016]. For more details, see Appendix A. To assess the quality and accuracy of the summaries produced by Gemini, a random sample of 100 filings was selected for comparison with the original text. More precise,the original file was initially read with a focus on the points mentioned in the prompt. Subsequently, the summary was evaluated to ascertain whether it contained these same points. A list of the sample with the summaries is provided in the Appendix B.
 
 [^2]: We forked and used following Github repository: https://github.com/skranz/gemini_ex.
 
@@ -156,7 +156,7 @@ $\text{for } t \in \{2017;2023\}$. We firstly compare the BERTScore industry cla
   
   **H2**: Our BERTScore industry classification has a high overlap with the FIC.
 
-As already mentioned, our approach differs from the approach of Hoberg & Phillips [-@hoberg_text-based_2016]. We calculate the BERTScore between the summaries of one year and the following year for the same companies. When a company innovates its BM over time, the 10-K filings change and thus the summaries of these filings. We subtract the BERTScores from one to get the distance instead of the similarity between summaries, because the distance yields a more intuitive interpretation: The higher the distance, the more do the BM summaries differ. Figure 1 shows the density function of the distance. The distance looks normally distributed and has a mean of 0.104 and a standard deviation of 0.027.  
+As already mentioned, our approach differs from the approach of Hoberg & Phillips [-@hoberg_text-based_2016]. We calculate the BERTScore between the summaries of one year and the following year for the same companies. When a company innovates its BM over time, the 10-K filings change and thus the summaries of these filings. We subtract the BERTScores from one to get the distance instead of the similarity between summaries, because the distance yields a more intuitive interpretation: The higher the distance, the more do the BM summaries differ. Figure 1 shows the density function of the distance. The distance looks normally distributed and has a mean of 0.104 and a standard deviation of 0.027. The distribution of the distance of the different company sizes is illustrated in Appendix D. 
 
 ```{r echo=FALSE, warning = FALSE, message = FALSE, results='asis'}
 #| label: fig-1
@@ -184,7 +184,7 @@ Figure1 = Figure1%>%
 Figure1
 ```
 
-The values range from zero to 0.216. This means that on average the summaries of a company differ slightly. We attribute these small differences to our preprocessing rather than that companies on average slightly change their BM every year. Even if the summaries are very similar in terms of content, Gemini might use different phrases and wordings which result in different BERTScores and thereby in a higher distance. Hence, we normalize the distance by dividing by its mean. Furthermore, we subtract one and multiply it by one-hundred in order to further ease the interpretation of the coefficient. This results in the following definition of our measure: 
+The values range from zero to 0.216. This means that on average the summaries of a company differ slightly. We attribute these small differences to our preprocessing rather than that companies on average slightly change their BM every year. Even if the summaries are very similar in terms of content, Gemini might use different phrases and wordings which result in different BERTScores and thereby in a higher distance. Hence, we normalize the distance by dividing by its mean. We subtract one and multiply it by one hundred to further facilitate the interpretation of the coefficient. This results in the following definition of our measure: 
 
 $$
 \hspace*{-6cm}
@@ -467,7 +467,7 @@ The authors acknowledge support by the state of Baden-Württemberg through bwHPC
 
 ## Appendix A
 
-We used following prompt: "Summarize the business model from the following text. Answer with a continuous text and with five hundred twelve tokens at max. Set your focus on sources of revenue, the intended customer base, products, distribution channels and details of financing. Use only information from the following the text".[^4] "Intended customer base" and "product" refer to the value offering, "distribution channels" refers to the value architecture, and "sources of revenue" and "details of financing" refer to the revenue model. The term 'tokens' was used deliberately in preference to 'words', given that the number of tokens and the number of words in a text may vary depending on the tokeniser. This way, we wanted to ensure that the whole summary is used by the BERT model.
+The following prompt: "Summarize the business model from the following text. Answer with a continuous text and with five hundred twelve tokens at max. Set your focus on sources of revenue, the intended customer base, products, distribution channels and details of financing. Use only information from the following the text"[^4] was used to process the Item 1 section. "Intended customer base" and "product" refer to the value offering, "distribution channels" refers to the value architecture, and "sources of revenue" and "details of financing" refer to the revenue model. The term 'tokens' was used deliberately in preference to 'words', given that the number of tokens and the number of words in a text may vary depending on the tokeniser. This way, we wanted to ensure that the whole summary is used by the BERT model.
 Table 6 presents the descriptive measures of the length of our summaries. On average our
 
 ```{r echo=FALSE, warning = FALSE, message = FALSE, results='asis'}
@@ -489,7 +489,7 @@ Table6 = read_excel("./TableData/Table6.xlsx")%>%
 Table6
 ```
 
-summaries are 350 till 371 words long with the 75th percentile ranging between 404 and 432 words. Looking at the maxima, some summaries are significantly longer than the average with a couple thousand words. Most of the summaries are short enough to be processed by BERT as a whole, while some summaries are too long for BERT. These outliners are only a few and therefore negligible.
+summaries are between 350 and 371 words long with the 75th percentile ranging between 404 and 432 words. Looking at the maximum values, some summaries are significantly longer than the average at several thousand words. Most summaries are short enough to be processed by BERT as a whole, while some summaries are too long for BERT. These outliers are few and therefore negligible.
 
 [^4]: The spelling error in the last sentence of the prompt was found after processing Item 1. After evaluating the summaries, this error did not cause any issues.
 
@@ -497,7 +497,7 @@ summaries are 350 till 371 words long with the 75th percentile ranging between 4
 
 ## Appendix B
 
-To check the validity of the summaries generated by Gemini, we took a random sample of ten filings to evaluate them manually. The results are shown in Table 7.
+To check the validity of the summaries generated by Gemini, we took a random sample of ten filings to evaluate them manually. The respective filings are shown in Table 7.
 
 ```{r echo=FALSE, warning = FALSE, message = FALSE, results='asis'}
 Table7 <- read_excel("./TableData/Table7.xlsx") %>%
@@ -507,7 +507,7 @@ kable(format="latex",label="tbl-table6",col.names = c("Accession ID", "Company N
 Table7
 ```
 
-We find that the summaries are valid overall and consistently reflect the BM. Suitable representations of all Item 1 texts can be found in all corresponding summaries available in the sample. We therefore assume that the summaries are a valid representation of the original company descriptions. One conspicuous feature was that although strong diversification tends to be mentioned in the summaries, no possible interaction between these areas is discussed.
+We find that the summaries are valid overall and consistently reflect the BM. Suitable representations of all Item 1 texts can be found in all corresponding summaries available in the sample. We therefore assume that the summaries are a valid representation of the original company descriptions. It was noticeable that although the summaries mentioned a strong diversification, a possible interaction between these areas was discussed rather less.
 
 {{< pagebreak >}}
 
@@ -539,7 +539,7 @@ Figure3 = RegressionData %>%
 Figure3
 ```
 
-and also explains our reasoning behind this decision. The boxplot shows that the big majority of observations has a growth rate below 1,000 percent. Sales growth rates of multiple ten thousand percent or even of a couple million percent seem very unrealistic and are probably due to poor data quality. By winsorizing at the top one percent quantile, we get ride of these 
+and also explains our reasoning behind this decision. The boxplot shows that the big majority of observations has a growth rate below 1,000 percent. Sales growth rates of multiple ten thousand percent or even of a couple million percent seem very unrealistic and are probably due to poor data quality. We smooth out these high values by winsorising at the top one-percent 
 
 ```{r echo=FALSE, warning = FALSE, message = FALSE, results='asis'}
 #Appendix
@@ -575,15 +575,13 @@ modelsummary(models = list("(1)" = Reg1, "(2)" = Reg2),
   footnote("This is the same estimation as in Table 3, but without winsorizing the data.")
 ```
 
-unrealistically high values. For the sake of completeness, Table 8 reports the regression results without winsorizing the data. All coefficients are not significant anymore while their values and their standard errors increase massively.
+quantile. For the sake of completeness, Table 8 reports the regression results without winsorizing the data. All coefficients are not significant anymore while their values and their standard errors increase massively.
 
 {{< pagebreak >}}
 
 ## Appendix D
 
-
 In this section, we aim to explore whether differences in revenue growth can be attributed to varying levels of innovation strength across different company sizes.
-
 
 ```{r echo=FALSE, warning = FALSE, message = FALSE, results='asis'}
 #| label: fig-1-A
@@ -631,42 +629,5 @@ Figure1_2
 
 ```
 
-The figure presents three density distributions, each corresponding to a specific company size. Red represents data for small companies, green medium-sized firms, and blue shows the large companies. As noted in the Methodology chapter, these distributions appear to follow a normal distribution. There are subtle differences between the company sizes, with the small firms' distribution slightly shifted to the right. Additionally, the distribution for large companies is more concentrated around the mean, while the medium-sized firms show a broader distribution. Overall, the three densities look quite similar at first glance, making it difficult to draw definitive conclusions about the significance of these differences. In the top right corner of the chart, the mean values for each company size are displayed. This shows that the mean values for medium and large firms are very close, while the mean for small companies is slightly higher, which aligns with the previously mentioned rightward shift.
-
-```{r echo=FALSE, warning = FALSE, message = FALSE, results='asis'}
-
-# test if the difference is significant
-
-dat_reg_sig <- Figure1_2_dat%>%
-    mutate(year=as.factor(year),
-         Industry = as.factor(Industry))
-
-dat_reg_sig$FirmSize <- factor(dat_reg_sig$FirmSize, levels = c("Small_Cap", "Mid_Cap", "Large_Cap"))
-
-reg_sig_comp <- lm(formula =  distance ~ FirmSize, data = dat_reg_sig)
-
-reg_sig_comp_fe <- felm(formula =  distance ~ FirmSize | year*Industry | 0 | 0 , data = dat_reg_sig)
-
-
-rows <- tribble(~term, ~reg_sig_comp, ~reg_sig_comp_fe,
-                'Industry x Year Fixed Effects', 'No','Yes')
-attr(rows, 'position') <- c(5)
-
-modelsummary(models = list("all" = reg_sig_comp, "fe" = reg_sig_comp_fe),
-             output = "kableExtra",
-             title = "Regression Results: Difference of Distance",
-             coef_map = c("FirmSizeMid_Cap" = "Mid_Cap_Firm", "FirmSizeLarge_Cap" = "Large_Cap_Firm"),
-             gof_map = c("nobs", "r.squared","rmse"),
-             stars = TRUE,
-             add_rows = rows
-             )%>%
-  add_header_above(c(" " = 1, "Distance" = 2))%>%
-  kable_styling(latex_options = c("scale_down","HOLD_position"))
-
-```
-
-Due to the observed differences in mean values, we conducted two additional regression analyses to test the significance of the distance differences. In these regressions, Distance was used as the dependent variable and FirmSize as the independent variable, with small companies serving as the reference category. The results of the first regression indicate that the differences are statistically significant, suggesting that small companies engage in more innovation than medium and large firms. However, these results are not highly robust, as all companies were compared without considering fixed effects.
-
-To address this, we conducted the same regression, this time incorporating fixed effects for year and industry. The results of this adjusted regression suggest that company size is not a significant factor, thereby challenging the previous findings. This indicates that companies, regardless of size, innovate in a manner consistent with their industry, suggesting that innovation levels are not necessarily dependent on company size.
-
+The figure presents three density distributions, each corresponding to a specific company size. As noted in the Methodology chapter, these distributions appear to follow a normal distribution. There are subtle differences between the company sizes, with the small firms' distribution slightly shifted to the right. Additionally, the distribution for large companies is more concentrated around the mean, while the medium-sized firms show a broader distribution. Overall, the three densities look quite similar at first glance, making it difficult to draw definitive conclusions about the significance of these differences. The mean value for small companies is slightly higher, which is in line with the aforementioned shift to the right.
 
