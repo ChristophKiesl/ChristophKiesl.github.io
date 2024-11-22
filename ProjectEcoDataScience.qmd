@@ -626,11 +626,11 @@ Figure1_2 = Figure1_2_dat%>%
   geom_tile(aes(x = 0.2, y = 15), fill = "#619CFF", width = 0.068, height = 0.9, color = "#619CFF") + 
   geom_tile(aes(x = 0.2, y = 14), fill = "#00BA38", width = 0.068, height = 0.9, color = "#00BA38") + 
   geom_tile(aes(x = 0.2, y = 13), fill = "#F8766D", width = 0.068, height = 0.9, color = "#F8766D") +   
-  annotate("text", x=0.2, y=15, label=paste("Mean Small Caps: ", round(desk_dat$Mean[desk_dat$FirmSize=="Small_Cap"], 4)), angle=0, size= 4)+
+  annotate("text", x=0.2, y=15, label=paste("Mean Small Caps: ", round(desk_dat$Mean[desk_dat$FirmSize=="Small_Cap"], 4)), angle=0, size= 3)+
   # geom_vline(xintercept=desk_dat$Mean[desk_dat$FirmSize=="Mid_Cap"],alpha=0.5)+
-  annotate("text", x=0.2, y=14, label=paste("Mean Mid Caps: ", round(desk_dat$Mean[desk_dat$FirmSize=="Mid_Cap"], 4)), angle=0, size= 4)+
+  annotate("text", x=0.2, y=14, label=paste("Mean Mid Caps: ", round(desk_dat$Mean[desk_dat$FirmSize=="Mid_Cap"], 4)), angle=0, size= 3)+
   # geom_vline(xintercept=desk_dat$Mean[desk_dat$FirmSize=="Large_Cap"],alpha=0.5)+
-  annotate("text", x=0.2, y=13, label=paste("Mean Large caps: ", round(desk_dat$Mean[desk_dat$FirmSize=="Large_Cap"], 4)), angle=0, size= 4)+
+  annotate("text", x=0.2, y=13, label=paste("Mean Large caps: ", round(desk_dat$Mean[desk_dat$FirmSize=="Large_Cap"], 4)), angle=0, size= 3)+
   scale_fill_manual(
     values = c("Small_Cap" = "#F8766D", "Mid_Cap" = "#00BA38", "Large_Cap" = "#619CFF") )+
   scale_color_manual(
